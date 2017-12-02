@@ -17,7 +17,7 @@ class App extends Component {
 		var url = window.location.href;
   	var prefix = url.substring(0, 7);
 
-  	prefix = (prefix === 'http://') ? 'http://localhost:3001' : 'https://machapi.herokuapp.com';
+  	prefix = (prefix === 'http://') ? 'http://localhost:3001' : 'https://machshop.herokuapp.com';
   	prefix = prefix.concat('/api');
 
   	this.setState({ url: prefix });
