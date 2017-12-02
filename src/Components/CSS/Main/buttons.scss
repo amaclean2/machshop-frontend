@@ -1,0 +1,30 @@
+@import 'Colors';
+
+.button {
+	border: none;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	margin: 2px;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	background-color: $primary;
+	color: $textOnPrimary;
+
+	&:hover {
+		background-color: $primaryHover;
+	}
+}
+
+.white-button {
+	background-color: $textOnPrimary;
+	color: $primary;
+
+	&:hover {
+		background-color: $textOnPrimaryHover;
+	}
+}
+
+.header-select-btn {
+	margin-right: 15px;
+}

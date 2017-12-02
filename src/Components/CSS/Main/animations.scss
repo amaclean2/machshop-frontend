@@ -1,0 +1,26 @@
+.slide-to-right {
+	animation: slide-to-right 0.3s;
+}
+
+.fade-in {
+	animation: fade-in 0.25s;
+}
+
+.fade-out {
+	animation: fade-out 0.4s;
+}
+
+@keyframes slide-to-right {
+	from { right: -300px; }
+	to   { right: 0; }
+}
+
+@keyframes fade-out {
+	from { opacity: 1; }
+	to   { opacity: 0; }
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}

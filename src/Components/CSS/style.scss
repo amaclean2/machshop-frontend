@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+@import 'Main/Animations';
+@import 'Main/Colors';
+
+@import 'Main/Buttons';
+@import 'Main/Header';
+@import 'Main/Home';
+
+body {
+	background-color: #FFF;
+	font-family: 'Roboto', arial;
+	margin: 0;
+
+	h2 {
+		font-weight: lighter;
+		color: inherit;
+		font-size: 30px;
+	}
+
+	select {
+		font-size: 15px;
+		background-color: #FFF;
+		padding: 8px 15px;
+		border-radius: none;
+		margin: 2px;
+		outline: none;
+		border: none;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0
+	}
+
+	li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	a {
+		text-decoration: none;
+		transition: all 0.3s ease-in-out;
+		cursor: pointer;
+		color: $grey1;
+	}
+}
