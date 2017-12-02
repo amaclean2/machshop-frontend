@@ -1,5 +1,5 @@
 {
-  "name": "mach-shop",
+  "name": "machui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:3001"
+  }
 }
