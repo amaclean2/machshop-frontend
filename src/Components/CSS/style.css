@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000031}}
+@import url("https://fonts.googleapis.com/css?family=Roboto:300");
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000031}}
 .slide-to-right {
   animation: slide-to-right 0.3s; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000035}}
 .fade-in {
   animation: fade-in 0.25s; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Animations\.scss}line{font-family:\000039}}
 .fade-out {
   animation: fade-out 0.4s; }
 
@@ -26,34 +26,89 @@
     opacity: 0; }
   to {
     opacity: 1; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\000033}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\000031}}
+table {
+  border-collapse: collapse; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\000035}}
+.important-table {
+  width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\000038}}
+  .important-table thead {
+    background-color: #EEEEEE;
+    width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000312}}
+    .important-table thead th {
+      text-align: right;
+      padding: 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000316}}
+    .important-table thead th:first-child {
+      text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000322}}
+  .important-table tbody tr {
+    transition: all 0.3s ease-in-out; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000324}}
+    .important-table tbody tr:hover {
+      background-color: #F6F6F6; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000328}}
+  .important-table tbody td {
+    text-align: right;
+    padding: 5px 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000332}}
+  .important-table tbody td:first-child {
+    text-align: left;
+    padding-left: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Tables\.scss}line{font-family:\0000336}}
+  .important-table tbody td:last-child {
+    padding-right: 18px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Htags\.scss}line{font-family:\000033}}
+h2 {
+  font-weight: lighter;
+  color: #F6F6F6;
+  font-size: 30px;
+  margin: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Htags\.scss}line{font-family:\0000310}}
+h3 {
+  font-weight: lighter;
+  color: #333333;
+  font-size: 25px;
+  margin: 0.6em 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\000033}}
 .button {
   border: none;
   padding: 5px 10px;
   text-transform: uppercase;
-  margin: 2px;
+  margin: 5px;
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   background-color: #336699;
   color: #FFF; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000314}}
   .button:hover {
     background-color: #235689; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000319}}
 .white-button {
   background-color: #FFF;
   color: #336699; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000323}}
   .white-button:hover {
     background-color: #DDD; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000328}}
 .header-select-btn {
   margin-right: 15px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000332}}
+.table-button {
+  background-color: #5386B9;
+  font-size: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\000034}}
 .sidenav-background {
   position: fixed;
   top: 0;
@@ -62,7 +117,7 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000312}}
 .sidenav-view {
   position: fixed;
   height: 100vh;
@@ -72,34 +127,36 @@
   background-color: #FFF;
   box-shadow: -3px 0 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000322}}
   .sidenav-view .sidenav-header {
     width: 100%;
     background-color: #336699;
     height: 120px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000329}}
   .sidenav-view .sidenav-content li {
     width: 100%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000332}}
     .sidenav-view .sidenav-content li a {
       display: inline-block;
       width: 100%;
       box-sizing: border-box;
-      padding: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000338}}
+      padding: 20px;
+      text-decoration: none;
+      color: #666666; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000340}}
       .sidenav-view .sidenav-content li a:hover {
         background-color: #EEEEEE; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000348}}
 .hide {
   right: -300px;
   box-shadow: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\0000352}}
 .gone {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\000033}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\000033}}
 .header-wrapper {
   width: 100%;
   height: 60px;
@@ -113,42 +170,39 @@
   align-items: center;
   padding: 0 15px;
   box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000317}}
   .header-wrapper .right-content {
     display: flex;
     justify-content: flex-end;
     align-items: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000322}}
     .header-wrapper .right-content select {
       margin: 0 10px;
       width: 300px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000327}}
     .header-wrapper .right-content .hoverable {
       font-size: 25px;
       transition: all 0.3s ease-in-out;
       cursor: pointer;
       margin: 0 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Header\.scss}line{font-family:\0000333}}
       .header-wrapper .right-content .hoverable:hover {
         color: #DDD; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\000031}}
 .page-content {
   margin-top: 60px;
   width: 100vw;
-  height: 100%; }
+  height: 100%;
+  box-sizing: border-box;
+  padding: 15px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000311}}
 body {
   background-color: #FFF;
   font-family: 'Roboto', arial;
   margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\0000314}}
-  body h2 {
-    font-weight: lighter;
-    color: inherit;
-    font-size: 30px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000316}}
   body select {
     font-size: 15px;
     background-color: #FFF;
@@ -157,20 +211,24 @@ body {
     margin: 2px;
     outline: none;
     border: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000326}}
   body ul {
     margin: 0;
     padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000331}}
   body li {
     list-style-type: none;
     margin: 0;
     padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/src\/Components\/CSS\/style\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000337}}
   body a {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    color: #666666; }
+    color: #5386B9; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000343}}
+    body a:hover {
+      text-decoration: underline;
+      color: #336699; }
 
 /*# sourceMappingURL=style.css.map */

@@ -27,19 +27,21 @@ class HomePage extends Component {
 	}
 
 	primaryContent() {
-		return ( <div> 
-			<Header tabs={this.state.tabs} />
-			<div className="page-content">
-				<Route path='/dashboard' render={(props) => ( <Dashboard /> )} />
-				<Route path='/parts' render={(props) => ( <Parts /> )} />
-				<Route path='/jobs' render={(props) => ( <Jobs /> )} />
-				<Route path='/machining' render={(props) => ( <Machining /> )} />
-				<Route path='/ordering' render={(props) => ( <Ordering /> )} />
-				<Route path='/inspection' render={(props) => ( <Inspection /> )} />
-				<Route path='/users' render={(props) => ( <Users /> )} />
-				<Route path='/admin' render={(props) => ( <Admin /> )} />
-			</div>
-		</div> )
+		return (
+			<div> 
+				<Header tabs={this.state.tabs} />
+				<div className="page-content">
+					{this.props.parts}
+					<Route path='/dashboard' render={(props) => ( <Dashboard url={this.props.url}/> )} />
+					<Route path='/parts' render={(props) => ( <Parts url={this.props.url}/> )} />
+					<Route path='/jobs' render={(props) => ( <Jobs url={this.props.url}/> )} />
+					<Route path='/machining' render={(props) => ( <Machining url={this.props.url}/> )} />
+					<Route path='/ordering' render={(props) => ( <Ordering url={this.props.url}/> )} />
+					<Route path='/inspection' render={(props) => ( <Inspection url={this.props.url}/> )} />
+					<Route path='/users' render={(props) => ( <Users url={this.props.url}/> )} />
+					<Route path='/admin' render={(props) => ( <Admin url={this.props.url}/> )} />
+				</div>
+			</div> );
 	}
 
   render() {
