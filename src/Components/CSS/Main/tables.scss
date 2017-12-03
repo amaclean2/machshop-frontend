@@ -1,5 +1,6 @@
 table {
 	border-collapse: collapse;
+	font-weight: lighter;
 }
 
 .important-table {
@@ -12,6 +13,7 @@ table {
 		th {
 			text-align: right;
 			padding: 8px;
+			font-weight: inherit;
 		}
 		th:first-child {
 			text-align: left;

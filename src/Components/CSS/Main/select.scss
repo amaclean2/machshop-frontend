@@ -1,0 +1,55 @@
+.shown-box {
+	font-size: 12px;
+	background-color: $textOnPrimary;
+	padding: 5px 8px;
+	border-radius: 2px;
+	cursor: pointer;
+	color: $text;
+}
+
+.select-icon {
+	float: right;
+}
+
+.screen-cover {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0;
+}
+
+.down {
+	transform: rotate(180deg);
+}
+
+.ms-select {
+	position: relative;
+	width: 200px;
+	font-weight: normal;
+
+	.drop-list {
+		position: absolute;
+		top: 23px;
+		left: 0;
+		width: 100%;
+		box-shadow: 0 0 4px rgba(0,0,0,0.3);
+		border-radius: 2px;
+
+		li {
+			color: $text;
+			background-color: $textOnPrimary;
+			width: 100%;
+			font-size: 12px;
+			padding: 5px 8px;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+			box-sizing: border-box;
+
+			&:hover {
+				background-color: $textOnPrimaryHover;
+			}
+		}
+	}
+}
