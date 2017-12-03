@@ -31,7 +31,7 @@ class HomePage extends Component {
 			<div> 
 				<Header tabs={this.state.tabs} />
 				<div className="page-content">
-					{this.props.parts}
+					<Route exact path='/' render={(props) => ( <Dashboard url={this.props.url}/> )} />
 					<Route path='/dashboard' render={(props) => ( <Dashboard url={this.props.url}/> )} />
 					<Route path='/parts' render={(props) => ( <Parts url={this.props.url}/> )} />
 					<Route path='/jobs' render={(props) => ( <Jobs url={this.props.url}/> )} />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SideNav from './SideNav';
+import Select from './Select';
 
 class Header extends Component {
   constructor() {
@@ -25,10 +26,12 @@ class Header extends Component {
 	      <h2>MachShop</h2>
 
 	   	  <div className="right-content">
-	      	<select>
-	      		<option>Users</option>
-	      		<option>Andrew Maclean</option>
-	      	</select>
+	      	<Select>
+            <select className = ''>
+              <option value="default">Select User</option>
+              <option value='Andrew_Maclean' selected>Andrew Maclean</option>
+            </select>
+          </Select>
 	      	<button className="button white-button header-select-btn">Select</button>
 	      	<i className="fa fa-bell-o hoverable" aria-hidden="true"></i>
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
