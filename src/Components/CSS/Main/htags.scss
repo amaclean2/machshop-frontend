@@ -1,0 +1,15 @@
+@import 'Colors';
+
+h2 {
+	font-weight: lighter;
+	color: $title;
+	font-size: 30px;
+	margin: 0;
+}
+
+h3 {
+	font-weight: lighter;
+	color: $headerGrey;
+	font-size: 25px;
+	margin: 0.6em 0;
+}
