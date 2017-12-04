@@ -9,7 +9,8 @@
 	height: 100vh;
 
 	.modal-content {
-		width: auto;
+		width: 100%;
+		max-width: 400px;
 		box-sizing: border-box;
 		background-color: $textOnPrimary;
 		height: auto;

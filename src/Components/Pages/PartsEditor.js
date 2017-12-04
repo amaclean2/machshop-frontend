@@ -186,7 +186,7 @@ class PartsEditor extends Component {
         <button
           className='button table-button delete-button'
           onClick={this.toggleModal}>
-            Delete
+            <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
         <div className='edit-page'>
           {info}
