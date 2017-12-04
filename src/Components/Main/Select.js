@@ -35,7 +35,7 @@ class Select extends Component {
         <div className={'screen-cover ' + ( !this.state.shown ? 'gone' : '')} onClick={() => this.toggleShown()}></div>
         <div className='shown-box' onClick={this.toggleShown} >
           {this.state.view}
-          <i className={'fa fa-caret-up select-icon ' + (this.state.shown ? 'spun down' : 'spun-back')} aria-hidden="true"></i>
+          <i className={'fa fa-caret-up select-icon ' + (this.state.shown ? 'spun-back' : 'spun down')} aria-hidden="true"></i>
         </div>
         <ul className={'drop-list ' + (!this.state.shown ? 'gone ' : '')}>
           {list}
