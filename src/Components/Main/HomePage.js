@@ -10,6 +10,8 @@ import Ordering from '../Pages/Ordering';
 import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
 import Admin from '../Pages/Admin';
+import PartsEditor from '../Pages/PartsEditor';
+import JobsEditor from '../Pages/JobsEditor';
 
 class HomePage extends Component {
 	constructor() {
@@ -33,8 +35,10 @@ class HomePage extends Component {
 				<div className="page-content">
 					<Route exact path='/' render={(props) => ( <Dashboard url={this.props.url}/> )} />
 					<Route path='/dashboard' render={(props) => ( <Dashboard url={this.props.url}/> )} />
-					<Route path='/parts' render={(props) => ( <Parts url={this.props.url}/> )} />
-					<Route path='/jobs' render={(props) => ( <Jobs url={this.props.url}/> )} />
+					<Route path='/parts/:partId' component={PartsEditor} />
+					<Route exact path='/parts'render={(props) => ( <Parts url={this.props.url}/> )} />
+					<Route path='/jobs/:jobId' component={JobsEditor} />
+					<Route exact path='/jobs' render={(props) => ( <Jobs url={this.props.url}/> )} />
 					<Route path='/machining' render={(props) => ( <Machining url={this.props.url}/> )} />
 					<Route path='/ordering' render={(props) => ( <Ordering url={this.props.url}/> )} />
 					<Route path='/inspection' render={(props) => ( <Inspection url={this.props.url}/> )} />
