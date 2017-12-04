@@ -160,28 +160,34 @@ h3 {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease-in-out;
   background-color: #336699;
-  color: #FFF; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000315}}
+  color: #FFF;
+  font-size: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000316}}
   .button:hover {
     background-color: #235689;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); }
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    text-decoration: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000323}}
 .white-button {
   background-color: #FFF;
   color: #336699; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000327}}
   .white-button:hover {
     background-color: #EEE; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000332}}
 .header-select-btn {
   margin-right: 15px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000336}}
 .table-button {
   background-color: #5386B9;
   font-size: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Buttons\.scss}line{font-family:\0000341}}
+.save-button {
+  background-color: #5386B9; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/SideNav\.scss}line{font-family:\000034}}
 .sidenav-background {
@@ -271,6 +277,32 @@ h3 {
   height: 100%;
   box-sizing: border-box;
   padding: 15px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\000039}}
+.line-item {
+  display: block;
+  font-size: 13px;
+  padding: 3px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\0000314}}
+  .line-item .display {
+    font-weight: normal;
+    color: #235689; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\0000319}}
+  .line-item .value {
+    font-weight: lighter; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\0000324}}
+.card {
+  box-sizing: border-box;
+  padding: 15px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/Main\/Home\.scss}line{font-family:\0000332}}
+  .card:hover {
+    background-color: #F6F6F6;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machfront\/src\/Components\/CSS\/style\.scss}line{font-family:\0000312}}
 body {

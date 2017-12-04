@@ -11,10 +11,12 @@
 	transition: all 0.3s ease-in-out;
 	background-color: $primary;
 	color: $textOnPrimary;
+	font-size: 12px;
 
 	&:hover {
 		background-color: $primaryHover;
 		box-shadow: 0 0 8px rgba(0,0,0,0.3);
+		text-decoration: none;
 	}
 }
 
@@ -34,4 +36,8 @@
 .table-button {
 	background-color: $hyperLink;
 	font-size: 15px;
+}
+
+.save-button {
+	background-color: $hyperLink;
 }
