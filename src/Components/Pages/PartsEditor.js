@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import { NavLink } from 'react-router-dom';
+import DeleteModal from '../Main/DeleteModal';
 
 class PartsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       url: window.location.href,
-      partId: this.props.match.params.partId,
+      partId: this.props.match.params.partId ? this.props.match.params.partId : '0',
       partInfo: {},
-      editable: false
+      editable: false,
+      newPart: false,
+      modalHide: true
     }
     this.setUrl=this.setUrl.bind(this);
     this.get=this.get.bind(this);
@@ -20,6 +23,7 @@ class PartsEditor extends Component {
     this.toggleEdit=this.toggleEdit.bind(this);
     this.change=this.change.bind(this);
     this.save=this.save.bind(this);
+    this.toggleModal=this.toggleModal.bind(this);
   }
 
   setUrl() {
@@ -61,7 +65,7 @@ class PartsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log(data);
+      this.setState({ partId: data._id });
     });
   }
 
@@ -81,7 +85,6 @@ class PartsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log(data);
     });
   }
 
@@ -94,7 +97,6 @@ class PartsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log(data);
     });
   }
 
@@ -108,12 +110,24 @@ class PartsEditor extends Component {
     this.setState({ editable: !this.state.editable });
   }
 
+  toggleModal() {
+    this.setState({ modalHide: !this.state.modalHide });
+  }
+
   save() {
-    this.put(this.state.partInfo.user,
-             this.state.partInfo.part_number,
-             this.state.partInfo.part_revision,
-             this.state.partInfo.part_name,
-             this.state.partInfo.customer);
+    if( this.state.newPart ) {
+      this.post(this.state.partInfo.user,
+                this.state.partInfo.part_number,
+                this.state.partInfo.part_revision,
+                this.state.partInfo.part_name,
+                this.state.partInfo.customer);
+    } else {
+      this.put(this.state.partInfo.user,
+               this.state.partInfo.part_number,
+               this.state.partInfo.part_revision,
+               this.state.partInfo.part_name,
+               this.state.partInfo.customer);
+    }
     this.toggleEdit();
 
   }
@@ -136,12 +150,12 @@ class PartsEditor extends Component {
           <EditableItem header={'Revision: '} value={this.state.partInfo.part_revision} change={this.change} name={'part_revision'} />
           <EditableItem header= {'Part Name: '} value={this.state.partInfo.part_name} change={this.change} name={'part_name'} />
           <EditableItem header= {'Customer: '} value={this.state.partInfo.customer} change={this.change} name={'customer'} />
-          <NavLink to={'/parts'} onClick={ this.save } className='button save-button'>Save</NavLink>
+          <button onClick={ this.save } className='button save-button'>Save</button>
         </div>
       )
     }
     return (
-      <div className='card' >
+      <div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
         {info}
       </div>
     )
@@ -152,7 +166,12 @@ class PartsEditor extends Component {
   }
 
   componentDidMount() {
-    this.get();
+    if (this.state.partId !== '0') {
+      this.get();
+    } else {
+      let newInfo = {part_name: '', part_number: '', part_revision: '', customer: '', user: ''};
+      this.setState({ partInfo: newInfo, editable: true, newPart: true });
+    }
   }
 
   render() {
@@ -160,7 +179,20 @@ class PartsEditor extends Component {
     return (
       <div>
         <h3>Part Editor</h3>
-        {info}
+        <div className={(this.state.modalHide ? 'gone' : '')} >
+          <DeleteModal delete={() => {this.delete(this.state.partId)}} reject={this.toggleModal} />
+        </div>
+        <NavLink to={'/parts'} className='button table-button'>Return to Parts</NavLink>
+        <button
+          className='button table-button delete-button'
+          onClick={this.toggleModal}>
+            Delete
+        </button>
+        <div className='edit-page'>
+          {info}
+          <div className='work-flow card'>
+          </div>
+        </div>
       </div>
     );
   }

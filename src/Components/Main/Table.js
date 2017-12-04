@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+
 class Table extends Component {
 	constructor(props) {
 		super(props);
@@ -44,7 +45,7 @@ class Table extends Component {
   	let rows = this.rows();
     return (
     	<div>
-    		<button className="button table-button" >Add</button>
+    		<NavLink to={'/parts/0'} className='button table-button'>Add</NavLink>
 	  		<table className="important-table">
 	  			<thead>
 	  				<tr>

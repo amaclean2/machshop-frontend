@@ -1,0 +1,50 @@
+.modal-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+
+	.modal-content {
+		width: auto;
+		box-sizing: border-box;
+		background-color: $textOnPrimary;
+		height: auto;
+		max-height: 85vh;
+		color: $text;
+		padding: 25px;
+		box-shadow: 0 0 25px rgba(0,0,0,0.3);
+		border-radius: 3px;
+		font-weight: lighter;
+		font-size: 20px;
+		text-align: center;
+
+		.delete-modal-button-container {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			margin-top: 25px;
+
+			.delete-modal-button {
+				background-color: $textOnPrimary;
+				font-size: 15px;
+				box-shadow: none;
+
+				&:hover {
+					background-color: $textOnPrimaryHover;
+				}
+			}
+
+			.accept {
+				color: $delete;
+			}
+
+			.reject {
+				color: $primary;
+			}
+		}
+	}
+}
