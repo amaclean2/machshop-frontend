@@ -11,10 +11,15 @@
 	transition: all 0.3s ease-in-out;
 	background-color: $primary;
 	color: $textOnPrimary;
+	font-size: 12px;
+	font-family: inherit;
+	display: inline-block;
+	font-weight: lighter;
 
 	&:hover {
 		background-color: $primaryHover;
 		box-shadow: 0 0 8px rgba(0,0,0,0.3);
+		text-decoration: none;
 	}
 }
 
@@ -34,4 +39,22 @@
 .table-button {
 	background-color: $hyperLink;
 	font-size: 15px;
+
+	&:hover {
+		color: $textOnPrimaryHover;
+	}
+}
+
+.save-button {
+	background-color: $hyperLink;
+	float: right;
+}
+
+.delete-button {
+	background-color: $delete;
+
+	&:hover {
+		background-color: $deleteHover;
+		color: $textOnPrimaryHover;
+	}
 }
