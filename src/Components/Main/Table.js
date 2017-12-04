@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class Table extends Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class Table extends Component {
 			}
 			let rowContents = elements.map( (element, i) => {
 				if(this.props.headers[i][2]) {
-					return <td key={i}><a>{element}</a></td>
+					return <td key={i}><NavLink to={'/parts/' + row._id} >{element}</NavLink></td>
 				}
 				return <td key={i}>{element}</td>
 			});
