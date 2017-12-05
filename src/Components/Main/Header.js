@@ -27,7 +27,7 @@ class Header extends Component {
 
 	   	  <div className="right-content">
 	      	<Select>
-            <select className = ''>
+            <select className = 'header-select'>
               <option value="default">Select User</option>
               <option value='Andrew_Maclean' selected>Andrew Maclean</option>
             </select>

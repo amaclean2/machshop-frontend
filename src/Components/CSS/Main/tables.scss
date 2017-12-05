@@ -3,7 +3,7 @@ table {
 	font-weight: lighter;
 }
 
-.important-table {
+.important-table, .mini-table {
 	width: 100%;
 
 	thead {
@@ -39,4 +39,10 @@ table {
 			padding-right: 18px;
 		}
 	}
+}
+
+.mini-table {
+	font-size: 13px;
+	font-weight: normal;
+	margin-top: 20px;
 }
