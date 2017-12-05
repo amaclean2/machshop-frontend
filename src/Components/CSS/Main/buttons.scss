@@ -2,7 +2,7 @@
 
 .button {
 	border: none;
-	padding: 5px 10px;
+	padding: 8px 12px;
 	text-transform: uppercase;
 	margin: 5px;
 	border-radius: 2px;
@@ -14,7 +14,7 @@
 	font-size: 12px;
 	font-family: inherit;
 	display: inline-block;
-	font-weight: lighter;
+	font-weight: normal;
 
 	&:hover {
 		background-color: $primaryHover;
@@ -34,11 +34,12 @@
 
 .header-select-btn {
 	margin-right: 15px;
+	padding: 5px 10px;
 }
 
 .table-button {
 	background-color: $hyperLink;
-	font-size: 15px;
+	font-size: 13px;
 
 	&:hover {
 		color: $textOnPrimaryHover;
@@ -52,9 +53,21 @@
 
 .delete-button {
 	background-color: $delete;
+	font-size: 16px;
+	padding: 6px 10px;
 
 	&:hover {
 		background-color: $deleteHover;
 		color: $textOnPrimaryHover;
 	}
+}
+
+.submit-button-line {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.mini-select-button {
+	padding: 5px 8px;
+	font-size: 11px;
 }

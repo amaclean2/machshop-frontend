@@ -1,0 +1,38 @@
+Part Properties :
+	user
+	part number
+	revision
+	customer
+	drawing
+	jobs []
+
+Job Properties :
+	user
+	date started
+	date to start
+	date to finish
+	date finished
+	job number
+	part id
+	material
+	material amount
+	material size
+	operations []
+
+Operations :
+	user
+	date to start
+	date started
+	date to finish
+	date finished
+	operation name
+	station
+	machine
+	operator
+	description
+	run time
+	setup sheet
+	setup time
+	piece count
+
+

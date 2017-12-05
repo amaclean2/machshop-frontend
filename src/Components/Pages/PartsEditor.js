@@ -3,6 +3,8 @@ import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import { NavLink } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
+import MiniTable from '../Main/MiniTable';
+import headers from '../AppInformation/TableHeaders';
 
 class PartsEditor extends Component {
   constructor(props) {
@@ -13,10 +15,13 @@ class PartsEditor extends Component {
       partInfo: {},
       editable: false,
       newPart: false,
-      modalHide: true
-    }
+      modalHide: true,
+      jobData: []
+    };
+
     this.setUrl=this.setUrl.bind(this);
     this.get=this.get.bind(this);
+    this.getJobs=this.getJobs.bind(this);
     this.post=this.post.bind(this);
     this.put=this.put.bind(this);
     this.delete=this.delete.bind(this);
@@ -45,7 +50,21 @@ class PartsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ partInfo: data });
+      this.setState({ partInfo: data, jobList: data.jobs });
+    })
+  }
+
+  getJobs() {
+    let request = new Request(this.state.url + '/jobs', {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      let newData = data.filter( datum => { return datum.part_number === this.state.partInfo.part_number});
+      this.setState({ jobData: newData });
     })
   }
 
@@ -150,13 +169,15 @@ class PartsEditor extends Component {
           <EditableItem header={'Revision: '} value={this.state.partInfo.part_revision} change={this.change} name={'part_revision'} />
           <EditableItem header= {'Part Name: '} value={this.state.partInfo.part_name} change={this.change} name={'part_name'} />
           <EditableItem header= {'Customer: '} value={this.state.partInfo.customer} change={this.change} name={'customer'} />
-          <button onClick={ this.save } className='button save-button'>Save</button>
+          <span className='submit-button-line'><button onClick={ this.save } className='button'>Save</button></span>
         </div>
       )
     }
+
     return (
       <div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
         {info}
+        <MiniTable headers={headers.MiniJobs} data={this.state.jobData} url={this.state.url} selectData={this.state.selectData} />
       </div>
     )
   }
@@ -168,6 +189,7 @@ class PartsEditor extends Component {
   componentDidMount() {
     if (this.state.partId !== '0') {
       this.get();
+      this.getJobs();
     } else {
       let newInfo = {part_name: '', part_number: '', part_revision: '', customer: '', user: ''};
       this.setState({ partInfo: newInfo, editable: true, newPart: true });
@@ -180,7 +202,7 @@ class PartsEditor extends Component {
       <div>
         <h3>Part Editor</h3>
         <div className={(this.state.modalHide ? 'gone' : '')} >
-          <DeleteModal delete={() => {this.delete(this.state.partId)}} reject={this.toggleModal} />
+          <DeleteModal delete={() => {this.delete(this.state.partId)}} reject={this.toggleModal} link={'/parts'} />
         </div>
         <NavLink to={'/parts'} className='button table-button'>Return to Parts</NavLink>
         <button

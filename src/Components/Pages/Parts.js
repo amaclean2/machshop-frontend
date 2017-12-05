@@ -37,7 +37,8 @@ class Parts extends Component {
         <h3>Parts</h3>
         <Table
         	data={this.state.parts}
-        	headers={headers.Parts} />
+        	headers={headers.Parts}
+        	link={'/parts/'} />
       </div>
     );
   }

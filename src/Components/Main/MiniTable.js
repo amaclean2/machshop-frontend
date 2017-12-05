@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import Select from './Select';
 
 
-class Table extends Component {
+class MiniTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			columnOrder: this.props.headers.map( head => { return head[1]; })
+			columnOrder: this.props.headers.map( head => { return head[1]; }),
+			selectItems: [],
 		}
 		this.columnNames=this.columnNames.bind(this);
 		this.rows=this.rows.bind(this);
@@ -45,8 +47,7 @@ class Table extends Component {
   	let rows = this.rows();
     return (
     	<div>
-    		<NavLink to={this.props.link + '0'} className='button table-button'>Add</NavLink>
-	  		<table className="important-table">
+	  		<table className="mini-table">
 	  			<thead>
 	  				<tr>
 	  					{columnNames}
@@ -57,7 +58,7 @@ class Table extends Component {
 	  			</tbody>
 	  		</table>
   		</div>);
-}
+	}
 }
 
-export default Table;
+export default MiniTable;
