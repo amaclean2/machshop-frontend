@@ -6,14 +6,14 @@
 	padding: 15px;
 }
 
-.line-item {
-	display: block;
+.line-item {	
 	font-size: 13px;
 	padding: 5px;
 	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	max-width: 300px;
 
 	.display {
 		font-weight: normal;
@@ -28,6 +28,8 @@
 	input {
 		padding: 5px;
 		margin-left: 10px;
+		width: 120px;
+		font-family: inherit;
 	}
 }
 
@@ -47,6 +49,7 @@
 }
 
 .no-fade {
+	cursor: initial;
 	&:hover {
 		background-color: initial;
 	}
@@ -67,4 +70,8 @@
 
 .work-flow {
 	flex: 4;
+}
+
+.jobs-subsection {
+	margin-top: 20px;
 }
