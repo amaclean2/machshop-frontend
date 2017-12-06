@@ -3,7 +3,7 @@ import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import { NavLink } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
-import Operations from '../Pages/Operations/Operations';
+import Operations from './Operations/Operations';
 
 class JobsEditor extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class JobsEditor extends Component {
     this.change=this.change.bind(this);
     this.save=this.save.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
+    this.selectOutput=this.selectOutput.bind(this);
   }
 
   setUrl() {
@@ -112,7 +113,7 @@ class JobsEditor extends Component {
   }
 
   change(e) {
-    let newInfo = this.state.jobInfo
+    let newInfo = this.state.jobInfo;
     newInfo[e.target.name] = e.target.value;
     this.setState({jobInfo: newInfo});
   }
@@ -146,6 +147,13 @@ class JobsEditor extends Component {
 
   }
 
+  selectOutput(value, name) {
+    let newInfo = this.state.jobInfo;
+    newInfo[name] = value;
+    this.setState({ jobInfo: newInfo });
+    console.log(this.state.jobInfo);
+  }
+
   viewInfo() {
     let info;
     if (!this.state.editable) {
@@ -163,7 +171,15 @@ class JobsEditor extends Component {
         <div>
           <EditableItem header={'Job Number: '} value={this.state.jobInfo.job_number} change={this.change} name={'job_number'} type={'number'} />
           <EditableItem header={'Material: '} value={this.state.jobInfo.material} change={this.change} name={'material'} />
-          <EditableItem header={'Part Number: '} value={this.state.jobInfo.part_number} change={this.change} name={'part_number'} />
+          <EditableItem
+            header={'Part Number: '}
+            value={this.state.jobInfo.part_number}
+            change={this.change}
+            type={'select'}
+            url={this.state.url}
+            link={'/parts/'}
+            output={this.selectOutput}
+            name={'part_number'} />
           <EditableItem header={'Description: '} value={this.state.jobInfo.description} change={this.change} name={'description'} />
           <EditableItem header={'Date to Start: '} value={this.state.jobInfo.date_to_start} change={this.change} name={'date_to_start'} type={'date'} />
           <button onClick={ this.save } className='button save-button'>Save</button>
@@ -206,7 +222,7 @@ class JobsEditor extends Component {
         </button>
         <div className='edit-page'>
           {info}
-          <div className='work-flow card no-fade'>
+          <div className='work-flow-padding card no-fade'>
             <Operations />
           </div>
         </div>

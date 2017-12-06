@@ -10,6 +10,12 @@ class Header extends Component {
   		gone: true
   	}
   	this.toggleHideSideNav=this.toggleHideSideNav.bind(this);
+    this.selectOutput=this.selectOutput.bind(this);
+  }
+
+  selectOutput(value, name) {
+    console.log(value);
+    return [value, name];
   }
 
   toggleHideSideNav() {
@@ -26,7 +32,7 @@ class Header extends Component {
 	      <h2>MachShop</h2>
 
 	   	  <div className="right-content">
-	      	<Select>
+	      	<Select output={this.selectOutput} name={'userName'} >
             <select className = 'header-select'>
               <option value="default">Select User</option>
               <option value='Andrew_Maclean' selected>Andrew Maclean</option>

@@ -4,7 +4,7 @@ class Select extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      view: [1, this.props.children.props.children[0].props.children],
+      view: [1, this.props.value ? this.props.value : this.props.children.props.children[0].props.children],
       shown: false
     }
     this.makeSelect=this.makeSelect.bind(this);
@@ -29,6 +29,7 @@ class Select extends Component {
   }
 
   selectItem(value, selected) {
+    this.props.output(value, this.props.name);
     this.setState({ view: [value, selected] });
     this.toggleShown();
   }

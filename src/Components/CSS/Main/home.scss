@@ -28,7 +28,7 @@
 	input {
 		padding: 5px;
 		margin-left: 10px;
-		width: 120px;
+		width: 150px;
 		font-family: inherit;
 	}
 }
@@ -70,8 +70,38 @@
 
 .work-flow {
 	flex: 4;
+	padding: 0 !important;
+}
+
+.work-flow-padding {
+	flex: 4;
 }
 
 .jobs-subsection {
 	margin-top: 20px;
+}
+
+.drawing-header {
+	display: flex;
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid $borderGrey;
+	padding: 0 5px;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: flex-start;
+
+	h4 {
+		margin-left: 10px;
+	}
+
+	span {
+		padding: 0 5px;
+		font-weight: lighter;
+		font-style: italic;
+	}
+}
+
+.flex-spacer {
+	flex: 1;
 }
