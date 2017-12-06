@@ -38,4 +38,14 @@ body {
 			color: $primary;
 		}
 	}
+
+	input, button {
+		outline: none;
+	}
+
+	input {
+		border: 1px solid $borderGrey;
+		padding: 5px;
+		box-sizing: border-box;
+	}
 }

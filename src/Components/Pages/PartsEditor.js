@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
 import MiniTable from '../Main/MiniTable';
 import headers from '../AppInformation/TableHeaders';
+import Drawing from './Drawing';
 
 class PartsEditor extends Component {
   constructor(props) {
@@ -215,7 +216,8 @@ class PartsEditor extends Component {
         </button>
         <div className='edit-page'>
           {info}
-          <div className='work-flow card'>
+          <div className='work-flow card no-fade'>
+            <Drawing partNumber={this.state.partInfo.part_number} />
           </div>
         </div>
       </div>

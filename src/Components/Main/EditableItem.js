@@ -1,15 +1,78 @@
 import React, { Component } from 'react';
+import Select from './Select';
 
 class EditableItem extends Component {
+  constructor() {
+    super()
+    this.state = {
+      selectList: []
+    }
+    this.makeSelect=this.makeSelect.bind(this);
+    this.get=this.get.bind(this);
+  }
+
+  get() {
+    let request = new Request(this.props.url + this.props.link, {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({ selectList: data });
+    })
+  }
+
+  makeSelect() {
+    let optionList = this.state.selectList.map( (option, i) => {
+      return (<option key={i} value={option.part_number}>{option.part_number}</option>)
+    })
+    return (
+      <Select output={this.props.output} name={this.props.name} value={this.props.value}>
+        <select className='form-select'>
+          <option value='default'>{this.props.header.slice(0, -2)}</option>
+          {optionList}
+        </select>
+      </Select>
+      )
+  }
 
   showType() {
     switch(this.props.type) {
-      case undefined :
-        return <input type='text' className='editable-input' onChange={this.props.change} placeholder={this.props.header.slice(0, -2)} name={this.props.name} defaultValue={this.props.value ? this.props.value : ''} />
       case 'number' :
-        return <input type='number' className='editable-input' onChange={this.props.change} placeholder={this.props.header.slice(0, -2)} name={this.props.name} defaultValue={this.props.value ? this.props.value : ''} />
+        return <input
+                  type='number'
+                  className='editable-input'
+                  onChange={this.props.change}
+                  placeholder={this.props.header.slice(0, -2)}
+                  name={this.props.name}
+                  defaultValue={this.props.value ? this.props.value : ''} />
       case 'date' :
-        return <input type='date' className='editable-input' onChange={this.props.change} placeholder={this.props.header.slice(0, -2)} name={this.props.name} defaultValue={this.props.value ? this.props.value : ''} />
+        return <input
+                  type='date'
+                  className='editable-input'
+                  onChange={this.props.change}
+                  placeholder={this.props.header.slice(0, -2)}
+                  name={this.props.name}
+                  defaultValue={this.props.value ? this.props.value : ''} />
+      case 'select' :
+        return this.makeSelect()
+      default :
+        return <input
+                  type='text'
+                  className='editable-input'
+                  onChange={this.props.change}
+                  placeholder={this.props.header.slice(0, -2)}
+                  name={this.props.name}
+                  defaultValue={this.props.value ? this.props.value : ''} />
+
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.type === 'select') {
+      this.get();
     }
   }
 

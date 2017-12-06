@@ -63,6 +63,15 @@
 	width: 200px;
 }
 
-.mini-table-select {
-	flex: 1;
+.form-select {
+	box-shadow: none;
+	margin-left: 10px;
+	width: 150px;
+	font-family: inherit;
+	border: 1px solid $borderGrey;
+	box-sizing: border-box;
+
+	&:hover {
+		box-shadow: none;
+	}
 }
