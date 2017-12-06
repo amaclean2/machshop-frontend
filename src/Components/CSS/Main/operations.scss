@@ -1,0 +1,44 @@
+@import 'Colors';
+
+h4 {
+	margin: 0;
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.operations-header-row {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.operation {
+	background-color: $grey3;
+	max-height: 200px;
+	box-sizing: border-box;
+	padding: 15px;
+	margin-top: 15px;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $grey2;
+	}
+
+	.op-meta-data {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+
+		.line-item {
+			margin-right: 30px;
+		}
+	}
+
+	.machine-operation {
+		border: 1px solid $borderGrey;
+		margin: 5px;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+}

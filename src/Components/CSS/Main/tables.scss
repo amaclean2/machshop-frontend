@@ -44,5 +44,10 @@ table {
 .mini-table {
 	font-size: 13px;
 	font-weight: normal;
-	margin-top: 20px;
+	margin-top: 10px;
+
+	td:first-child, td:last-child {
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+	}
 }

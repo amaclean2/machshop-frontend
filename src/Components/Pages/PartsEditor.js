@@ -177,7 +177,10 @@ class PartsEditor extends Component {
     return (
       <div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
         {info}
-        <MiniTable headers={headers.MiniJobs} data={this.state.jobData} url={this.state.url} selectData={this.state.selectData} />
+        <div className='jobs-subsection'>
+          <h4>Jobs</h4>
+          <MiniTable headers={headers.MiniJobs} data={this.state.jobData} url={this.state.url} selectData={this.state.selectData} link='/jobs/' />
+        </div>
       </div>
     )
   }

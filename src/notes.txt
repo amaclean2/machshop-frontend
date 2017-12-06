@@ -13,7 +13,7 @@ Job Properties :
 	date to finish
 	date finished
 	job number
-	part id
+	part number
 	material
 	material amount
 	material size
@@ -34,5 +34,15 @@ Operations :
 	setup sheet
 	setup time
 	piece count
+	operation number
+
+List of Operations :
+	administration
+	outside processing
+	saw
+	inspection
+	mill
+	lathe
+
 
 
