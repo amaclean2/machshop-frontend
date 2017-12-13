@@ -21,6 +21,7 @@ class Parts extends Component {
 	    fetch(request).then( response => {
 	    	return response.json();
 	    }).then( data => {
+	    	console.log('parts list loaded');
 	      this.setState({ parts: data });
 	    });
 	}

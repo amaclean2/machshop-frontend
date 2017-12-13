@@ -14,7 +14,6 @@ h4 {
 
 .operation {
 	background-color: $grey3;
-	max-height: 200px;
 	box-sizing: border-box;
 	padding: 15px;
 	margin-top: 15px;
@@ -31,14 +30,23 @@ h4 {
 		flex-wrap: wrap;
 
 		.line-item {
-			margin-right: 30px;
+			margin-right: 1vw;
+			width: 280px;
 		}
 	}
 
 	.machine-operation {
-		border: 1px solid $borderGrey;
+		border-top: 1px solid $borderGrey;
 		margin: 5px;
 		padding: 10px;
 		box-sizing: border-box;
+		transition: all 0.3s ease-in-out;
+	}
+}
+
+.operation-list-container .no-fade {
+
+	&:hover {
+		background-color: $grey3;
 	}
 }

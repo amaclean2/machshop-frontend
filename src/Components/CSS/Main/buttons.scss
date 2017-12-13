@@ -62,6 +62,16 @@
 	}
 }
 
+.delete-button-reverse {
+	background-color: $textOnPrimary;
+	color: $delete;
+
+	&:hover {
+		background-color: $textOnPrimaryHover;
+		color: $deleteHover;
+	}
+}
+
 .submit-button-line {
 	display: flex;
 	justify-content: flex-end;
@@ -75,4 +85,8 @@
 .small-button {
 	font-size: 10px;
 	padding: 7px 15px;
+}
+
+.button-bar {
+	margin-top: 10px;
 }
