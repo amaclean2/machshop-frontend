@@ -5,24 +5,9 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state={
-			url: window.location.href
+			url: (window.location.href.substr(0, 5) === 'http:' ) ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api'
 		}
-		this.setUrl=this.setUrl.bind(this);
 	}
-
-	setUrl() {
-		var url = window.location.href;
-  	var prefix = url.substring(0, 7);
-
-  	prefix = (prefix === 'http://') ? 'http://localhost:3001' : 'https://machapi.herokuapp.com';
-  	prefix = prefix.concat('/api');
-
-  	this.setState({ url: prefix });
-	}
-
-  componentWillMount() {
-  	this.setUrl();
-  }
 
   render() {
     return (

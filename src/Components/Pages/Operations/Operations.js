@@ -2,10 +2,27 @@ import React, { Component } from 'react';
 import Operation from './SingleOperation';
 
 class Operations extends Component {
+  constructor() {
+    super()
+    this.state = {
+      opCount: 0
+    }
+    this.addOperation=this.addOperation.bind(this);
+  }
 
 	getOperations() {
-		return (<div><Operation /><Operation /></div>)
+    let opList = []
+    for (var i = 0; i < this.state.opCount; i++) {
+      opList.push(<Operation key={i}/>)
+    }
+		return (<div className="operation-list-container">
+        {opList}
+      </div>)
 	}
+
+  addOperation() {
+    this.setState({ opCount: this.state.opCount + 1 });
+  }
 
   render() {
   	let operationList = this.getOperations();
@@ -13,7 +30,7 @@ class Operations extends Component {
     	<div>
     		<div className='operations-header-row' >
     			<h4>Operations</h4>
-    			<button className="button">Add operation</button>
+    			<button className="button" onClick={this.addOperation} >Add operation</button>
     		</div>
     		{operationList}
   		</div>);

@@ -1,24 +1,151 @@
 import React, { Component } from 'react';
-// import EditableItem from '../../Main/EditableItem';
+import EditableItem from '../../Main/EditableItem';
 import DescriptionItem from '../../Main/DescriptionItem';
 import MillOperation from './MillOperation';
+import LatheOperation from './LatheOperation';
+import SawOperation from './SawOperation';
+import AdminOperation from './AdminOperation';
+import InspectOperation from './InspectOperation';
+import ProcessOperation from './ProcessOperation';
 
 class Operation extends Component {
+  constructor() {
+    super()
+    this.state = {
+      edit: true,
+      opData: {
+                date_to_start: new Date(),
+                station: 'administration'
+              },
+      stationData: [
+        {station: 'mill'},
+        {station: 'lathe'},
+        {station: 'inspection'},
+        {station: 'saw'},
+        {station: 'processing'},
+        {station: 'administration'}
+      ],
+      station: 'admin'
+    }
+    this.toggleEdit=this.toggleEdit.bind(this);
+    this.change=this.change.bind(this);
+    this.selectOutput=this.selectOutput.bind(this);
+  }
+
+  toggleEdit() {
+    this.setState({edit: !this.state.edit});
+  }
+
+  change(e) {
+    let newData = this.state.opData;
+    newData[e.target.name] = e.target.value;
+    this.setState({ opData: newData });
+  }
+
+  selectOutput(value, name) {
+    console.log(value);
+    let newData = this.state.opData;
+    newData[name] = value;
+    this.setState({ opData: newData, station: value });
+  }
+
+  selectStation() {
+    switch (this.state.station) {
+      case 'mill' :
+        return <MillOperation />
+      case 'lathe' :
+        return <LatheOperation />
+      case 'saw' :
+        return <SawOperation />
+      case 'admin' :
+        return <AdminOperation />
+      case 'processing' :
+        return <ProcessOperation />
+      case 'inspection' :
+        return <InspectOperation />
+      default :
+        return <AdminOperation />
+    }
+  }
+
+  viewInfo() {
+    let station = this.selectStation();
+    if(!this.state.edit) {
+      return (
+        <div className='operation' onClick={this.toggleEdit} >
+          <div className='op-meta-data'>
+            <DescriptionItem header={'Operation Number: '} value={this.state.opData.operation_number} />
+            <DescriptionItem header={'Operation Name: '} value={this.state.opData.operation_name} />
+            <DescriptionItem header={'Description: '} value={this.state.opData.description} />
+            <DescriptionItem header={'Date to Start: '} value={this.state.opData.date_to_start} />
+            <DescriptionItem header={'Date to Finish: '} value={this.state.opData.date_to_finish} />
+            <DescriptionItem header={'Date Started: '} value={this.state.opData.date_started} />
+            <DescriptionItem header={'Date Finished: '} value={this.state.opData.date_finished} />
+            <DescriptionItem header={'Station: '} value={this.state.opData.station} />
+          </div>
+          {station}
+        </div>);
+    } else {
+      return (
+        <div className='operation no-fade'>
+          <div className='op-meta-data'>
+            <EditableItem
+              header={'Operation Number: '}
+              value={this.state.opData.operation_number}
+              change={this.change} name={'operation_number'}
+              type={'number'} />
+            <EditableItem
+              header={'Operation Name: '}
+              value={this.state.opData.operation_name}
+              change={this.change}
+              name={'operation_name'}
+              type={'text'} />
+            <EditableItem
+              header={'Description: '}
+              value={this.state.opData.description}
+              change={this.change}
+              name={'description'}
+              type={'text'} />
+            <EditableItem
+              header={'Date to Start: '}
+              value={this.state.opData.date_to_start}
+              change={this.change}
+              name={'date_to_start'}
+              type={'date'} />
+            <EditableItem
+              header={'Date to Finish: '}
+              value={this.state.opData.date_to_finish}
+              change={this.change}
+              name={'date_to_finish'}
+              type={'date'} />
+            <DescriptionItem
+              header={'Date Started: '}
+              value={this.state.opData.date_started} />
+            <DescriptionItem
+              header={'Date Finished: '}
+              value={this.state.opData.date_finished} />
+            <EditableItem
+              header={'Station: '}
+              value={this.state.opData.station ? this.state.opData.station : 'administration'}
+              type={'select'}
+              data={this.state.stationData}
+              output={this.selectOutput}
+              name={'station'} />
+          </div>
+          <div className="button-bar">
+            <button className="button small-button delete-button">Delete</button>
+            <button className="button small-button" onClick={this.toggleEdit}>Save</button>
+          </div>
+        </div>)
+    }
+  }
 
   render() {
+    let info = this.viewInfo();
     return (
-    	<div className='operation'>
-        <div className='op-meta-data'>
-          <DescriptionItem header={'Operation Number: '} value={50} />
-          <DescriptionItem header={'Operation Name: '} value={'Mill One'} />
-          <DescriptionItem header={'Date to Start: '} value={'2018-02-03'} />
-          <DescriptionItem header={'Date Started: '} value={'-'} />
-          <DescriptionItem header={'Date to Finish: '} value={'2018-02-05'} />
-          <DescriptionItem header={'Date Finished: '} value={'-'} />
-          <DescriptionItem header={'Station: '} value={'Mill'} />
-        </div>
-        <MillOperation />
-  		</div>);
+    	<div>
+        {info}
+      </div>);
 	}
 }
 

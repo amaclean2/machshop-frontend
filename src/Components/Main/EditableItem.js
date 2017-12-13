@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Select from './Select';
 
 class EditableItem extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      selectList: []
+      selectList: this.props.data ? this.props.data : []
     }
     this.makeSelect=this.makeSelect.bind(this);
     this.get=this.get.bind(this);
@@ -20,14 +20,15 @@ class EditableItem extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      console.log('select loaded');
       this.setState({ selectList: data });
     })
   }
 
   makeSelect() {
     let optionList = this.state.selectList.map( (option, i) => {
-      return (<option key={i} value={option.part_number}>{option.part_number}</option>)
-    })
+      return (<option key={i} value={option[this.props.name]}>{option[this.props.name]}</option>)
+    });
     return (
       <Select output={this.props.output} name={this.props.name} value={this.props.value}>
         <select className='form-select'>
@@ -70,8 +71,8 @@ class EditableItem extends Component {
     }
   }
 
-  componentDidMount() {
-    if(this.props.type === 'select') {
+  componentWillMount() {
+    if(this.props.type === 'select' && this.props.url) {
       this.get();
     }
   }

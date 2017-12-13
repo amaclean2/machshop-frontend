@@ -9,14 +9,13 @@ class JobsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: window.location.href,
+      url: (window.location.href.substr(0, 7) === 'http://') ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api',
       jobId: this.props.match.params.jobId ? this.props.match.params.jobId : '0',
       jobInfo: {},
       editable: false,
       newJob: false,
       modalHide: true
     }
-    this.setUrl=this.setUrl.bind(this);
     this.get=this.get.bind(this);
     this.post=this.post.bind(this);
     this.put=this.put.bind(this);
@@ -28,16 +27,6 @@ class JobsEditor extends Component {
     this.selectOutput=this.selectOutput.bind(this);
   }
 
-  setUrl() {
-    var url = window.location.href;
-    var prefix = url.substring(0, 7);
-
-    prefix = (prefix === 'http://') ? 'http://localhost:3001' : 'https://machapi.herokuapp.com';
-    prefix = prefix.concat('/api');
-
-    this.setState({ url: prefix });
-  }
-
   get() {
     let request = new Request(this.state.url + '/jobs/' + this.state.jobId, {
       method: 'GET',
@@ -47,6 +36,7 @@ class JobsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      console.log('job loaded');
       this.setState({ jobInfo: data });
     })
   }
@@ -67,7 +57,7 @@ class JobsEditor extends Component {
         material: material,
         part_number: partNumber,
         date_to_start: dateToStart,
-        date_started: '',
+        date_started: '-',
         description: description
       })
     });
@@ -89,7 +79,7 @@ class JobsEditor extends Component {
         material: material,
         part_number: partNumber,
         date_to_start: dateToStart,
-        date_started: '',
+        date_started: '-',
         description: description
       })
     });
@@ -161,7 +151,7 @@ class JobsEditor extends Component {
         <div onClick={ this.toggleEdit }>
           <DescriptionItem header={'Job Number: '} value={this.state.jobInfo.job_number} />
           <DescriptionItem header= {'Material: '} value={this.state.jobInfo.material} />
-          <DescriptionItem header={'Part Number: '} value={this.state.jobInfo.part_number} />
+          <DescriptionItem header={'Part Number: '} value={this.state.jobInfo.part_number}/>
           <DescriptionItem header={'Description: '} value={this.state.jobInfo.description} />
           <DescriptionItem header={'Date to Start: '} value={this.state.jobInfo.date_to_start} />
         </div>
@@ -174,7 +164,6 @@ class JobsEditor extends Component {
           <EditableItem
             header={'Part Number: '}
             value={this.state.jobInfo.part_number}
-            change={this.change}
             type={'select'}
             url={this.state.url}
             link={'/parts/'}
@@ -194,14 +183,10 @@ class JobsEditor extends Component {
   }
 
   componentWillMount() {
-    this.setUrl();
-  }
-
-  componentDidMount() {
     if (this.state.jobId !== '0') {
       this.get();
     } else {
-      let newInfo = {user: '', job_number: '', material: '', part_number: '', date_to_start: '', description: ''};
+      let newInfo = {user: '-', job_number: '-', material: '-', part_number: '-', date_to_start: '-', description: '-'};
       this.setState({ jobInfo: newInfo, editable: true, newJob: true });
     }
   }

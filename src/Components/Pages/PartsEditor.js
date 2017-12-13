@@ -11,16 +11,15 @@ class PartsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: window.location.href,
+      url: (window.location.href.substr(0, 7) === 'http://') ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api',
       partId: this.props.match.params.partId ? this.props.match.params.partId : '0',
       partInfo: {},
       editable: false,
       newPart: false,
       modalHide: true,
-      jobData: []
+      jobData: this.props.match.params.partId ? [{job_number: 'loading...', start_date: '-'}] : []
     };
 
-    this.setUrl=this.setUrl.bind(this);
     this.get=this.get.bind(this);
     this.getJobs=this.getJobs.bind(this);
     this.post=this.post.bind(this);
@@ -32,25 +31,19 @@ class PartsEditor extends Component {
     this.toggleModal=this.toggleModal.bind(this);
   }
 
-  setUrl() {
-    var url = window.location.href;
-    var prefix = url.substring(0, 7);
-
-    prefix = (prefix === 'http://') ? 'http://localhost:3001' : 'https://machapi.herokuapp.com';
-    prefix = prefix.concat('/api');
-
-    this.setState({ url: prefix });
-  }
-
   get() {
+    console.log(this.props.match.params.partId);
     let request = new Request(this.state.url + '/parts/' + this.state.partId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
 
+    console.log(this.state.url + '/parts/' + this.state.partId);
+
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      console.log('part loaded');
       this.setState({ partInfo: data, jobList: data.jobs });
     })
   }
@@ -64,6 +57,7 @@ class PartsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      console.log('jobs list loaded');
       let newData = data.filter( datum => { return datum.part_number === this.state.partInfo.part_number});
       this.setState({ jobData: newData });
     })
@@ -187,10 +181,6 @@ class PartsEditor extends Component {
   }
 
   componentWillMount() {
-    this.setUrl();
-  }
-
-  componentDidMount() {
     if (this.state.partId !== '0') {
       this.get();
       this.getJobs();
@@ -198,6 +188,10 @@ class PartsEditor extends Component {
       let newInfo = {part_name: '', part_number: '', part_revision: '', customer: '', user: ''};
       this.setState({ partInfo: newInfo, editable: true, newPart: true });
     }
+  }
+
+  componentDidMount() {
+    
   }
 
   render() {

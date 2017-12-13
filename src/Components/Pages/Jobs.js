@@ -21,6 +21,7 @@ class Jobs extends Component {
 	    fetch(request).then( response => {
 	    	return response.json();
 	    }).then( data => {
+	    	console.log('all jobs loaded');
 	      this.setState({ jobs: data });
 	    });
 	}
