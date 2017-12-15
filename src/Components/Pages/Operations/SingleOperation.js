@@ -9,14 +9,11 @@ import InspectOperation from './InspectOperation';
 import ProcessOperation from './ProcessOperation';
 
 class Operation extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      edit: true,
-      opData: {
-                date_to_start: new Date(),
-                station: 'administration'
-              },
+      edit: !this.props.data,
+      opData: this.props.data ? this.props.data : { station: 'administration' },
       stationData: [
         {station: 'mill'},
         {station: 'lathe'},
@@ -24,12 +21,17 @@ class Operation extends Component {
         {station: 'saw'},
         {station: 'processing'},
         {station: 'administration'}
-      ],
-      station: 'admin'
+      ]
     }
     this.toggleEdit=this.toggleEdit.bind(this);
     this.change=this.change.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
+    this.save=this.save.bind(this);
+  }
+
+  save() {
+    this.toggleEdit();
+    this.props.saveNewOperation(this.state.opData, this.props.index);
   }
 
   toggleEdit() {
@@ -43,21 +45,20 @@ class Operation extends Component {
   }
 
   selectOutput(value, name) {
-    console.log(value);
     let newData = this.state.opData;
     newData[name] = value;
     this.setState({ opData: newData, station: value });
   }
 
   selectStation() {
-    switch (this.state.station) {
+    switch (this.state.opData.station) {
       case 'mill' :
         return <MillOperation />
       case 'lathe' :
         return <LatheOperation />
       case 'saw' :
         return <SawOperation />
-      case 'admin' :
+      case 'administration' :
         return <AdminOperation />
       case 'processing' :
         return <ProcessOperation />
@@ -133,8 +134,8 @@ class Operation extends Component {
               name={'station'} />
           </div>
           <div className="button-bar">
-            <button className="button small-button delete-button">Delete</button>
-            <button className="button small-button" onClick={this.toggleEdit}>Save</button>
+            <button className="button small-button delete-button" onClick={() => {this.props.deleteOperation(this.props.index)}} >Delete</button>
+            <button className="button small-button" onClick={this.save}>Save</button>
           </div>
         </div>)
     }

@@ -32,13 +32,10 @@ class PartsEditor extends Component {
   }
 
   get() {
-    console.log(this.props.match.params.partId);
     let request = new Request(this.state.url + '/parts/' + this.state.partId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
-
-    console.log(this.state.url + '/parts/' + this.state.partId);
 
     fetch(request).then( response => {
       return response.json();

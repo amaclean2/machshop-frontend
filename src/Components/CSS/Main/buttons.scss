@@ -20,6 +20,7 @@
 		background-color: $primaryHover;
 		box-shadow: 0 0 8px rgba(0,0,0,0.3);
 		text-decoration: none;
+		color: $textOnPrimaryHover;
 	}
 }
 
@@ -29,6 +30,7 @@
 
 	&:hover {
 		background-color: $textOnPrimaryHover;
+		color: $primaryHover;
 	}
 }
 
@@ -38,12 +40,7 @@
 }
 
 .table-button {
-	background-color: $hyperLink;
 	font-size: 13px;
-
-	&:hover {
-		color: $textOnPrimaryHover;
-	}
 }
 
 .save-button {
