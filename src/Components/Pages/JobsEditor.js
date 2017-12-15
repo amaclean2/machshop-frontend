@@ -254,7 +254,6 @@ class JobsEditor extends Component {
 
   renderOperations() {
     if(this.state.jobInfo.operations) {
-      console.log('rerendered', this.state.jobInfo.operations.length);
       return (<Operations
               data={this.state.jobInfo}
               url={this.state.url}
