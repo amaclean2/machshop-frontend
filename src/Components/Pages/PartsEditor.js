@@ -171,7 +171,11 @@ class PartsEditor extends Component {
         {info}
         <div className='jobs-subsection'>
           <h4>Jobs</h4>
-          <MiniTable headers={headers.MiniJobs} data={this.state.jobData} url={this.state.url} selectData={this.state.selectData} link='/jobs/' />
+          <MiniTable
+            headers={headers.MiniJobs}
+            data={this.state.jobData}
+            url={this.state.url}
+            link='/jobs/' />
         </div>
       </div>
     )

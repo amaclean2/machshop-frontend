@@ -255,12 +255,12 @@ class JobsEditor extends Component {
   renderOperations() {
     if(this.state.jobInfo.operations) {
       return (<Operations
-              data={this.state.jobInfo}
-              url={this.state.url}
-              saveNewOperation={this.saveNewOperation}
-              operationCount={this.state.operationCount}
-              addOperation={this.addOperation}
-              deleteOperation={this.deleteOperation}/>);
+                data={this.state.jobInfo}
+                url={this.state.url}
+                saveNewOperation={this.saveNewOperation}
+                operationCount={this.state.operationCount}
+                addOperation={this.addOperation}
+                deleteOperation={this.deleteOperation}/>);
     }
     else
       return null;

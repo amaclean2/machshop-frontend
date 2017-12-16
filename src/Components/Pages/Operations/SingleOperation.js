@@ -73,7 +73,7 @@ class Operation extends Component {
     let station = this.selectStation();
     if(!this.state.edit) {
       return (
-        <div className='operation' onClick={this.toggleEdit} >
+        <div className='operation fade-in' onClick={this.toggleEdit} >
           <div className='op-meta-data'>
             <DescriptionItem header={'Operation Number: '} value={this.state.opData.operation_number} />
             <DescriptionItem header={'Operation Name: '} value={this.state.opData.operation_name} />
@@ -88,7 +88,7 @@ class Operation extends Component {
         </div>);
     } else {
       return (
-        <div className='operation no-fade'>
+        <div className='operation no-fade fade-in'>
           <div className='op-meta-data'>
             <EditableItem
               header={'Operation Number: '}
