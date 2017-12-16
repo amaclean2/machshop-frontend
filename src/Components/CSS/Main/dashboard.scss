@@ -9,11 +9,12 @@
 
 	.column {
 		flex: 1;
-		dislay: flex;
+		display: flex;
 		justify-content: space-between;
-		direction: coumn;
+		flex-direction: column;
 		align-items: center;
 		margin: 0 10px;
+		height: calc(100vh - 85px);
 	}
 
 	.widget {
@@ -24,6 +25,8 @@
 		font-weight: lighter;
 		margin: 10px 0;
 		box-shadow: 0 0 5px rgba(0,0,0,0.2);
+		display: block !important;
+		width: 100%;
 
 		.widget-header {
 			font-size: 18px;

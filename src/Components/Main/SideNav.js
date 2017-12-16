@@ -18,7 +18,10 @@ class SideNav extends Component {
   	let tabs = this.contentList();
     return (
       <div>
-      	<div className={'sidenav-background ' + (this.props.gone ? 'gone ' : '') + (this.props.hidden ? 'fade-out ' : 'fade-in ')} onClick={this.props.toggleHideSideNav} ></div>
+      	<div
+          className={'sidenav-background ' + (this.props.gone ? 'gone ' : '') + (this.props.hidden ? 'fade-out ' : 'fade-in ')}
+          onClick={this.props.toggleHideSideNav} >
+        </div>
       	<div className={'sidenav-view ' + (this.props.hidden ? 'hide ' : '')} >
       		<div className={'sidenav-header'} >
      	  	</div>
