@@ -87,3 +87,15 @@
 .button-bar {
 	margin-top: 10px;
 }
+
+.close-button {
+	background-color: $grey2;
+	color: $grey1;
+	font-size: 15px;
+	padding: 2px 5px;
+
+	&:hover {
+		background-color: $borderGrey;
+		color: $grey1;
+	}
+}

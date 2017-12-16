@@ -9,7 +9,7 @@ class DeleteModal extends Component {
       	<div className='sidenav-background' onClick={this.props.reject} ></div>
       	<div className='modal-container'>
       		<div className='modal-content'>
-      			<span>Are you sure you want to delete this part</span>
+      			<span>Are you sure you want to delete</span>
       			<div className='delete-modal-button-container'>
       				<NavLink to={this.props.link} onClick={this.props.delete} className='button delete-modal-button accept'>Yes</NavLink>
       				<button onClick={this.props.reject} className='button delete-modal-button reject'>No</button>
