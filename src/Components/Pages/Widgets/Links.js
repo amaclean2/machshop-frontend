@@ -4,7 +4,7 @@ class Links extends Component {
 
   render() {
     return (
-    	<div className="widget">
+    	<div className="widget card">
         	Quick Links
       </div>
     );

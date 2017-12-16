@@ -25,7 +25,7 @@ class Tools extends Component {
   render() {
   	let calendar = this.viewCalendar();
     return (
-    	<div className="widget">
+    	<div className="widget card">
         	<span className="widget-header">Quick Tools</span>
         	<div>
         		<button onClick={this.toggleCalendar} className="button small-button">Calendar</button>

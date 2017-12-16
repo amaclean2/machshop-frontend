@@ -4,7 +4,7 @@ class UpcomingJobs extends Component {
 
   render() {
     return (
-    	<div className="widget">
+    	<div className="widget card">
         Upcoming Due Dates
       </div>
     );

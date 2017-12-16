@@ -24,7 +24,6 @@ class Dashboard extends Component {
        	<div className="column widget-column third-column">
        		<Tools />
        		<Links />
-       		<UpcomingJobs />
        	</div>
       </div>
     );

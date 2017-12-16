@@ -4,7 +4,7 @@ class TodoList extends Component {
 
   render() {
     return (
-    	<div className="widget">
+    	<div className="widget card">
         	Todo List
       </div>
     );
