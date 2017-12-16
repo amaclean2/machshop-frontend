@@ -14,7 +14,8 @@ class JobsEditor extends Component {
       jobInfo: {},
       editable: false,
       newJob: false,
-      modalHide: true
+      modalHide: true,
+      operationCount: 0
     }
     this.get=this.get.bind(this);
     this.post=this.post.bind(this);
@@ -25,6 +26,9 @@ class JobsEditor extends Component {
     this.save=this.save.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
+    this.deleteOperation=this.deleteOperation.bind(this);
+    this.saveNewOperation=this.saveNewOperation.bind(this);
+    this.addOperation=this.addOperation.bind(this);
   }
 
   get() {
@@ -37,7 +41,7 @@ class JobsEditor extends Component {
       return response.json();
     }).then( data => {
       console.log('job loaded');
-      this.setState({ jobInfo: data });
+      this.setState({ jobInfo: data, operationCount: data.operations.length });
     })
   }
 
@@ -58,7 +62,8 @@ class JobsEditor extends Component {
         part_number: partNumber,
         date_to_start: dateToStart,
         date_started: '-',
-        description: description
+        description: description,
+        operations: []
       })
     });
 
@@ -80,13 +85,71 @@ class JobsEditor extends Component {
         part_number: partNumber,
         date_to_start: dateToStart,
         date_started: '-',
-        description: description
+        description: description,
+        operations: []
       })
     });
 
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+    });
+  }
+
+  saveNewOperation(opData, index) {
+    let operations = this.state.jobInfo.operations;
+
+    if(index > this.state.jobInfo.operations.length) {
+      operations.push(opData);
+    } else {
+      operations[index] = opData;
+    }
+
+    let request = new Request(this.state.url + '/jobs/' + this.state.jobInfo._id, {
+      method: 'PUT',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({
+        user: this.state.jobInfo.user,
+        job_number: this.state.jobInfo.job_number,
+        material: this.state.jobInfo.material,
+        part_number: this.state.jobInfo.part_number,
+        date_to_start: this.state.jobInfo.date_to_start,
+        date_started: this.state.jobInfo.date_started,
+        description: this.state.jobInfo.description,
+        operations: operations
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({jobInfo: data, operationCount: data.operations.length });
+    });
+      
+  }
+
+  deleteOperation(index) {
+    let operations = this.state.jobInfo.operations;
+    operations.splice(index, 1);
+    let request = new Request(this.state.url + '/jobs/' + this.state.jobInfo._id, {
+      method: 'PUT',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({
+        user: this.state.jobInfo.user,
+        job_number: this.state.jobInfo.job_number,
+        material: this.state.jobInfo.material,
+        part_number: this.state.jobInfo.part_number,
+        date_to_start: this.state.jobInfo.date_to_start,
+        date_started: this.state.jobInfo.date_started,
+        description: this.state.jobInfo.description,
+        operations: operations
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({jobInfo: data, operationCount: data.operations.length });
     });
   }
 
@@ -141,7 +204,6 @@ class JobsEditor extends Component {
     let newInfo = this.state.jobInfo;
     newInfo[name] = value;
     this.setState({ jobInfo: newInfo });
-    console.log(this.state.jobInfo);
   }
 
   viewInfo() {
@@ -186,13 +248,31 @@ class JobsEditor extends Component {
     if (this.state.jobId !== '0') {
       this.get();
     } else {
-      let newInfo = {user: '-', job_number: '-', material: '-', part_number: '-', date_to_start: '-', description: '-'};
-      this.setState({ jobInfo: newInfo, editable: true, newJob: true });
+      this.setState({ editable: true, newJob: true });
     }
+  }
+
+  renderOperations() {
+    if(this.state.jobInfo.operations) {
+      return (<Operations
+                data={this.state.jobInfo}
+                url={this.state.url}
+                saveNewOperation={this.saveNewOperation}
+                operationCount={this.state.operationCount}
+                addOperation={this.addOperation}
+                deleteOperation={this.deleteOperation}/>);
+    }
+    else
+      return null;
+  }
+
+  addOperation() {
+    this.setState({operationCount: this.state.operationCount + 1});
   }
 
   render() {
     let info = this.viewInfo();
+    let operations = this.renderOperations();
     return (
       <div>
         <h3>Job Editor</h3>
@@ -208,7 +288,7 @@ class JobsEditor extends Component {
         <div className='edit-page'>
           {info}
           <div className='work-flow-padding card no-fade'>
-            <Operations />
+            {operations}
           </div>
         </div>
       </div>

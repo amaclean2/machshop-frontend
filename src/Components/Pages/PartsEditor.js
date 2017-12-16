@@ -32,13 +32,10 @@ class PartsEditor extends Component {
   }
 
   get() {
-    console.log(this.props.match.params.partId);
     let request = new Request(this.state.url + '/parts/' + this.state.partId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
-
-    console.log(this.state.url + '/parts/' + this.state.partId);
 
     fetch(request).then( response => {
       return response.json();
@@ -174,7 +171,11 @@ class PartsEditor extends Component {
         {info}
         <div className='jobs-subsection'>
           <h4>Jobs</h4>
-          <MiniTable headers={headers.MiniJobs} data={this.state.jobData} url={this.state.url} selectData={this.state.selectData} link='/jobs/' />
+          <MiniTable
+            headers={headers.MiniJobs}
+            data={this.state.jobData}
+            url={this.state.url}
+            link='/jobs/' />
         </div>
       </div>
     )
