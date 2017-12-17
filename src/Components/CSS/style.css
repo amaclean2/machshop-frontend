@@ -673,6 +673,15 @@ h4 {
     .calendar .modal-content .month-view .today {
       background-color: #749eb9;
       color: #666666; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000369}}
+    .calendar .modal-content .month-view .events {
+      width: 100%;
+      height: calc(100% - 15px);
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000375}}
+      .calendar .modal-content .month-view .events:hover {
+        background-color: rgba(0, 0, 0, 0.1); }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/style\.scss}line{font-family:\0000316}}
 body {
