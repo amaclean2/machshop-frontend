@@ -17,9 +17,9 @@ class Calendar extends Component {
 
   showViews() {
     if(this.state.view === 'month') {
-      return (<MonthView />);
+      return (<MonthView toggleViews={this.toggleViews} />);
     } else {
-      return (<DayView />);
+      return (<DayView toggleViews={this.toggleViews} />);
     }
   }
 

@@ -4,7 +4,7 @@ class Events extends Component {
 
   render() {
     return (
-    	<div className="events">
+    	<div className="events" onClick={this.props.toggleViews} >
       </div>
     );
   }

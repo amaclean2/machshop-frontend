@@ -27,7 +27,6 @@
 
 			.calendar-body {
 				margin-top: 15px;
-
 			}
 
 			.week, .day-headers {
@@ -75,6 +74,22 @@
 				&:hover {
 					background-color: rgba(0,0,0,0.1);
 				}
+			}
+		}
+
+		.day-view {
+			width: 100vw;
+			max-width: 500px;
+			display: inline-block;
+			text-align: left;
+			padding: 25px;
+			box-sizing: border-box;
+			min-height: 400px;
+
+			.form {
+				background-color: $grey3;
+				display: block;
+				margin-top: 15px;
 			}
 		}
 	}

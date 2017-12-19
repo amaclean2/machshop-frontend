@@ -28,7 +28,7 @@ class Tools extends Component {
     	<div className="widget card">
         	<span className="widget-header">Quick Tools</span>
         	<div>
-        		<button onClick={this.toggleCalendar} className="button small-button">Calendar</button>
+        		<button onClick={this.toggleCalendar} className="button">Calendar</button>
         		{calendar}
         	</div>
       </div>

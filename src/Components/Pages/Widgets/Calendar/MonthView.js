@@ -69,7 +69,7 @@ class MonthView extends Component {
         }
         return <li key={(i+1) * j} className={'day ' + (otherMonth ? 'other-month ' : '') + (today ? 'today' : '')}>
                 {day}
-                <Events day={day} month={this.state.month} year={this.state.year} />
+                <Events day={new Date(this.state.year, this.state.month, day)} toggleViews={this.props.toggleViews} />
                </li>;
       })
       return (
