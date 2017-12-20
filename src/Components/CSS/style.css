@@ -49,18 +49,17 @@
   font-size: 12px;
   background-color: #FFF;
   padding: 5px 8px;
-  border-radius: 2px;
   cursor: pointer;
   color: #000000;
   display: flex;
   align-items: center;
   justify-content: space-between; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000312}}
 .view {
   padding-right: 5px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000316}}
 .screen-cover {
   position: fixed;
   top: 0;
@@ -69,25 +68,25 @@
   height: 100vh;
   opacity: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000325}}
 .down {
   transform: rotate(180deg); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000330}}
 .time .ms-select {
   display: inline-block;
   margin: 3px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000336}}
 .ms-select {
   position: relative;
   font-weight: normal;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000342}}
   .ms-select:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000346}}
   .ms-select .drop-list {
     position: absolute;
     top: 23px;
@@ -96,7 +95,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
     border-radius: 2px;
     z-index: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000355}}
     .ms-select .drop-list li {
       color: #000000;
       background-color: #FFF;
@@ -106,15 +105,15 @@
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000365}}
       .ms-select .drop-list li:hover {
         background-color: #EEE; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000372}}
 .header-select {
   width: 200px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000376}}
 .form-select {
   box-shadow: none;
   margin-left: 10px;
@@ -122,18 +121,18 @@
   font-family: inherit;
   border: 1px solid #CCCCCC;
   box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000384}}
   .form-select:hover {
     box-shadow: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000389}}
 .time-select {
   box-shadow: none;
   margin-left: 10px;
   font-family: inherit;
   border: 1px solid #CCCCCC;
   box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\0000396}}
   .time-select:hover {
     box-shadow: none; }
 
@@ -319,6 +318,10 @@ h4 {
     background-color: #EEEEEE;
     color: #666666;
     box-shadow: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003105}}
+.form-button {
+  display: block; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/sideNav\.scss}line{font-family:\000034}}
 .sidenav-background {
@@ -656,7 +659,7 @@ h4 {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000320}}
   .calendar .modal-content .month-view {
     width: 100vw;
-    max-width: 1000px;
+    max-width: 1200px;
     display: inline-block;
     text-align: left;
     padding: 25px;
@@ -686,24 +689,34 @@ h4 {
       flex: 1;
       box-sizing: border-box;
       padding: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000357}}
+      .calendar .modal-content .month-view .day .events {
+        width: 100%;
+        height: calc(100% - 15px);
+        border-radius: 2px;
+        transition: all 0.3s ease-in-out;
+        padding: 3px;
+        box-sizing: border-box;
+        overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000366}}
+        .calendar .modal-content .month-view .day .events .month-event {
+          background-color: #666666;
+          color: #F6F6F6;
+          padding: 1px 4px;
+          margin: 1px;
+          text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000374}}
+        .calendar .modal-content .month-view .day .events:hover {
+          background-color: rgba(0, 0, 0, 0.1); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000380}}
     .calendar .modal-content .month-view .other-month {
       background-color: #F6F6F6;
       color: #666666; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000385}}
     .calendar .modal-content .month-view .today {
       background-color: #749eb9;
       color: #666666; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000368}}
-    .calendar .modal-content .month-view .events {
-      width: 100%;
-      height: calc(100% - 15px);
-      border-radius: 2px;
-      transition: all 0.3s ease-in-out; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000374}}
-      .calendar .modal-content .month-view .events:hover {
-        background-color: rgba(0, 0, 0, 0.1); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000391}}
   .calendar .modal-content .day-view {
     width: 100vw;
     max-width: 500px;
@@ -712,11 +725,43 @@ h4 {
     padding: 25px;
     box-sizing: border-box;
     min-height: 400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003100}}
     .calendar .modal-content .day-view .form {
-      background-color: #F6F6F6;
       display: block;
-      margin-top: 15px; }
+      margin: 15px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003105}}
+      .calendar .modal-content .day-view .form .form-header .editable-input {
+        font-size: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003110}}
+      .calendar .modal-content .day-view .form .extra-wide {
+        width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003113}}
+        .calendar .modal-content .day-view .form .extra-wide .editable-input {
+          width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003118}}
+      .calendar .modal-content .day-view .form .line-item {
+        display: inline-block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003121}}
+        .calendar .modal-content .day-view .form .line-item .display {
+          display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003125}}
+        .calendar .modal-content .day-view .form .line-item .editable-input {
+          border: none;
+          background-color: transparent;
+          border-bottom: 1px solid #CCCCCC;
+          margin-left: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003133}}
+        .calendar .modal-content .day-view .form .line-item .time .ms-select {
+          border: none;
+          border-bottom: 1px solid #CCCCCC; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003137}}
+          .calendar .modal-content .day-view .form .line-item .time .ms-select .shown-box {
+            background-color: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003145}}
+    .calendar .modal-content .day-view .day-event {
+      background-color: #EEEEEE;
+      display: block;
+      margin: 5px 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/style\.scss}line{font-family:\0000316}}
 body {

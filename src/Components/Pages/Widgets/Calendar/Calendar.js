@@ -6,9 +6,14 @@ class Calendar extends Component {
   constructor() {
     super()
     this.state = {
-      view: 'month'
+      view: 'month',
+      events: [],
+      loaded: false
     }
     this.toggleViews=this.toggleViews.bind(this);
+    this.get=this.get.bind(this);
+    this.delete=this.delete.bind(this);
+    this.post=this.post.bind(this);
   }
 
   toggleViews() {
@@ -16,11 +21,73 @@ class Calendar extends Component {
   }
 
   showViews() {
-    if(this.state.view === 'month') {
-      return (<MonthView toggleViews={this.toggleViews} />);
+    if(this.state.loaded === true) {
+      if(this.state.view === 'month') {
+        return (<MonthView toggleViews={this.toggleViews} events={this.state.events} />);
+      } else {
+        return (<DayView toggleViews={this.toggleViews} saveData={this.post} events={this.state.events} />);
+      }
     } else {
-      return (<DayView toggleViews={this.toggleViews} />);
+      return null;
     }
+      
+  }
+
+  get() {
+      let request = new Request(this.props.url + '/events', {
+        method: 'GET',
+        headers: new Headers({ 'Content-Type': 'application/json' })
+      });
+
+      fetch(request).then( response => {
+        return response.json();
+      }).then( data => {
+        this.setState({ events: data, loaded: true });
+        console.log('all events loaded');
+      });
+  }
+
+  post(
+    user,
+    event,
+    notes,
+    location,
+    startTime
+    ) {
+    let request = new Request(this.props.url + '/events', {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        user: user,
+        event: event,
+        notes: notes,
+        location: location,
+        start_time: startTime
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+    });
+  }
+
+  delete(eventId) {
+    let request = new Request(this.props.url + '/events/' + eventId, {
+      method: 'DELETE',
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      console.log(data);
+    });
+  }
+
+  componentWillMount() {
+    // this.delete('5a398ab02dc9dc4f8eff080e');
+    this.get();
   }
 
   render() {

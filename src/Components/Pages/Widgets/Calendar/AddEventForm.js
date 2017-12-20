@@ -32,16 +32,17 @@ class AddEventForm extends Component {
 	saveEvent() {
 		let newInfo = this.state.event;
 		newInfo.date.setSeconds(0);
-		console.log('event', this.state.event);
+		this.props.saveData('Andrew', this.state.event.event, this.state.event.notes, this.state.event.location, this.state.event.date);
 	}
 
   render() {
     return (
-    	<div className="form card">
-    		<EditableItem header={'Event: '} value={''} change={this.change} name={'event'} type={'text'} />
-    		<EditableItem header={'Location: '} value={''} change={this.change} name={'location'} type={'text'} />
+    	<div className="form card no-fade">
+    		<EditableItem header={'Event: '} value={''} change={this.change} name={'event'} type={'text'} classes={'form-header'} />
+    		<EditableItem header={'Notes: '} value={''} change={this.change} name={'notes'} type={'text'} classes={'extra-wide'} />
+    		<EditableItem header={'Location: '} value={''} change={this.change} name={'location'} type={'text'} classes={'extra-wide'} />
     		<EditableItem header={'Start Time: '} value={''} change={this.change} name={'start_time'} type={'time'} output={this.output} />
-    		<button onClick={this.saveEvent} className="button small-button">Add Event</button>
+    		<button onClick={this.saveEvent} className="button small-button form-button">Add Event</button>
       </div>
     );
   }

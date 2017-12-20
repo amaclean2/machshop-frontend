@@ -22,7 +22,7 @@ class Dashboard extends Component {
        		<Employees />
        	</div>
        	<div className="column widget-column third-column">
-       		<Tools />
+       		<Tools url={this.props.url} />
        		<Links />
        	</div>
       </div>
