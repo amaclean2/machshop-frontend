@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import calendarDays from '../../../AppInformation/CalendarDays';
 import calendarMonths from '../../../AppInformation/CalendarMonths';
+import Events from './Events';
 
 class MonthView extends Component {
 	constructor() {
 		super();
 		this.state = {
 			today: new Date(),
-      calArray: []
+      calArray: [],
+      month: new Date().getMonth(),
+      year: new Date().getFullYear()
 		}
     this.makeCalendar=this.makeCalendar.bind(this);
 	}
@@ -64,7 +67,11 @@ class MonthView extends Component {
         if(day === new Date().getDate() && !otherMonth) {
           today = true;
         }
-        return <li key={(i+1) * j} className={'day ' + (otherMonth ? 'other-month ' : '') + (today ? 'today' : '')}>{day}</li>;
+        
+        return <li key={(i+1) * j} className={'day ' + (otherMonth ? 'other-month ' : '') + (today ? 'today' : '')}>
+                {day}
+                <Events day={new Date(this.state.year, this.state.month, day)} toggleViews={this.props.toggleViews} events={this.props.events} />
+              </li>;
       })
       return (
         <li key={i+1}>
@@ -93,8 +100,8 @@ class MonthView extends Component {
     let calendar = this.drawCalendar();
     return (
     	<div className="month-view">
-    		{calendarMonths[this.state.today.getMonth()] + 
-    			', ' + this.state.today.getFullYear()}
+    		<span className="widget-header">{calendarMonths[this.state.today.getMonth()] + 
+    			', ' + this.state.today.getFullYear()}</span>
     		<div className="calendar-body">
     			<div className="day-headers">
     				{days}

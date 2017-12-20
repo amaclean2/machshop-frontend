@@ -89,13 +89,19 @@
 }
 
 .close-button {
-	background-color: $grey2;
+	background-color: $grey3;
 	color: $grey1;
 	font-size: 15px;
 	padding: 2px 5px;
+	box-shadow: none;
 
 	&:hover {
-		background-color: $borderGrey;
+		background-color: $grey2;
 		color: $grey1;
+		box-shadow: none;
 	}
+}
+
+.form-button {
+	display: block;
 }

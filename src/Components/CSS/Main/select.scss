@@ -2,15 +2,17 @@
 	font-size: 12px;
 	background-color: $textOnPrimary;
 	padding: 5px 8px;
-	border-radius: 2px;
 	cursor: pointer;
 	color: $text;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
-.select-icon {
-	float: right;
+.view {
+	padding-right: 5px;
 }
-
+ 
 .screen-cover {
 	position: fixed;
 	top: 0;
@@ -22,6 +24,13 @@
 
 .down {
 	transform: rotate(180deg);
+}
+
+.time {
+	.ms-select {
+		display: inline-block;
+		margin: 3px;
+	}
 }
 
 .ms-select {
@@ -68,6 +77,18 @@
 	box-shadow: none;
 	margin-left: 10px;
 	width: 150px;
+	font-family: inherit;
+	border: 1px solid $borderGrey;
+	box-sizing: border-box;
+
+	&:hover {
+		box-shadow: none;
+	}
+}
+
+.time-select {
+	box-shadow: none;
+	margin-left: 10px;
 	font-family: inherit;
 	border: 1px solid $borderGrey;
 	box-sizing: border-box;

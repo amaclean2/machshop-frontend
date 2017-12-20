@@ -41,6 +41,7 @@
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 	clear: both;
+	background-color: $textOnPrimary;
 
 	&:hover {
 		background-color: $grey3;

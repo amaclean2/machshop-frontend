@@ -44,7 +44,7 @@ class Select extends Component {
       <div className={'ms-select ' + (this.props.children.props.className ? this.props.children.props.className : '')}>
         <div className={'screen-cover ' + ( !this.state.shown ? 'gone' : '')} onClick={this.toggleShown}></div>
         <div className='shown-box' onClick={this.toggleShown} >
-          {this.state.view[1]}
+          <span className="view">{this.state.view[1]}</span>
           <i className={'fa fa-caret-up select-icon ' + (this.state.shown ? 'spun-back' : 'spun down')} aria-hidden="true"></i>
         </div>
         <ul className={'drop-list ' + (!this.state.shown ? 'gone ' : '')}>

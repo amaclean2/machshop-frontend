@@ -30,7 +30,7 @@ class PriorityList extends Component {
 
   render() {
     return (
-    	<div className="widget card">
+    	<div className="widget card priority">
         	<span className="widget-header">Priority Jobs</span>
         	<MiniTable 
         		data={this.state.jobs}
