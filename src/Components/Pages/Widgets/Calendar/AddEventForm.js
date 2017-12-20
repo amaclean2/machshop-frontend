@@ -35,13 +35,21 @@ class AddEventForm extends Component {
 		this.props.saveData('Andrew', this.state.event.event, this.state.event.notes, this.state.event.location, this.state.event.date);
 	}
 
+	componentWillMount() {
+		let newDate = this.state.event.date;
+
+		newDate.setHours(1);
+		newDate.setMinutes(0);
+		newDate.setSeconds(0);
+	}
+
   render() {
     return (
     	<div className="form card no-fade">
-    		<EditableItem header={'Event: '} value={''} change={this.change} name={'event'} type={'text'} classes={'form-header'} />
-    		<EditableItem header={'Notes: '} value={''} change={this.change} name={'notes'} type={'text'} classes={'extra-wide'} />
-    		<EditableItem header={'Location: '} value={''} change={this.change} name={'location'} type={'text'} classes={'extra-wide'} />
-    		<EditableItem header={'Start Time: '} value={''} change={this.change} name={'start_time'} type={'time'} output={this.output} />
+    		<EditableItem header={'Event: '} value={''} change={this.change} name={'event'} type={'text'} classes={'form-header no-label'} />
+    		<EditableItem header={'Notes: '} value={''} change={this.change} name={'notes'} type={'text'} classes={'extra-wide no-label'} />
+    		<EditableItem header={'Location: '} value={''} change={this.change} name={'location'} type={'text'} classes={'extra-wide no-label'} />
+    		<EditableItem header={'Start Time: '} value={''} change={this.change} name={'start_time'} type={'time'} output={this.output} classes={'no-label'} />
     		<button onClick={this.saveEvent} className="button small-button form-button">Add Event</button>
       </div>
     );

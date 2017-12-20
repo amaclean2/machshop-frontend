@@ -43,6 +43,7 @@ class Calendar extends Component {
         return response.json();
       }).then( data => {
         this.setState({ events: data, loaded: true });
+        console.log(data);
         console.log('all events loaded');
       });
   }

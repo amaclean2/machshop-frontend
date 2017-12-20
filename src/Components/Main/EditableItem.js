@@ -52,7 +52,6 @@ class EditableItem extends Component {
       case 'date' :
         return <input
                   type='date'
-                  className='editable-input'
                   className={'editable-input'}
                   onChange={this.props.change}
                   placeholder={this.props.header.slice(0, -2)}

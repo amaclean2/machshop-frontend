@@ -100,8 +100,8 @@ class MonthView extends Component {
     let calendar = this.drawCalendar();
     return (
     	<div className="month-view">
-    		{calendarMonths[this.state.today.getMonth()] + 
-    			', ' + this.state.today.getFullYear()}
+    		<span className="widget-header">{calendarMonths[this.state.today.getMonth()] + 
+    			', ' + this.state.today.getFullYear()}</span>
     		<div className="calendar-body">
     			<div className="day-headers">
     				{days}

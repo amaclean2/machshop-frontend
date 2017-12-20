@@ -18,7 +18,7 @@ class Dashboard extends Component {
        		<Shopping />
        	</div>
        	<div className="column widget-column second-column">
-       		<TodoList />
+       		<TodoList url={this.props.url} />
        		<Employees />
        	</div>
        	<div className="column widget-column third-column">

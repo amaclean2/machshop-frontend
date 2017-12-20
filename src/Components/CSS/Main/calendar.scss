@@ -87,70 +87,99 @@
 				color: $grey1;
 			}
 		}
+	}
+}
 
-		.day-view {
-			width: 100vw;
-			max-width: 500px;
+.day-view {
+	width: 100vw;
+	max-width: 500px;
+	max-height: 600px;
+	overflow: auto;
+	display: inline-block;
+	text-align: left;
+	padding: 25px;
+	box-sizing: border-box;
+	min-height: 400px;
+
+	.form {
+		display: block;
+		margin: 15px 0;
+
+		.form-header {
+			.editable-input {
+				font-size: 15px;
+			}
+		}
+
+		.extra-wide {
+			width: 100%;
+
+			.editable-input {
+				width: 100%;
+				max-width: 100%;
+			}
+		}
+
+		.line-item {
 			display: inline-block;
-			text-align: left;
-			padding: 25px;
-			box-sizing: border-box;
-			min-height: 400px;
 
-			.form {
-				display: block;
-				margin: 15px 0;
-
-				.form-header {
-					.editable-input {
-						font-size: 15px;
-					}
-				}
-
-				.extra-wide {
-					width: 100%;
-
-					.editable-input {
-						width: 100%;
-					}
-				}
-
-				.line-item {
-					display: inline-block;
-
-					.display {
-						display: none;
-					}
-
-					.editable-input {
-						border: none;
-						background-color: transparent;
-						border-bottom: 1px solid $borderGrey;
-						margin-left: 0;
-					}
-
-					.time {
-						.ms-select {
-							border: none;
-							border-bottom: 1px solid $borderGrey;
-
-							.shown-box {
-								background-color: transparent;
-							}
-						}
-					}
-				}
+			.editable-input {
+				border: none;
+				background-color: transparent;
+				border-bottom: 1px solid $borderGrey;
 			}
 
-			.day-event {
-				background-color: $grey3;
-				display: block;
-				margin: 5px 0;
+			.time {
+				.ms-select {
+					border: none;
+					border-bottom: 1px solid $borderGrey;
 
-				&:hover {
-					background-color: $grey2;
+					.shown-box {
+						background-color: transparent;
+					}
 				}
 			}
 		}
+	}
+
+	.day-event {
+		background-color: $grey3;
+		display: block;
+		margin: 5px 0;
+		padding: 7px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: center;
+
+		&:hover {
+			background-color: $grey2;
+		}
+
+		.event-words {
+			font-size: 13px;
+		}
+
+		.event-header {
+			width: 100%;
+			max-width: 100%;
+
+			.value {
+				font-size: 15px;
+			}
+		}
+
+		.inline-event {
+			margin-right: 20px;
+		}
+	}
+}
+
+.no-label {
+	.display {
+		display: none;
+	}
+	.editable-input, .value {
+		margin-left: 0;
 	}
 }

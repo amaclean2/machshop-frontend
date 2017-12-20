@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import calendarDays from '../../../AppInformation/CalendarDays';
 import calendarMonths from '../../../AppInformation/CalendarMonths';
 import AddEventForm from './AddEventForm';
-import DescriptionItem from '../../../Main/DescriptionItem';
+import DayEvent from './DayEvent';
 
 class DayView extends Component {
 	constructor() {
@@ -34,11 +34,7 @@ class DayView extends Component {
 		});
 
 		pertinantEvents = pertinantEvents.map( (event, i) => {
-			return  <div className="card day-event" key={i} >
-								<DescriptionItem value={event.event} header="Event: " />
-								<DescriptionItem value={event.notes} header="Notes: " />
-								<DescriptionItem value={event.location} header="Loation: " />
-							</div>;
+			return  <DayEvent event={event} key={i}/>;
 		})
 
 		return pertinantEvents;
@@ -49,9 +45,11 @@ class DayView extends Component {
   	let heading = this.showDate();
     return (
     	<div className="day-view">
-    		{heading}
-    		<AddEventForm day={this.state.day} saveData={this.props.saveData} />
-    		{events}
+    		<span className="widget-header">{heading}</span>
+    		<div className="scrollable">
+    			<AddEventForm day={this.state.day} saveData={this.props.saveData} />
+    			{events}
+    		</div>
       </div>
     );
   }
