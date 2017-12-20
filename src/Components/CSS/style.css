@@ -759,9 +759,12 @@ h4 {
             background-color: transparent; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003145}}
     .calendar .modal-content .day-view .day-event {
-      background-color: #EEEEEE;
+      background-color: #F6F6F6;
       display: block;
       margin: 5px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003150}}
+      .calendar .modal-content .day-view .day-event:hover {
+        background-color: #EEEEEE; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/style\.scss}line{font-family:\0000316}}
 body {
