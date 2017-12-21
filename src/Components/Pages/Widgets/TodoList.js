@@ -13,17 +13,17 @@ class TodoList extends Component {
 	}
 
 	get() {
-      let request = new Request(this.props.url + '/events', {
-        method: 'GET',
-        headers: new Headers({ 'Content-Type': 'application/json' })
-      });
+    let request = new Request(this.props.url + '/events', {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
 
-      fetch(request).then( response => {
-        return response.json();
-      }).then( data => {
-        this.setState({ events: data, loaded: true });
-        console.log('all events loaded');
-      });
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({ events: data, loaded: true });
+      console.log('all events loaded');
+    });
   }
 
 	post(
@@ -48,12 +48,13 @@ class TodoList extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      this.get();
     });
   }
 
   showTodo() {
   	if(this.state.loaded === true) {
-  		return <DayView saveData={this.post} events={this.state.events} />
+  		return <DayView saveData={this.post} events={this.state.events} current={new Date()} />
   	} else {
   		return null;
   	}

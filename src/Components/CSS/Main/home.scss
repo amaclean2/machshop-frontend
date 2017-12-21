@@ -52,7 +52,7 @@
 .no-fade {
 	cursor: initial;
 	&:hover {
-		background-color: initial;
+		background-color: $textOnPrimary;
 	}
 }
 

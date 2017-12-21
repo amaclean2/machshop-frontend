@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 class Events extends Component {
 	constructor() {
 		super()
-		this.state = {
-
-		}
 		this.getEvents=this.getEvents.bind(this);
 	}
 
@@ -29,7 +26,7 @@ class Events extends Component {
   render() {
   	let events = this.getEvents();
     return (
-    	<div className="events" onClick={this.props.toggleViews} >
+    	<div className="events" onClick={() => { this.props.toggleViews(this.props.day) }} >
     		{events}
       </div>
     );

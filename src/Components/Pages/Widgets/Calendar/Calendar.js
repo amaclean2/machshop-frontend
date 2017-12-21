@@ -6,6 +6,8 @@ class Calendar extends Component {
   constructor() {
     super()
     this.state = {
+      calArray: [],
+      current: new Date(),
       view: 'month',
       events: [],
       loaded: false
@@ -14,18 +16,27 @@ class Calendar extends Component {
     this.get=this.get.bind(this);
     this.delete=this.delete.bind(this);
     this.post=this.post.bind(this);
+    this.scrollLeft=this.scrollLeft.bind(this);
+    this.scrollRight=this.scrollRight.bind(this);
+    this.makeCalendar=this.makeCalendar.bind(this);
   }
 
-  toggleViews() {
+  toggleViews(date) {
+    if(date) {
+      this.setState({ current: date });
+    } else if (this.state.view === 'month') {
+      this.setState({ current: new Date() });
+      this.makeCalendar();
+    }
     this.setState({ view: this.state.view === 'month' ? 'day' : 'month' });
   }
 
   showViews() {
     if(this.state.loaded === true) {
       if(this.state.view === 'month') {
-        return (<MonthView toggleViews={this.toggleViews} events={this.state.events} />);
+        return (<MonthView toggleViews={this.toggleViews} events={this.state.events} current={this.state.current} calArray={this.state.calArray} />);
       } else {
-        return (<DayView toggleViews={this.toggleViews} saveData={this.post} events={this.state.events} />);
+        return (<DayView toggleViews={this.toggleViews} saveData={this.post} events={this.state.events} current={this.state.current} />);
       }
     } else {
       return <div>Loading...</div>;
@@ -34,18 +45,18 @@ class Calendar extends Component {
   }
 
   get() {
-      let request = new Request(this.props.url + '/events', {
-        method: 'GET',
-        headers: new Headers({ 'Content-Type': 'application/json' })
-      });
 
-      fetch(request).then( response => {
-        return response.json();
-      }).then( data => {
-        this.setState({ events: data, loaded: true });
-        console.log(data);
-        console.log('all events loaded');
-      });
+    let request = new Request(this.props.url + '/events', {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({ events: data, loaded: true });
+      console.log('all events loaded');
+    });
   }
 
   post(
@@ -55,6 +66,7 @@ class Calendar extends Component {
     location,
     startTime
     ) {
+    startTime.setHours(startTime.getHours() - 8);
     let request = new Request(this.props.url + '/events', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -70,6 +82,7 @@ class Calendar extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      this.get();
     });
   }
 
@@ -82,13 +95,73 @@ class Calendar extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log(data);
+      this.get();
     });
   }
 
   componentWillMount() {
-    // this.delete('5a398ab02dc9dc4f8eff080e');
     this.get();
+    this.makeCalendar();
+  }
+
+  scrollLeft() {
+    let current = this.state.current;
+    if(this.state.view === 'month') {
+      current.setMonth(current.getMonth() - 1);
+    } else {
+      current.setDate(current.getDate() - 1);
+    }
+    this.setState({ current: current });
+    this.makeCalendar();
+  }
+
+  scrollRight() {
+    let current = this.state.current;
+    if(this.state.view === 'month') {
+      current.setMonth(current.getMonth() + 1);
+    } else {
+      current.setDate(current.getDate() + 1);
+    }
+    this.setState({ current: current });
+    this.makeCalendar();
+  }
+
+  makeCalendar() {
+    let today = this.state.current,
+        month = today.getMonth(),
+        year = today.getFullYear(),
+        lastOfLastMonth = new Date(year, month, 0).getDate(),
+        firstOfThisMonth = new Date(year, month, 1).getDay(),
+        lastOfThisMonth = new Date(year, month + 1, 0).getDate(),
+        firstCalendarDay = lastOfLastMonth - (firstOfThisMonth - 1),
+        weekLength = 7, monthLength = 6,
+        calArray = [], weekArray = [];
+        
+    var i;
+    while(calArray.length < monthLength) {
+      if(calArray.length === 0) {
+        for (i = 0; i < firstOfThisMonth; i++) {
+          weekArray.push(firstCalendarDay + i);
+        }
+        i = 1;
+        while(weekArray.length < weekLength) {
+          weekArray.push(i);
+          i++;
+        }
+      } else  {
+        while(weekArray.length < weekLength) {
+          if(i > lastOfThisMonth) {
+            i = 1;
+          }
+          weekArray.push(i);
+          i++;
+        }
+      }
+      calArray.push(weekArray);
+      weekArray = [];
+    }
+
+    this.setState({calArray: calArray});
   }
 
   render() {
@@ -99,8 +172,14 @@ class Calendar extends Component {
         <div className="modal-container">
           <div className="modal-content">
             <div className="calendar-header">
-              <button className="button small-button" onClick={this.toggleViews}>
+              <button className="button small-button" onClick={() => {this.toggleViews()}}>
                 {this.state.view === 'month' ? 'Day View' : 'Month View'}
+              </button>
+              <button className="button small-button scroll-button" onClick={this.scrollLeft} >
+                <i className="fa fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <button className="button small-button scroll-button" onClick={this.scrollRight} >
+                <i className="fa fa-chevron-right" aria-hidden="true"></i>
               </button>
               <button className="button small-button close-button" onClick={this.props.toggleCalendar} >
                 <i className="fa fa-times" aria-hidden="true"></i>

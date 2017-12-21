@@ -320,6 +320,19 @@ h4 {
     box-shadow: none; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003105}}
+.scroll-button {
+  background-color: #F6F6F6;
+  color: #666666;
+  font-size: 15px;
+  padding: 5px 9px;
+  box-shadow: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003112}}
+  .scroll-button:hover {
+    background-color: #EEEEEE;
+    color: #666666;
+    box-shadow: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003119}}
 .form-button {
   display: block; }
 
@@ -549,7 +562,7 @@ h4 {
   cursor: initial; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/home\.scss}line{font-family:\0000354}}
   .no-fade:hover {
-    background-color: initial; }
+    background-color: #FFF; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/home\.scss}line{font-family:\0000359}}
 .edit-page {
@@ -615,7 +628,7 @@ h4 {
     flex-direction: column;
     align-items: center;
     margin: 0 10px;
-    height: calc(100vh - 85px); }
+    height: calc(100vh - 90px); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/dashboard\.scss}line{font-family:\0000320}}
   .dashboard .widget {
     height: auto;
@@ -706,7 +719,7 @@ h4 {
         transition: all 0.3s ease-in-out;
         padding: 3px;
         box-sizing: border-box;
-        overflow: hidden; }
+        overflow: auto; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\0000366}}
         .calendar .modal-content .month-view .day .events .month-event {
           background-color: #666666;
@@ -768,7 +781,7 @@ h4 {
           background-color: transparent; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003145}}
   .day-view .day-event {
-    background-color: #F6F6F6;
+    background-color: rgba(0, 0, 0, 0.1);
     display: block;
     margin: 5px 0;
     padding: 7px;
@@ -778,7 +791,7 @@ h4 {
     align-items: center; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003155}}
     .day-view .day-event:hover {
-      background-color: #EEEEEE; }
+      background-color: rgba(0, 0, 0, 0.2); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/calendar\.scss}line{font-family:\00003159}}
     .day-view .day-event .event-words {
       font-size: 13px; }

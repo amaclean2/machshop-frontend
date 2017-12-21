@@ -7,18 +7,15 @@ import DayEvent from './DayEvent';
 class DayView extends Component {
 	constructor() {
 		super()
-		this.state = {
-			day: new Date()
-		}
 		this.showEvents=this.showEvents.bind(this);
 	}
 
 	showDate() {
 		let title = '';
 
-		title += calendarDays.long[this.state.day.getDay()] + ', ';
-		title += calendarMonths[this.state.day.getMonth()];
-		title += ' ' + this.state.day.getDate();
+		title += calendarDays.long[this.props.current.getDay()] + ', ';
+		title += calendarMonths[this.props.current.getMonth()];
+		title += ' ' + this.props.current.getDate();
 
 		return title;
 	}
@@ -30,7 +27,7 @@ class DayView extends Component {
 					month = date.substring(5, 7) - 1,
 					day = date.substring(8, 10);
 
-			return year === this.state.day.getFullYear().toString() && month === this.state.day.getMonth() && day === this.state.day.getDate().toString();
+			return year === this.props.current.getFullYear().toString() && month === this.props.current.getMonth() && day === this.props.current.getDate().toString();
 		});
 
 		pertinantEvents = pertinantEvents.map( (event, i) => {
@@ -47,7 +44,7 @@ class DayView extends Component {
     	<div className="day-view">
     		<span className="widget-header">{heading}</span>
     		<div className="scrollable">
-    			<AddEventForm day={this.state.day} saveData={this.props.saveData} />
+    			<AddEventForm day={this.props.current} saveData={this.props.saveData} />
     			{events}
     		</div>
       </div>

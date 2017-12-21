@@ -102,6 +102,20 @@
 	}
 }
 
+.scroll-button {
+	background-color: $grey3;
+	color: $grey1;
+	font-size: 15px;
+	padding: 5px 9px;
+	box-shadow: none;
+
+	&:hover {
+		background-color: $grey2;
+		color: $grey1;
+		box-shadow: none;
+	}
+}
+
 .form-button {
 	display: block;
 }
