@@ -1,0 +1,42 @@
+@import './colors';
+
+.login-modal {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-width: 600px;
+
+	.login {
+		text-align: left;
+		border-right: 1px solid $borderGrey;
+		flex: 1;
+
+		.interactions {
+			margin-top: 20px;
+
+			.login-email, .login-password {
+				font-size: 15px;
+				margin: 5px;
+				width: 300px;
+				font-weight: lighter;
+			}
+		}
+
+		.forgot-password {
+			font-size: 12px;
+			margin-left: 15px;
+		}
+	}
+
+	.login, .register {
+		padding: 15px;
+	}
+
+	.register {
+		flex: 1;
+
+		.register-button {
+			margin-top: 30px;
+		}
+	}
+}
