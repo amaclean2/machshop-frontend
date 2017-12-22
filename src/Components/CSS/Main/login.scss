@@ -6,17 +6,22 @@
 	align-items: center;
 	min-width: 600px;
 
-	.login {
+	.login, .register {
 		text-align: left;
+		padding: 15px;
+	}
+
+	.login {
 		border-right: 1px solid $borderGrey;
 		flex: 1;
+		padding-right: 30px;
 
 		.interactions {
 			margin-top: 20px;
 
 			.login-email, .login-password {
 				font-size: 15px;
-				margin: 5px;
+				margin: 5px 0;
 				width: 300px;
 				font-weight: lighter;
 			}
@@ -28,15 +33,21 @@
 		}
 	}
 
-	.login, .register {
-		padding: 15px;
-	}
-
 	.register {
 		flex: 1;
+		padding-left: 30px;
 
 		.register-button {
 			margin-top: 30px;
 		}
 	}
+}
+
+.error-message {
+	color: $delete;
+	font-size: 12px;
+}
+
+.bad-input {
+	border: 1px solid $delete;
 }

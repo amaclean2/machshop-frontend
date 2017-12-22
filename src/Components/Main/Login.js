@@ -9,12 +9,27 @@ class Login extends Component {
           <div className='login'>
             <span className='login-title'>Login to MachShop</span>
             <div className='interactions'>
-              <button className='button login-button' onClick={this.props.login} >Login</button>
+              <span className={'error-message ' + (this.props.failed ? '' : 'gone')}>
+                Your email or password wasn't recognized
+              </span>
+              <input
+                type='text'
+                onChange={this.props.email}
+                className={'login-email ' + (this.props.failed ? 'bad-input' : '')}
+                name='email' placeholder='email' />
+              <input type='password'
+                onChange={this.props.password}
+                className={'login-password ' + (this.props.failed ? 'bad-input' : '')}
+                name='pass'
+                placeholder='password' />
+              <button className='button login-button' onClick={this.props.login} >
+                Login
+              </button>
             </div>
           </div>
           <div className='register'>
             <span className='login-title'>Register for a new account</span>
-            <button className='button register-button'>Get started</button>
+            <button className='button register-button' onClick={this.props.addUser} >Get started</button>
           </div>
         </div>
       </div>

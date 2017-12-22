@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 class SideNav extends Component {
 
 	contentList() {
-		let tabs = this.props.tabs.map((item) => {
+		let tabs = this.props.tabs.map( (item, i) => {
 			let itemLower = item.toLowerCase();
-			return (<li key={item}>
+			return (<li key={i}>
                <NavLink to={'/' + itemLower} onClick={this.props.toggleHideSideNav}>{item}</NavLink>
              </li>);
 		})
@@ -28,6 +28,7 @@ class SideNav extends Component {
      	  	<div className={'sidenav-content'} >
      	  		<ul>
      	  			{tabs}
+              <li><button className='button' onClick={this.props.logout} >Logout</button></li>
      	  		</ul>
      	  	</div>
       	</div>

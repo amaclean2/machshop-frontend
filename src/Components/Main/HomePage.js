@@ -31,7 +31,7 @@ class HomePage extends Component {
 	primaryContent() {
 		return (
 			<div> 
-				<Header tabs={this.state.tabs} />
+				<Header tabs={this.state.tabs} logout={this.props.logout} />
 				<div className="page-content">
 					<Route exact path='/' render={(props) => ( <Dashboard url={this.props.url}/> )} />
 					<Route path='/dashboard' render={(props) => ( <Dashboard url={this.props.url}/> )} />
