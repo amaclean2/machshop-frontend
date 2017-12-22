@@ -116,7 +116,7 @@ class App extends Component {
               user.sendEmailVerification().then( () => {
                 // post user data;
                 // this.post();
-                this.setState({ finished: true });
+                this.setState({ finished: true, userInfo: [] });
                 console.log('email sent');
               }).catch( error => {
                 this.setState({ failed: 'invalid email'});
