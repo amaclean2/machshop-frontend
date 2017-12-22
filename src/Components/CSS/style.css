@@ -336,6 +336,16 @@ h4 {
 .form-button {
   display: block; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003123}}
+.put-away {
+  box-shadow: none;
+  position: absolute;
+  top: -15px;
+  right: -15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003129}}
+  .put-away:hover {
+    box-shadow: none; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/sideNav\.scss}line{font-family:\000034}}
 .sidenav-background {
   position: fixed;
@@ -854,9 +864,42 @@ h4 {
   color: #ed5e69;
   font-size: 12px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000352}}
+.login-modal .create-user {
+  width: 100%;
+  text-align: left;
+  position: relative; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000357}}
+  .login-modal .create-user .interactions {
+    margin-top: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000361}}
+  .login-modal .create-user .create-email, .login-modal .create-user .create-password, .login-modal .create-user .create-name {
+    border: none;
+    font-size: 15px;
+    padding: 8px 15px;
+    border-bottom: 1px solid #CCCCCC;
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000372}}
+  .login-modal .create-user .create-email, .login-modal .create-user .create-password {
+    display: inline-block;
+    width: 45%;
+    margin-right: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000378}}
+  .login-modal .create-user .create-button {
+    margin-top: 20px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000384}}
 .bad-input {
-  border: 1px solid #ed5e69; }
+  border-color: #ed5e69 !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000388}}
+.final-message {
+  font-size: 15px;
+  margin-top: 20px;
+  color: #547e99; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/style\.scss}line{font-family:\0000317}}
 body {

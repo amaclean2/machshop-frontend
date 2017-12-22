@@ -4,7 +4,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-page modal-container">
+      <div className="modal-container">
         <div className='modal-content login-modal'>
           <div className='login'>
             <span className='login-title'>Login to MachShop</span>
@@ -29,7 +29,7 @@ class Login extends Component {
           </div>
           <div className='register'>
             <span className='login-title'>Register for a new account</span>
-            <button className='button register-button' onClick={this.props.addUser} >Get started</button>
+            <button className='button register-button' onClick={this.props.createUser} >Get started</button>
           </div>
         </div>
       </div>

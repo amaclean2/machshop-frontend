@@ -119,3 +119,14 @@
 .form-button {
 	display: block;
 }
+
+.put-away {
+	box-shadow: none;
+	position: absolute;
+	top: -15px;
+	right: -15px;
+
+	&:hover {
+		box-shadow: none;
+	}
+}
