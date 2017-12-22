@@ -27,7 +27,6 @@ class Users extends Component {
 	}
 
 	componentWillMount() {
-		console.log(sessionStorage.getItem('user').split(','));
 		this.get();
 	}
 
