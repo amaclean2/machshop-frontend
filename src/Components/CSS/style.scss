@@ -2,18 +2,6 @@
 @import 'Main/Animations';
 @import 'Main/Colors';
 
-@import 'Main/Select';
-@import 'Main/Tables';	
-@import 'Main/Htags';
-@import 'Main/Buttons';
-@import 'Main/Header';
-@import 'Main/Modal';
-@import 'Main/Operations';
-@import 'Main/Home';
-@import 'Main/Dashboard';
-@import 'Main/Calendar';
-@import 'Main/Login';
-
 body {
 	background-color: #FFF;
 	font-family: 'Roboto', arial;
@@ -50,5 +38,19 @@ body {
 		border: 1px solid $borderGrey;
 		padding: 5px;
 		box-sizing: border-box;	
+		box-shadow: none;
+		border-radius: none;
 	}
 }
+
+@import 'Main/Select';
+@import 'Main/Tables';	
+@import 'Main/Htags';
+@import 'Main/Buttons';
+@import 'Main/Header';
+@import 'Main/Modal';
+@import 'Main/Operations';
+@import 'Main/Home';
+@import 'Main/Dashboard';
+@import 'Main/Calendar';
+@import 'Main/Login';

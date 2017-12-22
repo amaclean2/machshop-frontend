@@ -9,7 +9,7 @@ class Login extends Component {
           <div className='login'>
             <span className='login-title'>Login to MachShop</span>
             <div className='interactions'>
-              <span className={'error-message ' + (this.props.failed ? '' : 'gone')}>
+              <span className={'error-message fade-in ' + (this.props.failed ? '' : 'gone')}>
                 Your email or password wasn't recognized
               </span>
               <input

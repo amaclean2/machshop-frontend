@@ -12,6 +12,7 @@ import Users from '../Pages/Users';
 import Admin from '../Pages/Admin';
 import PartsEditor from '../Pages/PartsEditor';
 import JobsEditor from '../Pages/JobsEditor';
+import UsersEditor from '../Pages/UsersEditor';
 
 class HomePage extends Component {
 	constructor() {
@@ -42,7 +43,8 @@ class HomePage extends Component {
 					<Route path='/machining' render={(props) => ( <Machining url={this.props.url}/> )} />
 					<Route path='/ordering' render={(props) => ( <Ordering url={this.props.url}/> )} />
 					<Route path='/inspection' render={(props) => ( <Inspection url={this.props.url}/> )} />
-					<Route path='/users' render={(props) => ( <Users url={this.props.url}/> )} />
+					<Route path='/users/:userId' component={UsersEditor} />
+					<Route exact path='/users' render={(props) => ( <Users url={this.props.url}/> )} />
 					<Route path='/admin' render={(props) => ( <Admin url={this.props.url}/> )} />
 				</div>
 			</div> );

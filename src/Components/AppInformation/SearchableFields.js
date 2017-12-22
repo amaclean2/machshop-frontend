@@ -11,6 +11,11 @@ let searchableFields = {
 		'description',
 		'date_to_start',
 		'date_started'	
+	],
+	users: [
+		'name',
+		'company_name',
+		'email'
 	]
 };
 

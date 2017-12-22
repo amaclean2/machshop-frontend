@@ -26,7 +26,30 @@ class App extends Component {
     this.createUser=this.createUser.bind(this);
     this.createUserInfo=this.createUserInfo.bind(this);
     this.addUser=this.addUser.bind(this);
+    this.post=this.post.bind(this);
 	}
+
+  post() {
+
+    let request = new Request(this.state.url + '/users', {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        name: this.state.userInfo.displayName,
+        company_name: this.state.userInfo.companyName ? this.state.userInfo.companyName : '',
+        company_id: this.state.userInfo.companyId,
+        email: this.state.userInfo.email
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).catch( error => {
+      console.log(error);
+    }).then( data => {
+      console.log(data);
+    });
+  }
 
   createUserInfo(e) {
     let info = this.state.userInfo;
@@ -36,6 +59,9 @@ class App extends Component {
         break;
       case 'cname' :
         info.companyName = e.target.value;
+        break;
+      case 'cid' :
+        info.companyId = e.target.value;
         break;
       case 'email' :
         info.email = e.target.value;
@@ -56,6 +82,12 @@ class App extends Component {
 
   createUser() {
     this.setState({ createUser: !this.state.createUser, failed: false });
+  }
+
+  componentDidMount() {
+    let cachedVars = sessionStorage.getItem('user');
+    if(cachedVars)
+      this.setState({ validEmail: cachedVars });
   }
 
   login() {
@@ -93,7 +125,12 @@ class App extends Component {
   loginAction() {
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then( result => {
-        this.setState({ validEmail: result.email, password: null });
+        fetch(this.state.url + '/users')
+          .then( response => { return response.json(); }).then( data => {
+            let company = data.filter( item => { return item.email === result.email })[0].company_id;
+            sessionStorage.setItem('user', [ result.email, company ]);
+            this.setState({ validEmail: result.email, password: null });
+          });
       }).catch( error => {
         this.setState({failed: error.code});
       })
@@ -101,33 +138,36 @@ class App extends Component {
 
   addUser() {
     let info = this.state.userInfo;
-    if(!info.displayName || !info.companyName || !info.email || !info.vmail || !info.password || !info.vword) {
-      this.setState({ failed: 'all fields must be filled in' });
+    if(!info.displayName || !info.companyId || !info.email || !info.vmail || !info.password || !info.vword) {
+      this.setState({ failed: 'required fields must be filled in' });
     } else {
-      if(info.vmail !== info.email || info.password !== info.vword) {
-        this.setState({failed: 'verify email or verify password must match'});
+      if(info.vmail !== info.email) {
+        this.setState({failed: 'verify email must match email'});
       } else {
-        auth.createUserWithEmailAndPassword(info.email, info.password)
-          .then( response => {
-            var user = auth.currentUser;
-            user.updateProfile({
-              displayName: info.displayName
-            }).then( response => {
-              user.sendEmailVerification().then( () => {
-                // post user data;
-                // this.post();
-                this.setState({ finished: true, userInfo: [] });
-                console.log('email sent');
-              }).catch( error => {
-                this.setState({ failed: 'invalid email'});
-                console.log('email not sent: ', error);
-              });
-            }).catch( error => {
+        if(info.password !== info.vword) {
+          this.setState({failed: 'verify password must match password'});
+        } else {
+          auth.createUserWithEmailAndPassword(info.email, info.password)
+            .catch( error => {
               this.setState({ failed: error.code });
-            })
-          }).catch( error => {
-            this.setState({ failed: error.code });
-          });
+            }).then( response => {
+              var user = auth.currentUser;
+              user.updateProfile({
+                displayName: info.displayName
+              }).catch( error => {
+                this.setState({ failed: error.code });
+              }).then( response => {
+                user.sendEmailVerification().then( () => {
+                  // post user data;
+                  this.post();
+                  this.setState({ finished: true });
+                }).catch( error => {
+                  console.log(error);
+                  this.setState({ failed: 'invalid email'});
+                });
+              });
+            });
+        }
       }
     }
   }
@@ -135,6 +175,7 @@ class App extends Component {
   logoutAction() {
     auth.signOut()
       .then( () => {
+        sessionStorage.clear();
         this.setState({ validEmail: null });
       });
   }

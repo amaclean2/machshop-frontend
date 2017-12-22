@@ -64,7 +64,9 @@ class Table extends Component {
     return (
     	<div>
     		<div className="table-top">
-    			<NavLink to={this.props.link + '0'} className='button table-button'>Add</NavLink>
+    			<div className={this.props.noAdd ? 'gone' : ''}>
+    				<NavLink to={this.props.link + '0'} className='button table-button'>Add</NavLink>
+    			</div>
     			<div className="search-bar">
     				<input type="text" placeholder='Search' onChange={this.updateQuery} />
     			</div>

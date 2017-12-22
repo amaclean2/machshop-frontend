@@ -69,6 +69,10 @@
 			max-width: 400px;
 		}
 
+		.required {
+			border-bottom: 1px solid $hyperLink;
+		}
+
 		.create-email, .create-password {
 			display: inline-block;
 			width: 45%;
@@ -89,4 +93,11 @@
 	font-size: 15px;
 	margin-top: 20px;
 	color: $primary;
+}
+
+.required-legend {
+	font-size: 12px;
+	border-bottom: 1px solid $hyperLink;
+	color: $hyperLink;
+	margin-left: 20px;
 }
