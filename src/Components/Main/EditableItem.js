@@ -12,7 +12,8 @@ class EditableItem extends Component {
   }
 
   get() {
-    let request = new Request(this.props.url + this.props.link, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + this.props.link, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -60,24 +61,51 @@ class EditableItem extends Component {
       case 'select' :
         return this.makeSelect()
       case 'time' :
+
+        let hours, minutes, period;
+        console.log('value', this.props.value);
+        switch(this.props.value.length) {
+          case 7 :
+            console.log(7);
+            hours = this.props.value.substr(0, 1);
+            minutes = this.props.value.substr(2, 2);
+            period = this.props.value.substr(5, 2); 
+            break;
+          case 8 :
+            hours = this.props.value.substr(0, 2);
+            minutes = this.props.value.substr(3, 2);
+            period = this.props.value.substr(6, 2);
+            if(hours[1] === ':') {
+              console.log('second 8');
+              hours = this.props.value.substr(0, 1);
+              minutes = this.props.value.substr(2, 2);
+              period = this.props.value.substr(5, 2);
+            }
+            break;
+          case 6 :
+            console.log(6);
+            break;
+        }
+
+        console.log(hours, minutes, period);
         return (<div className='time'>
-            <Select output={this.props.output} name={'hours'} value={this.props.value}>
+            <Select output={this.props.output} name={'hours'} value={this.props.value.substr(0, 1)}>
               <select className={"time-select"}>
-                <option value={1} >01</option>
-                <option value={2} >02</option>
-                <option value={3} >03</option>
-                <option value={4} >04</option>
-                <option value={5} >05</option>
-                <option value={6} >06</option>
-                <option value={7} >07</option>
-                <option value={8} >08</option>
-                <option value={9} >09</option>
+                <option value={1} >1</option>
+                <option value={2} >2</option>
+                <option value={3} >3</option>
+                <option value={4} >4</option>
+                <option value={5} >5</option>
+                <option value={6} >6</option>
+                <option value={7} >7</option>
+                <option value={8} >8</option>
+                <option value={9} >9</option>
                 <option value={10} >10</option>
                 <option value={11} >11</option>
                 <option value={12} >12</option>
               </select>
             </Select>
-            <Select output={this.props.output} name={'minutes'} value={this.props.value}>
+            <Select output={this.props.output} name={'minutes'} value={this.props.value.substr(2, 2)}>
               <select className={"time-select"}>
                 <option value={0} >00</option>
                 <option value={5} >05</option>
@@ -93,8 +121,8 @@ class EditableItem extends Component {
                 <option value={55} >55</option>
               </select>
             </Select>
-            <Select output={this.props.output} name={'period'} value={this.props.value}>
-              <select className={"time-select " + this.props.classes}>
+            <Select output={this.props.output} name={'period'} value={this.props.value.substr(5, 2)}>
+              <select className={"time-select"}>
                 <option value='AM' >AM</option>
                 <option value='PM' >PM</option>
               </select>
@@ -113,7 +141,7 @@ class EditableItem extends Component {
   }
 
   componentWillMount() {
-    if(this.props.type === 'select' && this.props.url) {
+    if(this.props.type === 'select') {
       this.get();
     }
   }

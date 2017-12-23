@@ -13,7 +13,7 @@ class Users extends Component {
 	}
 
 	get() {
-	  	let request = new Request(this.props.url + '/users', {
+	  	let request = new Request('https://machapi.herokuapp.com/api/users', {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });

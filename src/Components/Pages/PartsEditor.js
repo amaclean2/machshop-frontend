@@ -32,7 +32,8 @@ class PartsEditor extends Component {
   }
 
   get() {
-    let request = new Request(this.state.url + '/parts/' + this.state.partId, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/parts/' + this.state.partId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -46,7 +47,8 @@ class PartsEditor extends Component {
   }
 
   getJobs() {
-    let request = new Request(this.state.url + '/jobs', {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs', {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -61,7 +63,8 @@ class PartsEditor extends Component {
   }
 
   post(user, number, revision, name, customer) {
-    let request = new Request(this.state.url + '/parts', {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/parts', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
@@ -81,7 +84,8 @@ class PartsEditor extends Component {
   }
 
   put(user, number, revision, name, customer) {
-    let request = new Request(this.state.url + '/parts/' + this.state.partInfo._id, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/parts/' + this.state.partInfo._id, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
@@ -100,7 +104,8 @@ class PartsEditor extends Component {
   }
 
   delete(partId) {
-    let request = new Request(this.state.url + '/parts/' + partId, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/parts/' + partId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });

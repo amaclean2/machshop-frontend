@@ -13,7 +13,7 @@ class Tools extends Component {
 
 	viewCalendar() {
 		if(this.state.calendar)
-			return (<Calendar toggleCalendar={this.toggleCalendar} url={this.props.url} />);
+			return (<Calendar toggleCalendar={this.toggleCalendar} />);
 		else
 			return null;
 	}
