@@ -49,7 +49,7 @@ class AddEventForm extends Component {
     		<EditableItem header={'Event: '} value={''} change={this.change} name={'event'} type={'text'} classes={'form-header no-label'} />
     		<EditableItem header={'Notes: '} value={''} change={this.change} name={'notes'} type={'text'} classes={'extra-wide no-label'} />
     		<EditableItem header={'Location: '} value={''} change={this.change} name={'location'} type={'text'} classes={'extra-wide no-label'} />
-    		<EditableItem header={'Start Time: '} value={''} change={this.change} name={'start_time'} type={'time'} output={this.output} classes={'no-label'} />
+    		<EditableItem header={'Start Time: '} value={''} name={'start_time'} type={'time'} output={this.output} classes={'no-label'} />
     		<button onClick={this.saveEvent} className="button small-button form-button">Add Event</button>
       </div>
     );

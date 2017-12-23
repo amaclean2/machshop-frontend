@@ -31,7 +31,7 @@ class DayView extends Component {
 		});
 
 		pertinantEvents = pertinantEvents.map( (event, i) => {
-			return  <DayEvent event={event} key={i}/>;
+			return  <DayEvent event={event} key={i} put={this.props.put} delete={this.props.delete} />;
 		})
 
 		return pertinantEvents;

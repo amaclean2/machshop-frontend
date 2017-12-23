@@ -13,16 +13,16 @@ class Dashboard extends Component {
     return (
     	<div className="dashboard">
        	<div className="column widget-column first-column">
-       		<PriorityList url={this.props.url} />
+       		<PriorityList />
        		<UpcomingJobs />
        		<Shopping />
        	</div>
        	<div className="column widget-column second-column">
-       		<TodoList url={this.props.url} />
+       		<TodoList />
        		<Employees />
        	</div>
        	<div className="column widget-column third-column">
-       		<Tools url={this.props.url} />
+       		<Tools />
        		<Links />
        	</div>
       </div>

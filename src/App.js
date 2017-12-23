@@ -31,7 +31,7 @@ class App extends Component {
 
   post() {
 
-    let request = new Request(this.state.url + '/users', {
+    let request = new Request('https://machapi.herokuapp.com/api/users', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
@@ -125,11 +125,15 @@ class App extends Component {
   loginAction() {
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then( result => {
-        fetch(this.state.url + '/users')
+        fetch('https://machapi.herokuapp.com/api/users')
           .then( response => { return response.json(); }).then( data => {
-            let company = data.filter( item => { return item.email === result.email })[0].company_id;
-            sessionStorage.setItem('user', [ result.email, company ]);
-            this.setState({ validEmail: result.email, password: null });
+            if(data.length > 0) {
+              let company = data.filter( item => { return item.email === result.email })[0].company_id;
+              sessionStorage.setItem('user', [ result.email, company, this.state.url ]);
+              this.setState({ validEmail: result.email, password: null });
+            } else {
+              this.setState({ failed: 'login database error' });
+            }
           });
       }).catch( error => {
         this.setState({failed: error.code});

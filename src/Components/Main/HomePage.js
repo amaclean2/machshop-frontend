@@ -34,18 +34,18 @@ class HomePage extends Component {
 			<div> 
 				<Header tabs={this.state.tabs} logout={this.props.logout} />
 				<div className="page-content">
-					<Route exact path='/' render={(props) => ( <Dashboard url={this.props.url}/> )} />
-					<Route path='/dashboard' render={(props) => ( <Dashboard url={this.props.url}/> )} />
+					<Route exact path='/' component={Dashboard} />
+					<Route path='/dashboard' component={Dashboard} />
 					<Route path='/parts/:partId' component={PartsEditor} />
-					<Route exact path='/parts'render={(props) => ( <Parts url={this.props.url}/> )} />
+					<Route exact path='/parts'component={Parts} />
 					<Route path='/jobs/:jobId' component={JobsEditor} />
-					<Route exact path='/jobs' render={(props) => ( <Jobs url={this.props.url}/> )} />
-					<Route path='/machining' render={(props) => ( <Machining url={this.props.url}/> )} />
-					<Route path='/ordering' render={(props) => ( <Ordering url={this.props.url}/> )} />
-					<Route path='/inspection' render={(props) => ( <Inspection url={this.props.url}/> )} />
+					<Route exact path='/jobs' component={Jobs} />
+					<Route path='/machining' component={Machining} />
+					<Route path='/ordering' component={Ordering} />
+					<Route path='/inspection' component={Inspection} />
 					<Route path='/users/:userId' component={UsersEditor} />
-					<Route exact path='/users' render={(props) => ( <Users url={this.props.url}/> )} />
-					<Route path='/admin' render={(props) => ( <Admin url={this.props.url}/> )} />
+					<Route exact path='/users' component={Users} />
+					<Route path='/admin' component={Admin} />
 				</div>
 			</div> );
 	}
