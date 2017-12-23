@@ -128,7 +128,7 @@ class App extends Component {
         fetch('https://machapi.herokuapp.com/api/users')
           .then( response => { return response.json(); }).then( data => {
             if(data.length > 0) {
-              let company = data.filter( item => { return item.email === result.email })[0].company_id;
+              let company = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0].company_id;
               sessionStorage.setItem('user', [ result.email, company, this.state.url ]);
               this.setState({ validEmail: result.email, password: null });
             } else {
