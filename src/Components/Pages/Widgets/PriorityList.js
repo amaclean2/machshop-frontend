@@ -12,7 +12,8 @@ class PriorityList extends Component {
 	}
 
 	get() {
-	  	let request = new Request(this.props.url + '/jobs', {
+	  	let url = sessionStorage.getItem('user').split(',')[2],
+	  		request = new Request(url + '/jobs', {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });
@@ -35,7 +36,6 @@ class PriorityList extends Component {
         	<MiniTable 
         		data={this.state.jobs}
         		headers={headers.JobsWidget}
-        		url={this.props.url}
         		link={'/jobs/'} />
       </div>
     );

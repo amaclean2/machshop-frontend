@@ -32,7 +32,8 @@ class JobsEditor extends Component {
   }
 
   get() {
-    let request = new Request(this.state.url + '/jobs/' + this.state.jobId, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs/' + this.state.jobId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -52,7 +53,8 @@ class JobsEditor extends Component {
     partNumber,
     dateToStart,
     description) {
-    let request = new Request(this.state.url + '/jobs', {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
@@ -75,7 +77,8 @@ class JobsEditor extends Component {
   }
 
   put(user, number, material, partNumber, dateToStart, description) {
-    let request = new Request(this.state.url + '/jobs/' + this.state.jobInfo._id, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs/' + this.state.jobInfo._id, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
@@ -105,7 +108,8 @@ class JobsEditor extends Component {
       operations[index] = opData;
     }
 
-    let request = new Request(this.state.url + '/jobs/' + this.state.jobInfo._id, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs/' + this.state.jobInfo._id, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
@@ -131,7 +135,8 @@ class JobsEditor extends Component {
   deleteOperation(index) {
     let operations = this.state.jobInfo.operations;
     operations.splice(index, 1);
-    let request = new Request(this.state.url + '/jobs/' + this.state.jobInfo._id, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs/' + this.state.jobInfo._id, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
@@ -154,7 +159,8 @@ class JobsEditor extends Component {
   }
 
   delete(jobId) {
-    let request = new Request(this.state.url + '/jobs/' + jobId, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/jobs/' + jobId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
