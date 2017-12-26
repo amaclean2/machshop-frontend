@@ -13,6 +13,8 @@ import Admin from '../Pages/Admin';
 import PartsEditor from '../Pages/PartsEditor';
 import JobsEditor from '../Pages/JobsEditor';
 import UsersEditor from '../Pages/UsersEditor';
+import Companies from '../Pages/Companies';
+import CompanyEditor from '../Pages/CompanyEditor';
 
 class HomePage extends Component {
 	constructor() {
@@ -25,7 +27,8 @@ class HomePage extends Component {
   			'Ordering',
   			'Inspection',
   			'Users',
-  			'Admin' ]
+  			'Admin',
+  			'Companies' ]
 		}
 	}
 
@@ -44,6 +47,8 @@ class HomePage extends Component {
 					<Route path='/ordering' component={Ordering} />
 					<Route path='/inspection' component={Inspection} />
 					<Route path='/users/:userId' component={UsersEditor} />
+					<Route path='/company/:companyId' component={CompanyEditor} />
+					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />
 					<Route path='/admin' component={Admin} />
 				</div>

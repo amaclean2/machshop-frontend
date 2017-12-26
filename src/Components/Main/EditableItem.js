@@ -63,10 +63,8 @@ class EditableItem extends Component {
       case 'time' :
 
         let hours, minutes, period;
-        console.log('value', this.props.value);
         switch(this.props.value.length) {
           case 7 :
-            console.log(7);
             hours = this.props.value.substr(0, 1);
             minutes = this.props.value.substr(2, 2);
             period = this.props.value.substr(5, 2); 
@@ -76,18 +74,15 @@ class EditableItem extends Component {
             minutes = this.props.value.substr(3, 2);
             period = this.props.value.substr(6, 2);
             if(hours[1] === ':') {
-              console.log('second 8');
               hours = this.props.value.substr(0, 1);
               minutes = this.props.value.substr(2, 2);
               period = this.props.value.substr(5, 2);
             }
             break;
           case 6 :
-            console.log(6);
             break;
         }
 
-        console.log(hours, minutes, period);
         return (<div className='time'>
             <Select output={this.props.output} name={'hours'} value={this.props.value.substr(0, 1)}>
               <select className={"time-select"}>

@@ -16,6 +16,11 @@ let searchableFields = {
 		'name',
 		'company_name',
 		'email'
+	],
+	company: [
+		'name',
+		'_id',
+		'street_address'
 	]
 };
 

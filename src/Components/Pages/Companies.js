@@ -3,19 +3,18 @@ import React, { Component } from 'react';
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
 
-class Jobs extends Component {
+class Companies extends Component {
 	constructor() {
 		super()
 		this.state = {
-			jobs: [],
+			companies: []
 		}
 		this.get=this.get.bind(this);
 	}
 
 	get() {
-	  	let url = sessionStorage.getItem('user').split(',')[2],
-	  		id = sessionStorage.getItem('user').split(',')[1],
-	  		request = new Request(url + '/jobs?company_id=' + id, {
+	  	let url = 'https://machapi.herokuapp.com/api',
+	  		request = new Request(url + '/companies', {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });
@@ -23,8 +22,8 @@ class Jobs extends Component {
 	    fetch(request).then( response => {
 	    	return response.json();
 	    }).then( data => {
-	    	console.log('all jobs loaded');
-	      this.setState({ jobs: data });
+	    	console.log('all companies loaded');
+	      this.setState({ companies: data });
 	    });
 	}
 
@@ -34,15 +33,15 @@ class Jobs extends Component {
 
   render() {
     return (
-    	<div>
-        <h3>Jobs</h3>
-        <Table
-        	data={this.state.jobs}
-        	headers={headers.Jobs}
-        	link={'/jobs/'} />
+      <div className='companies'>
+      	<h3>Companies</h3>
+      	<Table 
+      		data={this.state.companies}
+      		headers={headers.Companies}
+      		link={'/company/'} />
       </div>
     );
   }
 }
 
-export default Jobs;
+export default Companies;

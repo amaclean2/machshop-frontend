@@ -8,12 +8,14 @@ class Users extends Component {
 		super()
 		this.state = {
 			users: [],
+			companies: []
 		}
 		this.get=this.get.bind(this);
 	}
 
 	get() {
-	  	let request = new Request('https://machapi.herokuapp.com/api/users', {
+	  	let id = sessionStorage.getItem('user').split(',')[1],
+	  		request = new Request('https://machapi.herokuapp.com/api/users?company_id=' + id, {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });

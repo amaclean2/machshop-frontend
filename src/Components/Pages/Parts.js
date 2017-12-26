@@ -14,7 +14,8 @@ class Parts extends Component {
 
 	get() {
 	  	let url = sessionStorage.getItem('user').split(',')[2],
-	  		request = new Request(url + '/parts', {
+	  		id = sessionStorage.getItem('user').split(',')[1],
+	  		request = new Request(url + '/parts?company_id=' + id, {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });

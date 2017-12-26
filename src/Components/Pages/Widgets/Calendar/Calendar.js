@@ -47,7 +47,8 @@ class Calendar extends Component {
   get() {
 
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + '/events', {
+        id = sessionStorage.getItem('user').split(',')[1],
+        request = new Request(url + '/events?company_id=' + id, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -74,6 +75,7 @@ class Calendar extends Component {
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         event: event,
         notes: notes,
         location: location,
@@ -89,13 +91,13 @@ class Calendar extends Component {
   }
 
   put(user, event, notes, location, startTime, eventId) {
-    console.log('here');
     let url = sessionStorage.getItem('user').split(',')[2],
         request = new Request(url + '/events/' + eventId, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         event: event,
         notes: notes,
         location: location,

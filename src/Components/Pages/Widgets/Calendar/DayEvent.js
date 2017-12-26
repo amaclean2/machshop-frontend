@@ -98,7 +98,6 @@ class DayEvent extends Component {
 	}
 
   render() {
-    console.log(this.props);
     let view = this.showViews();
     return (
     	<div>

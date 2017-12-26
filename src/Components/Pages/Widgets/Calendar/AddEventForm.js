@@ -38,7 +38,7 @@ class AddEventForm extends Component {
 	componentWillMount() {
 		let newDate = this.state.event.date;
 
-		newDate.setHours(1);
+		newDate.setHours(new Date().getHours());
 		newDate.setMinutes(0);
 		newDate.setSeconds(0);
 	}

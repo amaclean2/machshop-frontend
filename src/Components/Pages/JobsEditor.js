@@ -9,7 +9,6 @@ class JobsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: (window.location.href.substr(0, 7) === 'http://') ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api',
       jobId: this.props.match.params.jobId ? this.props.match.params.jobId : '0',
       jobInfo: {},
       editable: false,
@@ -33,7 +32,8 @@ class JobsEditor extends Component {
 
   get() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + '/jobs/' + this.state.jobId, {
+        id = sessionStorage.getItem('user').split(',')[1],
+        request = new Request(url + '/jobs/' + this.state.jobId + '?company_id=' + id, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -59,6 +59,7 @@ class JobsEditor extends Component {
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         job_number: number,
         material: material,
         part_number: partNumber,
@@ -83,6 +84,7 @@ class JobsEditor extends Component {
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         job_number: number,
         material: material,
         part_number: partNumber,
@@ -113,13 +115,6 @@ class JobsEditor extends Component {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
-        user: this.state.jobInfo.user,
-        job_number: this.state.jobInfo.job_number,
-        material: this.state.jobInfo.material,
-        part_number: this.state.jobInfo.part_number,
-        date_to_start: this.state.jobInfo.date_to_start,
-        date_started: this.state.jobInfo.date_started,
-        description: this.state.jobInfo.description,
         operations: operations
       })
     });
@@ -140,13 +135,6 @@ class JobsEditor extends Component {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
-        user: this.state.jobInfo.user,
-        job_number: this.state.jobInfo.job_number,
-        material: this.state.jobInfo.material,
-        part_number: this.state.jobInfo.part_number,
-        date_to_start: this.state.jobInfo.date_to_start,
-        date_started: this.state.jobInfo.date_started,
-        description: this.state.jobInfo.description,
         operations: operations
       })
     });
@@ -174,7 +162,6 @@ class JobsEditor extends Component {
   change(e) {
     let newInfo = this.state.jobInfo;
     newInfo[e.target.name] = e.target.value;
-    this.setState({jobInfo: newInfo});
   }
 
   toggleEdit() {
@@ -209,7 +196,6 @@ class JobsEditor extends Component {
   selectOutput(value, name) {
     let newInfo = this.state.jobInfo;
     newInfo[name] = value;
-    this.setState({ jobInfo: newInfo });
   }
 
   viewInfo() {

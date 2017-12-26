@@ -11,13 +11,13 @@ class PartsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: (window.location.href.substr(0, 7) === 'http://') ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api',
       partId: this.props.match.params.partId ? this.props.match.params.partId : '0',
       partInfo: {},
       editable: false,
       newPart: false,
       modalHide: true,
-      jobData: this.props.match.params.partId ? [{job_number: 'loading...', start_date: '-'}] : []
+      jobData: this.props.match.params.partId ? [{job_number: 'loading...', start_date: '-'}] : [],
+      loaded: false
     };
 
     this.get=this.get.bind(this);
@@ -29,11 +29,14 @@ class PartsEditor extends Component {
     this.change=this.change.bind(this);
     this.save=this.save.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
+    this.renderTable=this.renderTable.bind(this);
+    this.viewInfo=this.viewInfo.bind(this);
   }
 
   get() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + '/parts/' + this.state.partId, {
+        id = sessionStorage.getItem('user').split(',')[1],
+        request = new Request(url + '/parts/' + this.state.partId + '?company_id=' + id, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -42,13 +45,14 @@ class PartsEditor extends Component {
       return response.json();
     }).then( data => {
       console.log('part loaded');
-      this.setState({ partInfo: data, jobList: data.jobs });
+      this.setState({ partInfo: data });
     })
   }
 
   getJobs() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + '/jobs', {
+        id = sessionStorage.getItem('user').split(',')[1],
+        request = new Request(url + '/jobs?company_id=' + id, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -58,7 +62,7 @@ class PartsEditor extends Component {
     }).then( data => {
       console.log('jobs list loaded');
       let newData = data.filter( datum => { return datum.part_number === this.state.partInfo.part_number});
-      this.setState({ jobData: newData });
+      this.setState({ jobData: newData, loaded: true });
     })
   }
 
@@ -69,6 +73,7 @@ class PartsEditor extends Component {
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         part_number: number,
         part_revision: revision,
         part_name: name,
@@ -90,6 +95,7 @@ class PartsEditor extends Component {
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         user: user,
+        company_id: sessionStorage.getItem('user').split(',')[1],
         part_revision: revision, 
         part_number: number,
         part_name: name,
@@ -130,6 +136,18 @@ class PartsEditor extends Component {
     this.setState({ modalHide: !this.state.modalHide });
   }
 
+  renderTable() {
+    if(this.state.loaded) {
+      return (<MiniTable
+        headers={headers.MiniJobs}
+        data={this.state.jobData}
+        url={this.state.url}
+        link='/jobs/' />);
+    } else {
+      return null;
+    }
+  }
+
   save() {
     if( this.state.newPart ) {
       this.post(this.state.partInfo.user,
@@ -149,7 +167,7 @@ class PartsEditor extends Component {
   }
 
   viewInfo() {
-    let info;
+    let info, table = this.renderTable();
     if (!this.state.editable) {
       info = (
         <div onClick={ this.toggleEdit }>
@@ -176,11 +194,7 @@ class PartsEditor extends Component {
         {info}
         <div className='jobs-subsection'>
           <h4>Jobs</h4>
-          <MiniTable
-            headers={headers.MiniJobs}
-            data={this.state.jobData}
-            url={this.state.url}
-            link='/jobs/' />
+          {table}
         </div>
       </div>
     )
