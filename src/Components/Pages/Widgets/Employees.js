@@ -16,7 +16,8 @@ class Employees extends Component {
 
 	get() {
 	  	let url = 'https://machapi.herokuapp.com/api',
-	  		request = new Request(url + '/users', {
+	  		id = sessionStorage.getItem('user').split(',')[1],
+	  		request = new Request(url + '/users?company_id=' + id, {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });
