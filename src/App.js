@@ -125,7 +125,7 @@ class App extends Component {
   loginAction() {
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then( result => {
-        fetch('https://machapi.herokuapp.com/api/users')
+        fetch('https://machapi.herokuapp.com/api/allusers')
           .then( response => { return response.json(); }).then( data => {
             if(data.length > 0) {
               let company = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0].company_id;
