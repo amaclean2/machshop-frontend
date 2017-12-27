@@ -16,7 +16,7 @@ class PartsEditor extends Component {
       editable: false,
       newPart: false,
       modalHide: true,
-      jobData: this.props.match.params.partId ? [{job_number: 'loading...', start_date: '-'}] : [],
+      jobData: [],
       loaded: false
     };
 
@@ -195,6 +195,7 @@ class PartsEditor extends Component {
         <div className='jobs-subsection'>
           <h4>Jobs</h4>
           {table}
+          <NavLink to={'/jobs/0'} className={'button small-button'}>Add new job</NavLink>
         </div>
       </div>
     )
