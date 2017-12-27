@@ -115,6 +115,14 @@ class JobsEditor extends Component {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
+        user: this.state.jobInfo.user,
+        company_id: this.state.jobInfo.company_id,
+        job_number: this.state.jobInfo.job_number,
+        material: this.state.jobInfo.material,
+        part_number: this.state.jobInfo.part_number,
+        date_to_start: this.state.jobInfo.date_to_start,
+        date_started: this.state.jobInfo.date_started,
+        description: this.state.jobInfo.description,
         operations: operations
       })
     });
@@ -135,6 +143,14 @@ class JobsEditor extends Component {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
+        user: this.state.jobInfo.user,
+        company_id: this.state.jobInfo.company_id,
+        job_number: this.state.jobInfo.job_number,
+        material: this.state.jobInfo.material,
+        part_number: this.state.jobInfo.part_number,
+        date_to_start: this.state.jobInfo.date_to_start,
+        date_started: this.state.jobInfo.date_started,
+        description: this.state.jobInfo.description,
         operations: operations
       })
     });
