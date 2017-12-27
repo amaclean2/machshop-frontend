@@ -219,7 +219,7 @@ class JobsEditor extends Component {
             header={'Part Number: '}
             value={this.state.jobInfo.part_number}
             type={'select'}
-            url={this.state.url}
+            url={sessionStorage.getItem('user').split(',')[2]}
             link={'/parts/'}
             output={this.selectOutput}
             name={'part_number'} />
