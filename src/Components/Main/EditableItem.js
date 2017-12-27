@@ -13,7 +13,8 @@ class EditableItem extends Component {
 
   get() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + this.props.link, {
+        id = sessionStorage.getItem('user').split(',')[1],
+        request = new Request(url + this.props.link + '?company_id=' + id, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
