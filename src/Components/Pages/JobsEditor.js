@@ -264,7 +264,6 @@ class JobsEditor extends Component {
     if(this.state.jobInfo.operations) {
       return (<Operations
                 data={this.state.jobInfo}
-                url={this.state.url}
                 saveNewOperation={this.saveNewOperation}
                 operationCount={this.state.operationCount}
                 addOperation={this.addOperation}

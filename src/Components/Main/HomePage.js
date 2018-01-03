@@ -9,7 +9,6 @@ import Machining from '../Pages/Machining';
 import Ordering from '../Pages/Ordering';
 import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
-import Admin from '../Pages/Admin';
 import PartsEditor from '../Pages/PartsEditor';
 import JobsEditor from '../Pages/JobsEditor';
 import UsersEditor from '../Pages/UsersEditor';
@@ -27,7 +26,6 @@ class HomePage extends Component {
   			'Ordering',
   			'Inspection',
   			'Users',
-  			'Admin',
   			'Companies' ]
 		}
 	}
@@ -50,7 +48,6 @@ class HomePage extends Component {
 					<Route path='/company/:companyId' component={CompanyEditor} />
 					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />
-					<Route path='/admin' component={Admin} />
 				</div>
 			</div> );
 	}

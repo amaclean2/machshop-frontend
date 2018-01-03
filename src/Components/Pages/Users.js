@@ -15,7 +15,9 @@ class Users extends Component {
 
 	get() {
 	  	let id = sessionStorage.getItem('user').split(',')[1],
-	  		request = new Request('https://machapi.herokuapp.com/api/users?company_id=' + id, {
+	  		urlTemp = sessionStorage.getItem('user').split(',')[2],
+			url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+			request = new Request(url + '/users?company_id=' + id, {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });

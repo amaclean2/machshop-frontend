@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Admin extends Component {
+class SetupSheets extends Component {
 
   render() {
     return (
     	<div>
-        Admin 
+        <h3>Setup Sheets</h3>
       </div>
     );
   }
 }
 
-export default Admin;
+export default SetupSheets;

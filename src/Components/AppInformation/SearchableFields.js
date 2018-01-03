@@ -21,6 +21,26 @@ let searchableFields = {
 		'name',
 		'_id',
 		'street_address'
+	],
+	mill: [
+		'type',
+		'diameter',
+		'flutes',
+		'material',
+		'edp',
+		'part_number'
+	],
+	lathe: [
+		'type',
+		'description',
+		'insert',
+		'material',
+		'part_number'
+	],
+	other: [
+		'description',
+		'material',
+		'part_number'
 	]
 };
 

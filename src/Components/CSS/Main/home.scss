@@ -115,3 +115,61 @@
 .companies {
 	margin-top: 20px;
 }
+
+.sub-window {
+	margin-top: 15px;
+}
+
+.toggle {
+	margin-left: 30px;
+
+	&>div {
+		display: inline-block;
+		border: 1px solid $primary;
+		padding: 5px 20px;
+		color: $hyperLink;
+		cursor: pointer;
+		font-weight: inherit;
+		transition: all 0.3s ease-in-out;
+		border-right: none;
+
+		&:first-child {
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+
+		&:last-child {
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+			border-right: 1px solid $primary;
+		}
+
+		&:hover {
+			background-color: $textOnPrimaryHover;
+		}
+	}
+
+	.toggled {
+		background-color: $textOnPrimaryHover;
+	}
+}
+
+.toggle-smaller {
+	font-size: 13px;
+	margin: 20px 0;
+
+	&>div {
+		color: $grey1;
+		border-color: $borderGrey;
+
+		&:last-child {
+			border-color: $borderGrey;
+		}
+	}
+}
+
+.flexible {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}

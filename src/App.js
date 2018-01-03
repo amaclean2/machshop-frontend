@@ -21,8 +21,7 @@ class App extends Component {
 
     this.loginAction=this.loginAction.bind(this);
     this.logoutAction=this.logoutAction.bind(this);
-    this.updateEmail=this.updateEmail.bind(this);
-    this.updatePassword=this.updatePassword.bind(this);
+    this.update=this.update.bind(this);
     this.createUser=this.createUser.bind(this);
     this.createUserInfo=this.createUserInfo.bind(this);
     this.addUser=this.addUser.bind(this);
@@ -93,7 +92,6 @@ class App extends Component {
   login() {
     if(this.state.validEmail) {
       return <HomePage
-                url={this.state.url}
                 logout={this.logoutAction} />
     } else {
       if(this.state.createUser) {
@@ -106,20 +104,17 @@ class App extends Component {
       } else {
         return <Login
                 login={this.loginAction}
-                email={this.updateEmail}
-                password={this.updatePassword}
+                update={this.update}
                 createUser={this.createUser}
                 failed={this.state.failed} />
       }
     } 
   }
 
-  updateEmail(e) {
-    this.setState({ email: e.target.value });
-  }
-
-  updatePassword(e) {
-    this.setState({ password: e.target.value });
+  update(e) {
+    let object = {};
+    object[e.target.name] = e.target.value;
+    this.setState( object );
   }
 
   loginAction() {
@@ -128,9 +123,14 @@ class App extends Component {
         fetch('https://machapi.herokuapp.com/api/allusers')
           .then( response => { return response.json(); }).then( data => {
             if(data.length > 0) {
-              let company = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0].company_id;
-              sessionStorage.setItem('user', [ result.email, company, this.state.url ]);
+              let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0],
+                  company = userData.company_id;
+              sessionStorage.setItem('user', [ userData.user_position, company, this.state.url ]);
               this.setState({ validEmail: result.email, password: null });
+              // setTimeout(() => {
+              //   this.setState({ validEmail: null });
+              //   sessionStorage.clear();
+              // }, 60000 * 30);
             } else {
               this.setState({ failed: 'login database error' });
             }

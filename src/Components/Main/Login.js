@@ -14,13 +14,13 @@ class Login extends Component {
               </span>
               <input
                 type='text'
-                onChange={this.props.email}
+                onChange={this.props.update}
                 className={'login-email ' + (this.props.failed ? 'bad-input' : '')}
                 name='email' placeholder='email' />
               <input type='password'
-                onChange={this.props.password}
+                onChange={this.props.update}
                 className={'login-password ' + (this.props.failed ? 'bad-input' : '')}
-                name='pass'
+                name='password'
                 placeholder='password' />
               <button className='button login-button' onClick={this.props.login} >
                 Login

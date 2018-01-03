@@ -8,7 +8,6 @@ class CompanyEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-  		url: 'https://machapi.herokuapp.com/api',
       companyId: this.props.match.params.companyId ? this.props.match.params.companyId : '0',
       companyInfo: {},
       editable: false,
@@ -26,7 +25,8 @@ class CompanyEditor extends Component {
   }
 
   get() {
-    let url = this.state.url,
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
         request = new Request(url + '/companies/' + this.state.companyId, {
       method: 'GET',
       headers: new Headers({ 'Content-Type': 'application/json' })
@@ -48,7 +48,7 @@ class CompanyEditor extends Component {
     country,
     email,
     phone_number) {
-    let url = this.state.url,
+    let url = sessionStorage.getItem('user').split(',')[2],
       	request = new Request(url + '/companies', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -78,7 +78,7 @@ class CompanyEditor extends Component {
     country,
     email,
     phone_number) {
-    let  url = this.state.url,
+    let  url = sessionStorage.getItem('user').split(',')[2],
         request = new Request(url + '/companies/' + this.state.companyId, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -100,7 +100,8 @@ class CompanyEditor extends Component {
   }
 
   delete(companyId) {
-    let request = new Request(this.state.url + '/companies/' + companyId, {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        request = new Request(url + '/companies/' + companyId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });

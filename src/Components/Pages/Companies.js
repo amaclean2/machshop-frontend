@@ -13,8 +13,9 @@ class Companies extends Component {
 	}
 
 	get() {
-	  	let url = 'https://machapi.herokuapp.com/api',
-	  		request = new Request(url + '/companies', {
+	  	let urlTemp = sessionStorage.getItem('user').split(',')[2],
+			url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+			request = new Request(url + '/companies', {
 	      method: 'GET',
 	      headers: new Headers({ 'Content-Type': 'application/json' })
 	    });
