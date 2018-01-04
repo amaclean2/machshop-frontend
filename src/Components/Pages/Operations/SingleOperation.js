@@ -13,7 +13,7 @@ class Operation extends Component {
     super(props)
     this.state = {
       edit: !this.props.data,
-      opData: this.props.data ? this.props.data : { station: 'administration', stationData: {} },
+      opData: this.props.data ? this.props.data : { station: 'administration', station_data: {} },
       stationData: [
         {station: 'mill'},
         {station: 'lathe'},
@@ -48,7 +48,7 @@ class Operation extends Component {
   changeStationData(e) {
     let opData = this.state.opData;
 
-    opData.stationData[e.target.name] = e.target.value;
+    opData.station_data[e.target.name] = e.target.value;
     this.setState({ opData });
   }
 
