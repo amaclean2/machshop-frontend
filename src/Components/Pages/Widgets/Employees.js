@@ -28,22 +28,21 @@ class Employees extends Component {
 	    	return response.json();
 	    }).then( data => {
 	      this.setState({ users: data, loaded: true });
-	      console.log('loaded');
 	    });
 	}
 
 	renderTable() {
 		if(this.state.loaded) {
 			return (<MiniTable 
-        data={this.state.users}
-        headers={headers.UsersWidget}
-        link={'/users/'} />);
+        		data={this.state.users}
+        		headers={headers.UsersWidget}
+        		link={'/users/'} />);
 		} else {
 			return null;
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.get();
 	}
 

@@ -229,8 +229,17 @@ class JobsEditor extends Component {
     } else {
       info = (
         <div>
-          <EditableItem header={'Job Number: '} value={this.state.jobInfo.job_number} change={this.change} name={'job_number'} type={'number'} />
-          <EditableItem header={'Material: '} value={this.state.jobInfo.material} change={this.change} name={'material'} />
+          <EditableItem
+            header={'Job Number: '} 
+            value={this.state.jobInfo.job_number} 
+            change={this.change} 
+            name={'job_number'} 
+            type={'number'} />
+          <EditableItem 
+            header={'Material: '} 
+            value={this.state.jobInfo.material} 
+            change={this.change} 
+            name={'material'} />
           <EditableItem
             header={'Part Number: '}
             value={this.state.jobInfo.part_number}
@@ -239,9 +248,15 @@ class JobsEditor extends Component {
             link={'/parts/'}
             output={this.selectOutput}
             name={'part_number'} />
-          <EditableItem header={'Description: '} value={this.state.jobInfo.description} change={this.change} name={'description'} />
-          <EditableItem header={'Date to Start: '} value={this.state.jobInfo.date_to_start} change={this.change} name={'date_to_start'} type={'date'} />
-          <button onClick={ this.save } className='button save-button'>Save</button>
+          <EditableItem 
+            header={'Description: '} 
+            value={this.state.jobInfo.description} 
+            change={this.change} name={'description'} />
+          <EditableItem 
+            header={'Date to Start: '} 
+            value={this.state.jobInfo.date_to_start} 
+            change={this.change} name={'date_to_start'} type={'date'} />
+          <div className='button-bar'><button onClick={ this.save } className='button save-button'>Save</button></div>
         </div>
       )
     }

@@ -137,7 +137,7 @@ class EditableItem extends Component {
   }
 
   componentWillMount() {
-    if(this.props.type === 'select') {
+    if(this.props.type === 'select' && !this.props.data) {
       this.get();
     }
   }

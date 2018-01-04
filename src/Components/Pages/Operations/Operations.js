@@ -4,7 +4,14 @@ import Operation from './SingleOperation';
 class Operations extends Component {
 
 	getOperations() {
-    let opList = []
+    let opList = [],
+        operations = this.props.data.operations.sort((a, b) => {
+          if(a.operation_number < b.operation_number)
+            return -1;
+          if(a.operation_number > b.operation_number)
+            return 1;
+          return 0;
+        })
 
     for (var i = 0; i < this.props.operationCount; i++) {
       opList.push(<Operation

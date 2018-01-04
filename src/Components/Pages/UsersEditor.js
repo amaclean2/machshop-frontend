@@ -54,7 +54,8 @@ constructor(props) {
     state,
     country,
     phone_number) {
-    let url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
       	request = new Request(url + '/companies', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -90,7 +91,8 @@ constructor(props) {
     state,
     country,
     phone_number) {
-    let  url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
         request = new Request(url + '/users/' + this.state.userId, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -115,7 +117,8 @@ constructor(props) {
   }
 
   delete(userId) {
-    let url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
         request = new Request(url + '/users/' + userId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })

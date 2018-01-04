@@ -39,7 +39,7 @@ class Calendar extends Component {
         return (<DayView toggleViews={this.toggleViews} saveData={this.post} events={this.state.events} current={this.state.current} put={this.put} delete={this.delete} />);
       }
     } else {
-      return <div>Loading...</div>;
+      return <div className="loading-box">Loading...</div>;
     }
       
   }

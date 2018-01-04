@@ -13,7 +13,7 @@ class Operation extends Component {
     super(props)
     this.state = {
       edit: !this.props.data,
-      opData: this.props.data ? this.props.data : { station: 'administration' },
+      opData: this.props.data ? this.props.data : { station: 'administration', stationData: {} },
       stationData: [
         {station: 'mill'},
         {station: 'lathe'},
@@ -27,6 +27,7 @@ class Operation extends Component {
     this.change=this.change.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
     this.save=this.save.bind(this);
+    this.changeStationData=this.changeStationData.bind(this);
   }
 
   save() {
@@ -44,6 +45,13 @@ class Operation extends Component {
     this.setState({ opData: newData });
   }
 
+  changeStationData(e) {
+    let opData = this.state.opData;
+
+    opData.stationData[e.target.name] = e.target.value;
+    this.setState({ opData });
+  }
+
   selectOutput(value, name) {
     let newData = this.state.opData;
     newData[name] = value;
@@ -53,19 +61,19 @@ class Operation extends Component {
   selectStation() {
     switch (this.state.opData.station) {
       case 'mill' :
-        return <MillOperation />
+        return <MillOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       case 'lathe' :
-        return <LatheOperation />
+        return <LatheOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       case 'saw' :
-        return <SawOperation />
+        return <SawOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       case 'administration' :
-        return <AdminOperation />
+        return <AdminOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       case 'processing' :
-        return <ProcessOperation />
+        return <ProcessOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       case 'inspection' :
-        return <InspectOperation />
+        return <InspectOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
       default :
-        return <AdminOperation />
+        return <AdminOperation edit={this.state.edit} change={this.changeStationData} data={this.state.opData} />
     }
   }
 
@@ -133,6 +141,7 @@ class Operation extends Component {
               output={this.selectOutput}
               name={'station'} />
           </div>
+          {station}
           <div className="button-bar">
             <button className="button small-button delete-button" onClick={() => {this.props.deleteOperation(this.props.index)}} >Delete</button>
             <button className="button small-button" onClick={this.save}>Save</button>

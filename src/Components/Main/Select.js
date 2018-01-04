@@ -14,17 +14,11 @@ class Select extends Component {
 
   makeSelect() {
     let elements = this.props.children.props.children;
-    let list = elements.map( (child, i) => {
-      if(child.props)
-        return <li key={i} onClick={() => {this.selectItem(child.props.value, child.props.children)}}>{child.props.children}</li>;
-      else
-        return null;
-    });
-    if(elements[1].length) {
-      elements[1].forEach( (element, i) => {
-        list.push(<li key={i + 1 * 10} onClick={() => {this.selectItem(element.props.value, element.props.children)}}>{element}</li>);
-      })
-    }
+    console.log(elements);
+    let list = [];
+    elements[1].forEach( (element, i) => {
+      list.push(<li key={i + 1 * 10} onClick={() => {this.selectItem(element.props.value, element.props.children)}}>{element}</li>);
+    })
     return list;
   }
 

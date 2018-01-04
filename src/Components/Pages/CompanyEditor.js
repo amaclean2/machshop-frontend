@@ -36,6 +36,7 @@ class CompanyEditor extends Component {
       return response.json();
     }).then( data => {
       console.log('company loaded');
+      console.log(data);
       this.setState({ companyInfo: data });
     })
   }
@@ -48,7 +49,8 @@ class CompanyEditor extends Component {
     country,
     email,
     phone_number) {
-    let url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
       	request = new Request(url + '/companies', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -78,7 +80,8 @@ class CompanyEditor extends Component {
     country,
     email,
     phone_number) {
-    let  url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
         request = new Request(url + '/companies/' + this.state.companyId, {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -100,7 +103,8 @@ class CompanyEditor extends Component {
   }
 
   delete(companyId) {
-    let url = sessionStorage.getItem('user').split(',')[2],
+    let urlTemp = sessionStorage.getItem('user').split(',')[2],
+        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
         request = new Request(url + '/companies/' + companyId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })
