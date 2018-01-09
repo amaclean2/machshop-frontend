@@ -15,7 +15,6 @@ class Employees extends Component {
 	}
 
 	get() {
-		console.log(sessionStorage.getItem('user'));
 	  	let urlTemp = sessionStorage.getItem('user').split(',')[2],
 	  		url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
 	  		id = sessionStorage.getItem('user').split(',')[1],

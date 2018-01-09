@@ -5,7 +5,8 @@ class EditableItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectList: this.props.data ? this.props.data : []
+      selectList: this.props.data ? this.props.data : [],
+      loaded: false
     }
     this.makeSelect=this.makeSelect.bind(this);
     this.get=this.get.bind(this);
@@ -22,23 +23,26 @@ class EditableItem extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log('select loaded');
-      this.setState({ selectList: data });
+      this.setState({ selectList: data, loaded: true });
     })
   }
 
   makeSelect() {
-    let optionList = this.state.selectList.map( (option, i) => {
-      return (<option key={i} value={option[this.props.name]}>{option[this.props.name]}</option>)
-    });
-    return (
-      <Select output={this.props.output} name={this.props.name} value={this.props.value}>
-        <select className={'form-select'}>
-          <option value='default'>{this.props.header.slice(0, -2)}</option>
-          {optionList}
-        </select>
-      </Select>
-      )
+    if(this.state.loaded) {
+      let optionList = this.state.selectList.map( item => {
+        return { value: item.part_number, children: item.part_number };
+      });
+      return (
+        <Select
+          output={this.props.output}
+          name={this.props.name}
+          value={(this.props.value ? this.props.value : this.props.header.slice(0, -2))}
+          classes={'form-select'}
+          data={optionList} />
+        )
+    } else {
+      return null;
+    }
   }
 
   showType() {
@@ -51,6 +55,7 @@ class EditableItem extends Component {
                   placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name}
                   defaultValue={this.props.value ? this.props.value : ''} />
+
       case 'date' :
         return <input
                   type='date'
@@ -59,11 +64,50 @@ class EditableItem extends Component {
                   placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name}
                   defaultValue={this.props.value ? this.props.value : ''} />
+
       case 'select' :
         return this.makeSelect()
-      case 'time' :
 
-        let hours, minutes, period;
+      case 'time' :
+        let hourRange = [
+          { value: '01', children: '01' },
+          { value: '02', children: '02' },
+          { value: '03', children: '03' },
+          { value: '04', children: '04' },
+          { value: '05', children: '05' },
+          { value: '06', children: '06' },
+          { value: '07', children: '07' },
+          { value: '08', children: '08' },
+          { value: '09', children: '09' },
+          { value: '11', children: '11' },
+          { value: '12', children: '12' }
+        ],
+        minuteRange = [
+          { value: '00', children: '00' },
+          { value: '05', children: '05' },
+          { value: '10', children: '10' },
+          { value: '15', children: '15' },
+          { value: '20', children: '20' },
+          { value: '25', children: '25' },
+          { value: '30', children: '30' },
+          { value: '35', children: '35' },
+          { value: '40', children: '40' },
+          { value: '45', children: '45' },
+          { value: '50', children: '50' },
+          { value: '55', children: '55' }
+        ],
+        periodRange = [
+          { value: 'AM', children: 'AM' },
+          { value: 'PM', children: 'PM' }
+        ];
+
+        return (<div className="time-row">
+                  <Select output={this.props.output} name={'hours'} data={hourRange} classes={'time-select editable-input'} />
+                  <Select output={this.props.output} name={'minutes'} data={minuteRange} classes={'time-select editable-input'} />
+                  <Select output={this.props.output} name={'period'} data={periodRange} classes={'time-select editable-input'} />
+                </div>)
+
+/*        let hours, minutes, period;
         switch(this.props.value.length) {
           case 7 :
             hours = this.props.value.substr(0, 1);
@@ -84,7 +128,22 @@ class EditableItem extends Component {
             break;
         }
 
-        return (<div className='time'>
+        this.setState({ selectList: [
+            { value: 1, children: '01' },
+            { value: 2 children: '02' },
+            { value: 3 children: '03' },
+            { value: 4 children: '04' },
+            { value: 5 children: '05' },
+            { value: 6 children: '06' },
+            { value: 7 children: '07' },
+            { value: 8 children: '08' },
+            { value: 9 children: '09' },
+            { value: 10 children: '10' },
+            { value: 11 children: '11' },
+            { value: 12 children: '12' },
+          ]});
+
+       return (<div className='time'>
             <Select output={this.props.output} name={'hours'} value={this.props.value.substr(0, 1)}>
               <select className={"time-select"}>
                 <option value={1} >1</option>
@@ -123,7 +182,7 @@ class EditableItem extends Component {
                 <option value='PM' >PM</option>
               </select>
             </Select>
-          </div>)
+          </div>) */
       default :
         return <input
                   type='text'

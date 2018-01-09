@@ -7,14 +7,17 @@ class Header extends Component {
   	super()
   	this.state = {
   		hidden: true,
-  		gone: true
+  		gone: true,
+      data: [
+        { value: 'default', children: 'Select User'},
+        { value: 'andrew_maclean', children: 'Andrew Maclean'}
+      ]
   	}
   	this.toggleHideSideNav=this.toggleHideSideNav.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
   }
 
   selectOutput(value, name) {
-    console.log(value);
     return [value, name];
   }
 
@@ -32,12 +35,12 @@ class Header extends Component {
 	      <h2>MachShop</h2>
 
 	   	  <div className="right-content">
-	      	{/*<Select output={this.selectOutput} name={'userName'} >
+	      	<Select output={this.selectOutput} name={'userName'} >
             <select className = 'header-select'>
               <option value="default">Select User</option>
               <option value='Andrew_Maclean' selected>Andrew Maclean</option>
             </select>
-          </Select>*/}
+          </Select>
 	      	<button className="button white-button header-select-btn">Select</button>
 	      	<i className="fa fa-bell-o hoverable" aria-hidden="true"></i>
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>

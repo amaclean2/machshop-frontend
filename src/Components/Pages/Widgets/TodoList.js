@@ -26,7 +26,6 @@ class TodoList extends Component {
       return response.json();
     }).then( data => {
       this.setState({ events: data, loaded: true });
-      console.log('all events loaded');
     });
   }
 
@@ -55,6 +54,7 @@ class TodoList extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      
       this.get();
     });
   }

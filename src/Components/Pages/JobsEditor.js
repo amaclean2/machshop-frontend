@@ -10,7 +10,7 @@ class JobsEditor extends Component {
     super(props);
     this.state = {
       jobId: this.props.match.params.jobId ? this.props.match.params.jobId : '0',
-      jobInfo: {},
+      jobInfo: { user: '', job_number: '', material: '', part_number: '', date_to_start: '', description: '' },
       editable: false,
       newJob: false,
       modalHide: true,
@@ -41,7 +41,6 @@ class JobsEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log('job loaded');
       this.setState({ jobInfo: data, operationCount: data.operations.length });
     })
   }
@@ -256,7 +255,7 @@ class JobsEditor extends Component {
             header={'Date to Start: '} 
             value={this.state.jobInfo.date_to_start} 
             change={this.change} name={'date_to_start'} type={'date'} />
-          <div className='button-bar'><button onClick={ this.save } className='button save-button'>Save</button></div>
+          <div className='button-bar'><button onClick={ this.save } className='button save-button small-button'>Save</button></div>
         </div>
       )
     }

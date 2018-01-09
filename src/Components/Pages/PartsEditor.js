@@ -184,7 +184,7 @@ class PartsEditor extends Component {
           <EditableItem header={'Revision: '} value={this.state.partInfo.part_revision} change={this.change} name={'part_revision'} />
           <EditableItem header= {'Part Name: '} value={this.state.partInfo.part_name} change={this.change} name={'part_name'} />
           <EditableItem header= {'Customer: '} value={this.state.partInfo.customer} change={this.change} name={'customer'} />
-          <span className='submit-button-line'><button onClick={ this.save } className='button'>Save</button></span>
+          <span className='submit-button-line'><button onClick={ this.save } className='button save-button small-button'>Save</button></span>
         </div>
       )
     }

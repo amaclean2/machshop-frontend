@@ -7,13 +7,17 @@ class Events extends Component {
 	}
 
 	getEvents() {
-		let pertinantEvents = this.props.events.filter( event => {
-			let date = event.start_time,
-					year = date.substring(0, 4),
-					month = date.substring(5, 7) - 1,
-					day = date.substring(8, 10);
 
-			return year === this.props.day.getFullYear().toString() && month === this.props.day.getMonth() && day === this.props.day.getDate().toString();
+		let day = new Date(this.props.day.getFullYear(), this.props.day.getMonth(), this.props.day.getDate());
+			
+
+		let pertinantEvents = this.props.events.filter( event => {
+			let year = event.start_time.substring(0, 4),
+					month = event.start_time.substring(5, 7) - 1,
+					date = event.start_time.substring(8, 10),
+					format = new Date(year, month, date);
+
+			return format.getFullYear() === day.getFullYear() && format.getMonth() === day.getMonth() && format.getDate() === day.getDate();
 		});
 
 		pertinantEvents = pertinantEvents.map( (event, i) => {

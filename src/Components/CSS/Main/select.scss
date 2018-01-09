@@ -1,6 +1,5 @@
 .shown-box {
 	font-size: 12px;
-	background-color: $textOnPrimary;
 	padding: 5px 8px;
 	cursor: pointer;
 	color: $text;
@@ -73,6 +72,7 @@
 
 .header-select {
 	width: 200px;
+	background-color: $textOnPrimary
 }
 
 .form-select {
@@ -94,6 +94,7 @@
 	font-family: inherit;
 	border: 1px solid $borderGrey;
 	box-sizing: border-box;
+	display: inline-block;
 
 	&:hover {
 		box-shadow: none;

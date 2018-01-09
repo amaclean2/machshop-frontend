@@ -21,18 +21,21 @@ class DayView extends Component {
 	}
 
 	showEvents() {
-		let pertinantEvents = this.props.events.filter( event => {
-			let date = event.start_time,
-					year = date.substring(0, 4),
-					month = date.substring(5, 7) - 1,
-					day = date.substring(8, 10);
 
-			return year === this.props.current.getFullYear().toString() && month === this.props.current.getMonth() && day === this.props.current.getDate().toString();
-		});
+		let day = this.props.current,
+				pertinantEvents = this.props.events.filter( event => {
 
-		pertinantEvents = pertinantEvents.map( (event, i) => {
-			return  <DayEvent event={event} key={i} put={this.props.put} delete={this.props.delete} />;
-		})
+					let year = event.start_time.substring(0, 4),
+							month = event.start_time.substring(5, 7) - 1,
+							date = event.start_time.substring(8, 10),
+							format = new Date(year, month, date);
+
+					return format.getFullYear() === day.getFullYear() && format.getMonth() === day.getMonth() && format.getDate() === day.getDate();
+				});
+
+			pertinantEvents = pertinantEvents.map( (event, i) => {
+				return  <DayEvent event={event} key={i} put={this.props.put} delete={this.props.delete} />;
+			})
 
 		return pertinantEvents;
 	}

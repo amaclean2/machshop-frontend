@@ -121,12 +121,12 @@
 		}
 
 		.line-item {
-			display: inline-block;
 
 			.editable-input {
 				border: none;
 				background-color: transparent;
 				border-bottom: 1px solid $borderGrey;
+				flex: 1;
 			}
 
 			.time {
@@ -182,11 +182,16 @@
 	.display {
 		display: none;
 	}
-	.editable-input, .value {
+
+	& > .editable-input, .value {
 		margin-left: 0;
 	}
 }
 
 .loading-box {
 	margin: 100px;
+}
+
+.time-row {
+	flex: 1;
 }
