@@ -37,7 +37,7 @@ class LatheTools extends Component {
         <Table
         	data={this.state.tools}
         	headers={headers.LatheTools}
-        	link={'/lathe/'} />
+        	link={'/tool/lathe/'} />
       </div>
     );
   }

@@ -37,7 +37,7 @@ class OtherTools extends Component {
         <Table
         	data={this.state.tools}
         	headers={headers.OtherTools}
-        	link={'/other/'} />
+        	link={'/tool/other/'} />
       </div>
     );
   }

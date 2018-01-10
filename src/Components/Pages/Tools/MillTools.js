@@ -37,7 +37,7 @@ class MillTools extends Component {
         <Table
         	data={this.state.tools}
         	headers={headers.MillTools}
-        	link={'/mill/'} />
+        	link={'/tool/mill/'} />
       </div>
     );
   }

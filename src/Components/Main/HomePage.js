@@ -14,6 +14,9 @@ import JobsEditor from '../Pages/JobsEditor';
 import UsersEditor from '../Pages/UsersEditor';
 import Companies from '../Pages/Companies';
 import CompanyEditor from '../Pages/CompanyEditor';
+import ToolEditor from '../Pages/Tools/ToolEditor';
+// import LatheToolEditor from '../Pages/Tools/LatheToolEditor';
+// import OtherToolEditor from '../Pages/Tools/OtherToolEditor';
 
 class HomePage extends Component {
 	constructor() {
@@ -35,6 +38,9 @@ class HomePage extends Component {
 					<Route path='/jobs/:jobId' component={JobsEditor} />
 					<Route exact path='/jobs' component={Jobs} />
 					<Route path='/machining' component={Machining} />
+					<Route path='/tool/mill/:toolId' component={ToolEditor} />
+					<Route path='/tool/lathe/:toolId' component={ToolEditor} />
+					<Route path='/tool/other/:toolId' component={ToolEditor} />
 					<Route path='/ordering' component={Ordering} />
 					<Route path='/inspection' component={Inspection} />
 					<Route path='/users/:userId' component={UsersEditor} />

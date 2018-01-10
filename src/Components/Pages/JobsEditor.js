@@ -9,7 +9,7 @@ class JobsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobId: this.props.match.params.jobId ? this.props.match.params.jobId : '0',
+      jobId: this.props.match.params.jobId,
       jobInfo: { user: '', job_number: '', material: '', part_number: '', date_to_start: '', description: '' },
       editable: false,
       newJob: false,
