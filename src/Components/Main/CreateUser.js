@@ -1,6 +1,37 @@
 import React, { Component } from 'react';
 
 class CreateUser extends Component {
+  constructor() {
+    super()
+    this.state = {
+      companyList: [],
+      company: 'New Company'
+    }
+    this.get=this.get.bind(this);
+    this.getCompany=this.getCompany.bind(this);
+  }
+
+  get() {
+    fetch('https://machapi.herokuapp.com/api/companies').then( response => {
+      return response.json();
+    }).then( data => {
+      console.log(data);
+      this.setState({ companyList: data });
+    })
+  }
+
+  componentDidMount() {
+    this.get();
+  }
+
+  getCompany(e) {
+    this.state.companyList.map( company => {
+      if(e.target.value === company._id) {
+        this.setState({company: company.name});
+      }
+    })
+    this.props.createUserInfo(e);
+  }
 
   finished() {
     if(this.props.finished) {
@@ -18,14 +49,10 @@ class CreateUser extends Component {
             name='name' placeholder='full name' />
           <input
             type='text'
-            onChange={this.props.createUserInfo}
-            className={'create-name'}
-            name='cname' placeholder='company name' />
-          <input
-            type='text'
-            onChange={this.props.createUserInfo}
+            onChange={this.getCompany}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='cid' placeholder='company id' />
+          <div className={'create-name'} >{ this.state.company }</div>
           <input
             type='text'
             onChange={this.props.createUserInfo}
