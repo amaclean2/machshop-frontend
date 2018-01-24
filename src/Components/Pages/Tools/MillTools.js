@@ -7,7 +7,8 @@ class MillTools extends Component {
 	constructor() {
 		super()
 		this.state = {
-			tools: []
+			tools: [],
+      loaded: false
 		}
 		this.get=this.get.bind(this);
 	}
@@ -16,28 +17,36 @@ class MillTools extends Component {
   	let url = sessionStorage.getItem('user').split(',')[2],
   		id = sessionStorage.getItem('user').split(',')[1],
   		request = new Request(url + '/mill?company_id=' + id, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json' })
+      method: 'GET'
     });
 
     fetch(request).then( response => {
     	return response.json();
     }).then( data => {
-      this.setState({ tools: data });
+      this.setState({ tools: data, loaded: true });
     });
 	}
+
+  showTable() {
+    if(this.state.loaded) {
+      return <Table
+          data={this.state.tools}
+          headers={headers.MillTools}
+          link={'/tool/mill/'} />;
+    } else {
+      return null;
+    }
+  }
 
 	componentWillMount() {
 		this.get();
 	}
 
   render() {
+    let table = this.showTable();
     return (
     	<div className='mill-tools'>
-        <Table
-        	data={this.state.tools}
-        	headers={headers.MillTools}
-        	link={'/tool/mill/'} />
+        {table}
       </div>
     );
   }

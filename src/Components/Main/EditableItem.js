@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import Select from './Select';
 
 class EditableItem extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
-      selectList: this.props.data ? this.props.data : [],
+      selectList: [],
       loaded: false
     }
     this.makeSelect=this.makeSelect.bind(this);
+    this.makeMath=this.makeMath.bind(this);
     this.get=this.get.bind(this);
   }
 
@@ -28,10 +29,10 @@ class EditableItem extends Component {
   }
 
   makeSelect() {
-    if(this.state.loaded) {
-      let optionList = this.state.selectList.map( item => {
-        return { value: item.part_number, children: item.part_number };
-      });
+    if( this.state.loaded || this.props.data ) {
+      let optionList = this.state.loaded ? this.state.selectList.map( item => {
+        return { value: item[this.props.name], children: item[this.props.name] };
+      }) : this.props.data;
       return (
         <Select
           output={this.props.output}
@@ -45,6 +46,38 @@ class EditableItem extends Component {
     }
   }
 
+  makeMath(e) {
+    let string = e.target.value
+    if(string.indexOf('/') !== -1) {
+      let strings = string.split('/');
+      e.target.value = strings[0];
+      strings.splice(0, 1);
+      strings.forEach( item => { e.target.value /= item; });
+    } 
+    if (string.indexOf('*') !== -1) {
+      let strings = string.split('*');
+      e.target.value = strings[0];
+      strings.splice(0, 1);
+      strings.forEach( item => { e.target.value *= item; });
+    } 
+    if (string.indexOf('-') !== -1) {
+      let strings = string.split('-');
+      e.target.value = strings[0];
+      strings.splice(0, 1);
+      strings.forEach( item => { e.target.value -= item; });
+    } 
+    if (string.indexOf('+') !== -1) {
+      let strings = string.split('+');
+      e.target.value = strings[0];
+      strings.splice(0, 1);
+      strings.forEach( item => { e.target.value = +e.target.value + +item; });
+    }
+    if(e.target.value === 'NaN') {
+      e.target.value = string;
+    }
+    this.props.change(e);
+  }
+
   showType() {
     switch(this.props.type) {
       case 'number' :
@@ -53,6 +86,14 @@ class EditableItem extends Component {
                   className={'editable-input'}
                   onChange={this.props.change}
                   placeholder={this.props.header.slice(0, -2)}
+                  name={this.props.name}
+                  defaultValue={this.props.value ? this.props.value : ''} />
+
+      case 'math' :
+        return <input
+                  className={'editable-input'}
+                  placeholder={this.props.header.slice(0, -2)}
+                  onBlur={this.makeMath}
                   name={this.props.name}
                   defaultValue={this.props.value ? this.props.value : ''} />
 
@@ -204,7 +245,7 @@ class EditableItem extends Component {
   render() {
     let type = this.showType();
     return (
-      <span className={'line-item ' + this.props.classes}>
+      <span className={'line-item ' + this.props.classes} onClick={this.props.onClick} onFocus={this.props.onClick} >
         <span className='display' >{this.props.header}</span>
         {type}
       </span>

@@ -16,10 +16,22 @@ class Table extends Component {
 	}
 
 	rows() {
-		let rows = this.props.data.map( (row, j) => {
-			let searchable;
-			let page = this.props.link.slice(0, -1);
-			page = page.slice(1);
+		let page = this.props.link.replace(/\//g, ''),
+			data;
+
+		if(page.indexOf('tool') !== -1) {
+			page = page.replace('tool', '');
+			data = this.props.data.map( item => {
+				item.tool_data._id = item._id;
+				return item.tool_data;
+			})
+		} else {
+			data = this.props.data;
+		}
+
+		let rows = data.map( (row, j) => {
+			let searchable
+			
 			for (var i = 0; i < searchableFields[page].length; i++) {
 				searchable += row[searchableFields[page][i]] + ' ';
 			}

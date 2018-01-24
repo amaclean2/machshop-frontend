@@ -22,7 +22,7 @@ class HomePage extends Component {
 	constructor() {
 		super()
 		this.state = {
-			tabs: ['Dashboard', 'Parts', 'Jobs', 'Machining', 'Ordering', 'Inspection', 'Users', 'Companies']
+			tabs: ['Dashboard', 'Parts', 'Jobs', 'Machining', 'Ordering', /*'Inspection', */'Users', 'Companies']
 		}
 	}
 

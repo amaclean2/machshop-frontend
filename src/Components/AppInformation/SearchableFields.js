@@ -23,12 +23,11 @@ let searchableFields = {
 		'street_address'
 	],
 	mill: [
-		'type',
+		'tool_type',
 		'diameter',
 		'flutes',
 		'material',
-		'edp',
-		'part_number'
+		'edp'
 	],
 	lathe: [
 		'type',

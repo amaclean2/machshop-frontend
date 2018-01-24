@@ -39,12 +39,12 @@ let headers = {
 		['Location', 'street_address']
 	],
 	MillTools : [
-		['Type', 'type', 'e'],
+		['Type', 'tool_type', 'e'],
 		['Diameter','diameter'],
 		['Flutes', 'flutes'],
 		['Material', 'material'], 
 		['EDP', 'edp'],
-		['Part Number', 'part_number']
+		['Job Number', 'job_number']
 	],
 	LatheTools : [
 		['Type', 'type', 'e'],

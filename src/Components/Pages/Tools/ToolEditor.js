@@ -1,72 +1,131 @@
 import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom';
-import DescriptionItem from '../../Main/DescriptionItem';
+import MillToolEditor from './MillToolEditor';
 
-class MillToolEditor extends Component {
+class ToolEditor extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toolData: [],
+			toolData: {},
 			toolId: this.props.match.params.toolId,
-			mill: this.props.match.url.indexOf('mill') !== -1,
-			lathe: this.props.match.url.indexOf('lathe') !== -1,
-			other: this.props.match.url.indexOf('other') !== -1,
-			editable: false
+			mill: this.props.match.url.indexOf('mill') !== -1 ? 'mill' : null,
+			lathe: this.props.match.url.indexOf('lathe') !== -1 ? 'lathe' : null,
+			other: this.props.match.url.indexOf('other') !== -1 ? 'other' : null,
+      loaded: false
 		}
 		this.get=this.get.bind(this);
-		this.toggleEdit=this.toggleEdit.bind(this);
-	}
-
-	toggleEdit() {
-		this.setState({ edit: !this.state.edit });
+    this.post=this.post.bind(this);
+    this.put=this.put.bind(this);
+    this.delete=this.delete.bind(this);
+    this.save=this.save.bind(this);
+    this.stationSelector=this.stationSelector.bind(this);
+    this.change=this.change.bind(this);
+    this.output=this.output.bind(this);
 	}
 
 	get() {
+
     let url = sessionStorage.getItem('user').split(',')[2],
         id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '//' + this.state.jobId + '?company_id=' + id, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json' })
+        request = new Request(url + '/' + (this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other') + '/' + this.state.toolId + '?company_id=' + id, {
+      method: 'GET'
     });
 
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ jobInfo: data, operationCount: data.operations.length });
+      this.setState({ toolData: data.tool_data, loaded: true});
     })
+
   }
 
-  viewInfo() {
-  	let info;
-  	if(!this.state.editable) {
-  		info = (<div onClick={this.toggleEdit}>
-  			<DescriptionItem header={'Tool Type: '} value={this.state.toolData.tool_type} />
-        <DescriptionItem header={'Diameter: '} value={this.state.toolData.diameter} />
-        <DescriptionItem header={'Material: '} value={this.state.toolData.material} />
-        <DescriptionItem header={'Flutes: '} value={this.state.toolData.flutes} />
-        <DescriptionItem header={'Flute Length: '} value={this.state.toolData.flute_length} />
-        <DescriptionItem header={'Corner Radius: '} value={this.state.toolData.corner_radius} />
-        <DescriptionItem header={'Tool Length: '} value={this.state.toolData.tool_length} />
-        <DescriptionItem header={'Undercut Width: '} value={this.state.toolData.undercut_width} />
-        <DescriptionItem header={'Undercut Length: '} value={this.state.toolData.undercut_length} />
-  		</div>)
-  	} else {
-  		info = (<div>
-        <span className='submit-button-line'><button onClick={ this.save } className='button save-button small-button'>Save</button></span>
-      </div>)
-  	}
+  post() {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
+        request = new Request(url + '/' + machine, {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        user: 'Andrew',
+        company_id: sessionStorage.getItem('user').split(',')[1],
+        tool_data: this.state.toolData
+      })
+    });
 
-  	return (<div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-  			{info}
-  		</div>);
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      console.log(data);
+      this.setState({ toolId: data._id });
+    });
   }
 
-	componentDidMount() {
-	}
+  put() {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
+        request = new Request(url + '/' + machine + '/' + this.state.toolId , {
+      method: 'PUT',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        user: 'Andrew',
+        company_id: sessionStorage.getItem('user').split(',')[1],
+        tool_data: this.state.toolData
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+    });
+  }
+
+  delete() {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
+        request = new Request(url + machine + this.state.toolId, {
+      method: 'DELETE'
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+    });
+  }
+
+  change(e) {
+    let toolData = this.state.toolData;
+    toolData[e.target.name] = e.target.value;
+  }
+
+  output(value, name) {
+    let toolData = this.state.toolData;
+    toolData[name] = value;
+  }
+
+  stationSelector() {
+    if(this.state.mill)
+      return <MillToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
+    else if(this.state.lathe)
+      return 'lathe'; // <LatheToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+    else if(this.state.other)
+      return 'other'; // <OtherToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+  }
+
+  save() {
+    if(this.state.toolId === '0') {
+      this.post();
+    } else {
+      this.put();
+    }
+  }
+
+  componentDidMount() {
+    this.get();
+  }
 
   render() {
-  	let info = this.viewInfo();
+    let station = this.stationSelector();
     return (
     	<div>
         <h3>Tool Editor</h3>
@@ -76,14 +135,10 @@ class MillToolEditor extends Component {
           {/*onClick={this.toggleModal}>*/}
             <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
-        <div className='edit-page'>
-        	{info}
-        	<div className='work-flow card no-fade'>
-          </div>
-        </div>
+        {station}
       </div>
     );
   }
 }
 
-export default MillToolEditor;
+export default ToolEditor;
