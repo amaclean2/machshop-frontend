@@ -780,7 +780,7 @@ h4 {
     flex: 3; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/dashboard\.scss}line{font-family:\0000350}}
   .dashboard .second-column {
-    flex: 2; }
+    width: 360px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/dashboard\.scss}line{font-family:\0000354}}
   .dashboard .third-column {
     flex: 2; }

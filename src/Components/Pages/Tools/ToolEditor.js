@@ -121,7 +121,8 @@ class ToolEditor extends Component {
   }
 
   componentDidMount() {
-    this.get();
+    if(this.state.toolId === 0)
+      this.get();
   }
 
   render() {

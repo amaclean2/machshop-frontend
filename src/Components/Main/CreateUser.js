@@ -15,7 +15,6 @@ class CreateUser extends Component {
     fetch('https://machapi.herokuapp.com/api/companies').then( response => {
       return response.json();
     }).then( data => {
-      console.log(data);
       this.setState({ companyList: data });
     })
   }

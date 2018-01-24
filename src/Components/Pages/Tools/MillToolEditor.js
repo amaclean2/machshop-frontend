@@ -80,7 +80,8 @@ class MillToolEditor extends Component {
 
   millImage() {
     if(this.props.toolData.tool_type === 'Endmill')
-
+    {
+      console.log(321);
       return (
         <svg height="50" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
           <defs>
@@ -129,8 +130,8 @@ class MillToolEditor extends Component {
           <path d="M 150 50 L 290 50 L 290 45 L 150 45" fill={ this.state.undercut ? '#FFF' : 'transparent' } />
 
         </svg>);
-    else if (this.props.toolData.tool_type === 'drill') {
-
+    } else if (this.props.toolData.tool_type === 'Drill') {
+      console.log(123);
       return (
         <svg height="30" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
           <defs>
@@ -189,7 +190,7 @@ class MillToolEditor extends Component {
         <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} />
         <DescriptionItem header={'Material: '} value={this.props.toolData.material} />
         <DescriptionItem header={'Flutes: '} value={this.props.toolData.flutes} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'drill' ? '' : 'gone')}/>
+        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
         <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} />
         <DescriptionItem header={'Corner Radius: '} value={this.props.toolData.corner_radius} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
         <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
@@ -243,7 +244,7 @@ class MillToolEditor extends Component {
           type='number'
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.props.toolData.tool_type === 'drill' ? '' : 'gone')}
+          classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
           value={this.props.toolData.tip_angle}
           change={this.props.change}
