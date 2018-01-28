@@ -978,8 +978,8 @@ h4 {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000323}}
       .login-screen .login-modal {
         box-shadow: none;
-        height: 100vh;
-        max-height: 100vh; } }
+        height: 110vh;
+        max-height: 110vh; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000336}}
     .login-screen .login-modal .create-email, .login-screen .login-modal .create-password, .login-screen .login-modal .create-name {
       border: none;
@@ -1030,7 +1030,7 @@ h4 {
         .login-screen .login-modal .login {
           border-right: none;
           padding: 0px;
-          min-width: 300px; } }
+          min-width: 200px; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\0000393}}
       .login-screen .login-modal .login .forgot-password {
         font-size: 12px;
