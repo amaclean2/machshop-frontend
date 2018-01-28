@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom';
 import MillToolEditor from './MillToolEditor';
+import LatheToolEditor from './LatheToolEditor';
 
 class ToolEditor extends Component {
 	constructor(props) {
@@ -104,12 +105,14 @@ class ToolEditor extends Component {
   }
 
   stationSelector() {
-    if(this.state.mill)
-      return <MillToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
-    else if(this.state.lathe)
-      return 'lathe'; // <LatheToolEditor data={this.state.toolData} toolId={this.state.toolId} />
-    else if(this.state.other)
-      return 'other'; // <OtherToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+    if(this.state.loaded) {
+      if(this.state.mill)
+        return <MillToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
+      else if(this.state.lathe)
+        return <LatheToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
+      else if(this.state.other)
+        return 'other'; // <OtherToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+    }
   }
 
   save() {
@@ -121,8 +124,11 @@ class ToolEditor extends Component {
   }
 
   componentDidMount() {
-    if(this.state.toolId === 0)
+    if(this.state.toolId !== '0') {
       this.get();
+    } else {
+      this.setState({ loaded: true });
+    }
   }
 
   render() {

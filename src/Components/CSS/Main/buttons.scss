@@ -27,10 +27,12 @@
 .white-button {
 	background-color: $textOnPrimary;
 	color: $primary;
+	box-shadow: none;
 
 	&:hover {
 		background-color: $textOnPrimaryHover;
 		color: $primaryHover;
+		box-shadow: none;
 	}
 }
 
@@ -131,15 +133,4 @@
 
 .form-button {
 	display: block;
-}
-
-.put-away {
-	box-shadow: none;
-	position: absolute;
-	top: -15px;
-	right: -15px;
-
-	&:hover {
-		box-shadow: none;
-	}
 }

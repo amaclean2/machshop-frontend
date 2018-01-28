@@ -6,7 +6,7 @@ class AddEventForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			event: { date: this.props.day },
+			event: { date: this.props.day.getTime() },
 		}
 		this.change=this.change.bind(this);
 		this.output=this.output.bind(this);
@@ -31,16 +31,15 @@ class AddEventForm extends Component {
 
 	saveEvent() {
 		let newInfo = this.state.event;
-		newInfo.date.setSeconds(0);
+		newInfo.date = newInfo.date - (newInfo.date & 60000);
 		this.props.saveData('Andrew', this.state.event.event, this.state.event.notes, this.state.event.location, this.state.event.date);
 	}
 
-	componentWillMount() {
-		let newDate = this.state.event.date;
+	componentDidMount() {
+		let t = new Date(this.state.event.date);
+		t.setHours(1);
+		t.setMinutes(0);
 
-		newDate.setHours(new Date().getHours());
-		newDate.setMinutes(0);
-		newDate.setSeconds(0);
 	}
 
   render() {

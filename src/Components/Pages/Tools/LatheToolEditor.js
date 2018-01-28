@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
 
-class MillToolEditor extends Component {
+class LatheToolEditor extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -207,7 +207,10 @@ class MillToolEditor extends Component {
           output={this.props.output}
           name={'tool_type'}
           data={[
-            { value: 'Endmill', children: 'Endmill' },
+            { value: 'Boring Bar', children: 'Endmill' },
+            { value: 'Insert', children: 'Insert'},
+            { value: 'Center Drill', children: 'Center Drill'},
+            { value: 'OD Groover', children: 'OD Groover'},
             { value: 'Drill', children: 'Drill' },
             // { value: 'reemer', children: 'Reemer' },
             // { value: 'key_cutter', children: 'Key Cutter' },
@@ -337,4 +340,4 @@ class MillToolEditor extends Component {
   }
 }
 
-export default MillToolEditor;
+export default LatheToolEditor;

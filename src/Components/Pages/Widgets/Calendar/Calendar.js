@@ -22,6 +22,7 @@ class Calendar extends Component {
   }
 
   toggleViews(date) {
+
     if(date) {
       this.setState({ current: date });
     } else if (this.state.view === 'month') {
@@ -29,9 +30,11 @@ class Calendar extends Component {
       this.makeCalendar();
     }
     this.setState({ view: this.state.view === 'month' ? 'day' : 'month' });
+
   }
 
   showViews() {
+    
     if(this.state.loaded === true) {
       if(this.state.view === 'month') {
         return (<MonthView toggleViews={this.toggleViews} events={this.state.events} current={this.state.current} calArray={this.state.calArray} />);
@@ -121,7 +124,6 @@ class Calendar extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log('deleted');
       this.get();
     });
   }

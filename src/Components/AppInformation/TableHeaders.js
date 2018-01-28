@@ -41,10 +41,9 @@ let headers = {
 	MillTools : [
 		['Type', 'tool_type', 'e'],
 		['Diameter','diameter'],
-		['Flutes', 'flutes'],
 		['Material', 'material'], 
-		['EDP', 'edp'],
-		['Job Number', 'job_number']
+		['EDP', 'edp']
+		// ['Job Number', 'job_number']
 	],
 	LatheTools : [
 		['Type', 'type', 'e'],

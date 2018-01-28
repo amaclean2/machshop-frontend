@@ -15,12 +15,12 @@ class Operation extends Component {
       edit: !this.props.data,
       opData: this.props.data ? this.props.data : { station: 'administration', station_data: {} },
       stationData: [
-        {station: 'mill'},
-        {station: 'lathe'},
-        {station: 'inspection'},
-        {station: 'saw'},
-        {station: 'processing'},
-        {station: 'administration'}
+        {value: 'mill', children: 'mill'},
+        {value: 'lathe', children: 'lathe'},
+        {value: 'inspection', children: 'inspection'},
+        {value: 'saw', children: 'saw'},
+        {value: 'processing', children: 'processing'},
+        {value: 'administration', chilren: 'administration'}
       ]
     }
     this.toggleEdit=this.toggleEdit.bind(this);

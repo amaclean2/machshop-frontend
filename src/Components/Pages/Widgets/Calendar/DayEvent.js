@@ -33,13 +33,9 @@ class DayEvent extends Component {
   output(value, label) {
     let newInfo = this.state.data;
     if(typeof(newInfo.start_time) === 'string') {
-      let year = newInfo.start_time.substr(0, 4),
-          month = newInfo.start_time.substr(5, 2),
-          day = newInfo.start_time.substr(8, 2),
-          hours = newInfo.start_time.substr(11, 2),
-          minutes = newInfo.start_time.substr(14, 2);
+      let time = new Date(newInfo.start_time);
       
-      newInfo.start_time = new Date(year, month, day, hours, minutes);
+      newInfo.start_time = time;
     }
 
     if(label === 'hours') {
@@ -82,15 +78,12 @@ class DayEvent extends Component {
   }
 
 	getTime() {
-		let time = this.props.event.start_time, hours, minutes;
+		let time = this.props.event.start_time,
+        hours = new Date(time).getHours(),
+        minutes = new Date(time).getMinutes();
 
-    if(typeof(time) === 'string') {
-      hours = time.substring(11, 13);
-      minutes = time.substring(14, 16);
-    } else {
-      hours = time.getHours();
-      minutes = time.getMinutes();
-    }
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
 
     let newHours = hours > 12 ? hours - 12 : hours;
 

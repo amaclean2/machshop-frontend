@@ -1,61 +1,36 @@
 @import './colors';
 
-.login-modal {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	min-width: 600px;
 
-	.login, .register {
+.login-screen {
+	text-align: center;
+
+	.save-button {
+		float: none;
+	}
+
+	h1 {
+		font-size: 40px;
+		width: 100vw;
+		color: $primaryHover;
 		text-align: left;
-		padding: 15px;
-	}
+		margin-top: 10px;
 
-	.login {
-		border-right: 1px solid $borderGrey;
-		flex: 1;
-		padding-right: 30px;
-
-		.interactions {
-			margin-top: 20px;
-
-			.login-email, .login-password {
-				font-size: 15px;
-				margin: 5px 0;
-				width: 300px;
-				font-weight: lighter;
-			}
-		}
-
-		.forgot-password {
-			font-size: 12px;
-			margin-left: 15px;
+		@media screen and (max-width: 500px) {
+			text-align: inherit;
+			margin-top: 0px;
 		}
 	}
+	.login-modal {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		max-width: 600px;
 
-	.register {
-		flex: 1;
-		padding-left: 30px;
-
-		.register-button {
-			margin-top: 30px;
-		}
-	}
-}
-
-.error-message {
-	color: $delete;
-	font-size: 12px;
-}
-
-.login-modal {
-	.create-user {
-		width: 100%;
-		text-align: left;
-		position: relative;
-
-		.interactions {
-			margin-top: 20px;
+		@media screen and (max-width: 500px) {
+			box-shadow: none;
+			height: 100vh;
+			max-height: 100vh;
 		}
 
 		.create-email, .create-password, .create-name {
@@ -63,41 +38,100 @@
 			font-size: 15px;
 			padding: 8px 15px;
 			border-bottom: 1px solid $borderGrey;
-			display: block;
+			display: inline-block;
 			margin: 10px 0;
 			width: 100%;
 			max-width: 400px;
+			box-sizing: border-box;
+			min-width: 300px;
+			text-align: start;
+
+			@media screen and (max-width: 500px) {
+				min-width: 200px;
+			}
 		}
 
-		.required {
-			border-bottom: 1px solid $hyperLink;
+		.create-user {
+			width: 100%;
+			text-align: left;
+			position: relative;
+			text-align: inherit;
+
+			.required {
+				border-bottom: 1px solid $hyperLink;
+			}
+
+			.create-button {
+				margin-top: 20px;
+			}
 		}
 
-		.create-email, .create-password {
-			display: inline-block;
-			width: 45%;
-			margin-right: 10px;
+		.login, .register {
+			text-align: left;
+			padding: 15px;
+
+			@media screen and (max-width: 500px) {
+				text-align: inherit;
+			}
 		}
 
-		.create-button {
+		.interactions {
 			margin-top: 20px;
 		}
+
+		.login {
+			border-right: 1px solid $borderGrey;
+			flex: 1;
+			padding-right: 30px;
+
+			@media screen and (max-width: 500px) {
+				border-right: none;
+				padding: 0px;
+				min-width: 300px;
+			}
+
+			.forgot-password {
+				font-size: 12px;
+				margin-left: 15px;
+			}
+		}
+
+		.login-button {
+			margin-top: 20px;
+		}
+
+		.register {
+			flex: 1;
+			padding-left: 30px;
+
+			@media screen and (max-width: 500px) {
+				border-right: none;
+				padding: 0px;
+
+			}
+		}
+	}
+
+	.error-message {
+		color: $delete;
+		font-size: 12px;
+	}
+
+	.bad-input {
+		border-color: $delete !important;
+	}
+
+	.final-message {
+		font-size: 15px;
+		margin-top: 20px;
+		color: $primary;
+	}
+
+	.required-legend {
+		font-size: 12px;
+		border-bottom: 1px solid $hyperLink;
+		color: $hyperLink;
+		margin-left: 20px;
 	}
 }
-
-.bad-input {
-	border-color: $delete !important;
-}
-
-.final-message {
-	font-size: 15px;
-	margin-top: 20px;
-	color: $primary;
-}
-
-.required-legend {
-	font-size: 12px;
-	border-bottom: 1px solid $hyperLink;
-	color: $hyperLink;
-	margin-left: 20px;
-}
+	

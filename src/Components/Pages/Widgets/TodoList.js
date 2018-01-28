@@ -36,7 +36,7 @@ class TodoList extends Component {
     location,
     startTime
     ) {
-    startTime.setHours(startTime.getHours() - 8);
+    startTime = new Date(startTime).setHours(new Date(startTime).getHours() - 8);
     let url = sessionStorage.getItem('user').split(',')[2],
         request = new Request(url + '/events', {
       method: 'POST',
@@ -54,13 +54,12 @@ class TodoList extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      
       this.get();
     });
   }
 
   put(user, event, notes, location, startTime, eventId) {
-    console.log('here');
+    startTime = new Date(startTime).setHours(new Date(startTime).getHours() - 8);
     let url = sessionStorage.getItem('user').split(',')[2],
         request = new Request(url + '/events/' + eventId, {
       method: 'PUT',

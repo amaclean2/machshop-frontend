@@ -123,6 +123,11 @@
 
 .toggle {
 	margin-left: 30px;
+	min-width: 216px;
+
+	@media screen and (max-width: 500px) {
+		margin-left: 0px;
+	}
 
 	&>div {
 		display: inline-block;
@@ -173,6 +178,14 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	flex-wrap: wrap;
+
+	@media screen and (max-width: 500px) {
+		h3 {
+			margin-right: 15px;
+			margin-bottom: 20px;
+		}
+	}
 }
 
 .tool-image {
