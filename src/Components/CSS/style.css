@@ -480,8 +480,9 @@ h4 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000312}}
+  z-index: 1;
+  overflow: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000313}}
   .modal-container .modal-content {
     width: 100%;
     box-sizing: border-box;
@@ -494,24 +495,24 @@ h4 {
     border-radius: 3px;
     font-weight: lighter;
     font-size: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000326}}
     .modal-container .modal-content .delete-modal-button-container {
       width: 100%;
       display: flex;
       justify-content: space-around;
       margin-top: 25px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000332}}
       .modal-container .modal-content .delete-modal-button-container .delete-modal-button {
         background-color: #FFF;
         font-size: 15px;
         box-shadow: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000337}}
         .modal-container .modal-content .delete-modal-button-container .delete-modal-button:hover {
           background-color: #EEE; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000342}}
       .modal-container .modal-content .delete-modal-button-container .accept {
         color: #ed5e69; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/modal\.scss}line{font-family:\0000346}}
       .modal-container .modal-content .delete-modal-button-container .reject {
         color: #547e99; }
 
