@@ -29,8 +29,8 @@
 
 		@media screen and (max-width: 500px) {
 			box-shadow: none;
-			height: 100vh;
-			max-height: 100vh;
+			height: 110vh;
+			max-height: 110vh;
 		}
 
 		.create-email, .create-password, .create-name {
@@ -87,7 +87,7 @@
 			@media screen and (max-width: 500px) {
 				border-right: none;
 				padding: 0px;
-				min-width: 300px;
+				min-width: 200px;
 			}
 
 			.forgot-password {
