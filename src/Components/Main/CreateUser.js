@@ -5,7 +5,7 @@ class CreateUser extends Component {
     super()
     this.state = {
       companyList: [],
-      company: 'New Company'
+      company: 'new company'
     }
     this.get=this.get.bind(this);
     this.getCompany=this.getCompany.bind(this);
@@ -45,7 +45,7 @@ class CreateUser extends Component {
             type='text'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
-            name='name' placeholder='full name' />
+            name='name' placeholder='name' />
           <input
             type='text'
             onChange={this.getCompany}
@@ -55,26 +55,21 @@ class CreateUser extends Component {
           <input
             type='text'
             onChange={this.props.createUserInfo}
-            className={'create-email required ' + (this.props.failed ? 'bad-input' : '')}
+            className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='email' placeholder='email' />
-          <input
-            type='text'
-            onChange={this.props.createUserInfo}
-            className={'create-email required ' + (this.props.failed ? 'bad-input' : '')}
-            name='verifyEmail' placeholder=' verify email' />
           <input type='password'
             onChange={this.props.createUserInfo}
-            className={'create-password required ' + (this.props.failed ? 'bad-input' : '')}
+            className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='pass'
             placeholder='password' />
-          <input type='password'
-            onChange={this.props.createUserInfo}
-            className={'create-password required ' + (this.props.failed ? 'bad-input' : '')}
-            name='verifyPass'
-            placeholder='verify password' />
-          <button className='button create-button' onClick={this.props.addUser} >
-            Create user
-          </button>
+            <div>
+              <button className='button create-button' onClick={this.props.addUser} >
+                Create user
+              </button>
+              <button className='button white-button' onClick={this.props.createUser} >
+                back to Login
+              </button>
+            </div>
         </div>
       )
     }
@@ -83,13 +78,15 @@ class CreateUser extends Component {
   render() {
     let finished = this.finished();
     return (
-      <div className="modal-container">
-        <div className='modal-content login-modal'>
-          <div className='create-user'>
-            <span className='login-title'>Set up a new account</span>
-            <span className='required-legend'>required</span>
-            <button className='button white-button put-away' onClick={this.props.createUser} >Login</button>
-            {finished}
+      <div className="login-screen">
+        <div className="modal-container">
+          <div className='modal-content login-modal'>
+            <h1>MachShop</h1>
+            <div className='create-user'>
+              <span className='login-title'>Set up a new account</span>
+              <span className='required-legend'>required</span>
+              {finished}
+            </div>
           </div>
         </div>
       </div>

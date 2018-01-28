@@ -22,7 +22,7 @@ class HomePage extends Component {
 	constructor() {
 		super()
 		this.state = {
-			tabs: ['Dashboard', 'Parts', 'Jobs', 'Machining', 'Ordering', /*'Inspection', */'Users', 'Companies']
+			tabs: [/*'Dashboard', 'Parts', 'Jobs', */ 'Machining', 'Ordering', /*'Inspection', */'Users', 'My Company']
 		}
 	}
 
@@ -31,7 +31,7 @@ class HomePage extends Component {
 			<div> 
 				<Header tabs={this.state.tabs} logout={this.props.logout} />
 				<div className="page-content">
-					<Route exact path='/' component={Dashboard} />
+					<Route exact path='/' component={Ordering} />
 					<Route path='/dashboard' component={Dashboard} />
 					<Route path='/parts/:partId' component={PartsEditor} />
 					<Route exact path='/parts'component={Parts} />

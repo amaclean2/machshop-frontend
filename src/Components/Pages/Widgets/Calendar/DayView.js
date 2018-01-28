@@ -24,11 +24,7 @@ class DayView extends Component {
 
 		let day = this.props.current,
 				pertinantEvents = this.props.events.filter( event => {
-
-					let year = event.start_time.substring(0, 4),
-							month = event.start_time.substring(5, 7) - 1,
-							date = event.start_time.substring(8, 10),
-							format = new Date(year, month, date);
+					let format = new Date(event.start_time);
 
 					return format.getFullYear() === day.getFullYear() && format.getMonth() === day.getMonth() && format.getDate() === day.getDate();
 				});

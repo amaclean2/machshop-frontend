@@ -142,37 +142,29 @@ class App extends Component {
 
   addUser() {
     let info = this.state.userInfo;
-    if(!info.displayName || !info.companyId || !info.email || !info.vmail || !info.password || !info.vword) {
+    if(!info.displayName || !info.companyId || !info.email ||  !info.password ) {
       this.setState({ failed: 'required fields must be filled in' });
     } else {
-      if(info.vmail !== info.email) {
-        this.setState({failed: 'verify email must match email'});
-      } else {
-        if(info.password !== info.vword) {
-          this.setState({failed: 'verify password must match password'});
-        } else {
-          auth.createUserWithEmailAndPassword(info.email, info.password)
-            .catch( error => {
-              this.setState({ failed: error.code });
-            }).then( response => {
-              var user = auth.currentUser;
-              user.updateProfile({
-                displayName: info.displayName
-              }).catch( error => {
-                this.setState({ failed: error.code });
-              }).then( response => {
-                user.sendEmailVerification().then( () => {
-                  // post user data;
-                  this.post();
-                  this.setState({ finished: true });
-                }).catch( error => {
-                  console.log(error);
-                  this.setState({ failed: 'invalid email'});
-                });
-              });
+      auth.createUserWithEmailAndPassword(info.email, info.password)
+        .catch( error => {
+          this.setState({ failed: error.code });
+        }).then( response => {
+          var user = auth.currentUser;
+          user.updateProfile({
+            displayName: info.displayName
+          }).catch( error => {
+            this.setState({ failed: error.code });
+          }).then( response => {
+            user.sendEmailVerification().then( () => {
+              // post user data;
+              this.post();
+              this.setState({ finished: true });
+            }).catch( error => {
+              console.log(error);
+              this.setState({ failed: 'invalid email'});
             });
-        }
-      }
+          });
+        });
     }
   }
 

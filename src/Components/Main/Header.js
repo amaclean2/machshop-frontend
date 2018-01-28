@@ -35,14 +35,14 @@ class Header extends Component {
 	      <h2>MachShop</h2>
 
 	   	  <div className="right-content">
-	      	<Select output={this.selectOutput} name={'userName'} >
+	      	{/*<Select output={this.selectOutput} name={'userName'} >
             <select className = 'header-select'>
               <option value="default">Select User</option>
               <option value='Andrew_Maclean' selected>Andrew Maclean</option>
             </select>
           </Select>
-	      	<button className="button white-button header-select-btn">Select</button>
-	      	<i className="fa fa-bell-o hoverable" aria-hidden="true"></i>
+	      	<button className="button white-button header-select-btn">Select</button>*/}
+	      	{/*<i className="fa fa-bell-o hoverable" aria-hidden="true"></i>*/}
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
 	      </div>
 	    </div>
