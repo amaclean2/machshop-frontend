@@ -34,6 +34,7 @@ class LatheTools extends Component {
   render() {
     return (
     	<div className='lathe-tools'>
+        Lathe
         <Table
         	data={this.state.tools}
         	headers={headers.LatheTools}
