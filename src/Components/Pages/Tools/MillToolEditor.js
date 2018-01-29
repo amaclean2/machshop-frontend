@@ -82,7 +82,7 @@ class MillToolEditor extends Component {
     if(this.props.toolData.tool_type === 'Endmill')
     {
       return (
-        <svg height="50" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
+        <svg height="100%" width="100%" viewBox="0 0 500 50" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
           <defs>
             <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" style={{ 'stopOpacity': 0 }} />
@@ -131,7 +131,7 @@ class MillToolEditor extends Component {
         </svg>);
     } else if (this.props.toolData.tool_type === 'Drill') {
       return (
-        <svg height="30" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
+        <svg height="100%" width="100%" viewBox="0 0 500 30" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
           <defs>
             <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" style={{ 'stopOpacity': 0 }} />

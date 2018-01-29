@@ -5,9 +5,8 @@ class SideNav extends Component {
 
 	contentList() {
 		let tabs = this.props.tabs.map( (item, i) => {
-			let itemLower = item.toLowerCase();
 			return (<li key={i}>
-               <NavLink to={'/' + itemLower} onClick={this.props.toggleHideSideNav}>{item}</NavLink>
+               <NavLink to={'/' + item.value} onClick={this.props.toggleHideSideNav}>{item.name}</NavLink>
              </li>);
 		})
 

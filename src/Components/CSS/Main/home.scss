@@ -68,6 +68,11 @@
 .left-column {
 	width: 300px;
 	margin-right: 20px;
+
+	@media screen and (max-width: 500px) {
+		width: 100%;
+		margin-right: 0;
+	}
 }
 
 .work-flow {
@@ -119,6 +124,10 @@
 
 .sub-window {
 	margin-top: 15px;
+
+	@media screen and (max-width: 500px) {
+		margin-top: 0;
+	}
 }
 
 .toggle {
@@ -162,7 +171,7 @@
 
 .toggle-smaller {
 	font-size: 13px;
-	margin: 20px 0;
+	margin-bottom: 20px;
 
 	&>div {
 		color: $grey1;
@@ -189,5 +198,6 @@
 }
 
 .tool-image {
-	margin: 20px 0 0 10px;
+	margin-top: 20px;
+	max-width: 500px;
 }

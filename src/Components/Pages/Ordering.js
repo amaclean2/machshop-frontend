@@ -5,7 +5,7 @@ class Ordering extends Component {
   render() {
     return (
     	<div>
-        Ordering 
+        	<h3>Shopping List</h3>
       </div>
     );
   }

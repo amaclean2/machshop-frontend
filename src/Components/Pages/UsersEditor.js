@@ -235,7 +235,7 @@ constructor(props) {
         <div className={(this.state.modalHide ? 'gone' : '')} >
           <DeleteModal delete={() => {this.delete(this.state.userId)}} reject={this.toggleModal} link={'/users'} />
         </div>
-        <button className='button'> Clock In</button>
+        {/*<button className='button'> Clock In</button>*/}
         <NavLink to={'/users'} className='button table-button'>Return to Users</NavLink>
         <button
           className='button table-button delete-button'
