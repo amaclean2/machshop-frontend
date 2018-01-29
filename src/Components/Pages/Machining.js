@@ -29,14 +29,14 @@ class Machining extends Component {
     	<div>
         <div className="flexible">
           <h3>Machining</h3>
-      		<div className='toggle'>
-      			<div onClick={() => {this.toggle(true) }} className={(this.state.tools ? 'toggled' : '')}>
-      				Tools
-      			</div>
-      			<div onClick={() => {this.toggle() }} className={(this.state.tools ? '' : 'toggled')}>
-      				Setup Sheets
-      			</div>
-      		</div>
+      		{/*<div className='toggle'>
+            <div onClick={() => {this.toggle(true) }} className={(this.state.tools ? 'toggled' : '')}>
+              Tools
+            </div>
+            <div onClick={() => {this.toggle() }} className={(this.state.tools ? '' : 'toggled')}>
+              Setup Sheets
+            </div>
+          </div>*/}
         </div>
     		<div>
     			{pages}

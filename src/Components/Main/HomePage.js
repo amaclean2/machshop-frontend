@@ -22,7 +22,15 @@ class HomePage extends Component {
 	constructor() {
 		super()
 		this.state = {
-			tabs: [/*'Dashboard', 'Parts', 'Jobs', */ 'Machining', 'Ordering', /*'Inspection', */'Users', 'My Company']
+			tabs: [
+				/*'Dashboard', 
+				'Parts', 'Jobs', */ 
+				{ name: 'Tools', value: 'machining'}, 
+				{ name: 'Shopping List', value: 'ordering'}, 
+				/*'Inspection', */
+				{name: 'Users', value: 'users'}, 
+				{name: 'My Company', value: 'companies'}
+			]
 		}
 	}
 
