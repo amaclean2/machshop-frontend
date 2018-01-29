@@ -84,7 +84,6 @@ class CreateUser extends Component {
             <h1>MachShop</h1>
             <div className='create-user'>
               <span className='login-title'>Set up a new account</span>
-              <span className='required-legend'>required</span>
               {finished}
             </div>
           </div>

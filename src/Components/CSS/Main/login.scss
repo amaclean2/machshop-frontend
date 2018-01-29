@@ -12,7 +12,7 @@
 		font-size: 40px;
 		width: 100vw;
 		color: $primaryHover;
-		text-align: left;
+		text-align: center;
 		margin-top: 10px;
 
 		@media screen and (max-width: 500px) {
@@ -23,14 +23,19 @@
 	.login-modal {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
 		flex-wrap: wrap;
 		max-width: 600px;
 
 		@media screen and (max-width: 500px) {
 			box-shadow: none;
-			height: 110vh;
-			max-height: 110vh;
+			height: 120vh;
+			max-height: 120vh;
+			padding: 80px 20px;
+			align-items: center;
+
+			.login-title {
+				min-width: 250px;
+			}
 		}
 
 		.create-email, .create-password, .create-name {
@@ -87,7 +92,7 @@
 			@media screen and (max-width: 500px) {
 				border-right: none;
 				padding: 0px;
-				min-width: 235px;
+				min-width: 275px;
 			}
 
 			.forgot-password {
