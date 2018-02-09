@@ -39,7 +39,7 @@ class Tools extends Component {
         		Lathe Tools
         	</div>
         	<div onClick={() => {this.toggle('other') }} className={(this.state.tools === 'other' ? 'toggled' : '')}>
-        		Others
+        		Other
         	</div>
         </div>
         <div>

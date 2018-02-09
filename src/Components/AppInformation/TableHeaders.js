@@ -46,16 +46,17 @@ let headers = {
 		// ['Job Number', 'job_number']
 	],
 	LatheTools : [
-		['Type', 'type', 'e'],
+		['Type', 'tool_type', 'e'],
 		['Description','description'],
-		['Insert', 'insert'],
-		['Material', 'material'],
-		['Part Number', 'part_number']
+		['Insert Code', 'insert'],
+		['Material', 'material']
+		// ['Part Number', 'part_number']
 	],
 	OtherTools : [
+		['Name', 'name', 'e'],
 		['Description','description'],
 		['Material', 'material'],
-		['Part Number', 'part_number']
+		// ['Part Number', 'part_number']
 	],
 };
 

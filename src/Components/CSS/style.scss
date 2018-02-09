@@ -56,5 +56,5 @@ body {
 @import 'Main/Login';
 
 .gone {
-	display: none;
+	display: none !important;
 }

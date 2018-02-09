@@ -90,6 +90,7 @@ class EditableItem extends Component {
                   defaultValue={this.props.value ? this.props.value : ''} />
 
       case 'math' :
+        console.log(this.props.name, this.props.value);
         return <input
                   className={'editable-input'}
                   placeholder={this.props.header.slice(0, -2)}

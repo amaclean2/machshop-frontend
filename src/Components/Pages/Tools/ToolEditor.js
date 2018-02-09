@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import MillToolEditor from './MillToolEditor';
 import LatheToolEditor from './LatheToolEditor';
+import OtherToolEditor from './OtherToolEditor';
 
 class ToolEditor extends Component {
 	constructor(props) {
@@ -97,6 +98,9 @@ class ToolEditor extends Component {
   change(e) {
     let toolData = this.state.toolData;
     toolData[e.target.name] = e.target.value;
+    if(e.target.name === 'diameter' ) {
+      toolData.undercut_width = e.target.value;
+    }
   }
 
   output(value, name) {
@@ -111,7 +115,7 @@ class ToolEditor extends Component {
       else if(this.state.lathe)
         return <LatheToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
       else if(this.state.other)
-        return 'other'; // <OtherToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+        return <OtherToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
     }
   }
 

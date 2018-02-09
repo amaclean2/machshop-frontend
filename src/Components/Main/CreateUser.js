@@ -24,6 +24,9 @@ class CreateUser extends Component {
   }
 
   getCompany(e) {
+    if(e.target.value.toLowerCase() === 'test') {
+      e.target.value = '5a43011d6ceec000140f63dd';
+    }
     this.state.companyList.map( company => {
       if(e.target.value === company._id) {
         this.setState({company: company.name});
@@ -34,7 +37,10 @@ class CreateUser extends Component {
 
   finished() {
     if(this.props.finished) {
-      return <div className='final-message fade-in'>View your email for final steps to confirm your account. Thanks for joining</div>
+      return <div>
+              <div className='final-message fade-in'>View your email for final steps to confirm your account. Thanks for joining</div>
+              <button className='button fade-in' onClick={this.props.createUser} >back to Login</button>
+            </div>
     } else {
       return (
         <div className='interactions'>
@@ -81,7 +87,10 @@ class CreateUser extends Component {
       <div className="login-screen">
         <div className="modal-container">
           <div className='modal-content login-modal'>
-            <h1>MachShop</h1>
+            <div className='title-box'>
+              <h1>MachShop</h1>
+              <div className='login-description'>A purchasing tool for machine shops</div>
+            </div>
             <div className='create-user'>
               <span className='login-title'>Set up a new account</span>
               {finished}

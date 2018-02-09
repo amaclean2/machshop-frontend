@@ -146,24 +146,23 @@ class App extends Component {
       this.setState({ failed: 'required fields must be filled in' });
     } else {
       auth.createUserWithEmailAndPassword(info.email, info.password)
-        .catch( error => {
-          this.setState({ failed: error.code });
-        }).then( response => {
+        .then( response => {
           var user = auth.currentUser;
           user.updateProfile({
             displayName: info.displayName
-          }).catch( error => {
-            this.setState({ failed: error.code });
           }).then( response => {
             user.sendEmailVerification().then( () => {
               // post user data;
               this.post();
               this.setState({ finished: true });
             }).catch( error => {
-              console.log(error);
               this.setState({ failed: 'invalid email'});
             });
+          }).catch( error => {
+            this.setState({ failed: error.code });
           });
+        }).catch( error => {
+          this.setState({ failed: error.code });
         });
     }
   }

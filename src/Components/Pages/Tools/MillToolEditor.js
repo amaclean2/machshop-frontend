@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
+import Endmill from './SVGs/Endmill';
+import Drill from './SVGs/Drill';
 
 class MillToolEditor extends Component {
 	constructor(props) {
@@ -79,103 +81,21 @@ class MillToolEditor extends Component {
 	}
 
   millImage() {
-    if(this.props.toolData.tool_type === 'Endmill')
-    {
-      return (
-        <svg height="100%" width="100%" viewBox="0 0 500 50" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
-          <defs>
-            <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopOpacity': 0 }} />
-              <stop offset="100%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} /> 
-            </linearGradient>
-            <linearGradient id="shadow2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} /> 
-            </linearGradient>
-            <linearGradient id="shadow3" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} />  
-            </linearGradient>
-          </defs>
-          
-          <path d="M 300 0 L 500 0 L 500 50 L 300 50 Z" fill={ this.state.fluteLength ? '#FC9' : '#89A' } />
-          <path d="M 480 0 q 15 0 20 10 L 500 0" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          <path d="M 480 50 q 15 0 20 -10 L 500 50" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          
-          <path d="M 250 0 c 40 0 50 50 100 50 L 400 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 300 0 c 40 0 50 50 100 50 L 450 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 350 0 c 40 0 50 50 100 50 L 500 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 400 0 c 40 0 50 50 100 50 L 550 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 450 0 c 40 0 50 50 100 50 L 600 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-
-          <path d="M 290 0 c 40 0 50 50 100 50 L 400 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 340 0 c 40 0 50 50 100 50 L 450 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 390 0 c 40 0 50 50 100 50 L 500 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 440 0 c 40 0 50 50 100 50 L 550 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 490 0 c 40 0 50 50 100 50 L 600 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-
-          <path d="M 0 0 L 300 0 L 300 50 L0 50" fill="#EEE" />
-          <path d="M 300 0 L 320 0 L 320 50 L 300 50" fill="#89A" />
-
-          <path d="M 0 0 L 500 0 L 500 50 L 0 50" fill={ this.state.toolLength ? '#FC9' : 'transparent' } />
-          <path d="M 150 5 L 290 5 L 290 45 L 150 45" fill={ this.state.undercut ? '#FC9' : 'transparent' } />
-          <path d="M 490 0 L 500 0 L 500 50 L 490 50" fill={ this.state.diameter ? '#FC9' : 'transparent' } />
-
-          <path d="M 0 20 L 500 20 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 0 30 L 500 30 L 500 50 L 0 50" fill="url(#shadow2)" />
-          <path d="M 0 50 L 500 50 L 500 50 L 0 50" fill="url(#shadow1)" />
-
-          <path d="M 150 0 L 290 0 L 290 5 L 150 5" fill={ this.state.undercut ? '#FFF' : 'transparent' } />
-          <path d="M 150 50 L 290 50 L 290 45 L 150 45" fill={ this.state.undercut ? '#FFF' : 'transparent' } />
-
-        </svg>);
-    } else if (this.props.toolData.tool_type === 'Drill') {
-      return (
-        <svg height="100%" width="100%" viewBox="0 0 500 30" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
-          <defs>
-            <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopOpacity': 0 }} />
-              <stop offset="100%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} /> 
-            </linearGradient>
-            <linearGradient id="shadow2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} /> 
-            </linearGradient>
-            <linearGradient id="shadow3" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} />  
-            </linearGradient>
-          </defs>
-          
-          <path d="M 0 0 L 300 0 L 300 30 L0 30" fill="#AAA" />
-          <path d="M 250 0 L 500 0 L 500 30 L 250 30 Z" fill={ this.state.fluteLength ? '#FC9' : '#AAA' } />
-          <path d="M 480 0 q 15 0 20 10 L 500 0" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          <path d="M 480 50 q 15 0 20 -10 L 500 50" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          
-          <path d="M 250 0 c 40 0 50 30 100 30 L 400 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 300 0 c 40 0 50 30 100 30 L 450 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 350 0 c 40 0 50 30 100 30 L 500 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 400 0 c 40 0 50 30 100 30 L 550 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 450 0 c 40 0 50 30 100 30 L 600 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-
-          <path d="M 290 0 c 40 0 50 30 100 30 L 400 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 340 0 c 40 0 50 30 100 30 L 450 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 390 0 c 40 0 50 30 100 30 L 500 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 440 0 c 40 0 50 30 100 30 L 550 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 490 0 c 40 0 50 30 100 30 L 600 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-
-          <path d="M 0 0 L 500 0 L 500 30 L 0 30" fill={ this.state.toolLength ? '#FC9' : 'transparent' } />
-          <path d="M 490 0 L 500 0 L 500 30 L 490 30" fill={ this.state.diameter ? '#FC9' : 'transparent' } />
-
-          <path d="M 0 20 L 500 20 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 0 30 L 500 30 L 500 30 L 0 30" fill="url(#shadow2)" />
-          <path d="M 0 30 L 500 30 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 490 0 L 500 0 L 500 15" fill="#FFF" />
-          <path d="M 490 30 L 500 30 L 500 15" fill="#FFF" />
-
-        </svg>);
+    switch(this.props.toolData.tool_type) {
+      case 'Endmill' :
+        return (<Endmill 
+                  fluteLength={this.state.fluteLength}
+                  radius={this.state.radius} 
+                  toolLength={this.state.toolLength} 
+                  undercut={this.state.undercut}
+                  diameter={this.state.diameter} />);
+      case 'Drill' :
+        return (<Drill
+                  fluteLength={this.state.fluteLength}
+                  radius={this.state.radius}
+                  toolLength={this.state.toolLength}
+                  diameter={this.state.diameter} />);
     }
-
   }
 
   viewInfo() {
@@ -202,21 +122,13 @@ class MillToolEditor extends Component {
   		info = (<div>
         <EditableItem
           header={'Tool Type: '}
-          value={this.props.toolData.tool_type}
+          value={this.props.toolData.tool_type || 'Endmill'}
           type={'select'}
           output={this.props.output}
           name={'tool_type'}
           data={[
             { value: 'Endmill', children: 'Endmill' },
             { value: 'Drill', children: 'Drill' },
-            // { value: 'reemer', children: 'Reemer' },
-            // { value: 'key_cutter', children: 'Key Cutter' },
-            // { value: 'spot_drill', children: 'Spot Drill' },
-            // { value: 'center_drill', children: 'Center Drill' },
-            // { value: 'face_mill', children: 'Face Mill' },
-            // { value: 'dove_mill', children: 'Dove Mill' },
-            // { value: 'tap', children: 'Tap' },
-            // { value: 'thread_mill', children: 'Thread Mill' },
             { value: 'Other', children: 'Other' }
           ]}
           onClick={this.showTool} />
@@ -252,7 +164,7 @@ class MillToolEditor extends Component {
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
-          value={this.props.toolData.tip_angle}
+          value={this.props.toolData.tip_angle || '118'}
           change={this.props.change}
           name={'tip_angle'}
           type='number'
@@ -282,7 +194,7 @@ class MillToolEditor extends Component {
         <EditableItem
           header={'Undercut Width: '}
           classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.undercut_width}
+          value={this.props.toolData.undercut_width }
           change={this.props.change}
           name={'undercut_width'}
           type={'math'}
@@ -315,6 +227,8 @@ class MillToolEditor extends Component {
   }
 
 	componentDidMount() {
+    this.props.change({ target: { name: 'tool_type', value: 'Endmill' }});
+    this.props.change({ target: { name: 'material', value: 'Carbide' }});
     if(this.props.toolId === '0')
       this.setState({ editable: true });
 	}

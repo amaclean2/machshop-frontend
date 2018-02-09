@@ -7,7 +7,10 @@ class Login extends Component {
       <div className='login-screen'>
         <div className="modal-container">
           <div className='modal-content login-modal'>
-            <h1>MachShop</h1>
+            <div className='title-box'>
+              <h1>MachShop</h1>
+              <div className='login-description'>A purchasing tool for machine shops</div>
+            </div>
             <div className='login'>
               <div className='login-title'>Login to your account</div>
               <div className='interactions'>
@@ -24,10 +27,12 @@ class Login extends Component {
                   className={'create-name ' + (this.props.failed ? 'bad-input' : '')}
                   name='password'
                   placeholder='password' />
-                <button className='button login-button' onClick={this.props.login} >
-                  Login
-                </button>
-                <button className='button white-button' >Forgot password</button>
+                <div>
+                  <button className='button login-button' onClick={this.props.login} >
+                    Login
+                  </button>
+                  <button className='button white-button' >Forgot password</button>
+                </div>
               </div>
             </div>
             <div className='register'>
