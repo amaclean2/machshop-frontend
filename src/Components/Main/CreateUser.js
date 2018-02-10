@@ -11,19 +11,20 @@ class CreateUser extends Component {
     }
     this.get=this.get.bind(this);
     this.getCompany=this.getCompany.bind(this);
-    this.newUser=this.newUser.bind(this);
     this.addUser=this.addUser.bind(this);
   }
 
   addUser() {
     this.props.addUser();
-    setTimeout( () => {
+
+    setTimeout(() => {
 
       if(!this.props.failed) {
         this.setState({ progress: true });
       }
 
-    }, 500);
+    }, 100);
+    
   }
 
   get() {

@@ -146,6 +146,7 @@ class App extends Component {
   }
 
   addUser() {
+    this.setState({ failed: null });
     let info = this.state.userInfo;
     if(!info.displayName || !info.companyId || !info.email ||  !info.password ) {
       this.setState({ failed: 'required fields must be filled in' });
