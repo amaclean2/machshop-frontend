@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
+import Progress from './Progress';
 
 class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      progress: false
+    }
+    this.login=this.login.bind(this);
+  }
+
+  login() {
+    this.props.login();
+
+    setTimeout(() => {
+
+      if(!this.props.failed) {
+        this.setState({ progress: true });
+      }
+
+    }, 100);
+  }
 
   render() {
     return (
@@ -27,11 +47,10 @@ class Login extends Component {
                   className={'create-name ' + (this.props.failed ? 'bad-input' : '')}
                   name='password'
                   placeholder='password' />
-                <div>
-                  <button className='button login-button' onClick={this.props.login} >
-                    Login
-                  </button>
-                  <button className='button white-button' >Forgot password</button>
+                <div className="finish-buttons">
+                  <button className='button login-button' onClick={this.login}>Login</button>
+                  <button className='button white-button'>Forgot password</button>
+                  <Progress activated={this.state.progress}/>
                 </div>
               </div>
             </div>

@@ -118,25 +118,30 @@ class App extends Component {
   }
 
   loginAction() {
+    this.setState({ failed: null });
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then( result => {
         fetch('https://machapi.herokuapp.com/api/allusers')
           .then( response => { return response.json(); }).then( data => {
+
             if(data.length > 0) {
+
               let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0],
                   company = userData.company_id;
+
               sessionStorage.setItem('user', [ userData.user_position, company, this.state.url ]);
               this.setState({ validEmail: result.email, password: null });
-              // setTimeout(() => {
-              //   this.setState({ validEmail: null });
-              //   sessionStorage.clear();
-              // }, 60000 * 30);
+
             } else {
+
               this.setState({ failed: 'login database error' });
+
             }
           });
       }).catch( error => {
+
         this.setState({failed: error.code});
+
       })
   }
 

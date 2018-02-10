@@ -157,5 +157,25 @@
 		color: $hyperLink;
 		margin-left: 20px;
 	}
+
+	.finish-buttons {
+		.progress {
+			width: 100%;
+			background-color: transparent;
+			height: 5px;
+			margin-top: 5px;
+
+			.progress-slide {
+				width: 0%;
+				height: 100%;
+				background-color: $hyperLink;
+				transition: width 5s;
+			}
+
+			.grow {
+				width: 100%;
+			}
+		}
+	}
 }
 	

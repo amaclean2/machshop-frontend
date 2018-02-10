@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
+import Progress from './Progress';
 
 class CreateUser extends Component {
   constructor() {
     super()
     this.state = {
       companyList: [],
-      company: 'new company'
+      company: 'new company',
+      progress: false
     }
     this.get=this.get.bind(this);
     this.getCompany=this.getCompany.bind(this);
+    this.newUser=this.newUser.bind(this);
+    this.addUser=this.addUser.bind(this);
+  }
+
+  addUser() {
+    this.props.addUser();
+    setTimeout( () => {
+
+      if(!this.props.failed) {
+        this.setState({ progress: true });
+      }
+
+    }, 500);
   }
 
   get() {
@@ -68,13 +83,14 @@ class CreateUser extends Component {
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='pass'
             placeholder='password' />
-            <div>
-              <button className='button create-button' onClick={this.props.addUser} >
+            <div className="finish-buttons">
+              <button className='button create-button' onClick={this.addUser} >
                 Create user
               </button>
               <button className='button white-button' onClick={this.props.createUser} >
                 back to Login
               </button>
+              <Progress activated={this.state.progress} />
             </div>
         </div>
       )

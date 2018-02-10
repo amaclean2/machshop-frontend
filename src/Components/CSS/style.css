@@ -1124,6 +1124,21 @@ h4 {
     border-bottom: 1px solid #749eb9;
     color: #749eb9;
     margin-left: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\00003162}}
+  .login-screen .finish-buttons .progress {
+    width: 100%;
+    background-color: transparent;
+    height: 5px;
+    margin-top: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\00003168}}
+    .login-screen .finish-buttons .progress .progress-slide {
+      width: 0%;
+      height: 100%;
+      background-color: #749eb9;
+      transition: width 5s; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/login\.scss}line{font-family:\00003175}}
+    .login-screen .finish-buttons .progress .grow {
+      width: 100%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/style\.scss}line{font-family:\0000358}}
 .gone {
