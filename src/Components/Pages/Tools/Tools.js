@@ -30,7 +30,8 @@ class Tools extends Component {
   render() {
   	let categories = this.showTools();
     return (
-    	<div className='sub-window'>
+    	<div>
+        <h3>Tools</h3>
         <div className='toggle toggle-smaller'>
         	<div onClick={() => {this.toggle('mill') }} className={(this.state.tools === 'mill' ? 'toggled' : '')}>
         		Mill Tools

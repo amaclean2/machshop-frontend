@@ -55,7 +55,7 @@ let headers = {
 	OtherTools : [
 		['Name', 'name', 'e'],
 		['Description','description'],
-		['Material', 'material'],
+		['Notes', 'notes'],
 		// ['Part Number', 'part_number']
 	],
 };

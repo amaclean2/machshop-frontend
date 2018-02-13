@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import { NavLink } from 'react-router-dom';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
 import Endmill from './SVGs/Endmill';
@@ -95,6 +93,8 @@ class OtherToolEditor extends Component {
                   radius={this.state.radius}
                   toolLength={this.state.toolLength}
                   diameter={this.state.diameter} />);
+      default :
+        return '';
     }
   }
 
@@ -114,6 +114,13 @@ class OtherToolEditor extends Component {
         <EditableItem header={'Name: '} value={this.props.toolData.name} change={this.props.change} name={'name'} onClick={this.showTool} />
         <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
         <EditableItem header={'Notes: '} value={this.props.toolData.notes} change={this.props.change} name={'notes'} onClick={this.showTool} />
+        <EditableItem
+          header={'Count: '}
+          value={this.props.count}
+          change={this.props.changeCount}
+          name={'count'}
+          onClick={this.showTool}
+          classes={(this.props.count !== 0 ? '' : 'gone')} />
         {/*<EditableItem
             header={'Job Number: '}
             value={this.props.toolData.job_number}

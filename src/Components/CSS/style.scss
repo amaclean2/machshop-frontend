@@ -43,7 +43,6 @@ body {
 	}
 }
 
-@import 'Main/Select';
 @import 'Main/Tables';	
 @import 'Main/Htags';
 @import 'Main/Buttons';
@@ -54,6 +53,7 @@ body {
 @import 'Main/Dashboard';
 @import 'Main/Calendar';
 @import 'Main/Login';
+@import 'Main/Select';
 
 .gone {
 	display: none !important;

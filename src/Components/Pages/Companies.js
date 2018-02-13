@@ -13,29 +13,39 @@ class Companies extends Component {
 	}
 
 	get() {
-	  	let urlTemp = sessionStorage.getItem('user').split(',')[2],
-			url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-			request = new Request(url + '/companies', {
-	      method: 'GET',
-	      headers: new Headers({ 'Content-Type': 'application/json' })
-	    });
+	  let urlTemp = sessionStorage.getItem('user').split(',')[2],
+	  		companyId = sessionStorage.getItem('user').split(',')[1];
 
-	    fetch(request).then( response => {
-	    	return response.json();
-	    }).then( data => {
-	    	console.log('all companies loaded');
-	      this.setState({ companies: data });
-	    });
+	  companyId = companyId === '5a4b0203734d1d7cf82ec0b8' ? '' : '/' + companyId;
+
+		let url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+				request = new Request(url + '/companies' + companyId, {
+	      	method: 'GET',
+	      	headers: new Headers({ 'Content-Type': 'application/json' })
+	    	});
+
+	  fetch(request).then( response => {
+	    return response.json();
+	  }).then( data => {
+	  	let newData;
+	  	if(Array.isArray(data)) {
+	  		newData = data;
+	  	} else {
+	  		newData = []
+	    	newData.push(data);
+	  	}
+	    this.setState({ companies: newData });
+	  });
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.get();
 	}
 
   render() {
     return (
       <div className='companies'>
-      	<h3>Companies</h3>
+      	<h3>My Company</h3>
       	<Table 
       		data={this.state.companies}
       		headers={headers.Companies}

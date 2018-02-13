@@ -25,7 +25,7 @@ class Login extends Component {
   render() {
     return (
       <div className='login-screen'>
-        <div className="modal-container">
+        <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
               <h1>MachShop</h1>
@@ -38,7 +38,7 @@ class Login extends Component {
                   Your email or password wasn't recognized
                 </span>
                 <input
-                  type='text'
+                  type='email'
                   onChange={this.props.update}
                   className={'create-name ' + (this.props.failed ? 'bad-input' : '')}
                   name='email' placeholder='email' />

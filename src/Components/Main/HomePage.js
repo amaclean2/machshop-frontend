@@ -5,7 +5,8 @@ import Header from './Header';
 import Dashboard from '../Pages/Dashboard';
 import Parts from '../Pages/Parts';
 import Jobs from '../Pages/Jobs';
-import Machining from '../Pages/Machining';
+// import Machining from '../Pages/Machining';
+import Tools from '../Pages/Tools/Tools';
 import Ordering from '../Pages/Ordering';
 import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
@@ -23,11 +24,12 @@ class HomePage extends Component {
 		super()
 		this.state = {
 			tabs: [
-				/*'Dashboard', 
-				'Parts', 'Jobs', */ 
+				// 'Dashboard', 
+				// 'Parts', 
+				// 'Jobs',
 				{ name: 'Tools', value: 'machining'}, 
 				{ name: 'Shopping List', value: 'ordering'}, 
-				/*'Inspection', */
+				// 'Inspection',
 				{name: 'Users', value: 'users'}, 
 				{name: 'My Company', value: 'companies'}
 			]
@@ -45,7 +47,7 @@ class HomePage extends Component {
 					<Route exact path='/parts'component={Parts} />
 					<Route path='/jobs/:jobId' component={JobsEditor} />
 					<Route exact path='/jobs' component={Jobs} />
-					<Route path='/machining' component={Machining} />
+					<Route path='/machining' component={Tools} />
 					<Route path='/tool/mill/:toolId' component={ToolEditor} />
 					<Route path='/tool/lathe/:toolId' component={ToolEditor} />
 					<Route path='/tool/other/:toolId' component={ToolEditor} />

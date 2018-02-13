@@ -39,6 +39,7 @@ class MillTools extends Component {
   }
 
 	componentWillMount() {
+    this.setState({ loaded: false });
 		this.get();
 	}
 

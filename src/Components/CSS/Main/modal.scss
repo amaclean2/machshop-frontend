@@ -10,10 +10,6 @@
 	z-index: 1;
 	overflow: auto;
 
-	@media screen and (max-width: 830px) {
-		align-items: flex-start;
-	}
-
 	.modal-content {
 		width: 100%;
 		box-sizing: border-box;
@@ -26,30 +22,25 @@
 		border-radius: 3px;
 		font-weight: lighter;
 		font-size: 20px;
+		transition: all 0.3s ease-in-out;
 
 		.delete-modal-button-container {
 			width: 100%;
 			display: flex;
-			justify-content: space-around;
+			justify-content: flex-end;
 			margin-top: 25px;
-
-			.delete-modal-button {
-				background-color: $textOnPrimary;
-				font-size: 15px;
-				box-shadow: none;
-
-				&:hover {
-					background-color: $textOnPrimaryHover;
-				}
-			}
-
-			.accept {
-				color: $delete;
-			}
-
-			.reject {
-				color: $primary;
-			}
 		}
 	}
+
+	.delete-modal {
+		max-width: 400px;
+	}
+}
+
+.login-container {
+
+	@media screen and (max-width: 830px) {
+		align-items: flex-start;
+	}
+
 }

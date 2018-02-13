@@ -33,7 +33,7 @@ class Table extends Component {
 			let searchable
 			
 			for (var i = 0; i < searchableFields[page].length; i++) {
-				searchable += row[searchableFields[page][i]] + ' ';
+				searchable += row[searchableFields[page][i]].toLowerCase() + ' ';
 			}
 			if( searchable.indexOf(this.state.queryText) !== -1 ) {
 				// minis are individual arrays of each property in the row
@@ -59,7 +59,7 @@ class Table extends Component {
 	}
 
 	updateQuery(e) {
-		this.setState({ queryText: e.target.value });
+		this.setState({ queryText: e.target.value.toLowerCase() });
 	}
 
 	columnNames() {

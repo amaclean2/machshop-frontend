@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
 
 class UsersEditor extends Component {
@@ -14,7 +14,8 @@ constructor(props) {
       editable: false,
       newUser: false,
       modalHide: true,
-      loaded: false
+      loaded: false,
+      redirect: false
     }
     this.get=this.get.bind(this);
     this.post=this.post.bind(this);
@@ -127,6 +128,7 @@ constructor(props) {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      this.setState({ redirect: true });
     });
   }
 
@@ -229,11 +231,15 @@ constructor(props) {
 
   render() {
     let info = this.viewInfo();
+
+    if(this.state.redirect)
+      return <Redirect to="/users" />;
+
     return (
       <div>
         <h3>User Profile</h3>
         <div className={(this.state.modalHide ? 'gone' : '')} >
-          <DeleteModal delete={() => {this.delete(this.state.userId)}} reject={this.toggleModal} link={'/users'} />
+          <DeleteModal delete={() => {this.delete(this.state.userId)}} reject={this.toggleModal} link={'#'} />
         </div>
         {/*<button className='button'> Clock In</button>*/}
         <NavLink to={'/users'} className='button table-button'>Return to Users</NavLink>

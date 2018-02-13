@@ -33,13 +33,13 @@ let searchableFields = {
 		'type',
 		'description',
 		'insert',
-		'material',
-		'part_number'
+		'material'
+		// 'part_number'
 	],
 	other: [
 		'description',
-		'material',
-		'part_number'
+		'notes'
+		// 'part_number'
 	]
 };
 

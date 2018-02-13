@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { NavLink } from 'react-router-dom';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
 import Endmill from './SVGs/Endmill';
@@ -95,6 +94,8 @@ class MillToolEditor extends Component {
                   radius={this.state.radius}
                   toolLength={this.state.toolLength}
                   diameter={this.state.diameter} />);
+      default :
+        return '';
     }
   }
 
@@ -122,7 +123,7 @@ class MillToolEditor extends Component {
   		info = (<div>
         <EditableItem
           header={'Tool Type: '}
-          value={this.props.toolData.tool_type || 'Endmill'}
+          value={(this.props.toolData && this.props.toolData.tool_type) || 'Endmill'}
           type={'select'}
           output={this.props.output}
           name={'tool_type'}
@@ -209,6 +210,13 @@ class MillToolEditor extends Component {
           type={'math'} />
         <EditableItem header={'EDP Number: '} value={this.props.toolData.edp} change={this.props.change} name={'edp'} onClick={this.showTool} />
         <EditableItem header={'Notes: '} value={this.props.toolData.notes} change={this.props.change} name={'notes'} onClick={this.showTool} />
+        <EditableItem
+          header={'Count: '}
+          value={this.props.count}
+          change={this.props.changeCount}
+          name={'count'}
+          onClick={this.showTool}
+          classes={(this.props.count !== 0 ? '' : 'gone')} />
         {/*<EditableItem
             header={'Job Number: '}
             value={this.props.toolData.job_number}
@@ -227,8 +235,6 @@ class MillToolEditor extends Component {
   }
 
 	componentDidMount() {
-    this.props.change({ target: { name: 'tool_type', value: 'Endmill' }});
-    this.props.change({ target: { name: 'material', value: 'Carbide' }});
     if(this.props.toolId === '0')
       this.setState({ editable: true });
 	}

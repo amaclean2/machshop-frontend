@@ -43,7 +43,7 @@ class CreateUser extends Component {
     if(e.target.value.toLowerCase() === 'test') {
       e.target.value = '5a43011d6ceec000140f63dd';
     }
-    this.state.companyList.map( company => {
+    this.state.companyList.forEach( company => {
       if(e.target.value === company._id) {
         this.setState({company: company.name});
       }
@@ -75,7 +75,7 @@ class CreateUser extends Component {
             name='cid' placeholder='company id' />
           <div className={'create-name'} >{ this.state.company }</div>
           <input
-            type='text'
+            type='email'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='email' placeholder='email' />
@@ -102,7 +102,7 @@ class CreateUser extends Component {
     let finished = this.finished();
     return (
       <div className="login-screen">
-        <div className="modal-container">
+        <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
               <h1>MachShop</h1>

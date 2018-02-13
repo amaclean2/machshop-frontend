@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SideNav from './SideNav';
-import Select from './Select';
+// import Select from './Select';
 
 class Header extends Component {
   constructor() {

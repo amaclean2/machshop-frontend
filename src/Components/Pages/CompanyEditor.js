@@ -35,8 +35,6 @@ class CompanyEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log('company loaded');
-      console.log(data);
       this.setState({ companyInfo: data });
     })
   }

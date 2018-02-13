@@ -90,14 +90,15 @@ class EditableItem extends Component {
                   defaultValue={this.props.value ? this.props.value : ''} />
 
       case 'math' :
-        console.log(this.props.name, this.props.value);
-        return <input
-                  className={'editable-input'}
-                  placeholder={this.props.header.slice(0, -2)}
-                  onBlur={this.makeMath}
-                  name={this.props.name}
-                  defaultValue={this.props.value ? this.props.value : ''} />
-
+        return (
+          <div className='math-box form-select'>
+            <input
+              placeholder={this.props.header.slice(0, -2)}
+              onBlur={this.makeMath}
+              name={this.props.name}
+              defaultValue={this.props.value ? this.props.value : ''} />
+            <span className="input-hard-text">inches</span>
+          </div>);
       case 'date' :
         return <input
                   type='date'

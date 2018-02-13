@@ -134,3 +134,29 @@
 .form-button {
 	display: block;
 }
+
+.delete-modal-button {
+	background-color: $textOnPrimary;
+
+	&:hover {
+		background-color: $textOnPrimaryHover;
+	}
+
+}
+
+.accept {
+	background-color: $delete;
+	color: $textOnPrimary;
+
+	&:hover {
+		background-color: $deleteHover;
+	}
+}
+.reject {
+	color: $primary;
+
+	&:hover {
+		color: $primaryHover;
+	}
+}
+		
