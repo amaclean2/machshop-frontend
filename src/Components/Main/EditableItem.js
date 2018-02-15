@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import Select from './Select';
 
 class EditableItem extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       selectList: [],
-      loaded: false
+      loaded: false,
+      value: this.props.value !== '' ? this.props.value : ''
     }
     this.makeSelect=this.makeSelect.bind(this);
     this.makeMath=this.makeMath.bind(this);
     this.get=this.get.bind(this);
+    this.change=this.change.bind(this);
   }
 
   get() {
@@ -75,7 +77,18 @@ class EditableItem extends Component {
     if(e.target.value === 'NaN') {
       e.target.value = string;
     }
+    this.change(e);
+  }
+
+  change(e) {
+    this.setState({ value: e.target.value });
     this.props.change(e);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.name === 'undercut_width')
+      this.setState({ value: nextProps.value }); 
+
   }
 
   showType() {
@@ -84,10 +97,10 @@ class EditableItem extends Component {
         return <input
                   type='number'
                   className={'editable-input'}
-                  onChange={this.props.change}
+                  onChange={this.change}
                   placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name}
-                  defaultValue={this.props.value ? this.props.value : ''} />
+                  value={this.state.value} />
 
       case 'math' :
         return (
@@ -96,17 +109,18 @@ class EditableItem extends Component {
               placeholder={this.props.header.slice(0, -2)}
               onBlur={this.makeMath}
               name={this.props.name}
-              defaultValue={this.props.value ? this.props.value : ''} />
-            <span className="input-hard-text">inches</span>
+              onChange={this.change}
+              value={this.state.value} />
+            <span className="input-hard-text">{this.props.units}</span>
           </div>);
       case 'date' :
         return <input
                   type='date'
                   className={'editable-input'}
-                  onChange={this.props.change}
+                  onChange={this.change}
                   placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name}
-                  defaultValue={this.props.value ? this.props.value : ''} />
+                  value={this.state.value} />
 
       case 'select' :
         return this.makeSelect()
@@ -148,92 +162,15 @@ class EditableItem extends Component {
                   <Select output={this.props.output} name={'hours'} data={hourRange} classes={'time-select editable-input'} />
                   <Select output={this.props.output} name={'minutes'} data={minuteRange} classes={'time-select editable-input'} />
                   <Select output={this.props.output} name={'period'} data={periodRange} classes={'time-select editable-input'} />
-                </div>)
-
-/*        let hours, minutes, period;
-        switch(this.props.value.length) {
-          case 7 :
-            hours = this.props.value.substr(0, 1);
-            minutes = this.props.value.substr(2, 2);
-            period = this.props.value.substr(5, 2); 
-            break;
-          case 8 :
-            hours = this.props.value.substr(0, 2);
-            minutes = this.props.value.substr(3, 2);
-            period = this.props.value.substr(6, 2);
-            if(hours[1] === ':') {
-              hours = this.props.value.substr(0, 1);
-              minutes = this.props.value.substr(2, 2);
-              period = this.props.value.substr(5, 2);
-            }
-            break;
-          case 6 :
-            break;
-        }
-
-        this.setState({ selectList: [
-            { value: 1, children: '01' },
-            { value: 2 children: '02' },
-            { value: 3 children: '03' },
-            { value: 4 children: '04' },
-            { value: 5 children: '05' },
-            { value: 6 children: '06' },
-            { value: 7 children: '07' },
-            { value: 8 children: '08' },
-            { value: 9 children: '09' },
-            { value: 10 children: '10' },
-            { value: 11 children: '11' },
-            { value: 12 children: '12' },
-          ]});
-
-       return (<div className='time'>
-            <Select output={this.props.output} name={'hours'} value={this.props.value.substr(0, 1)}>
-              <select className={"time-select"}>
-                <option value={1} >1</option>
-                <option value={2} >2</option>
-                <option value={3} >3</option>
-                <option value={4} >4</option>
-                <option value={5} >5</option>
-                <option value={6} >6</option>
-                <option value={7} >7</option>
-                <option value={8} >8</option>
-                <option value={9} >9</option>
-                <option value={10} >10</option>
-                <option value={11} >11</option>
-                <option value={12} >12</option>
-              </select>
-            </Select>
-            <Select output={this.props.output} name={'minutes'} value={this.props.value.substr(2, 2)}>
-              <select className={"time-select"}>
-                <option value={0} >00</option>
-                <option value={5} >05</option>
-                <option value={10} >10</option>
-                <option value={15} >15</option>
-                <option value={20} >20</option>
-                <option value={25} >25</option>
-                <option value={30} >30</option>
-                <option value={35} >35</option>
-                <option value={40} >40</option>
-                <option value={45} >45</option>
-                <option value={50} >50</option>
-                <option value={55} >55</option>
-              </select>
-            </Select>
-            <Select output={this.props.output} name={'period'} value={this.props.value.substr(5, 2)}>
-              <select className={"time-select"}>
-                <option value='AM' >AM</option>
-                <option value='PM' >PM</option>
-              </select>
-            </Select>
-          </div>) */
+                </div>);
       default :
         return <input
-                  type='text'
-                  className={'editable-input'}
-                  onChange={this.props.change}
-                  placeholder={this.props.header.slice(0, -2)}
-                  name={this.props.name}
-                  defaultValue={this.props.value ? this.props.value : ''} />
+                type='text'
+                className={'editable-input'}
+                onChange={this.change}
+                placeholder={this.props.header.slice(0, -2)}
+                name={this.props.name}
+                value={this.state.value} />
 
     }
   }

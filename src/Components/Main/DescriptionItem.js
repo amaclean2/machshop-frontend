@@ -6,7 +6,10 @@ class DescriptionItem extends Component {
     return (
       <span className={'line-item ' + this.props.classes}>
         <span className='display' >{this.props.header}</span>
-        <span className='value' >{this.props.value}</span>
+        <div>
+        	<span className='value' >{this.props.value}</span>
+        	<span className={'input-hard-text ' + (this.props.value && this.props.units ? 'units-space' : 'gone')}>{this.props.units}</span>
+        </div>
       </span>
     );
   }

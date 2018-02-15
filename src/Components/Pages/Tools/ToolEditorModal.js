@@ -6,14 +6,14 @@ import LatheToolEditor from './LatheToolEditor';
 import OtherToolEditor from './OtherToolEditor';
 import DeleteModal from '../../Main/DeleteModal';
 
-class ToolEditor extends Component {
+class ToolEditorModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			toolData: {},
       count: 1,
-			toolId: this.props.match.params.toolId,
-      machine: this.props.match.url.indexOf('mill') !== -1 ? 'mill' : this.props.match.url.indexOf('lathe') !== -1 ? 'lathe' : 'other',
+			toolId: this.props.id,
+      machine: this.props.machine,
       loaded: false,
       modalHide: true,
       redirect: false
@@ -24,7 +24,7 @@ class ToolEditor extends Component {
     this.delete=this.delete.bind(this);
     this.save=this.save.bind(this);
     this.stationSelector=this.stationSelector.bind(this);
-    this.toggleModal=this.toggleModal.bind(this);
+    this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.change=this.change.bind(this);
     this.changeCount=this.changeCount.bind(this);
     this.output=this.output.bind(this);
@@ -66,6 +66,7 @@ class ToolEditor extends Component {
         return response.json();
       }).then( data => {
         this.setState({ toolId: data._id });
+        this.props.triggerUpdate();
       });
     }
 
@@ -87,6 +88,7 @@ class ToolEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      this.props.triggerUpdate();
     });
   }
 
@@ -100,17 +102,20 @@ class ToolEditor extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ redirect: true });
+      this.props.triggerUpdate('refresh');
     });
   }
 
-  toggleModal() {
+  toggleDeleteModal() {
     this.setState({ modalHide: !this.state.modalHide });
   }
 
   change(e) {
     let toolData = this.state.toolData;
     toolData[e.target.name] = e.target.value;
+    if(e.target.name === 'diameter' ) {
+      toolData.undercut_width = e.target.value;
+    }
   }
 
   changeCount(e) {
@@ -174,27 +179,34 @@ class ToolEditor extends Component {
   render() {
     let station = this.stationSelector();
 
-    if(this.state.redirect)
-      return <Redirect to="/machining" />;
-
     return (
     	<div>
-        <div className="top-elements">
-          <h3>Tool Editor</h3>
-          <div className={(this.state.modalHide ? 'gone' : '')} >
-            <DeleteModal delete={this.delete} reject={ this.toggleModal } link={'#'} />
+        <div className="sidenav-background"></div>
+        <div className="modal-container">
+          <div className="modal-content editor">
+            <div className="modal-top">
+              <h3>Tool Editor</h3>
+              <div className={(this.state.modalHide ? 'gone' : '')} >
+                <DeleteModal delete={this.delete} reject={ this.toggleDeleteModal } link={''} />
+              </div>
+              <div className='modal-corner-buttons'>
+                <button
+                  className='button table-button delete-button'
+                  onClick={this.toggleDeleteModal} >
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
+                  <span className='close-small'><i className="fa fa-times close-x"></i></span>
+                  <span className='close-big'>Return to Machining</span>
+                </a>
+              </div>
+            </div>
+            {station}
           </div>
-          <NavLink to={'/machining'} className='button table-button'>Return to Machining</NavLink>
-          <button
-            className='button table-button delete-button'
-            onClick={this.toggleModal} >
-              <i className="fa fa-trash" aria-hidden="true"></i>
-          </button>
         </div>
-        {station}
       </div>
     );
   }
 }
 
-export default ToolEditor;
+export default ToolEditorModal;

@@ -100,10 +100,8 @@ class LatheToolEditor extends Component {
 
   viewInfo() {
 
-  	let info;
-
   	if(!this.state.editable) {
-  		info = (<div onClick={this.toggleEdit}>
+  		return <div onClick={this.toggleEdit} className={'tool-data'} >
   			<DescriptionItem header={'Tool Type: '} value={this.props.toolData.tool_type} />
         <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
         <DescriptionItem header={'Material: '} value={this.props.toolData.material} />
@@ -114,9 +112,9 @@ class LatheToolEditor extends Component {
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
-  		</div>)
+  		</div>
   	} else {
-  		info = (<div>
+  		return <div className={'tool-data'} >
         <EditableItem
           header={'Tool Type: '}
           value={this.props.toolData.tool_type || 'Drill'}
@@ -141,6 +139,7 @@ class LatheToolEditor extends Component {
           value={this.props.toolData.diameter}
           change={this.props.change}
           name={'diameter'}
+          units='inches'
           onClick={this.showTool} />
         <EditableItem
           header={'Material: '}
@@ -162,6 +161,7 @@ class LatheToolEditor extends Component {
           value={this.props.toolData.tip_angle}
           change={this.props.change}
           name={'tip_angle'}
+          units='degrees'
           type='number'
           onClick={this.showTool} />
         <EditableItem
@@ -170,6 +170,7 @@ class LatheToolEditor extends Component {
           value={this.props.toolData.flute_length}
           change={this.props.change}
           name={'flute_length'}
+          units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem
@@ -177,6 +178,7 @@ class LatheToolEditor extends Component {
           value={this.props.toolData.tool_length}
           change={this.props.change}
           name={'tool_length'}
+          units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
@@ -197,13 +199,8 @@ class LatheToolEditor extends Component {
             output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
-      </div>)
+      </div>
   	}
-
-  	return (<div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-  			{info}
-  		</div>);
-
   }
 
 	componentDidMount() {
@@ -215,14 +212,12 @@ class LatheToolEditor extends Component {
   	let info = this.viewInfo();
     let mill = this.millImage();
     return (
-    	<div>
+    	<div className='editor-content'>
         <div className='tool-image' >
           {mill}
         </div>
         <div className='edit-page'>
         	{info}
-        	<div className='work-flow card no-fade'>
-          </div>
         </div>
       </div>
     );

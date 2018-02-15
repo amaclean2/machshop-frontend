@@ -25,12 +25,11 @@ let searchableFields = {
 	mill: [
 		'tool_type',
 		'diameter',
-		'flutes',
 		'material',
 		'edp'
 	],
 	lathe: [
-		'type',
+		'tool_type',
 		'description',
 		'insert',
 		'material'

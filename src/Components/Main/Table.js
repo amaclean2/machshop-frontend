@@ -16,41 +16,37 @@ class Table extends Component {
 	}
 
 	rows() {
-		let page = this.props.link.replace(/\//g, ''),
-			data;
-
-		if(page.indexOf('tool') !== -1) {
-			page = page.replace('tool', '');
-			data = this.props.data.map( item => {
-				item.tool_data._id = item._id;
-				return item.tool_data;
-			})
-		} else {
-			data = this.props.data;
-		}
-
+		let data = this.props.data;
 		let rows = data.map( (row, j) => {
-			let searchable
-			
-			for (var i = 0; i < searchableFields[page].length; i++) {
-				searchable += row[searchableFields[page][i]].toLowerCase() + ' ';
+			let searchable, fields;
+			for (var i = 0; i < this.props.searchable.length; i++) {
+				fields = row.tool_data ? row.tool_data : row;
+				searchable += fields[this.props.searchable[i]].toLowerCase() + ' ';
 			}
 			if( searchable.indexOf(this.state.queryText) !== -1 ) {
+
 				// minis are individual arrays of each property in the row
-				let minis = Object.entries(row), elements = [];
+				let minis = Object.entries(fields), elements = [];
 				for (var order of this.state.columnOrder) {
 					for ( var mini of minis ) {
 						if(mini[0] === order)
 							elements.push(mini[1]);
 					}
 				}
+
 				let rowContents = elements.map( (element, i) => {
 					if(this.props.headers[i][2]) {
-						return <td key={i} data-label={this.props.headers[i][0]}><NavLink to={this.props.link + row._id} >{element}</NavLink></td>
+						return <td key={i} data-label={this.props.headers[i][0]}>
+											<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{element}</a>
+											<span className='small-table-link' >{element}</span>
+										</td>
 					}
 					return <td key={i} data-label={this.props.headers[i][0]}>{element}</td>
 				});
-				return <tr key={j * 10}>{rowContents}</tr>
+				return <tr key={j * 10} >
+								{rowContents}
+								<td className='small-row-link' onClick={() => { this.props.toggleModal(row._id); }}></td>
+							</tr>
 			} else {
 				return null;
 			}
@@ -77,7 +73,7 @@ class Table extends Component {
     	<div>
     		<div className="table-top">
     			<div className={this.props.noAdd ? 'gone' : ''}>
-    				<NavLink to={this.props.link + '0'} className='button table-button'>Add</NavLink>
+    				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>Add</button>
     			</div>
     			<div className="search-bar">
     				<input type="text" placeholder='Search' onChange={this.updateQuery} />

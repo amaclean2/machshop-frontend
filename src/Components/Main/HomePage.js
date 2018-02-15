@@ -7,7 +7,7 @@ import Parts from '../Pages/Parts';
 import Jobs from '../Pages/Jobs';
 // import Machining from '../Pages/Machining';
 import Tools from '../Pages/Tools/Tools';
-import Ordering from '../Pages/Ordering';
+import Ordering from '../Pages/Ordering/Ordering';
 import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
 import PartsEditor from '../Pages/PartsEditor';

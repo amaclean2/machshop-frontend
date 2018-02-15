@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MillTools from './Tools/MillTools';
-import LatheTools from './Tools/LatheTools';
-import OtherTools from './Tools/OtherTools';
+import MillTools from '../Tools/MillTools';
+import LatheTools from '../Tools/LatheTools';
+import OtherTools from '../Tools/OtherTools';
 
 class Ordering extends Component {
 	constructor() {

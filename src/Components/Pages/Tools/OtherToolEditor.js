@@ -100,17 +100,15 @@ class OtherToolEditor extends Component {
 
   viewInfo() {
 
-  	let info;
-
   	if(!this.state.editable) {
-  		info = (<div onClick={this.toggleEdit}>
+  		return <div onClick={this.toggleEdit}>
         <DescriptionItem header={'Name: '} value={this.props.toolData.name} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
-  		</div>)
+  		</div>
   	} else {
-  		info = (<div>
+  		return <div>
         <EditableItem header={'Name: '} value={this.props.toolData.name} change={this.props.change} name={'name'} onClick={this.showTool} />
         <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
         <EditableItem header={'Notes: '} value={this.props.toolData.notes} change={this.props.change} name={'notes'} onClick={this.showTool} />
@@ -129,13 +127,8 @@ class OtherToolEditor extends Component {
             output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
-      </div>)
+      </div>
   	}
-
-  	return (<div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-  			{info}
-  		</div>);
-
   }
 
 	componentDidMount() {
@@ -147,14 +140,12 @@ class OtherToolEditor extends Component {
   	let info = this.viewInfo();
     let mill = this.millImage();
     return (
-    	<div>
+    	<div className='editor-content'>
         <div className='tool-image' >
           {mill}
         </div>
         <div className='edit-page'>
         	{info}
-        	<div className='work-flow card no-fade'>
-          </div>
         </div>
       </div>
     );

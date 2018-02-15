@@ -62,7 +62,15 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	height: 100%;
-	margin-top: 10px;
+	margin: 10px 2vw;
+
+	@media screen and (max-width: 500px) {
+		width: 100%;
+
+		.line-item {
+			max-width: 100%;
+		}
+	}
 }
 
 .left-column {
@@ -201,4 +209,10 @@
 .tool-image {
 	margin-top: 20px;
 	max-width: 500px;
+	flex: 1;
+	min-width: 200px;
+}
+
+.tool-data {
+	width: 100%;
 }

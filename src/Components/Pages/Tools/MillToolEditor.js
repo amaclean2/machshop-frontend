@@ -19,6 +19,7 @@ class MillToolEditor extends Component {
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
+    this.fillWithBlanks=this.fillWithBlanks.bind(this);
 	}
 
   save() {
@@ -104,37 +105,47 @@ class MillToolEditor extends Component {
   	let info;
 
   	if(!this.state.editable) {
-  		info = (<div onClick={this.toggleEdit}>
+  		return <div onClick={this.toggleEdit} className='tool-data'>
   			<DescriptionItem header={'Tool Type: '} value={this.props.toolData.tool_type} />
-        <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} />
+        <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} units={'inches'}/>
         <DescriptionItem header={'Material: '} value={this.props.toolData.material} />
         <DescriptionItem header={'Flutes: '} value={this.props.toolData.flutes} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} />
-        <DescriptionItem header={'Corner Radius: '} value={this.props.toolData.corner_radius} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
-        <DescriptionItem header={'Undercut Width: '} value={this.props.toolData.undercut_width} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Undercut Length: '} value={this.props.toolData.undercut_length} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')} units={'degrees'}/>
+        <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} units={'inches'}/>
+        <DescriptionItem header={'Corner Radius: '} value={this.props.toolData.corner_radius} units={'inches'} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+        <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} units={'inches'} />
+        <DescriptionItem header={'Undercut Width: '} value={this.props.toolData.undercut_width} units={'inches'} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+        <DescriptionItem header={'Undercut Length: '} value={this.props.toolData.undercut_length} units={'inches'} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
         <DescriptionItem header={'EDP Number: '} value={this.props.toolData.edp} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
-  		</div>)
+  		</div>
   	} else {
-  		info = (<div>
+  		return <div className='tool-data'>
         <EditableItem
           header={'Tool Type: '}
-          value={(this.props.toolData && this.props.toolData.tool_type) || 'Endmill'}
+          value={this.props.toolData.tool_type}
           type={'select'}
           output={this.props.output}
           name={'tool_type'}
           data={[
             { value: 'Endmill', children: 'Endmill' },
             { value: 'Drill', children: 'Drill' },
+            { value: 'Spot Drill', children: 'Spot Drill' },
+            { value: 'Center Drill', children: 'Center Drill' },
+            { value: 'Reemer', children: 'Reemer' },
+            { value: 'Key Cutter', children: 'Key Cutter' },
+            { value: 'Face Mill', children: 'Face Mill' },
+            { value: 'Dove Mill', children: 'Dove Mill' },
+            { value: 'Tap', children: 'Tap' },
+            { value: 'Thread Mill', children: 'Thread Mill' },
+            { value: 'Inserts', children: 'Inserts' },
             { value: 'Other', children: 'Other' }
           ]}
           onClick={this.showTool} />
         <EditableItem
           type={'math'}
+          units={'inches'}
           header={'Diameter: '}
           value={this.props.toolData.diameter}
           change={this.props.change}
@@ -165,10 +176,11 @@ class MillToolEditor extends Component {
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
-          value={this.props.toolData.tip_angle || '118'}
+          value={this.props.toolData.tip_angle}
           change={this.props.change}
           name={'tip_angle'}
-          type='number'
+          units={'degrees'}
+          type='math'
           onClick={this.showTool} />
         <EditableItem
           header={'Flute Length: '}
@@ -176,6 +188,7 @@ class MillToolEditor extends Component {
           change={this.props.change}
           name={'flute_length'}
           type={'math'}
+          units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Corner Radius: '}
@@ -184,6 +197,7 @@ class MillToolEditor extends Component {
           change={this.props.change}
           name={'corner_radius'}
           type={'math'}
+          units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Tool Length: '}
@@ -191,21 +205,24 @@ class MillToolEditor extends Component {
           change={this.props.change}
           name={'tool_length'}
           type={'math'}
+          units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Undercut Width: '}
           classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.undercut_width }
+          value={this.props.toolData.undercut_width !== '' ? this.props.toolData.undercut_width : this.props.toolData.diameter }
           change={this.props.change}
           name={'undercut_width'}
           type={'math'}
+          units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Undercut Length: '}
           classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.undercut_length}
+          value={this.props.toolData.undercut_length !== '' ? this.props.toolData.undercut_length : 0 }
           change={this.props.change}
           name={'undercut_length'}
+          units={'inches'}
           onClick={this.showTool}
           type={'math'} />
         <EditableItem header={'EDP Number: '} value={this.props.toolData.edp} change={this.props.change} name={'edp'} onClick={this.showTool} />
@@ -225,32 +242,43 @@ class MillToolEditor extends Component {
             output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
-      </div>)
+      </div>
   	}
+  }
 
-  	return (<div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-  			{info}
-  		</div>);
+  fillWithBlanks() {
 
+      this.props.change({ target: { name: 'tool_type', value: 'Endmill' }});
+      this.props.change({ target: { name: 'diameter', value: '' }});
+      this.props.change({ target: { name: 'material', value: 'Carbide' }});
+      this.props.change({ target: { name: 'flutes', value: '' }});
+      this.props.change({ target: { name: 'tip_angle', value: '' }});
+      this.props.change({ target: { name: 'flute_length', value: '' }});
+      this.props.change({ target: { name: 'corner_radius', value: '' }});
+      this.props.change({ target: { name: 'tool_length', value: '' }});
+      this.props.change({ target: { name: 'undercut_width', value: '' }});
+      this.props.change({ target: { name: 'undercut_length', value: '' }});
+      this.props.change({ target: { name: 'edp', value: '' }});
+      this.props.change({ target: { name: 'notes', value: '' }});
   }
 
 	componentDidMount() {
-    if(this.props.toolId === '0')
+    if(this.props.toolId === '0') {
       this.setState({ editable: true });
+      this.fillWithBlanks();
+    }
 	}
 
   render() {
   	let info = this.viewInfo();
     let mill = this.millImage();
     return (
-    	<div>
+    	<div className='editor-content'>
         <div className='tool-image' >
           {mill}
         </div>
         <div className='edit-page'>
         	{info}
-        	<div className='work-flow card no-fade'>
-          </div>
         </div>
       </div>
     );

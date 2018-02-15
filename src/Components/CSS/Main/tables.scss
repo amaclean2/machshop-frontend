@@ -36,6 +36,18 @@ table {
 		}
 	}
 
+	.small-row-link {
+		display: none;
+	}
+
+	.small-table-link {
+		display: none;
+	}
+
+	.large-table-link {
+		display: inline-block;
+	}
+
 	@media screen and (max-width: 500px) {
 		thead {
 			display: none;
@@ -47,6 +59,7 @@ table {
 				background-color: $grey3;
 				margin: 10px 0;
 				box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+				position: relative;
 
 				td {
 					display: flex;
@@ -64,6 +77,24 @@ table {
 					}
 				}
 			}
+		}
+
+		.small-row-link {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			display: block;
+			cursor: pointer;
+		}
+
+		.large-table-link {
+			display: none;
+		}
+		.small-table-link {
+			display: inline-block;
 		}
 	}
 }
