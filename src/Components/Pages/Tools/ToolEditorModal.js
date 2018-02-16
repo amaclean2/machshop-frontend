@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { NavLink, Redirect } from 'react-router-dom';
 import MillToolEditor from './MillToolEditor';
 import LatheToolEditor from './LatheToolEditor';
 import OtherToolEditor from './OtherToolEditor';
@@ -11,6 +10,7 @@ class ToolEditorModal extends Component {
 		super(props)
 		this.state = {
 			toolData: {},
+      viewerMode: 'Endmill',
       count: 1,
 			toolId: this.props.id,
       machine: this.props.machine,
@@ -18,17 +18,44 @@ class ToolEditorModal extends Component {
       modalHide: true,
       redirect: false
 		}
-		this.get=this.get.bind(this);
-    this.post=this.post.bind(this);
-    this.put=this.put.bind(this);
-    this.delete=this.delete.bind(this);
-    this.save=this.save.bind(this);
-    this.stationSelector=this.stationSelector.bind(this);
-    this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.change=this.change.bind(this);
     this.changeCount=this.changeCount.bind(this);
+    this.delete=this.delete.bind(this);
+    this.get=this.get.bind(this);
     this.output=this.output.bind(this);
+    this.post=this.post.bind(this);
+    this.put=this.put.bind(this);
+    this.save=this.save.bind(this);
+    this.setViewerMode=this.setViewerMode.bind(this);
+    this.stationSelector=this.stationSelector.bind(this);
+    this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
 	}
+
+  change(e) {
+    let toolData = this.state.toolData;
+    toolData[e.target.name] = e.target.value;
+    if(e.target.name === 'diameter' ) {
+      toolData.undercut_width = e.target.value;
+    }
+  }
+
+  changeCount(e) {
+    this.setState({ count: e.target.value });
+  }
+
+  delete() {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        machine = this.state.machine,
+        request = new Request(url + '/' + machine + '/' + this.state.toolId, {
+      method: 'DELETE'
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.props.triggerUpdate('refresh');
+    });
+  }
 
 	get() {
 
@@ -44,6 +71,12 @@ class ToolEditorModal extends Component {
       this.setState({ toolData: data.tool_data, loaded: true});
     })
 
+  }
+
+  output(value, name) {
+    let toolData = this.state.toolData;
+    toolData[name] = value;
+    this.setViewerMode();
   }
 
   post() {
@@ -92,39 +125,34 @@ class ToolEditorModal extends Component {
     });
   }
 
-  delete() {
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/' + machine + '/' + this.state.toolId, {
-      method: 'DELETE'
-    });
-
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate('refresh');
-    });
-  }
-
-  toggleDeleteModal() {
-    this.setState({ modalHide: !this.state.modalHide });
-  }
-
-  change(e) {
-    let toolData = this.state.toolData;
-    toolData[e.target.name] = e.target.value;
-    if(e.target.name === 'diameter' ) {
-      toolData.undercut_width = e.target.value;
+  save() {
+    if(this.state.toolId === '0') {
+      this.post();
+    } else {
+      this.put();
     }
   }
 
-  changeCount(e) {
-    this.setState({ count: e.target.value });
-  }
-
-  output(value, name) {
-    let toolData = this.state.toolData;
-    toolData[name] = value;
+  setViewerMode() {
+    if(this.state.toolData['tool_type']) {
+      switch(this.state.toolData['tool_type']) {
+        case 'Endmill' :
+          this.setState({ viewerMode: 'Endmill' });
+          break;
+        case 'Drill' :
+          this.setState({ viewerMode: 'Drill' });
+          break;
+        case 'Spot Drill' :
+          this.setState({ viewerMode: 'Drill' });
+          break;
+        case 'Center Drill' :
+          this.setState({ viewerMode: 'Drill' });
+          break;
+        default :
+          this.setState({ viewerMode: '' });
+          break;
+      }
+    }
   }
 
   stationSelector() {
@@ -132,6 +160,7 @@ class ToolEditorModal extends Component {
       if(this.state.machine === 'mill')
         return <MillToolEditor 
                 count={this.state.count} 
+                viewerMode={this.state.viewerMode}
                 toolData={this.state.toolData} 
                 toolId={this.state.toolId} 
                 save={this.save} 
@@ -142,6 +171,7 @@ class ToolEditorModal extends Component {
         return <LatheToolEditor 
                 count={this.state.count} 
                 toolData={this.state.toolData} 
+                viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 change={this.change}
@@ -150,7 +180,8 @@ class ToolEditorModal extends Component {
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 count={this.state.count} 
-                toolData={this.state.toolData} 
+                toolData={this.state.toolData}
+                viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save} 
                 change={this.change}
@@ -159,12 +190,8 @@ class ToolEditorModal extends Component {
     }
   }
 
-  save() {
-    if(this.state.toolId === '0') {
-      this.post();
-    } else {
-      this.put();
-    }
+  toggleDeleteModal() {
+    this.setState({ modalHide: !this.state.modalHide });
   }
 
   componentDidMount() {

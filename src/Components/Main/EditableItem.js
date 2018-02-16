@@ -106,6 +106,7 @@ class EditableItem extends Component {
         return (
           <div className='math-box form-select'>
             <input
+              type='text'
               placeholder={this.props.header.slice(0, -2)}
               onBlur={this.makeMath}
               name={this.props.name}

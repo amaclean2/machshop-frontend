@@ -102,8 +102,6 @@ class MillToolEditor extends Component {
 
   viewInfo() {
 
-  	let info;
-
   	if(!this.state.editable) {
   		return <div onClick={this.toggleEdit} className='tool-data'>
   			<DescriptionItem header={'Tool Type: '} value={this.props.toolData.tool_type} />
@@ -166,7 +164,7 @@ class MillToolEditor extends Component {
           ]}
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
+          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
           header={'Flutes: '}
           value={this.props.toolData.flutes}
           change={this.props.change}
@@ -174,7 +172,7 @@ class MillToolEditor extends Component {
           type='number'
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
+          classes={(this.props.viewerMode === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
           value={this.props.toolData.tip_angle}
           change={this.props.change}
@@ -192,7 +190,7 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Corner Radius: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
+          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
           value={this.props.toolData.corner_radius}
           change={this.props.change}
           name={'corner_radius'}
@@ -209,7 +207,7 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Undercut Width: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
+          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
           value={this.props.toolData.undercut_width !== '' ? this.props.toolData.undercut_width : this.props.toolData.diameter }
           change={this.props.change}
           name={'undercut_width'}
@@ -218,7 +216,7 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Undercut Length: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
+          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
           value={this.props.toolData.undercut_length !== '' ? this.props.toolData.undercut_length : 0 }
           change={this.props.change}
           name={'undercut_length'}

@@ -31,7 +31,6 @@ let searchableFields = {
 	lathe: [
 		'tool_type',
 		'description',
-		'insert',
 		'material'
 		// 'part_number'
 	],

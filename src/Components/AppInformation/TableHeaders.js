@@ -48,7 +48,6 @@ let headers = {
 	LatheTools : [
 		['Type', 'tool_type', 'e'],
 		['Description','description'],
-		['Insert Code', 'insert'],
 		['Material', 'material']
 		// ['Part Number', 'part_number']
 	],

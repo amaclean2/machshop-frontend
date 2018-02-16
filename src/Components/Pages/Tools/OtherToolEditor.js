@@ -18,6 +18,7 @@ class OtherToolEditor extends Component {
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
+    this.fillWithBlanks=this.fillWithBlanks.bind(this);
 	}
 
   save() {
@@ -131,9 +132,17 @@ class OtherToolEditor extends Component {
   	}
   }
 
+  fillWithBlanks() {
+    this.props.change({ target: { name: 'name', value: '' }});
+    this.props.change({ target: { name: 'description', value: '' }});
+    this.props.change({ target: { name: 'notes', value: '' }});
+  }
+
 	componentDidMount() {
-    if(this.props.toolId === '0')
+    if(this.props.toolId === '0') {
       this.setState({ editable: true });
+      this.fillWithBlanks();
+    }
 	}
 
   render() {

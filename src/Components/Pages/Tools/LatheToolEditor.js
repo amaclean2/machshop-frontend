@@ -18,6 +18,7 @@ class LatheToolEditor extends Component {
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
+    this.fillWithBlanks=this.fillWithBlanks.bind(this);
 	}
 
   save() {
@@ -108,8 +109,8 @@ class LatheToolEditor extends Component {
         <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
         <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
         <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
-        <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
+        <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
@@ -203,9 +204,24 @@ class LatheToolEditor extends Component {
   	}
   }
 
+  fillWithBlanks() {
+
+      this.props.change({ target: { name: 'tool_type', value: 'Drill' }});
+      this.props.change({ target: { name: 'diameter', value: '' }});
+      this.props.change({ target: { name: 'material', value: 'Cobalt' }});
+      this.props.change({ target: { name: 'tip_angle', value: '' }});
+      this.props.change({ target: { name: 'flute_length', value: '' }});
+      this.props.change({ target: { name: 'tool_length', value: '' }});
+      this.props.change({ target: { name: 'insert', value: '' }});
+      this.props.change({ target: { name: 'description', value: '' }});
+      this.props.change({ target: { name: 'notes', value: '' }});
+  }
+
 	componentDidMount() {
-    if(this.props.toolId === '0')
+    if(this.props.toolId === '0') {
       this.setState({ editable: true });
+      this.fillWithBlanks();
+    }
 	}
 
   render() {
