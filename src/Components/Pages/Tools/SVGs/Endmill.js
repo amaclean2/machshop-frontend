@@ -8,14 +8,14 @@ class Endmill extends Component {
 		    <defs>
 		      <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
 		        <stop offset="0%" style={{ 'stopOpacity': 0 }} />
-		        <stop offset="100%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} /> 
+		        <stop offset="100%" style={{ 'stopColor': 'rgb(0,0,0)', 'stopOpacity': 0.2 }} /> 
 		      </linearGradient>
 		      <linearGradient id="shadow2" x1="0%" y1="0%" x2="0%" y2="100%">
-		        <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
+		        <stop offset="0%" style={{ 'stopColor': 'rgb(0,0,0)', 'stopOpacity': 0.4 }} />
 		        <stop offset="100%" style={{ 'stopOpacity': 0 }} /> 
 		      </linearGradient>
 		      <linearGradient id="shadow3" x1="100%" y1="0%" x2="0%" y2="0%">
-		        <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
+		        <stop offset="0%" style={{ 'stopColor': 'rgb(0,0,0,)', 'stopOpacity': 0.4 }} />
 		        <stop offset="100%" style={{ 'stopOpacity': 0 }} />  
 		      </linearGradient>
 		    </defs>
