@@ -1,5 +1,5 @@
 .shown-box {
-	font-size: 12px;
+	font-size: inherit;
 	padding: 5px 8px;
 	cursor: pointer;
 	color: $text;
@@ -116,7 +116,7 @@
 	}
 
 	.input-hard-text {
-		font-size: 11px;
+		font-size: inherit;
 		color: $grey1;
 	}
 }

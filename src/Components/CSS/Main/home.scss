@@ -7,31 +7,50 @@
 }
 
 .line-item {	
-	font-size: 13px;
+	font-size: inherit;
 	padding: 5px;
 	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	max-width: 300px;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		background-color: $grey3;
+	}
+
+	div {
+		text-align: right;
+	}
 
 	.display {
 		font-weight: normal;
 		color: $primaryHover;
 		min-width: 75px;
+		font-size: 13px;
 	}
 
 	.value {
 		font-weight: lighter;
 		margin-left: 10px;
+		white-space: pre-wrap;
 	}
 
-	input {
-		padding: 5px;
+	input, textarea {
 		margin-left: 10px;
 		width: 150px;
 		font-family: inherit;
+		background-color: transparent;
 	}
+}
+
+.money {
+	justify-content: flex-start;
+}
+
+.description {
+	font-size: 13px;
 }
 
 .card {
@@ -63,6 +82,7 @@
 	flex-wrap: wrap;
 	height: 100%;
 	margin: 10px 2vw;
+	min-width: 250px;
 
 	@media screen and (max-width: 500px) {
 		width: 100%;
@@ -139,7 +159,7 @@
 }
 
 .toggle {
-	margin-left: 30px;
+	margin-left: 0px;
 	min-width: 216px;
 
 	@media screen and (max-width: 500px) {
@@ -192,6 +212,10 @@
 	}
 }
 
+.notes {
+	padding: 15px 5px;
+}
+
 .flexible {
 	display: flex;
 	justify-content: flex-start;
@@ -207,7 +231,7 @@
 }
 
 .tool-image {
-	margin-top: 20px;
+	margin: 20px 2vw;
 	max-width: 500px;
 	flex: 1;
 	min-width: 200px;

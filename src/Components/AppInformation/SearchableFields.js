@@ -28,6 +28,14 @@ let searchableFields = {
 		'material',
 		'edp'
 	],
+	orderMill: [
+		'tool_type',
+		'diameter',
+		'material',
+		'edp',
+		// 'price',
+		// 'quantity'
+	],
 	lathe: [
 		'tool_type',
 		'description',

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 
 class DescriptionItem extends Component {
 
   render() {
     return (
-      <span className={'line-item ' + this.props.classes}>
+      <span className={'line-item description ' + this.props.classes}>
         <span className='display' >{this.props.header}</span>
         <div>
         	<span className='value' >{this.props.value}</span>

@@ -45,6 +45,15 @@ let headers = {
 		['EDP', 'edp']
 		// ['Job Number', 'job_number']
 	],
+	OrderMill : [
+		['Type', 'tool_type', 'e'],
+		['Diameter','diameter'],
+		['Material', 'material'], 
+		['EDP', 'edp'],
+		['Price per Tool', 'price_per_tool'],
+		['Quantity', 'quanitty']
+		// ['Job Number', 'job_number']
+	],
 	LatheTools : [
 		['Type', 'tool_type', 'e'],
 		['Description','description'],
@@ -53,8 +62,7 @@ let headers = {
 	],
 	OtherTools : [
 		['Name', 'name', 'e'],
-		['Description','description'],
-		['Notes', 'notes'],
+		['Description','description']
 		// ['Part Number', 'part_number']
 	],
 };

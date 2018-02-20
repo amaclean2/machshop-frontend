@@ -1,6 +1,7 @@
 table {
 	border-collapse: collapse;
 	font-weight: lighter;
+	font-size: 15px;
 }
 
 .important-table, .mini-table {
@@ -29,7 +30,8 @@ table {
 		}
 		td {
 			text-align: right;
-			padding: 5px 8px;
+			padding: 7px 8px;
+			white-space: pre-wrap;
 		}
 		td:first-child {
 			text-align: left;

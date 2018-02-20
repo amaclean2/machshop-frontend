@@ -13,6 +13,7 @@ class EditableItem extends Component {
     this.makeMath=this.makeMath.bind(this);
     this.get=this.get.bind(this);
     this.change=this.change.bind(this);
+    this.makeMoney=this.makeMoney.bind(this);
   }
 
   get() {
@@ -85,6 +86,13 @@ class EditableItem extends Component {
     this.props.change(e);
   }
 
+  makeMoney(e) {
+    if(e.target.value.indexOf('.') === -1) {
+      e.target.value = e.target.value + '.00';
+    }
+    this.change(e);
+  }
+
   componentWillReceiveProps(nextProps) {
     if(this.props.name === 'undercut_width')
       this.setState({ value: nextProps.value }); 
@@ -125,6 +133,27 @@ class EditableItem extends Component {
 
       case 'select' :
         return this.makeSelect()
+
+      case 'price' :
+        return (
+          <div className='math-box form-select money'>
+            <span className="money-sign">$</span>
+            <input
+              type='text'
+              placeholder='Price'
+              onBlur={this.makeMoney}
+              name={this.props.name}
+              onChange={this.change}
+              value={this.state.value} />
+          </div>);
+
+      case 'textArea' :
+        return <textarea
+                className='editable-input'
+                onChange={this.change}
+                name={this.props.name}
+                value={this.state.value}>
+              </textarea>;
 
       case 'time' :
         let hourRange = [

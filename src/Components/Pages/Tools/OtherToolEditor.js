@@ -105,14 +105,20 @@ class OtherToolEditor extends Component {
   		return <div onClick={this.toggleEdit}>
         <DescriptionItem header={'Name: '} value={this.props.toolData.name} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
-        <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
+        <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
   	} else {
   		return <div>
         <EditableItem header={'Name: '} value={this.props.toolData.name} change={this.props.change} name={'name'} onClick={this.showTool} />
         <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
-        <EditableItem header={'Notes: '} value={this.props.toolData.notes} change={this.props.change} name={'notes'} onClick={this.showTool} />
+        <EditableItem
+          header={'Notes: '}
+          value={this.props.toolData.notes}
+          change={this.props.change}
+          name={'notes'}
+          onClick={this.showTool}
+          type={'textArea'}/>
         <EditableItem
           header={'Count: '}
           value={this.props.count}

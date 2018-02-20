@@ -1,50 +1,45 @@
 import React, { Component } from 'react';
-import MillTools from '../Tools/MillTools';
-import LatheTools from '../Tools/LatheTools';
-import OtherTools from '../Tools/OtherTools';
+
+import Purchased from './Purchased';
+import ToBuy from './ToBuy';
 
 class Ordering extends Component {
-	constructor() {
-		super()
-		this.state = {
-			tools: 'mill'
-		}
-		this.toggle=this.toggle.bind(this);
-	}
+  constructor() {
+    super()
+    this.state = {
+      purchased: false
+    }
+    this.togglePurchase=this.togglePurchase.bind(this);
+  }
 
-	toggle(i) {
-		this.setState({ tools: (i) });
-	}
+  togglePurchase(e) {
+    this.setState({ purchased: !this.state.purchased });
+  }
 
-	showTools() {
-		switch(this.state.tools) {
-			default :
-				return <MillTools />
-			case 'lathe' :
-				return <LatheTools />
-			case 'other' :
-				return <OtherTools />
-		}
-	}
+  showPurchaseState() {
+    if(this.state.purchased) {
+      return <Purchased />
+    } else {
+      return <ToBuy />
+    }
+  }
 
   render() {
-  	let categories = this.showTools();
+    let screen = this.showPurchaseState();
+
     return (
-    	<div>
-        <h3>Shopping List</h3>
-        <div className='toggle toggle-smaller'>
-        	<div onClick={() => {this.toggle('mill') }} className={(this.state.tools === 'mill' ? 'toggled' : '')}>
-        		Mill Tools
-        	</div>
-        	<div onClick={() => {this.toggle('lathe') }} className={(this.state.tools === 'lathe' ? 'toggled' : '')}>
-        		Lathe Tools
-        	</div>
-        	<div onClick={() => {this.toggle('other') }} className={(this.state.tools === 'other' ? 'toggled' : '')}>
-        		Other
-        	</div>
+      <div>
+        <div className="purchase-toggle">
+
+          <input name="ordering" id="shopping" type="radio" onChange={this.togglePurchase} checked={!this.state.purchased}/>
+          <label htmlFor="shopping" className={'purchase-label-one ' + (!this.state.purchased ? 'checked-label' : '')}>Shopping List</label>
+
+          <input name="ordering" id="purchased" type="radio" onChange={this.togglePurchase} checked={this.state.purchased} />
+          <label className={(this.state.purchased ? 'checked-label' : '')} htmlFor="purchased" >Purchased List</label>
+
         </div>
         <div>
-        	{categories}
+          {screen}
         </div>
       </div>
     );
