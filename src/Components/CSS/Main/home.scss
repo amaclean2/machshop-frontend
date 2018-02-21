@@ -45,10 +45,6 @@
 	}
 }
 
-.money {
-	justify-content: flex-start;
-}
-
 .description {
 	font-size: 13px;
 }
@@ -231,10 +227,13 @@
 }
 
 .tool-image {
-	margin: 20px 2vw;
 	max-width: 500px;
 	flex: 1;
 	min-width: 200px;
+
+	@media screen and (max-width: 500px) {
+		margin: 20px 2vw;
+	}
 }
 
 .tool-data {

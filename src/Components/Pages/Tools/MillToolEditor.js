@@ -150,13 +150,16 @@ class MillToolEditor extends Component {
           header={'EDP Number: '}
           value={this.props.toolData.edp} />
         <DescriptionItem
-          header={'Notes: '}
-          value={this.props.toolData.notes}
-          classes={'notes'} />
+          header={'Quantity: '}
+          value={this.props.toolData.count} />
         <DescriptionItem
           header={'Price: '}
           value={this.props.toolData.price}
           classes={'price'} />
+        <DescriptionItem
+          header={'Notes: '}
+          value={this.props.toolData.notes}
+          classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
   	} else {
@@ -271,9 +274,9 @@ class MillToolEditor extends Component {
           name={'edp'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Count: '}
-          value={this.props.count}
-          change={this.props.changeCount}
+          header={'Quantity: '}
+          value={this.props.toolData.count}
+          change={this.props.change}
           name={'count'}
           onClick={this.showTool}
           classes={(this.props.count !== 0 ? '' : 'gone')} />
@@ -317,6 +320,8 @@ class MillToolEditor extends Component {
       this.props.change({ target: { name: 'undercut_width', value: '' }});
       this.props.change({ target: { name: 'undercut_length', value: '' }});
       this.props.change({ target: { name: 'edp', value: '' }});
+      this.props.change({ target: { name: 'count', value: '' }});
+      this.props.change({ target: { name: 'price', value: '' }});
       this.props.change({ target: { name: 'notes', value: '' }});
   }
 

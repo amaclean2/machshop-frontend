@@ -11,7 +11,6 @@ class OrderEditorModal extends Component {
 		this.state = {
 			toolData: {},
       viewerMode: 'Endmill',
-      count: 1,
 			toolId: this.props.id,
       machine: this.props.machine,
       loaded: false,
@@ -19,7 +18,6 @@ class OrderEditorModal extends Component {
       redirect: false
 		}
     this.change=this.change.bind(this);
-    this.changeCount=this.changeCount.bind(this);
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
     this.output=this.output.bind(this);
@@ -37,10 +35,6 @@ class OrderEditorModal extends Component {
     if(e.target.name === 'diameter' ) {
       toolData.undercut_width = e.target.value;
     }
-  }
-
-  changeCount(e) {
-    this.setState({ count: e.target.value });
   }
 
   delete() {
@@ -81,27 +75,24 @@ class OrderEditorModal extends Component {
 
   post() {
 
-    for (var i = 0; i < this.state.count; i++) {
+    let url = sessionStorage.getItem('user').split(',')[2],
+        machine = this.state.machine,
+        request = new Request(url + '/shopping/' + machine, {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        user: 'Andrew',
+        company_id: sessionStorage.getItem('user').split(',')[1],
+        tool_data: this.state.toolData
+      })
+    });
 
-      let url = sessionStorage.getItem('user').split(',')[2],
-          machine = this.state.machine,
-          request = new Request(url + '/shopping/' + machine, {
-        method: 'POST',
-        headers: new Headers({'Content-Type': 'application/json'}),
-        body: JSON.stringify({
-          user: 'Andrew',
-          company_id: sessionStorage.getItem('user').split(',')[1],
-          tool_data: this.state.toolData
-        })
-      });
-
-      fetch(request).then( response => {
-        return response.json();
-      }).then( data => {
-        this.setState({ toolId: data._id });
-        this.props.triggerUpdate();
-      });
-    }
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      this.setState({ toolId: data._id });
+      this.props.triggerUpdate();
+    });
 
   }
 
@@ -166,7 +157,6 @@ class OrderEditorModal extends Component {
                 save={this.save}
                 order={true}
                 change={this.change} 
-                changeCount={this.changeCount}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
@@ -177,7 +167,6 @@ class OrderEditorModal extends Component {
                 save={this.save} 
                 order={true}
                 change={this.change}
-                changeCount={this.changeCount} 
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
@@ -188,7 +177,6 @@ class OrderEditorModal extends Component {
                 save={this.save} 
                 order={true}
                 change={this.change}
-                changeCount={this.changeCount} 
                 output={this.output} />
     }
   }
@@ -200,7 +188,6 @@ class OrderEditorModal extends Component {
   componentDidMount() {
     if(this.state.toolId !== '0') {
       this.get();
-      this.setState({ count: 0 });
     } else {
       this.setState({ loaded: true });
     }

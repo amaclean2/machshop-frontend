@@ -90,6 +90,11 @@ class EditableItem extends Component {
     if(e.target.value.indexOf('.') === -1) {
       e.target.value = e.target.value + '.00';
     }
+
+    if(e.target.value.indexOf('$') === -1 ) {
+      e.target.value = '$ ' + e.target.value;
+    }
+
     this.change(e);
   }
 
@@ -135,17 +140,13 @@ class EditableItem extends Component {
         return this.makeSelect()
 
       case 'price' :
-        return (
-          <div className='math-box form-select money'>
-            <span className="money-sign">$</span>
-            <input
-              type='text'
-              placeholder='Price'
-              onBlur={this.makeMoney}
-              name={this.props.name}
-              onChange={this.change}
-              value={this.state.value} />
-          </div>);
+        return <input
+                type='text'
+                placeholder='Price'
+                onBlur={this.makeMoney}
+                name={this.props.name}
+                onChange={this.change}
+                value={this.state.value} />;
 
       case 'textArea' :
         return <textarea

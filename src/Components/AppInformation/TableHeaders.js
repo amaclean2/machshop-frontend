@@ -50,8 +50,8 @@ let headers = {
 		['Diameter','diameter'],
 		['Material', 'material'], 
 		['EDP', 'edp'],
-		['Price per Tool', 'price_per_tool'],
-		['Quantity', 'quanitty']
+		['Price per Tool', 'price'],
+		['Quantity', 'count']
 		// ['Job Number', 'job_number']
 	],
 	LatheTools : [
