@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
+import searchableFields from '../AppInformation/SearchableFields';
 
 class Companies extends Component {
 	constructor() {
@@ -49,6 +50,7 @@ class Companies extends Component {
       	<Table 
       		data={this.state.companies}
       		headers={headers.Companies}
+      		searchable={searchableFields.company}
       		link={'/company/'} />
       </div>
     );

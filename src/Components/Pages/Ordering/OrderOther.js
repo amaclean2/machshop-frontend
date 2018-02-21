@@ -17,8 +17,8 @@ class OrderOther extends Component {
     	<div className='other-tools'>
         <Table
         	data={this.state.tools}
-        	headers={headers.OtherTools}
-          searchable={searchableFields.other}
+        	headers={headers.OrderOther}
+          searchable={searchableFields.orderOther}
         	toggleModal={this.props.toggleModal} />
       </div>
     );

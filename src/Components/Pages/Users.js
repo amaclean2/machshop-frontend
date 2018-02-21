@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
+import searchableFields from '../AppInformation/SearchableFields';
 
 class Users extends Component {
 	constructor() {
@@ -25,7 +26,6 @@ class Users extends Component {
 	    fetch(request).then( response => {
 	    	return response.json();
 	    }).then( data => {
-	    	console.log('user list loaded');
 	      this.setState({ users: data });
 	    });
 	}
@@ -39,10 +39,15 @@ class Users extends Component {
     return (
     	<div>
         <h3>Users</h3>
-        <div className='company-id' >Company Id: { companyId }</div>
+        <div className='company-id' >
+        	<span className='label'>Company Id: </span>
+        	{ companyId }
+        	<button className='button small-button'>Copy id</button>
+        </div>
         <Table
         	data={this.state.users}
         	headers={headers.Users}
+        	searchable={searchableFields.users}
         	noAdd={true}
         	link={'/users/'} />
       </div>

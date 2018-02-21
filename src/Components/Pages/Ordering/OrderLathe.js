@@ -14,11 +14,11 @@ class OrderLathe extends Component {
 
   render() {
     return (
-    	<div className='lathe-tools'>
+    	<div className='order-lathe'>
         <Table
         	data={this.state.tools}
-        	headers={headers.LatheTools}
-          searchable={searchableFields.lathe}
+        	headers={headers.OrderLathe}
+          searchable={searchableFields.orderLathe}
         	toggleModal={this.props.toggleModal} />
       </div>
     );

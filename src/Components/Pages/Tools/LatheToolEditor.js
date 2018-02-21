@@ -111,7 +111,10 @@ class LatheToolEditor extends Component {
         <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
         <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
+        <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={this.props.order ? '' : 'gone'} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
+
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
   	} else {
@@ -182,8 +185,33 @@ class LatheToolEditor extends Component {
           units='inches'
           type={'math'}
           onClick={this.showTool} />
-        <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
-        <EditableItem header={'Insert Code: '} value={this.props.toolData.insert} change={this.props.change} name={'insert'} onClick={this.showTool} />
+        <EditableItem
+          header={'Description: '}
+          value={this.props.toolData.description}
+          change={this.props.change}
+          name={'description'}
+          onClick={this.showTool} />
+        <EditableItem
+          header={'Insert Code: '}
+          value={this.props.toolData.insert}
+          change={this.props.change}
+          name={'insert'}
+          onClick={this.showTool} />
+        <EditableItem
+          header={'Quantity: '}
+          value={this.props.toolData.count}
+          change={this.props.change}
+          name={'count'}
+          onClick={this.showTool}
+          classes={(this.props.count !== 0 ? '' : 'gone')} />
+        <EditableItem
+          header={'Price: '}
+          value={this.props.toolData.price}
+          change={this.props.change}
+          name={'price'}
+          onClick={this.showTool}
+          type={'price'}
+          classes={this.props.order ? '' : 'gone'} />
         <EditableItem
           header={'Notes: '}
           value={this.props.toolData.notes}
@@ -191,13 +219,6 @@ class LatheToolEditor extends Component {
           name={'notes'}
           onClick={this.showTool}
           type={'textArea'} />
-        <EditableItem
-          header={'Count: '}
-          value={this.props.count}
-          change={this.props.changeCount}
-          name={'count'}
-          onClick={this.showTool}
-          classes={(this.props.count !== 0 ? '' : 'gone')} />
         {/*<EditableItem
             header={'Job Number: '}
             value={this.props.toolData.job_number}

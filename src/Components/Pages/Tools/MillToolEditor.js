@@ -151,11 +151,12 @@ class MillToolEditor extends Component {
           value={this.props.toolData.edp} />
         <DescriptionItem
           header={'Quantity: '}
-          value={this.props.toolData.count} />
+          value={this.props.toolData.count}
+          classes={this.props.order ? '' : 'gone'} />
         <DescriptionItem
           header={'Price: '}
           value={this.props.toolData.price}
-          classes={'price'} />
+          classes={this.props.order ? '' : 'gone'} />
         <DescriptionItem
           header={'Notes: '}
           value={this.props.toolData.notes}
@@ -282,7 +283,7 @@ class MillToolEditor extends Component {
           classes={(this.props.count !== 0 ? '' : 'gone')} />
         <EditableItem
           header={'Price: '}
-          value={this.props.price}
+          value={this.props.toolData.price}
           change={this.props.change}
           name={'price'}
           onClick={this.showTool}

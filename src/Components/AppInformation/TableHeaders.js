@@ -1,5 +1,6 @@
 
 // attributes with an 'e' are editable in the table
+// format is the name that will appear on the header, then the name from the api, then editable or not
 
 let headers = {
 	Parts : [
@@ -42,14 +43,14 @@ let headers = {
 		['Type', 'tool_type', 'e'],
 		['Diameter','diameter'],
 		['Material', 'material'], 
-		['EDP', 'edp']
+		['EDP Number', 'edp']
 		// ['Job Number', 'job_number']
 	],
 	OrderMill : [
 		['Type', 'tool_type', 'e'],
 		['Diameter','diameter'],
 		['Material', 'material'], 
-		['EDP', 'edp'],
+		['EDP Number', 'edp'],
 		['Price per Tool', 'price'],
 		['Quantity', 'count']
 		// ['Job Number', 'job_number']
@@ -60,9 +61,24 @@ let headers = {
 		['Material', 'material']
 		// ['Part Number', 'part_number']
 	],
+	OrderLathe : [
+		['Type', 'tool_type', 'e'],
+		['Description', 'description'],
+		['Material', 'material'],
+		['Price per Tool', 'price'],
+		['Quantity', 'count']
+
+	],
 	OtherTools : [
 		['Name', 'name', 'e'],
 		['Description','description']
+		// ['Part Number', 'part_number']
+	],
+	OrderOther : [
+		['Name', 'name', 'e'],
+		['Description','description'],
+		['Price per Part', 'price'],
+		['Quantity', 'count']
 		// ['Part Number', 'part_number']
 	],
 };

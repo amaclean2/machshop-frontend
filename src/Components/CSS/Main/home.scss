@@ -138,8 +138,20 @@
 }
 
 .company-id {
-	margin: 10px 0;
+	margin: 25px 0;
 	color: $primary;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	.label {
+		color: $headerGrey;
+		margin-right: 7px;
+	}
+	.button {
+		margin-left: 20px;
+	}
 }
 
 .companies {

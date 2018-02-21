@@ -105,6 +105,8 @@ class OtherToolEditor extends Component {
   		return <div onClick={this.toggleEdit}>
         <DescriptionItem header={'Name: '} value={this.props.toolData.name} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
+        <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={this.props.order ? '' : 'gone'} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
@@ -113,19 +115,27 @@ class OtherToolEditor extends Component {
         <EditableItem header={'Name: '} value={this.props.toolData.name} change={this.props.change} name={'name'} onClick={this.showTool} />
         <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
         <EditableItem
+          header={'Quantity: '}
+          value={this.props.toolData.count}
+          change={this.props.change}
+          name={'count'}
+          onClick={this.showTool}
+          classes={(this.props.count !== 0 ? '' : 'gone')} />
+        <EditableItem
+          header={'Price: '}
+          value={this.props.toolData.price}
+          change={this.props.change}
+          name={'price'}
+          onClick={this.showTool}
+          type={'price'}
+          classes={this.props.order ? '' : 'gone'} />
+        <EditableItem
           header={'Notes: '}
           value={this.props.toolData.notes}
           change={this.props.change}
           name={'notes'}
           onClick={this.showTool}
           type={'textArea'}/>
-        <EditableItem
-          header={'Count: '}
-          value={this.props.count}
-          change={this.props.changeCount}
-          name={'count'}
-          onClick={this.showTool}
-          classes={(this.props.count !== 0 ? '' : 'gone')} />
         {/*<EditableItem
             header={'Job Number: '}
             value={this.props.toolData.job_number}

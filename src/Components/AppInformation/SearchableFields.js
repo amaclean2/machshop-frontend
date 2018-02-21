@@ -42,10 +42,19 @@ let searchableFields = {
 		'material'
 		// 'part_number'
 	],
+	orderLathe: [
+		'tool_type',
+		'description',
+		'material'
+	],
 	other: [
 		'description',
 		'notes'
 		// 'part_number'
+	],
+	orderOther: [
+		'description',
+		'notes'
 	]
 };
 
