@@ -32,10 +32,10 @@ class Ordering extends Component {
         <div className="purchase-toggle">
 
           <input name="ordering" id="shopping" type="radio" onChange={this.togglePurchase} checked={!this.state.purchased}/>
-          <label htmlFor="shopping" className={'purchase-label-one ' + (!this.state.purchased ? 'checked-label' : '')}>Shopping List</label>
+          <label htmlFor="shopping" className={'purchase-label-one ' + (!this.state.purchased ? 'checked-label' : '')}>Shopping</label>
 
           <input name="ordering" id="purchased" type="radio" onChange={this.togglePurchase} checked={this.state.purchased} />
-          <label className={(this.state.purchased ? 'checked-label' : '')} htmlFor="purchased" >Purchased List</label>
+          <label className={(this.state.purchased ? 'checked-label' : '')} htmlFor="purchased" >Purchased</label>
 
         </div>
         <div>
