@@ -23,6 +23,7 @@ table {
 
 	tbody {
 		tr {
+			min-width: 290px;
 			transition: all 0.3s ease-in-out;
 			&:hover {
 				background-color: $grey3;

@@ -129,7 +129,8 @@ class App extends Component {
               let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0],
                   company = userData.company_id;
 
-              sessionStorage.setItem('user', [ userData.user_position, company, this.state.url ]);
+              console.log(userData.name);
+              sessionStorage.setItem('user', [ userData.user_position, company, this.state.url, userData.name ]);
               this.setState({ validEmail: result.email, password: null });
 
             } else {
