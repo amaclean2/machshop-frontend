@@ -26,6 +26,7 @@ class App extends Component {
     this.createUserInfo=this.createUserInfo.bind(this);
     this.addUser=this.addUser.bind(this);
     this.post=this.post.bind(this);
+    this.forgotPassword=this.forgotPassword.bind(this);
 	}
 
   post() {
@@ -48,6 +49,10 @@ class App extends Component {
     }).then( data => {
       console.log(data);
     });
+  }
+
+  forgotPassword() {
+    console.log('Haha, you can\'t do anything about this!');
   }
 
   createUserInfo(e) {
@@ -103,6 +108,7 @@ class App extends Component {
                   failed={this.state.failed} />
       } else {
         return <Login
+              forgotPassword={this.forgotPassword}
                 login={this.loginAction}
                 update={this.update}
                 createUser={this.createUser}
@@ -129,7 +135,6 @@ class App extends Component {
               let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0],
                   company = userData.company_id;
 
-              console.log(userData.name);
               sessionStorage.setItem('user', [ userData.user_position, company, this.state.url, userData.name ]);
               this.setState({ validEmail: result.email, password: null });
 

@@ -224,7 +224,7 @@ class ToolEditorModal extends Component {
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
-                  <span className='close-big'>Return to Machining</span>
+                  <span className='close-big'>Return to Tools</span>
                 </a>
               </div>
             </div>

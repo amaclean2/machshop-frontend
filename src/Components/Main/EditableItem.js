@@ -14,6 +14,7 @@ class EditableItem extends Component {
     this.get=this.get.bind(this);
     this.change=this.change.bind(this);
     this.makeMoney=this.makeMoney.bind(this);
+    this.changeNumber=this.changeNumber.bind(this);
   }
 
   get() {
@@ -49,35 +50,66 @@ class EditableItem extends Component {
     }
   }
 
+  changeNumber(e) {
+    let number = e.target.value;
+    number = number.replace(/[^0-9.]/g, '');
+    e.target.value = number;
+    this.change(e);
+  }
+
   makeMath(e) {
-    let string = e.target.value
-    if(string.indexOf('/') !== -1) {
-      let strings = string.split('/');
-      e.target.value = strings[0];
-      strings.splice(0, 1);
-      strings.forEach( item => { e.target.value /= item; });
-    } 
-    if (string.indexOf('*') !== -1) {
-      let strings = string.split('*');
-      e.target.value = strings[0];
-      strings.splice(0, 1);
-      strings.forEach( item => { e.target.value *= item; });
-    } 
-    if (string.indexOf('-') !== -1) {
-      let strings = string.split('-');
-      e.target.value = strings[0];
-      strings.splice(0, 1);
-      strings.forEach( item => { e.target.value -= item; });
-    } 
-    if (string.indexOf('+') !== -1) {
-      let strings = string.split('+');
-      e.target.value = strings[0];
-      strings.splice(0, 1);
-      strings.forEach( item => { e.target.value = +e.target.value + +item; });
-    }
-    if(e.target.value === 'NaN') {
-      e.target.value = string;
-    }
+    let string = e.target.value;
+    string = string.replace(/[^0-9\/*+\-.eE^]/g, '');
+
+    var addends = string.split('+'),
+        finished = '';
+
+    addends.forEach( (addend, l) => {
+      let subs = addend.split('-');
+
+      subs.forEach( (sub, k) => {
+        let factors = sub.split('*'),
+            multiplying;
+
+        factors.forEach( (factor, j) => {
+          let divisors = factor.split('/');
+
+          divisors.forEach( (divisor, i) => {
+            divisor = Number(divisor);
+            if(i === 0) {
+              factor = divisor;
+            } else {
+              factor /= divisor;
+            }
+          });
+
+          factor = Number(factor);
+          if(j === 0) {
+            sub = factor;
+          } else {
+            sub *= factor;
+          }
+        });
+
+        sub = Number(sub);
+        if(k === 0) {
+          addend = sub;
+        } else {
+          addend -= sub;
+        }
+      });
+
+      addend = Number(addend);
+      if(l === 0) {
+        finished = addend;
+      } else {
+        finished += addend;
+      }
+    });
+
+    finished = Math.round(finished * 100000) / 100000;
+    e.target.value = finished;
+
     this.change(e);
   }
 
@@ -108,9 +140,9 @@ class EditableItem extends Component {
     switch(this.props.type) {
       case 'number' :
         return <input
-                  type='number'
+                  type='text'
                   className={'editable-input'}
-                  onChange={this.change}
+                  onChange={this.changeNumber}
                   placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name}
                   value={this.state.value} />

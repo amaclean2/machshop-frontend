@@ -49,7 +49,7 @@ class Login extends Component {
                   placeholder='password' />
                 <div className="finish-buttons">
                   <button className='button login-button' onClick={this.login}>Login</button>
-                  <button className='button white-button'>Forgot password</button>
+                  <button className='button white-button' onClick={this.props.forgotPassword} >Forgot password</button>
                   <Progress activated={this.state.progress}/>
                 </div>
               </div>

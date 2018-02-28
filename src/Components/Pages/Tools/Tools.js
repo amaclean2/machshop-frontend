@@ -48,15 +48,15 @@ class Tools extends Component {
   }
 
   generateEditorModal() {
-      if(this.state.editing) {
-          return <ToolEditorModal
-                  id={this.state.toolId}
-                  machine={this.state.tools}
-                  toggleModal={this.toggleModal}
-                  triggerUpdate={this.get} />
-      } else {
-          return '';
-      }
+    if(this.state.editing) {
+      return <ToolEditorModal
+              id={this.state.toolId}
+              machine={this.state.tools}
+              toggleModal={this.toggleModal}
+              triggerUpdate={this.get} />
+    } else {
+      return '';
+    }
   }
 
 	showTools() {

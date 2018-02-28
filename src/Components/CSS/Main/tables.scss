@@ -1,14 +1,15 @@
 table {
 	border-collapse: collapse;
 	font-weight: lighter;
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .important-table, .mini-table {
 	width: 100%;
 
 	thead {
-		background-color: $grey2;
+		background-color: transparent;
+		border-bottom: 1px solid $borderGrey;
 		width: 100%;
 
 		th {
@@ -31,7 +32,7 @@ table {
 		}
 		td {
 			text-align: right;
-			padding: 7px 8px;
+			padding: 8px;
 			white-space: pre-wrap;
 		}
 		td:first-child {

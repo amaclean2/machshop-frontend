@@ -36,7 +36,7 @@ class Table extends Component {
 				}
 
 				let rowContents = elements.map( (element, i) => {
-					if(this.props.headers[i][2]) {
+					if(this.props.headers[i][2] === 'e') {
 						return <td key={i} data-label={this.props.headers[i][0]}>
 											<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{element}</a>
 											<span className='small-table-link' >{element}</span>
