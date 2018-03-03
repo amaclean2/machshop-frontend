@@ -15,6 +15,7 @@ class EditableItem extends Component {
     this.change=this.change.bind(this);
     this.makeMoney=this.makeMoney.bind(this);
     this.changeNumber=this.changeNumber.bind(this);
+    this.changeText=this.changeText.bind(this);
   }
 
   get() {
@@ -50,16 +51,25 @@ class EditableItem extends Component {
     }
   }
 
+  changeText(e) {
+    e.target.value = e.target.value.replace(/[^A-z`' ]/g, '');
+
+    this.change(e);
+  }
+
   changeNumber(e) {
     let number = e.target.value;
     number = number.replace(/[^0-9.]/g, '');
+    if (number.split('.').length > 2) {
+      number = number.substr(0, number.length - 1);
+    }
     e.target.value = number;
     this.change(e);
   }
 
   makeMath(e) {
     let string = e.target.value;
-    string = string.replace(/[^0-9\/*+\-.eE^]/g, '');
+    string = string.replace(/[^0-9\/*+\-.^]/g, '');
 
     var addends = string.split('+'),
         finished = '';
@@ -119,12 +129,12 @@ class EditableItem extends Component {
   }
 
   makeMoney(e) {
+    e.target.value = Math.round(e.target.value * 100) / 100;
+    e.target.value = e.target.value.toString();
     if(e.target.value.indexOf('.') === -1) {
       e.target.value = e.target.value + '.00';
-    }
-
-    if(e.target.value.indexOf('$') === -1 ) {
-      e.target.value = '$ ' + e.target.value;
+    } else if (e.target.value.split('.')[1].length < 2) {
+      e.target.value = e.target.value + '0';
     }
 
     this.change(e);
@@ -159,6 +169,13 @@ class EditableItem extends Component {
               value={this.state.value} />
             <span className="input-hard-text">{this.props.units}</span>
           </div>);
+      case 'textOnly' :
+        return <input
+              type='text'
+              placeholder={this.props.header.slice(0, -2)}
+              name={this.props.name}
+              onChange={this.changeText}
+              value={this.state.value} />;
       case 'date' :
         return <input
                   type='date'
@@ -172,13 +189,16 @@ class EditableItem extends Component {
         return this.makeSelect()
 
       case 'price' :
-        return <input
-                type='text'
-                placeholder='Price'
-                onBlur={this.makeMoney}
-                name={this.props.name}
-                onChange={this.change}
-                value={this.state.value} />;
+        return <div className='price-box form-select'>
+          <span className='input-hard-text'>$</span>
+          <input
+            type='text'
+            placeholder='Price'
+            onBlur={this.makeMoney}
+            name={this.props.name}
+            onChange={this.changeNumber}
+            value={this.state.value} />
+        </div>;
 
       case 'textArea' :
         return <textarea

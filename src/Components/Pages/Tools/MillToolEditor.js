@@ -20,11 +20,56 @@ class MillToolEditor extends Component {
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
     this.fillWithBlanks=this.fillWithBlanks.bind(this);
+    this.toolProps=this.toolProps.bind(this);
 	}
 
   save() {
     this.toggleEdit();
     this.props.save();
+  }
+
+  toolProps(property) {
+
+    switch(property) {
+      case 'diameter' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Center Drill', 'Key Cutter', 'Dove Mill'];
+
+      case 'material' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts'];
+
+      case 'flutes' :
+        return ['Endmill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Key Cutter', 'Dove Mill'];
+
+      case 'tip_angle' :
+        return ['Drill', 'Spot Drill', 'Chamfer Mill', 'Tap', 'Center Drill', 'Inserts'];
+
+      case 'flute_length' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Tap'];
+
+      case 'corner_radius' :
+        return ['Endmill', 'Key Cutter', 'Dove Mill', 'Inserts'];
+
+      case 'tool_length' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill'];
+
+      case 'relief_length' :
+        return ['Endmill', 'Key Cutter', 'Dove Mill'];
+
+      case 'relief_width' :
+        return ['Endmill', 'Key Cutter', 'Dove Mill'];
+
+      case 'size' :
+        return ['Drill', 'Reamer', 'Center Drill', 'Tap'];
+
+      case 'pitch' :
+        return ['Tap'];
+
+      case 'cutting_height' :
+        return ['Key Cutter'];
+
+      default :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts', 'Other'];
+    }
   }
 
   showTool(e) {
@@ -108,44 +153,57 @@ class MillToolEditor extends Component {
           header={'Tool Type: '}
           value={this.props.toolData.tool_type} />
         <DescriptionItem
+          header={'Size: '}
+          value={this.props.toolData.size}
+          classes={(this.toolProps('size').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
+        <DescriptionItem
           header={'Diameter: '}
           value={this.props.toolData.diameter}
+          classes={(this.toolProps('diameter').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'inches'}/>
         <DescriptionItem
           header={'Material: '}
+          classes={(this.toolProps('material').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           value={this.props.toolData.material} />
         <DescriptionItem
           header={'Flutes: '}
           value={this.props.toolData.flutes}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+          classes={(this.toolProps('flutes').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
         <DescriptionItem
           header={'Tip Angle: '}
           value={this.props.toolData.tip_angle}
-          classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
+          classes={(this.toolProps('tip_angle').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'degrees'}/>
         <DescriptionItem
           header={'Flute Length: '}
           value={this.props.toolData.flute_length}
+          classes={(this.toolProps('flute_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'inches'}/>
         <DescriptionItem
           header={'Corner Radius: '}
           value={this.props.toolData.corner_radius}
           units={'inches'}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+          classes={(this.toolProps('corner_radius').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
         <DescriptionItem
           header={'Tool Length: '}
           value={this.props.toolData.tool_length}
+          classes={(this.toolProps('tool_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'inches'} />
         <DescriptionItem
-          header={'Undercut Width: '}
+          header={'Cutting Height: '}
+          value={this.props.toolData.cutting_height}
+          classes={(this.toolProps('cutting_height').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
+          units={'inches'} />
+        <DescriptionItem
+          header={'Relief Width: '}
           value={this.props.toolData.undercut_width}
           units={'inches'}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+          classes={(this.toolProps('relief_width').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
         <DescriptionItem
-          header={'Undercut Length: '}
+          header={'Relief Length: '}
           value={this.props.toolData.undercut_length}
           units={'inches'}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
+          classes={(this.toolProps('relief_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
         <DescriptionItem
           header={'EDP Number: '}
           value={this.props.toolData.edp} />
@@ -156,7 +214,7 @@ class MillToolEditor extends Component {
         <DescriptionItem
           header={'Price: '}
           value={this.props.toolData.price}
-          classes={this.props.order ? '' : 'gone'} />
+          classes={'price ' + (this.props.order ? '' : 'gone')} />
         <DescriptionItem
           header={'Notes: '}
           value={this.props.toolData.notes}
@@ -175,22 +233,30 @@ class MillToolEditor extends Component {
             { value: 'Endmill', children: 'Endmill' },
             { value: 'Drill', children: 'Drill' },
             { value: 'Spot Drill', children: 'Spot Drill' },
+            { value: 'Chamfer Mill', children: 'Chamfer Mill'},
             { value: 'Center Drill', children: 'Center Drill' },
-            { value: 'Reemer', children: 'Reemer' },
+            { value: 'Reamer', children: 'Reamer' },
             { value: 'Key Cutter', children: 'Key Cutter' },
             { value: 'Face Mill', children: 'Face Mill' },
             { value: 'Dove Mill', children: 'Dove Mill' },
             { value: 'Tap', children: 'Tap' },
-            { value: 'Thread Mill', children: 'Thread Mill' },
             { value: 'Inserts', children: 'Inserts' },
             { value: 'Other', children: 'Other' }
           ]}
+          onClick={this.showTool} />
+        <EditableItem
+          header={'Size: '}
+          value={this.props.toolData.size}
+          classes={(this.toolProps('size').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
+          change={this.props.change}
+          name={'size'}
           onClick={this.showTool} />
         <EditableItem
           type={'math'}
           units={'inches'}
           header={'Diameter: '}
           value={this.props.toolData.diameter}
+          classes={(this.toolProps('diameter').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'diameter'}
           onClick={this.showTool} />
@@ -199,6 +265,7 @@ class MillToolEditor extends Component {
           value={this.props.toolData.material}
           type={'select'}
           output={this.props.output}
+          classes={(this.toolProps('material').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           name={'material'}
           data={[
             { value: 'Carbide', children: 'Carbide' },
@@ -209,15 +276,15 @@ class MillToolEditor extends Component {
           ]}
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
           header={'Flutes: '}
           value={this.props.toolData.flutes}
+          classes={(this.toolProps('flutes').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'flutes'}
           type='number'
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.props.viewerMode === 'Drill' ? '' : 'gone')}
+          classes={(this.toolProps('tip_angle').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           header={'Tip Angle: '}
           value={this.props.toolData.tip_angle}
           change={this.props.change}
@@ -228,6 +295,7 @@ class MillToolEditor extends Component {
         <EditableItem
           header={'Flute Length: '}
           value={this.props.toolData.flute_length}
+          classes={(this.toolProps('flute_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'flute_length'}
           type={'math'}
@@ -235,7 +303,7 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Corner Radius: '}
-          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
+          classes={(this.toolProps('corner_radius').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           value={this.props.toolData.corner_radius}
           change={this.props.change}
           name={'corner_radius'}
@@ -245,14 +313,23 @@ class MillToolEditor extends Component {
         <EditableItem
           header={'Tool Length: '}
           value={this.props.toolData.tool_length}
+          classes={(this.toolProps('tool_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'tool_length'}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Undercut Width: '}
-          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
+          header={'Cutting Height: '}
+          value={this.props.toolData.cutting_height}
+          classes={(this.toolProps('cutting_height').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
+          change={this.props.change}
+          name={'cutting_height'}
+          type={'math'}
+          units={'inches'} />
+        <EditableItem
+          header={'Relief Width: '}
+          classes={(this.toolProps('relief_width').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           value={this.props.toolData.undercut_width !== '' ? this.props.toolData.undercut_width : this.props.toolData.diameter }
           change={this.props.change}
           name={'undercut_width'}
@@ -260,8 +337,8 @@ class MillToolEditor extends Component {
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Undercut Length: '}
-          classes={(this.props.viewerMode === 'Endmill' ? '' : 'gone')}
+          header={'Relief Length: '}
+          classes={(this.toolProps('relief_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           value={this.props.toolData.undercut_length !== '' ? this.props.toolData.undercut_length : 0 }
           change={this.props.change}
           name={'undercut_length'}
@@ -280,6 +357,7 @@ class MillToolEditor extends Component {
           change={this.props.change}
           name={'count'}
           onClick={this.showTool}
+          type={'number'}
           classes={(this.props.count !== 0 ? '' : 'gone')} />
         <EditableItem
           header={'Price: '}

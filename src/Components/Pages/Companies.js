@@ -8,7 +8,8 @@ class Companies extends Component {
 	constructor() {
 		super()
 		this.state = {
-			companies: []
+			companies: [],
+			loaded: false
 		}
 		this.get=this.get.bind(this);
 	}
@@ -35,8 +36,20 @@ class Companies extends Component {
 	  		newData = []
 	    	newData.push(data);
 	  	}
-	    this.setState({ companies: newData });
+	    this.setState({ companies: newData, loaded: true });
 	  });
+	}
+
+	loadTable() {
+		if(this.state.loaded) {
+			return <Table 
+	      		data={this.state.companies}
+	      		headers={headers.Companies}
+	      		searchable={searchableFields.company}
+	      		link={'/company/'} />;
+		} else {
+			return <span className='loading-screen'>It takes a while to build an empire</span>
+		}
 	}
 
 	componentDidMount() {
@@ -44,14 +57,11 @@ class Companies extends Component {
 	}
 
   render() {
+  	let table = this.loadTable();
     return (
       <div className='companies'>
       	<h3>My Company</h3>
-      	<Table 
-      		data={this.state.companies}
-      		headers={headers.Companies}
-      		searchable={searchableFields.company}
-      		link={'/company/'} />
+      	{table}
       </div>
     );
   }

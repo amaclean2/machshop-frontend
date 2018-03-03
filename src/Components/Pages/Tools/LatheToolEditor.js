@@ -112,7 +112,7 @@ class LatheToolEditor extends Component {
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
         <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
         <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
-        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={'price ' + (this.props.order ? '' : 'gone')} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
 
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
@@ -199,6 +199,7 @@ class LatheToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Quantity: '}
+          type={'number'}
           value={this.props.toolData.count}
           change={this.props.change}
           name={'count'}

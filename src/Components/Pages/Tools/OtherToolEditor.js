@@ -106,7 +106,7 @@ class OtherToolEditor extends Component {
         <DescriptionItem header={'Name: '} value={this.props.toolData.name} />
         <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
         <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
-        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={ 'price ' + (this.props.order ? '' : 'gone')} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
@@ -118,6 +118,7 @@ class OtherToolEditor extends Component {
           header={'Quantity: '}
           value={this.props.toolData.count}
           change={this.props.change}
+          type={'number'}
           name={'count'}
           onClick={this.showTool}
           classes={(this.props.count !== 0 ? '' : 'gone')} />

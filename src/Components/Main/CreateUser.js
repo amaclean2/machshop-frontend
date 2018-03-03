@@ -46,9 +46,9 @@ class CreateUser extends Component {
     this.state.companyList.forEach( company => {
       if(e.target.value === company._id) {
         this.setState({company: company.name});
+        this.props.createUserInfo({ target: { name: 'cname', value: this.state.company }});
       }
     })
-    this.props.createUserInfo(e);
   }
 
   finished() {

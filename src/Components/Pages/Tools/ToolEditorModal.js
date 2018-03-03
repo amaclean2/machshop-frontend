@@ -19,7 +19,6 @@ class ToolEditorModal extends Component {
       redirect: false
 		}
     this.change=this.change.bind(this);
-    this.changeCount=this.changeCount.bind(this);
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
     this.output=this.output.bind(this);
@@ -32,15 +31,15 @@ class ToolEditorModal extends Component {
 	}
 
   change(e) {
-    let toolData = this.state.toolData;
-    toolData[e.target.name] = e.target.value;
-    if(e.target.name === 'diameter' ) {
-      toolData.undercut_width = e.target.value;
+    if(e.target.name === 'count') {
+      this.setState({ count: e.target.value });
+    } else {
+      let toolData = this.state.toolData;
+      toolData[e.target.name] = e.target.value;
+      if(e.target.name === 'diameter' ) {
+        toolData.undercut_width = e.target.value;
+      }
     }
-  }
-
-  changeCount(e) {
-    this.setState({ count: e.target.value });
   }
 
   delete() {
@@ -187,6 +186,8 @@ class ToolEditorModal extends Component {
                 change={this.change}
                 changeCount={this.changeCount} 
                 output={this.output} />
+    } else {
+      return <span className='loadingScreen'>Loading ships for Mars...</span>;
     }
   }
 
@@ -221,6 +222,10 @@ class ToolEditorModal extends Component {
                   className='button table-button delete-button'
                   onClick={this.toggleDeleteModal} >
                     <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button
+                  className={'button table-button ' + (this.state.toolId !== '0' ? '' : 'gone')}>
+                  Order
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>

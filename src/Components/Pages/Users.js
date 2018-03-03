@@ -14,6 +14,7 @@ class Users extends Component {
 			companies: [],
 			toolId: '',
 			editing: false,
+			loaded: false,
 			companyId: sessionStorage.getItem('user').split(',')[1]
 		}
 
@@ -42,7 +43,7 @@ class Users extends Component {
 	    fetch(request).then( response => {
 	    	return response.json();
 	    }).then( data => {
-	      this.setState({ users: data });
+	      this.setState({ users: data, loaded: true });
 	    });
 	}
 
@@ -51,24 +52,38 @@ class Users extends Component {
 	}
 
 	generateEditorModal() {
-    if(this.state.editing) {
-      return <UsersEditor
-              id={this.state.toolId}
-              machine={this.state.tools}
-              toggleModal={this.toggleModal}
-              triggerUpdate={this.get} />
-    } else {
-      return '';
-    }
-  }
+	    if(this.state.editing) {
+	        return <UsersEditor
+	            	id={this.state.toolId}
+	              	machine={this.state.tools}
+	              	toggleModal={this.toggleModal}
+	              	triggerUpdate={this.get} />
+	    } else {
+	      	return '';
+	    }
+  	}
+
+  	drawTable() {
+  		if(this.state.loaded) {
+  			return <Table
+        	data={this.state.users}
+        	headers={headers.Users}
+        	searchable={searchableFields.users}
+        	noAdd={true}
+        	toggleModal={this.toggleModal} />;
+  		} else {
+  			return <span className='loading-screen'>It's a lot of work to assemble a table</span>;
+  		}
+  	}
 
 	componentWillMount() {
 		this.get();
 	}
 
+
   render() {
   	let userEditorModal = this.generateEditorModal();
-
+  	let table = this.drawTable();
     return (
     	<div>
     		{userEditorModal}
@@ -80,12 +95,7 @@ class Users extends Component {
 	          <span className='button small-button'>Copy id</span>
 	        </CopyToClipboard>
         </div>
-        <Table
-        	data={this.state.users}
-        	headers={headers.Users}
-        	searchable={searchableFields.users}
-        	noAdd={true}
-        	toggleModal={this.toggleModal} />
+        {table}
       </div>
     );
   }

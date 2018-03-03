@@ -103,6 +103,26 @@
 	}
 }
 
+.price-box {
+	padding: 5px 8px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-start;
+
+	input {
+		border: none;
+		width: 90px;
+		padding: 0;
+		margin: 0;
+	}
+
+	.input-hard-text {
+		font-size: inherit;
+		color: $grey1;
+		padding-right: 5px;
+	}
+}
+
 .math-box {
 	padding: 5px 8px;
 	box-sizing: border-box;

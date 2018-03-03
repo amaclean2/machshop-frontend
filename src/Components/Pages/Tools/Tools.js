@@ -70,7 +70,7 @@ class Tools extends Component {
           return <OtherTools toggleModal={this.toggleModal} data={this.state.data} />
       }
     } else {
-      return '';
+      return <span className='loading-screen'>Loading the life rafts...</span>;
     }
 	}
 

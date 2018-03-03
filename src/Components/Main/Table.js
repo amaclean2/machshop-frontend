@@ -42,7 +42,7 @@ class Table extends Component {
 											<span className='small-table-link' >{element}</span>
 										</td>
 					}
-					return <td key={i} data-label={this.props.headers[i][0]}>{element}</td>
+					return <td key={i} data-label={this.props.headers[i][0]}><span className={'dollar ' + (this.props.headers[i][1] === 'price' ? '' : 'gone')}>$</span>{element}</td>
 				});
 				return <tr key={j * 10} >
 								{rowContents}

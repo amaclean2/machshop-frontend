@@ -204,6 +204,10 @@ table {
     padding-left: 8px !important;
     padding-right: 8px !important; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/tables\.scss}line{font-family:\00003139}}
+.dollar {
+  padding-right: 5px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/htags\.scss}line{font-family:\000033}}
 h2 {
   font-weight: lighter;
@@ -876,6 +880,10 @@ h4 {
 .tool-data {
   width: 100%; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/home\.scss}line{font-family:\00003256}}
+.loading-screen {
+  font-size: 15px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/dashboard\.scss}line{font-family:\000033}}
 .dashboard {
   display: flex;
@@ -1340,18 +1348,36 @@ h4 {
     box-shadow: none; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003106}}
-.math-box {
+.price-box {
   padding: 5px 8px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between; }
+  justify-content: flex-start; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003112}}
-  .math-box input {
+  .price-box input {
     border: none;
     width: 90px;
     padding: 0;
     margin: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003119}}
+  .price-box .input-hard-text {
+    font-size: inherit;
+    color: #576D75;
+    padding-right: 5px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003126}}
+.math-box {
+  padding: 5px 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003132}}
+  .math-box input {
+    border: none;
+    width: 90px;
+    padding: 0;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/select\.scss}line{font-family:\00003139}}
   .math-box .input-hard-text {
     font-size: inherit;
     color: #576D75; }
