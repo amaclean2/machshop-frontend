@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from './Select';
+import DrillSizes from '../AppInformation/DrillSizes';
 
 class EditableItem extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class EditableItem extends Component {
     this.state = {
       selectList: [],
       loaded: false,
-      value: this.props.value !== '' ? this.props.value : ''
+      value: this.props.value !== '' ? this.props.value : '',
+      thisValue: this.props.data && this.props.data[this.props.name]
     }
     this.makeSelect=this.makeSelect.bind(this);
     this.makeMath=this.makeMath.bind(this);
@@ -16,6 +18,7 @@ class EditableItem extends Component {
     this.makeMoney=this.makeMoney.bind(this);
     this.changeNumber=this.changeNumber.bind(this);
     this.changeText=this.changeText.bind(this);
+    this.checkSize=this.checkSize.bind(this);
   }
 
   get() {
@@ -42,13 +45,31 @@ class EditableItem extends Component {
         <Select
           output={this.props.output}
           name={this.props.name}
-          value={(this.props.value ? this.props.value : this.props.header.slice(0, -2))}
+          value={(this.state.value ? this.state.value : this.props.header.slice(0, -2))}
           classes={'form-select'}
           data={optionList} />
         )
     } else {
       return null;
     }
+  }
+
+  checkSize(e) {
+    let preVal = e.target.value;
+
+    this.makeMath(e);
+
+    let elem = Number(e.target.value).toFixed(4);
+
+    let val = DrillSizes.find( drill => {
+      return drill.diameter === elem;
+    });
+
+    if(val) e.target.value = val.size;
+    else e.target.value = preVal;
+
+    this.change(e);
+
   }
 
   changeText(e) {
@@ -69,6 +90,8 @@ class EditableItem extends Component {
 
   makeMath(e) {
     let string = e.target.value;
+
+    string = string.toString();
     string = string.replace(/[^0-9\/*+\-.^]/g, '');
 
     var addends = string.split('+'),
@@ -118,9 +141,16 @@ class EditableItem extends Component {
     });
 
     finished = Math.round(finished * 100000) / 100000;
-    e.target.value = finished;
+    finished = finished.toString();
 
-    this.change(e);
+    if(e.target && e.target.value) {
+      e.target.value = finished;
+
+      this.change(e);
+    } else {
+      return finished;
+    }
+      
   }
 
   change(e) {
@@ -129,20 +159,32 @@ class EditableItem extends Component {
   }
 
   makeMoney(e) {
-    e.target.value = Math.round(e.target.value * 100) / 100;
-    e.target.value = e.target.value.toString();
-    if(e.target.value.indexOf('.') === -1) {
-      e.target.value = e.target.value + '.00';
-    } else if (e.target.value.split('.')[1].length < 2) {
-      e.target.value = e.target.value + '0';
-    }
+    let price = Number(e.target.value);
+    e.target.value = price.toFixed(2);
 
     this.change(e);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     if(this.props.name === 'undercut_width')
-      this.setState({ value: nextProps.value }); 
+      this.setState({ value: this.props.value });
+
+    if(this.props.name === 'diameter' && this.props.data && this.props.data.tool_type === 'Drill') {
+      let val = DrillSizes.find( drill => {
+        return drill.size === this.props.value;
+      });
+      if (val) this.setState({ value: val.diameter });
+      else if (this.props.value) this.makeMath({target: { name: this.props.name, value: this.props.value }});
+    }
+
+    if(this.props.name === 'tip_angle' && this.props.data && this.props.data.tool_type === 'Drill')
+      this.setState({ value: '118' });
+    else if (this.props.name === 'tip_angle') {
+      this.setState({ value: '' });
+    }
+
+    if(this.props.name === 'material' && this.props.value === 'Drill')
+      this.setState({ value: 'Cobalt' });
 
   }
 
@@ -199,6 +241,16 @@ class EditableItem extends Component {
             onChange={this.changeNumber}
             value={this.state.value} />
         </div>;
+
+      case 'size' :
+        return <input
+                type='text'
+                className={'editable-input'}
+                onChange={this.change}
+                onBlur={this.checkSize}
+                placeholder={this.props.header.slice(0, -2)}
+                name={this.props.name}
+                value={this.state.value} />;
 
       case 'textArea' :
         return <textarea

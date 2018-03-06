@@ -26,7 +26,8 @@ let searchableFields = {
 		'tool_type',
 		'diameter',
 		'material',
-		'edp'
+		'edp',
+		'location'
 	],
 	orderMill: [
 		'tool_type',

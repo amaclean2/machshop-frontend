@@ -21,6 +21,7 @@ class MillToolEditor extends Component {
     this.save=this.save.bind(this);
     this.fillWithBlanks=this.fillWithBlanks.bind(this);
     this.toolProps=this.toolProps.bind(this);
+    this.presets=this.presets.bind(this);
 	}
 
   save() {
@@ -32,7 +33,7 @@ class MillToolEditor extends Component {
 
     switch(property) {
       case 'diameter' :
-        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Center Drill', 'Key Cutter', 'Dove Mill'];
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Key Cutter', 'Dove Mill'];
 
       case 'material' :
         return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts'];
@@ -41,7 +42,7 @@ class MillToolEditor extends Component {
         return ['Endmill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Key Cutter', 'Dove Mill'];
 
       case 'tip_angle' :
-        return ['Drill', 'Spot Drill', 'Chamfer Mill', 'Tap', 'Center Drill', 'Inserts'];
+        return ['Drill', 'Spot Drill', 'Chamfer Mill', 'Tap', 'Dove Mill', 'Center Drill', 'Inserts'];
 
       case 'flute_length' :
         return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Tap'];
@@ -59,7 +60,7 @@ class MillToolEditor extends Component {
         return ['Endmill', 'Key Cutter', 'Dove Mill'];
 
       case 'size' :
-        return ['Drill', 'Reamer', 'Center Drill', 'Tap'];
+        return ['Drill', 'Center Drill', 'Tap'];
 
       case 'pitch' :
         return ['Tap'];
@@ -170,7 +171,7 @@ class MillToolEditor extends Component {
           value={this.props.toolData.flutes}
           classes={(this.toolProps('flutes').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}/>
         <DescriptionItem
-          header={'Tip Angle: '}
+          header={this.props.toolData.tool_type === 'Dove Mill' ? 'Angle: ' : 'Tip Angle: '}
           value={this.props.toolData.tip_angle}
           classes={(this.toolProps('tip_angle').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'degrees'}/>
@@ -216,12 +217,18 @@ class MillToolEditor extends Component {
           value={this.props.toolData.price}
           classes={'price ' + (this.props.order ? '' : 'gone')} />
         <DescriptionItem
+          header={'Location: '}
+          value={this.props.toolData.location}
+          classes={this.props.order ? 'gone' : ''} />
+        <DescriptionItem
           header={'Notes: '}
           value={this.props.toolData.notes}
           classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
+
   	} else {
+
   		return <div className='tool-data'>
         <EditableItem
           header={'Tool Type: '}
@@ -250,12 +257,14 @@ class MillToolEditor extends Component {
           classes={(this.toolProps('size').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'size'}
+          type={'size'}
           onClick={this.showTool} />
         <EditableItem
           type={'math'}
           units={'inches'}
           header={'Diameter: '}
-          value={this.props.toolData.diameter}
+          value={this.props.toolData.size ? this.props.toolData.size : this.props.toolData.diameter }
+          data={this.props.toolData}
           classes={(this.toolProps('diameter').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'diameter'}
@@ -285,10 +294,11 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           classes={(this.toolProps('tip_angle').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
-          header={'Tip Angle: '}
-          value={this.props.toolData.tip_angle}
+          header={this.props.toolData.tool_type === 'Dove Mill' ? 'Angle: ' : 'Tip Angle: '}
+          value={this.props.toolData.tip_angle === '' || this.props.toolData.tip_angle === '0' ? this.props.toolData.tool_type : this.props.toolData.tip_angle }
           change={this.props.change}
           name={'tip_angle'}
+          data={this.props.toolData}
           units={'degrees'}
           type='math'
           onClick={this.showTool} />
@@ -368,6 +378,13 @@ class MillToolEditor extends Component {
           type={'price'}
           classes={this.props.order ? '' : 'gone'} />
         <EditableItem
+          header={'Location: '}
+          value={this.props.toolData.location}
+          change={this.props.change}
+          name={'location'}
+          onClick={this.showTool}
+          classes={this.props.order ? 'gone' : ''} />
+        <EditableItem
           header={'Notes: '}
           value={this.props.toolData.notes}
           change={this.props.change}
@@ -386,22 +403,29 @@ class MillToolEditor extends Component {
   	}
   }
 
+  presets() {
+
+  }
+
   fillWithBlanks() {
 
-      this.props.change({ target: { name: 'tool_type', value: 'Endmill' }});
-      this.props.change({ target: { name: 'diameter', value: '' }});
-      this.props.change({ target: { name: 'material', value: 'Carbide' }});
-      this.props.change({ target: { name: 'flutes', value: '' }});
-      this.props.change({ target: { name: 'tip_angle', value: '' }});
-      this.props.change({ target: { name: 'flute_length', value: '' }});
-      this.props.change({ target: { name: 'corner_radius', value: '' }});
-      this.props.change({ target: { name: 'tool_length', value: '' }});
-      this.props.change({ target: { name: 'undercut_width', value: '' }});
-      this.props.change({ target: { name: 'undercut_length', value: '' }});
-      this.props.change({ target: { name: 'edp', value: '' }});
-      this.props.change({ target: { name: 'count', value: '' }});
-      this.props.change({ target: { name: 'price', value: '' }});
-      this.props.change({ target: { name: 'notes', value: '' }});
+    this.props.change({ target: { name: 'tool_type', value: 'Endmill' }});
+    this.props.change({ target: { name: 'size', value: '' }});
+    this.props.change({ target: { name: 'diameter', value: '' }});
+    this.props.change({ target: { name: 'material', value: 'Carbide' }});
+    this.props.change({ target: { name: 'flutes', value: '' }});
+    this.props.change({ target: { name: 'tip_angle', value: '' }});
+    this.props.change({ target: { name: 'flute_length', value: '' }});
+    this.props.change({ target: { name: 'corner_radius', value: '' }});
+    this.props.change({ target: { name: 'tool_length', value: '' }});
+    this.props.change({ target: { name: 'cutting_height', value: '' }});
+    this.props.change({ target: { name: 'undercut_width', value: '' }});
+    this.props.change({ target: { name: 'undercut_length', value: '' }});
+    this.props.change({ target: { name: 'edp', value: '' }});
+    this.props.change({ target: { name: 'count', value: '' }});
+    this.props.change({ target: { name: 'price', value: '' }});
+    this.props.change({ target: { name: 'location', value: ''}});
+    this.props.change({ target: { name: 'notes', value: '' }});
   }
 
 	componentDidMount() {

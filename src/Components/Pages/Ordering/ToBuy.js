@@ -70,7 +70,7 @@ class ToBuy extends Component {
           return <OrderOther toggleModal={this.toggleModal} data={this.state.data} />
       }
     } else {
-      return <span class='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
+      return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
     }
   }
 

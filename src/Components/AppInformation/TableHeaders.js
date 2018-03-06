@@ -43,7 +43,8 @@ let headers = {
 		['Type', 'tool_type', 'e'],
 		['Diameter','diameter'],
 		['Material', 'material'], 
-		['EDP Number', 'edp']
+		['EDP Number', 'edp'],
+		['Location', 'location']
 		// ['Job Number', 'job_number']
 	],
 	OrderMill : [
