@@ -166,8 +166,10 @@ class EditableItem extends Component {
   componentWillReceiveProps() {
     switch(this.props.name) {
       case 'undercut_width' :
-        if(this.props.data && this.props.data.tool_type === 'Endmill' && this.state.value === '')
+        if(this.props.data && this.props.data.tool_type === 'Endmill' && this.state.value === '') {
           this.setState({ value: this.props.data.diameter });
+          this.change({target: { name: this.props.name, value: this.state.value }});
+        }
         break;
 
       case 'diameter' :
@@ -178,8 +180,12 @@ class EditableItem extends Component {
 
           let pushed = {target: { name: this.props.name, value: this.props.value }};
 
-          if(val) this.setState({ value: val.diameter });
+          if(val) {
+            this.setState({ value: val.diameter });
+            this.change({target: { name: this.props.name, value: val.diameter }});
+          }
           else if (this.props.value) this.makeMath(pushed);
+
         }
         break;
 
@@ -188,7 +194,10 @@ class EditableItem extends Component {
           let val = DrillSizes.find(drill => {
             return drill.size === this.props.data.size;
           });
-          if(val) this.setState({ value: val.flute_length });
+          if(val) {
+            this.setState({ value: val.flute_length });
+            this.change({target: { name: this.props.name, value: val.flute_length }});
+          }
         }
         break;
 
@@ -197,13 +206,18 @@ class EditableItem extends Component {
           let val = DrillSizes.find( drill => {
             return drill.size === this.props.data.size;
           });
-          if(val) this.setState({ value: val.oal_length });
+          if(val) {
+            this.setState({ value: val.oal_length });
+            this.change({target: { name: this.props.name, value: val.oal_length }});
+          }
         }
         break;
 
       case 'tip_angle' :
-        if(this.props.data && this.props.data.tool_type === 'Drill' && this.state.value === '')
+        if(this.props.data && this.props.data.tool_type === 'Drill' && this.state.value === '') {
           this.setState({ value: '118' });
+          this.change({target: { name: this.props.name, value: '118' }});
+        }
         break;
     }
 
