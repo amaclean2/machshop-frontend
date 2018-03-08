@@ -45,7 +45,7 @@ class ToolEditorModal extends Component {
   delete() {
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
-        request = new Request(url + '/' + machine + '/' + this.state.toolId, {
+        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId, {
       method: 'DELETE'
     });
 
@@ -60,9 +60,11 @@ class ToolEditorModal extends Component {
 
     let url = sessionStorage.getItem('user').split(',')[2],
         id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/' + this.state.machine + '/' + this.state.toolId + '?company_id=' + id, {
+        request = new Request(url + '/shopping/' + this.state.machine + '/' + this.state.toolId + '?company_id=' + id, {
       method: 'GET'
     });
+
+    console.log(request.url);
 
     fetch(request).then( response => {
       return response.json();
@@ -80,17 +82,21 @@ class ToolEditorModal extends Component {
 
   post() {
 
+    let toolData = this.state.toolData;
+    toolData.shopping = false;
+    toolData.purchased = false;
+
     for (var i = 0; i < this.state.count; i++) {
 
       let url = sessionStorage.getItem('user').split(',')[2],
           machine = this.state.machine,
-          request = new Request(url + '/' + machine, {
+          request = new Request(url + '/shopping/' + machine, {
         method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
         body: JSON.stringify({
           user: 'Andrew',
           company_id: sessionStorage.getItem('user').split(',')[1],
-          tool_data: this.state.toolData
+          tool_data: toolData
         })
       });
 
@@ -105,15 +111,20 @@ class ToolEditorModal extends Component {
   }
 
   put() {
+
+    let toolData = this.state.toolData;
+    toolData.shopping = false;
+    toolData.purchased = toolData.purcased ? toolData.purchased : false;
+
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
-        request = new Request(url + '/' + machine + '/' + this.state.toolId , {
+        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId , {
       method: 'PUT',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
+        tool_data: toolData
       })
     });
 
@@ -222,10 +233,6 @@ class ToolEditorModal extends Component {
                   className='button table-button delete-button'
                   onClick={this.toggleDeleteModal} >
                     <i className="fa fa-trash" aria-hidden="true"></i>
-                </button>
-                <button
-                  className={'button table-button ' + (this.state.toolId !== '0' ? '' : 'gone')}>
-                  Order
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>

@@ -16,6 +16,7 @@ class OrderOther extends Component {
     return (
     	<div className='other-tools'>
         <Table
+          noAdd={this.props.noAdd}
         	data={this.state.tools}
         	headers={headers.OrderOther}
           searchable={searchableFields.orderOther}

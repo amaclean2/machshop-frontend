@@ -17,8 +17,18 @@ table {
 			padding: 8px;
 			font-weight: normal;
 		}
+
 		th:first-child {
 			text-align: left;
+		}
+
+		.clickable-headers {
+			transition: all 0.3s ease-in-out;
+			cursor: pointer;
+
+			&:hover {
+			background-color: $grey2;
+			}
 		}
 	}
 

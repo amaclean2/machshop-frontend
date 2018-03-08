@@ -88,6 +88,10 @@
 	&:hover {
 		box-shadow: none;
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 200px;
+	}
 }
 
 .time-select {

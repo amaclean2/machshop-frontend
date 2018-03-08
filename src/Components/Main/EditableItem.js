@@ -59,10 +59,8 @@ class EditableItem extends Component {
 
     this.makeMath(e);
 
-    let elem = Number(e.target.value).toFixed(4);
-
     let val = DrillSizes.find( drill => {
-      return drill.diameter === elem;
+      return drill.diameter === e.target.value;
     });
 
     if(val) e.target.value = val.size;
@@ -166,25 +164,48 @@ class EditableItem extends Component {
   }
 
   componentWillReceiveProps() {
-    if(this.props.name === 'undercut_width')
-      this.setState({ value: this.props.value });
+    switch(this.props.name) {
+      case 'undercut_width' :
+        if(this.props.data && this.props.data.tool_type === 'Endmill' && this.state.value === '')
+          this.setState({ value: this.props.data.diameter });
+        break;
 
-    if(this.props.name === 'diameter' && this.props.data && this.props.data.tool_type === 'Drill') {
-      let val = DrillSizes.find( drill => {
-        return drill.size === this.props.value;
-      });
-      if (val) this.setState({ value: val.diameter });
-      else if (this.props.value) this.makeMath({target: { name: this.props.name, value: this.props.value }});
+      case 'diameter' :
+        if(this.props.data && this.props.data.tool_type === 'Drill') {
+          let val = DrillSizes.find( drill => {
+            return drill.size === this.props.data.size;
+          });
+
+          let pushed = {target: { name: this.props.name, value: this.props.value }};
+
+          if(val) this.setState({ value: val.diameter });
+          else if (this.props.value) this.makeMath(pushed);
+        }
+        break;
+
+      case 'flute_length' :
+        if(this.props.data && this.props.data.tool_type === 'Drill') {
+          let val = DrillSizes.find(drill => {
+            return drill.size === this.props.data.size;
+          });
+          if(val) this.setState({ value: val.flute_length });
+        }
+        break;
+
+      case 'tool_length' :
+        if(this.props.data && this.props.data.tool_type === 'Drill') {
+          let val = DrillSizes.find( drill => {
+            return drill.size === this.props.data.size;
+          });
+          if(val) this.setState({ value: val.oal_length });
+        }
+        break;
+
+      case 'tip_angle' :
+        if(this.props.data && this.props.data.tool_type === 'Drill' && this.state.value === '')
+          this.setState({ value: '118' });
+        break;
     }
-
-    if(this.props.name === 'tip_angle' && this.props.data && this.props.data.tool_type === 'Drill')
-      this.setState({ value: '118' });
-    else if (this.props.name === 'tip_angle') {
-      this.setState({ value: '' });
-    }
-
-    if(this.props.name === 'material' && this.props.value === 'Drill')
-      this.setState({ value: 'Cobalt' });
 
   }
 

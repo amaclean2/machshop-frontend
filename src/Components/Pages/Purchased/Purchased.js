@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import OrderMill from './OrderMill';
-import OrderLathe from './OrderLathe';
-import OrderOther from './OrderOther';
-import OrderEditorModal from './OrderEditorModal';
+import OrderMill from '../Ordering/OrderMill';
+import OrderLathe from '../Ordering/OrderLathe';
+import OrderOther from '../Ordering/OrderOther';
+import PurchasedEditorModal from './PurchasedEditorModal';
 
-class ToBuy extends Component {
+class Purchased extends Component {
   constructor() {
     super()
     this.state = {
@@ -32,7 +32,7 @@ class ToBuy extends Component {
         return response.json();
     }).then( data => {
       data = data.filter( item => {
-        return item.tool_data.shopping === true;
+        return item.tool_data.purchased === true;
       });
 
       this.setState({ data: data, loaded: true });
@@ -53,7 +53,7 @@ class ToBuy extends Component {
 
   generateEditorModal() {
     if(this.state.editing) {
-      return <OrderEditorModal
+      return <PurchasedEditorModal
               id={this.state.toolId}
               machine={this.state.tools}
               toggleModal={this.toggleModal}
@@ -67,11 +67,11 @@ class ToBuy extends Component {
     if(this.state.loaded) {
       switch(this.state.tools) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} />
+          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} />
+          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} />
+          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
@@ -108,4 +108,4 @@ class ToBuy extends Component {
   }
 }
 
-export default ToBuy;
+export default Purchased;

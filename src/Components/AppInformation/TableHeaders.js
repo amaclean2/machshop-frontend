@@ -40,26 +40,27 @@ let headers = {
 		['Location', 'street_address']
 	],
 	MillTools : [
-		['Type', 'tool_type', 'e'],
-		['Diameter','diameter'],
-		['Material', 'material'], 
-		['EDP Number', 'edp'],
-		['Location', 'location']
+		['Type', 'tool_type', 'e', 'sortable'],
+		['Diameter','diameter', 'sortable'],
+		['Material', 'material', 'sortable'], 
+		['EDP Number', 'edp', 'sortable'],
+		['Location', 'location', 'sortable']
 		// ['Job Number', 'job_number']
 	],
 	OrderMill : [
-		['Type', 'tool_type', 'e'],
-		['Diameter','diameter'],
-		['Material', 'material'], 
-		['EDP Number', 'edp'],
-		['Price per Tool', 'price'],
-		['Quantity', 'count']
+		['Type', 'tool_type', 'e', 'sortable'],
+		['Diameter','diameter', 'sortable'],
+		['Material', 'material', 'sortable'], 
+		['EDP Number', 'edp', 'sortable'],
+		['Price per Tool', 'price', 'sortable'],
+		['Quantity', 'count', 'sortable']
 		// ['Job Number', 'job_number']
 	],
 	LatheTools : [
-		['Type', 'tool_type', 'e'],
-		['Description','description'],
-		['Material', 'material']
+		['Type', 'tool_type', 'e', 'sortable'],
+		['Description','description', 'sortable'],
+		['Material', 'material', 'sortable'],
+		['Location', 'location', 'sortable']
 		// ['Part Number', 'part_number']
 	],
 	OrderLathe : [
@@ -72,7 +73,8 @@ let headers = {
 	],
 	OtherTools : [
 		['Name', 'name', 'e'],
-		['Description','description']
+		['Description','description'],
+		['Location', 'location', 'sortable']
 		// ['Part Number', 'part_number']
 	],
 	OrderOther : [

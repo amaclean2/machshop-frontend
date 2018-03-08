@@ -6,16 +6,38 @@ class Table extends Component {
 		super(props);
 		this.state = {
 			columnOrder: this.props.headers.map( head => { return head[1]; }),
-			queryText: ''
+			queryText: '',
+			data: this.props.data
 		}
 		this.columnNames=this.columnNames.bind(this);
 		this.rows=this.rows.bind(this);
 		this.updateQuery=this.updateQuery.bind(this);
+		this.filterByColumn=this.filterByColumn.bind(this);
+
+	}
+
+	filterByColumn(columnName) {
+		let data = this.props.data;
+		data = data.sort( (a, b) => {
+			if(a.tool_data) {
+				if(a.tool_data[columnName] < b.tool_data[columnName]) return -1;
+				if(a.tool_data[columnName] > b.tool_data[columnName]) return 1;
+				return 0;
+			} else {
+				if(a[columnName] < b[columnName]) return -1;
+				if(a[columnName] > b[columnName]) return 1;
+				return 0;
+			}	
+		});
+		
+		this.setState({ data: data });
 	}
 
 	rows() {
-		let data = this.props.data,
-			rows = data.map( (row, j) => {
+
+		let data = this.state.data;
+
+		let rows = data.map( (row, j) => {
 			let searchable, fields;
 
 			for (var i = 0; i < this.props.searchable.length; i++) {
@@ -62,7 +84,11 @@ class Table extends Component {
 
 	columnNames() {
 		let columnHeaders = this.props.headers.map( (head, i) => {
-			return <th key={i} >{head[0]}</th>
+			if(head.indexOf('sortable') !== -1) {
+				return <th className={'clickable-headers'} onClick={() => this.filterByColumn(head[1])} key={i}>{head[0]} </th>;
+			} else {
+				return <th key={i} >{head[0]}</th>;
+			}
 		});
 
 		return columnHeaders;

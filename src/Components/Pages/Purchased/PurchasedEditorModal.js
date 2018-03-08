@@ -5,7 +5,7 @@ import LatheToolEditor from '../Tools/LatheToolEditor';
 import OtherToolEditor from '../Tools/OtherToolEditor';
 import DeleteModal from '../../Main/DeleteModal';
 
-class OrderEditorModal extends Component {
+class PurchasedEditorModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -27,7 +27,7 @@ class OrderEditorModal extends Component {
     this.setViewerMode=this.setViewerMode.bind(this);
     this.stationSelector=this.stationSelector.bind(this);
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
-    this.buyTool=this.buyTool.bind(this);
+    this.orderTool=this.orderTool.bind(this);
 	}
 
   change(e) {
@@ -38,15 +38,15 @@ class OrderEditorModal extends Component {
     }
   }
 
-  buyTool() {
+  orderTool() {
     let toolData = this.state.toolData;
-    toolData.shopping = false;
-    toolData.purchased = true;
+    toolData.shopping = true;
+    toolData.purchased = false;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId , {
-      method: 'PUT',
+        request = new Request(url + '/shopping/' + machine, {
+      method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: 'Andrew',
@@ -102,8 +102,8 @@ class OrderEditorModal extends Component {
   post() {
 
     let toolData = this.state.toolData;
-    toolData.shopping = true;
-    toolData.purchased = false;
+    toolData.shopping = false;
+    toolData.purchased = true;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
@@ -113,7 +113,7 @@ class OrderEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: this.state.toolData
       })
     });
 
@@ -129,8 +129,8 @@ class OrderEditorModal extends Component {
   put() {
 
     let toolData = this.state.toolData;
-    toolData.shopping = true;
-    toolData.purchased = false;
+    toolData.shopping = false;
+    toolData.purchased = true;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
@@ -140,7 +140,7 @@ class OrderEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: this.state.toolData
       })
     });
 
@@ -249,12 +249,12 @@ class OrderEditorModal extends Component {
                 </button>
                 <button
                   className={'button table-button close-modal-button ' + (this.state.toolId === '0' ? 'gone' : '')}
-                  onClick={this.buyTool} >
-                  buy
+                  onClick={this.orderTool} >
+                  order
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
-                  <span className='close-big'>Return to Shopping List</span>
+                  <span className='close-big'>Return to Purchased List</span>
                 </a>
               </div>
             </div>
@@ -266,4 +266,4 @@ class OrderEditorModal extends Component {
   }
 }
 
-export default OrderEditorModal;
+export default PurchasedEditorModal;

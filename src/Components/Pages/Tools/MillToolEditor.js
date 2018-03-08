@@ -66,7 +66,9 @@ class MillToolEditor extends Component {
         return ['Tap'];
 
       case 'cutting_height' :
-        return ['Key Cutter'];
+        return ['Key Cutter', 'Inserts'];
+
+      case 'thickness' : 
 
       default :
         return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts', 'Other'];
@@ -191,7 +193,7 @@ class MillToolEditor extends Component {
           classes={(this.toolProps('tool_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'inches'} />
         <DescriptionItem
-          header={'Cutting Height: '}
+          header={this.props.toolData.tool_type === 'Inserts' ? 'Thickness: ' : 'Cutting Height: '}
           value={this.props.toolData.cutting_height}
           classes={(this.toolProps('cutting_height').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           units={'inches'} />
@@ -256,6 +258,7 @@ class MillToolEditor extends Component {
           value={this.props.toolData.size}
           classes={(this.toolProps('size').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
+          data={this.props.toolData}
           name={'size'}
           type={'size'}
           onClick={this.showTool} />
@@ -263,7 +266,7 @@ class MillToolEditor extends Component {
           type={'math'}
           units={'inches'}
           header={'Diameter: '}
-          value={this.props.toolData.size ? this.props.toolData.size : this.props.toolData.diameter }
+          value={ this.props.toolData.diameter }
           data={this.props.toolData}
           classes={(this.toolProps('diameter').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
@@ -295,7 +298,7 @@ class MillToolEditor extends Component {
         <EditableItem
           classes={(this.toolProps('tip_angle').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           header={this.props.toolData.tool_type === 'Dove Mill' ? 'Angle: ' : 'Tip Angle: '}
-          value={this.props.toolData.tip_angle === '' || this.props.toolData.tip_angle === '0' ? this.props.toolData.tool_type : this.props.toolData.tip_angle }
+          value={ this.props.toolData.tip_angle }
           change={this.props.change}
           name={'tip_angle'}
           data={this.props.toolData}
@@ -304,9 +307,10 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Flute Length: '}
-          value={this.props.toolData.flute_length}
+          value={ this.props.toolData.flute_length }
           classes={(this.toolProps('flute_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
+          data={this.props.toolData}
           name={'flute_length'}
           type={'math'}
           units={'inches'}
@@ -322,15 +326,16 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Tool Length: '}
-          value={this.props.toolData.tool_length}
+          value={ this.props.toolData.tool_length }
           classes={(this.toolProps('tool_length').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
           name={'tool_length'}
+          data={this.props.toolData}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Cutting Height: '}
+          header={this.props.toolData.tool_type === 'Inserts' ? 'Thickness: ' : 'Cutting Height: '}
           value={this.props.toolData.cutting_height}
           classes={(this.toolProps('cutting_height').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           change={this.props.change}
@@ -340,7 +345,8 @@ class MillToolEditor extends Component {
         <EditableItem
           header={'Relief Width: '}
           classes={(this.toolProps('relief_width').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
-          value={this.props.toolData.undercut_width !== '' ? this.props.toolData.undercut_width : this.props.toolData.diameter }
+          value={this.props.toolData.undercut_width}
+          data={this.props.toolData}
           change={this.props.change}
           name={'undercut_width'}
           type={'math'}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Purchased from './Purchased';
+import Purchased from '../Purchased/Purchased';
 import ToBuy from './ToBuy';
 
 class Ordering extends Component {

@@ -24,13 +24,17 @@ class Tools extends Component {
     this.setState({ loaded: false });
     let url = sessionStorage.getItem('user').split(',')[2],
         id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/' + this.state.tools + '?company_id=' + id, {
+        request = new Request(url + '/shopping/' + this.state.tools + '?company_id=' + id, {
       method: 'GET'
     });
 
     fetch(request).then( response => {
         return response.json();
     }).then( data => {
+      data = data.filter( item => {
+        return item.tool_data.shopping === false;
+      });
+      
       this.setState({ data: data, loaded: true });
       if(refresh && refresh === 'refresh')
         this.toggleModal('0');
