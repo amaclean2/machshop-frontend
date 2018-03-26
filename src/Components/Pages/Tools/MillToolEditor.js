@@ -32,11 +32,15 @@ class MillToolEditor extends Component {
   toolProps(property) {
 
     switch(property) {
-      case 'diameter' :
-        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Key Cutter', 'Dove Mill'];
 
       case 'material' :
         return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts'];
+
+      case 'tool_length' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill'];
+
+      case 'diameter' :
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Key Cutter', 'Dove Mill'];
 
       case 'flutes' :
         return ['Endmill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Key Cutter', 'Dove Mill'];
@@ -50,9 +54,6 @@ class MillToolEditor extends Component {
       case 'corner_radius' :
         return ['Endmill', 'Key Cutter', 'Dove Mill', 'Inserts'];
 
-      case 'tool_length' :
-        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill'];
-
       case 'relief_length' :
         return ['Endmill', 'Key Cutter', 'Dove Mill'];
 
@@ -62,13 +63,11 @@ class MillToolEditor extends Component {
       case 'size' :
         return ['Drill', 'Center Drill', 'Tap'];
 
-      case 'pitch' :
-        return ['Tap'];
-
       case 'cutting_height' :
         return ['Key Cutter', 'Inserts'];
 
-      case 'thickness' : 
+      case 'pitch' :
+        return ['Tap'];
 
       default :
         return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts', 'Other'];

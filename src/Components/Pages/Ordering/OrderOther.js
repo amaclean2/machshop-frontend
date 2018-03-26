@@ -16,9 +16,10 @@ class OrderOther extends Component {
     return (
     	<div className='other-tools'>
         <Table
+          addText={'request a new tool'}
           noAdd={this.props.noAdd}
         	data={this.state.tools}
-        	headers={headers.OrderOther}
+        	headers={(this.props.noQty ? headers.OtherTools : headers.OrderOther)}
           searchable={searchableFields.orderOther}
         	toggleModal={this.props.toggleModal} />
       </div>

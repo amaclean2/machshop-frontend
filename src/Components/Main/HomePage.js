@@ -25,8 +25,8 @@ class HomePage extends Component {
 				// 'Dashboard', 
 				// 'Parts', 
 				// 'Jobs',
-				{ name: 'Tools', value: 'machining'}, 
-				{ name: 'Shopping List', value: 'ordering'}, 
+				// { name: 'Tools', value: 'machining'}, 
+				{ name: 'Tooling', value: 'ordering'}, 
 				// 'Inspection',
 				{name: 'Users', value: 'users'}, 
 				{name: 'My Company', value: 'companies'}

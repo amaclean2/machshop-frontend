@@ -101,7 +101,7 @@ class Table extends Component {
     	<div>
     		<div className="table-top">
     			<div className={this.props.noAdd ? 'gone' : ''}>
-    				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>Add</button>
+    				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>{this.props.addText ? this.props.addText : 'add'}</button>
     			</div>
     			<div className="search-bar">
     				<input type="text" placeholder='Search' onChange={this.updateQuery} />

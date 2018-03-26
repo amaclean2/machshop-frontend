@@ -16,9 +16,10 @@ class OrderMill extends Component {
     return (
     	<div className='order-mill'>
         <Table
+          addText={'request a new tool'}
           noAdd={this.props.noAdd}
           data={this.state.tools}
-          headers={headers.OrderMill}
+          headers={(this.props.noQty ? headers.MillTools : headers.OrderMill)}
           searchable={searchableFields.orderMill}
           toggleModal={this.props.toggleModal} />
       </div>

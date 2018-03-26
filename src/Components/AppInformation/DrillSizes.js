@@ -26,6 +26,7 @@ let DrillSizes = [
 	{ size: '83', diameter: '0.012', flute_length: '', oal_length: '' },
 	{ size: '82', diameter: '0.0125', flute_length: '', oal_length: '' },
 	{ size: '81', diameter: '0.013', flute_length: '', oal_length: '' },
+	{ size: '1/64', diameter: '.0156', flute_length: '0.1875', oal_length: '0.75'},
 	{ size: '80', diameter: '0.0135', flute_length: '0.125', oal_length: '0.75' },
 	{ size: '79', diameter: '0.0145', flute_length: '0.125', oal_length: '0.75' },
 	{ size: '78', diameter: '0.016', flute_length: '0.1875', oal_length: '0.875' },

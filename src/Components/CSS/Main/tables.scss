@@ -41,6 +41,7 @@ table {
 			}
 		}
 		td {
+			empty-cells: show;
 			text-align: right;
 			padding: 8px;
 			white-space: pre-wrap;
@@ -116,7 +117,7 @@ table {
 .table-top {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: space-between;
 	margin-bottom: 5px;
 	flex-wrap: wrap;
 }
@@ -132,6 +133,7 @@ table {
 		font-size: 15px;
 		padding: 5px 10px;
 		box-sizing: border-box;
+		border-radius: 2px;
 	}
 }
 

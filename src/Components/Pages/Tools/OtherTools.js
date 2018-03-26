@@ -16,6 +16,7 @@ class OtherTools extends Component {
     return (
     	<div className='other-tools'>
         <Table
+          addText={'add to inventory'}
         	data={this.state.tools}
         	headers={headers.OtherTools}
           searchable={searchableFields.other}

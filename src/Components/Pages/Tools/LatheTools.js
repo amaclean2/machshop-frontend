@@ -16,6 +16,7 @@ class LatheTools extends Component {
     return (
     	<div className='lathe-tools'>
         <Table
+          addText={'add to inventory'}
         	data={this.state.tools}
         	headers={headers.LatheTools}
           searchable={searchableFields.lathe}

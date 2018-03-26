@@ -16,9 +16,10 @@ class OrderLathe extends Component {
     return (
     	<div className='order-lathe'>
         <Table
+          addText={'request a new tool'}
           noAdd={this.props.noAdd}
         	data={this.state.tools}
-        	headers={headers.OrderLathe}
+        	headers={(this.props.noQty ? headers.LatheTools : headers.OrderLathe)}
           searchable={searchableFields.orderLathe}
         	toggleModal={this.props.toggleModal} />
       </div>

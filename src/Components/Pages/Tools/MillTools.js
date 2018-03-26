@@ -16,6 +16,7 @@ class MillTools extends Component {
     return (
     	<div className='mill-tools'>
         <Table
+          addText={'add to inventory'}
           data={this.state.tools}
           headers={headers.MillTools}
           searchable={searchableFields.mill}
