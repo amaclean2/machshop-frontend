@@ -21,13 +21,12 @@ class PurchasedEditorModal extends Component {
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
     this.output=this.output.bind(this);
-    this.post=this.post.bind(this);
     this.put=this.put.bind(this);
     this.save=this.save.bind(this);
     this.setViewerMode=this.setViewerMode.bind(this);
     this.stationSelector=this.stationSelector.bind(this);
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
-    this.orderTool=this.orderTool.bind(this);
+    this.receiveTool=this.receiveTool.bind(this);
 	}
 
   change(e) {
@@ -38,15 +37,15 @@ class PurchasedEditorModal extends Component {
     }
   }
 
-  orderTool() {
+  receiveTool() {
     let toolData = this.state.toolData;
-    toolData.shopping = true;
+    toolData.shopping = false;
     toolData.purchased = false;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine, {
-      method: 'POST',
+        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId, {
+      method: 'PUT',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
         user: 'Andrew',
@@ -99,33 +98,6 @@ class PurchasedEditorModal extends Component {
     this.setViewerMode();
   }
 
-  post() {
-
-    let toolData = this.state.toolData;
-    toolData.shopping = false;
-    toolData.purchased = true;
-
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine, {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
-      })
-    });
-
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ toolId: data._id });
-      this.props.triggerUpdate();
-    });
-
-  }
-
   put() {
 
     let toolData = this.state.toolData;
@@ -140,7 +112,7 @@ class PurchasedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
+        tool_data: toolData
       })
     });
 
@@ -152,11 +124,7 @@ class PurchasedEditorModal extends Component {
   }
 
   save() {
-    if(this.state.toolId === '0') {
-      this.post();
-    } else {
-      this.put();
-    }
+    this.put();
   }
 
   setViewerMode() {
@@ -199,7 +167,7 @@ class PurchasedEditorModal extends Component {
                 toolData={this.state.toolData} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
-                save={this.save} 
+                save={this.save}
                 order={true}
                 change={this.change}
                 output={this.output} />
@@ -209,7 +177,7 @@ class PurchasedEditorModal extends Component {
                 toolData={this.state.toolData}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
-                save={this.save} 
+                save={this.save}
                 order={true}
                 change={this.change}
                 output={this.output} />
@@ -249,8 +217,8 @@ class PurchasedEditorModal extends Component {
                 </button>
                 <button
                   className={'button table-button close-modal-button ' + (this.state.toolId === '0' ? 'gone' : '')}
-                  onClick={this.orderTool} >
-                  order
+                  onClick={this.receiveTool} >
+                  receive
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>

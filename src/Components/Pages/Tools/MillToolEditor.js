@@ -14,7 +14,8 @@ class MillToolEditor extends Component {
       fluteLength: false,
       radius: false,
       toolLength: false,
-      undercut: false
+      undercut: false,
+      cfmMsg: 'Save'
 		}
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
@@ -26,7 +27,15 @@ class MillToolEditor extends Component {
 
   save() {
     this.toggleEdit();
-    this.props.save();
+    if(this.state.cfmMsg === 'Confirm') {
+      this.props.buyTool();
+    } else {
+      this.props.save();
+    }
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ editable: true, cfmMsg: 'Confirm' });
   }
 
   toolProps(property) {
@@ -148,7 +157,6 @@ class MillToolEditor extends Component {
   }
 
   viewInfo() {
-
   	if(!this.state.editable) {
   		return <div onClick={this.toggleEdit} className='tool-data'>
   			<DescriptionItem
@@ -403,7 +411,10 @@ class MillToolEditor extends Component {
             link={'/jobs/'}
             output={this.props.output}
             name={'job_number'} />*/}
-        <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
+        <span className='submit-button-line'>
+          <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
+          <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
+        </span>
       </div>
   	}
   }
@@ -427,7 +438,7 @@ class MillToolEditor extends Component {
     this.props.change({ target: { name: 'undercut_width', value: '' }});
     this.props.change({ target: { name: 'undercut_length', value: '' }});
     this.props.change({ target: { name: 'edp', value: '' }});
-    this.props.change({ target: { name: 'count', value: '' }});
+    this.props.change({ target: { name: 'count', value: '1' }});
     this.props.change({ target: { name: 'price', value: '' }});
     this.props.change({ target: { name: 'location', value: ''}});
     this.props.change({ target: { name: 'notes', value: '' }});

@@ -39,7 +39,6 @@ constructor(props) {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      console.log('user loaded');
       this.setState({ userInfo: data, loaded: true });
     })
   }
@@ -156,7 +155,6 @@ constructor(props) {
 	    } else {
 	      return (
 	        <div>
-
 	        	<EditableItem header={'Name: '} value={this.state.userInfo.name} change={this.change} name={'name'} type='textOnly' />
 						<EditableItem header={'User Position: '} value={this.state.userInfo.user_position} change={this.change} name={'user_position'} type='textOnly' />
 						<EditableItem header={'Street Address: '} value={this.state.userInfo.street_address} change={this.change} name={'street_address'} />
@@ -167,7 +165,10 @@ constructor(props) {
             <DescriptionItem header={'Email: '} value={this.state.userInfo.email} />
             <DescriptionItem header={'Company Name: '} value={this.state.userInfo.company_name} />
             <DescriptionItem header={'Company Id: '} value={this.state.userInfo.company_id} />
-	          <button onClick={ this.save } className='button save-button'>Save</button>
+	          <span className='submit-button-line'>
+              <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
+              <button onClick={this.save} className='button save-button small-button'>Save</button>
+            </span>
 	        </div>);
 	    }
     } else {
@@ -203,7 +204,7 @@ constructor(props) {
                     onClick={this.toggleModal}>
                       <i className="fa fa-trash" aria-hidden="true"></i>
                   </button>
-                  <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
+                  <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
                     <span className='close-small'><i className="fa fa-times close-x"></i></span>
                     <span className='close-big'>Return to Users</span>
                   </a>

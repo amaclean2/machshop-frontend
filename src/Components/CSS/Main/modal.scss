@@ -70,12 +70,6 @@
 	}
 }
 
-.close-big {
-	display: block;
-	@media screen and (max-width: 400px) {
-		display: none;
-	}
-}
 .close-small {
 	display: none;
 
@@ -85,12 +79,6 @@
 
 	.close-x {
 		font-size: 19px;
-	}
-}
-
-.close-modal-button {
-	@media screen and (max-width: 400px) {
-		padding: 6px 10px;
 	}
 }
 
@@ -130,4 +118,12 @@
 
 .units-space {
 	padding-left: 10px;
+}
+
+.purchase-command {
+	font-size: 18px;
+	color: $grey1;
+	text-align: right;
+	margin: 0 30px 20px; // top right-left bottom
+	
 }

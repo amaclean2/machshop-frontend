@@ -12,7 +12,6 @@ class Users extends Component {
 		this.state = {
 			users: [],
 			companies: [],
-			toolId: '',
 			editing: false,
 			loaded: false,
 			companyId: sessionStorage.getItem('user').split(',')[1]
@@ -47,8 +46,8 @@ class Users extends Component {
 	    });
 	}
 
-	toggleModal(toolId) {
-	    this.setState({ toolId: toolId, editing: !this.state.editing });
+	toggleModal(userId) {
+	    this.setState({ toolId: userId, editing: !this.state.editing });
 	}
 
 	generateEditorModal() {

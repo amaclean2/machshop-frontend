@@ -36,10 +36,8 @@ class Table extends Component {
 	rows() {
 
 		let data = this.state.data;
-
 		let rows = data.map( (row, j) => {
 			let searchable, fields;
-
 			for (var i = 0; i < this.props.searchable.length; i++) {
 				fields = row.tool_data ? row.tool_data : row;
 				searchable += fields[this.props.searchable[i]].toLowerCase() + ' ';

@@ -32,7 +32,7 @@ class Shipped extends Component {
         return response.json();
     }).then( data => {
       data = data.filter( item => {
-        return item.tool_data.shopping === false;
+        return item.tool_data.shopping === false && item.tool_data.purchased === false;
       });
 
       this.setState({ data: data, loaded: true });

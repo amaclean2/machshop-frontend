@@ -32,7 +32,7 @@ class Purchased extends Component {
         return response.json();
     }).then( data => {
       data = data.filter( item => {
-        return item.tool_data.purchased === true;
+        return item.tool_data.purchased === true && item.tool_data.shopping === false;
       });
 
       this.setState({ data: data, loaded: true });

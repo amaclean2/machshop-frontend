@@ -107,13 +107,26 @@
 	background-color: $grey3;
 	color: $grey1;
 	font-size: 15px;
-	padding: 2px 5px;
+	// padding: 2px 5px;
 	box-shadow: none;
 
 	&:hover {
 		background-color: $grey2;
 		color: $grey1;
 		box-shadow: none;
+	}
+}
+
+.close-big {
+	display: block;
+	@media screen and (max-width: 400px) {
+		display: none;
+	}
+}
+
+.close-modal-button {
+	@media screen and (max-width: 400px) {
+		padding: 6px 10px;
 	}
 }
 

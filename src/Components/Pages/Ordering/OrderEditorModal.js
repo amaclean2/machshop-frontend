@@ -15,7 +15,8 @@ class OrderEditorModal extends Component {
       machine: this.props.machine,
       loaded: false,
       modalHide: true,
-      redirect: false
+      redirect: false,
+      readyToBuy: false
 		}
     this.change=this.change.bind(this);
     this.delete=this.delete.bind(this);
@@ -28,7 +29,12 @@ class OrderEditorModal extends Component {
     this.stationSelector=this.stationSelector.bind(this);
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.buyTool=this.buyTool.bind(this);
+    this.confirmPurchase=this.confirmPurchase.bind(this);
 	}
+
+  confirmPurchase() {
+    this.setState({readyToBuy: true});
+  }
 
   change(e) {
     let toolData = this.state.toolData;
@@ -189,29 +195,35 @@ class OrderEditorModal extends Component {
                 viewerMode={this.state.viewerMode}
                 toolData={this.state.toolData} 
                 toolId={this.state.toolId} 
+                readyToBuy={this.state.readyToBuy}
                 save={this.save}
                 order={true}
                 change={this.change} 
+                buyTool={this.buyTool}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
                 count={this.state.count} 
+                readyToBuy={this.state.readyToBuy}
                 toolData={this.state.toolData} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
                 change={this.change}
+                buyTool={this.buyTool}
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 count={this.state.count} 
+                readyToBuy={this.state.readyToBuy}
                 toolData={this.state.toolData}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
                 change={this.change}
+                buyTool={this.buyTool}
                 output={this.output} />
     }
   }
@@ -243,21 +255,22 @@ class OrderEditorModal extends Component {
               </div>
               <div className='modal-corner-buttons'>
                 <button
-                  className='button table-button delete-button'
+                  className={'button table-button delete-button ' + (this.state.toolId === '0' || this.state.readyToBuy ? 'gone' : '')}
                   onClick={this.toggleDeleteModal} >
                     <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
                 <button
-                  className={'button table-button close-modal-button ' + (this.state.toolId === '0' ? 'gone' : '')}
-                  onClick={this.buyTool} >
-                  buy
+                  className={'button table-button close-modal-button ' + (this.state.toolId === '0' || this.state.readyToBuy ? 'gone' : '')}
+                  onClick={this.confirmPurchase /*this.buyTool*/}>
+                  purchase
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
+                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button close-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Shopping List</span>
                 </a>
               </div>
             </div>
+            <div className={'purchase-command fade-in ' + (this.state.readyToBuy ? '' : 'gone')}>Double check your order</div>
             {station}
           </div>
         </div>

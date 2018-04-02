@@ -46,6 +46,7 @@ let headers = {
 		['EDP Number', 'edp', 'sortable'],
 		['Location', 'location', 'sortable'],
 		['Price per Tool', 'price', 'sortable'],
+		['Quantity', 'count', 'sortable']
 		// ['Job Number', 'job_number']
 	],
 	OrderMill : [
@@ -63,6 +64,7 @@ let headers = {
 		['Material', 'material', 'sortable'],
 		['Location', 'location', 'sortable'],
 		['Price per Tool', 'price', 'sortable'],
+		['Quantity', 'count', 'sortable']
 		// ['Part Number', 'part_number']
 	],
 	OrderLathe : [
@@ -78,6 +80,7 @@ let headers = {
 		['Description','description'],
 		['Location', 'location', 'sortable'],
 		['Price per Part', 'price', 'sortable'],
+		['Quantity', 'count', 'sortable']
 		// ['Part Number', 'part_number']
 	],
 	OrderOther : [

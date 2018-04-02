@@ -227,7 +227,10 @@ class LatheToolEditor extends Component {
             link={'/jobs/'}
             output={this.props.output}
             name={'job_number'} />*/}
-        <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
+        <span className='submit-button-line'>
+          <button onClick={this.toggleEdit} className='button white-button small-button'>Cancel</button>
+          <button onClick={this.save} className='button save-button small-button'>Save</button>
+        </span>
       </div>
   	}
   }
