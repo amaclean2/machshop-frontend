@@ -30,9 +30,7 @@ class Companies extends Component {
 
 	get() {
 	  let urlTemp = sessionStorage.getItem('user').split(',')[2],
-	  		companyId = sessionStorage.getItem('user').split(',')[1];
-
-	  companyId = companyId === '5a4b0203734d1d7cf82ec0b8' ? '' : '/' + companyId;
+	  		companyId = '/' + sessionStorage.getItem('user').split(',')[1];
 
 		let url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
 				request = new Request(url + '/companies' + companyId, {
@@ -77,6 +75,7 @@ class Companies extends Component {
 				headers={headers.Companies}
 				searchable={searchableFields.company}
 				noAdd={true}
+				noSearch={true}
 				toggleModal={this.toggleModal} />;
 		} else {
 			return <span className='loading-screen'>It's a lot of work to assemble a table</span>;

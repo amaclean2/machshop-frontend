@@ -16,6 +16,7 @@ class EditableItem extends Component {
     this.get=this.get.bind(this);
     this.change=this.change.bind(this);
     this.makeMoney=this.makeMoney.bind(this);
+    this.makePhone=this.makePhone.bind(this);
     this.changeNumber=this.changeNumber.bind(this);
     this.changeText=this.changeText.bind(this);
     this.checkSize=this.checkSize.bind(this);
@@ -82,6 +83,24 @@ class EditableItem extends Component {
     if (number.split('.').length > 2) {
       number = number.substr(0, number.length - 1);
     }
+    e.target.value = number;
+    this.change(e);
+  }
+
+  makePhone(e) {
+    let number = e.target.value;
+    number = number.replace(/[^0-9()\- ]/g, '');
+
+    if(number && number.match(/[0-9]/g).length === 3) {
+      number = '(' + number + ') ';
+
+    } else if (number && number.match(/[0-9]/g).length === 6) {
+      number = number + '-';
+
+    } else if (number && number.match(/[0-9]/g).length > 10) {
+      number = number.substr(0, number.length - 1);
+    }
+
     e.target.value = number;
     this.change(e);
   }
@@ -246,6 +265,15 @@ class EditableItem extends Component {
               value={this.state.value} />
             <span className="input-hard-text">{this.props.units}</span>
           </div>);
+      case 'phone' :
+        return (<div>
+          <input
+            type='text'
+            placeholder={this.props.header.slice(0, -2)}
+            onChange={this.makePhone}
+            name={this.props.name}
+            value={this.state.value} />
+        </div>)
       case 'textOnly' :
         return <input
               type='text'

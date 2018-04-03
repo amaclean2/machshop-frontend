@@ -34,8 +34,9 @@ class MillToolEditor extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-    this.setState({ editable: true, cfmMsg: 'Confirm' });
+  componentWillReceiveProps(props) {
+    if(props.readyToBuy)
+      this.setState({ editable: true, cfmMsg: 'Confirm' });
   }
 
   toolProps(property) {

@@ -38,10 +38,11 @@ class Table extends Component {
 		let data = this.state.data;
 		let rows = data.map( (row, j) => {
 			let searchable, fields;
-			for (var i = 0; i < this.props.searchable.length; i++) {
+
+			this.props.searchable.forEach( item => {
 				fields = row.tool_data ? row.tool_data : row;
-				searchable += fields[this.props.searchable[i]].toLowerCase() + ' ';
-			}
+				searchable += fields[item].toLowerCase() + ' ';
+			});
 
 			if( searchable.indexOf(this.state.queryText) !== -1 ) {
 
@@ -101,7 +102,7 @@ class Table extends Component {
     			<div className={this.props.noAdd ? 'gone' : ''}>
     				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>{this.props.addText ? this.props.addText : 'add'}</button>
     			</div>
-    			<div className="search-bar">
+    			<div className={'search-bar ' + (this.props.noSearch ? 'gone' : '')}>
     				<input type="text" placeholder='Search' onChange={this.updateQuery} />
     			</div>
     		</div>

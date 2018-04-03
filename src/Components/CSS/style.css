@@ -519,7 +519,7 @@ h4 {
     max-height: 85vh;
     color: #000000;
     padding: 25px 2vw;
-    box-shadow: 0 10px 35px rgba(0, 30, 80, 0.3);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     font-weight: lighter;
     transition: all 0.3s ease-in-out;

@@ -220,7 +220,7 @@ class PurchasedEditorModal extends Component {
                   onClick={this.receiveTool} >
                   receive
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
+                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Purchased List</span>
                 </a>

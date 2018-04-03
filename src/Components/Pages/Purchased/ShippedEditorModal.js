@@ -103,7 +103,7 @@ class ShippedEditorModal extends Component {
 
     let toolData = this.state.toolData;
     toolData.shopping = false;
-    toolData.purchased = true;
+    toolData.purchased = false;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
@@ -130,7 +130,7 @@ class ShippedEditorModal extends Component {
 
     let toolData = this.state.toolData;
     toolData.shopping = false;
-    toolData.purchased = true;
+    toolData.purchased = false;
 
     let url = sessionStorage.getItem('user').split(',')[2],
         machine = this.state.machine,
@@ -190,7 +190,6 @@ class ShippedEditorModal extends Component {
                 toolData={this.state.toolData} 
                 toolId={this.state.toolId} 
                 save={this.save}
-                order={true}
                 change={this.change} 
                 output={this.output} />
       else if(this.state.machine === 'lathe')
@@ -199,8 +198,7 @@ class ShippedEditorModal extends Component {
                 toolData={this.state.toolData} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
-                save={this.save} 
-                order={true}
+                save={this.save}
                 change={this.change}
                 output={this.output} />
       else if(this.state.machine === 'other')
@@ -209,8 +207,7 @@ class ShippedEditorModal extends Component {
                 toolData={this.state.toolData}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
-                save={this.save} 
-                order={true}
+                save={this.save}
                 change={this.change}
                 output={this.output} />
     }
@@ -252,7 +249,7 @@ class ShippedEditorModal extends Component {
                   onClick={this.orderTool} >
                   order
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button'>
+                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Stock List</span>
                 </a>

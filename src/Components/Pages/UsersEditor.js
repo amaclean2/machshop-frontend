@@ -161,7 +161,7 @@ constructor(props) {
 						<EditableItem header={'City: '} value={this.state.userInfo.city} change={this.change} name={'city'} type='textOnly'/>
 						<EditableItem header={'State: '} value={this.state.userInfo.state} change={this.change} name={'state'} type='textOnly'/>
 						<EditableItem header={'Country: '} value={this.state.userInfo.country} change={this.change} name={'country'} type='textOnly'/>
-						<EditableItem header={'Phone Number: '} value={this.state.userInfo.phone_number} change={this.change} name={'phone_number'} />
+						<EditableItem header={'Phone Number: '} value={this.state.userInfo.phone_number} change={this.change} name={'phone_number'} type='phone' />
             <DescriptionItem header={'Email: '} value={this.state.userInfo.email} />
             <DescriptionItem header={'Company Name: '} value={this.state.userInfo.company_name} />
             <DescriptionItem header={'Company Id: '} value={this.state.userInfo.company_id} />

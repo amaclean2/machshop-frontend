@@ -34,13 +34,13 @@ let searchableFields = {
 		'diameter',
 		'material',
 		'edp',
-		// 'price',
-		// 'quantity'
+		'price',
+		'count'
 	],
 	lathe: [
 		'tool_type',
 		'description',
-		'material'
+		'material',
 		// 'part_number',
 		// 'location',
 	],

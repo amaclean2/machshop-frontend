@@ -158,6 +158,8 @@ class OrderEditorModal extends Component {
   }
 
   save() {
+    console.log(this.state.toolId);
+
     if(this.state.toolId === '0') {
       this.post();
     } else {
@@ -191,7 +193,6 @@ class OrderEditorModal extends Component {
     if(this.state.loaded) {
       if(this.state.machine === 'mill')
         return <MillToolEditor 
-                count={this.state.count} 
                 viewerMode={this.state.viewerMode}
                 toolData={this.state.toolData} 
                 toolId={this.state.toolId} 
@@ -202,8 +203,7 @@ class OrderEditorModal extends Component {
                 buyTool={this.buyTool}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
-        return <LatheToolEditor 
-                count={this.state.count} 
+        return <LatheToolEditor  
                 readyToBuy={this.state.readyToBuy}
                 toolData={this.state.toolData} 
                 viewerMode={this.state.viewerMode}
@@ -215,7 +215,6 @@ class OrderEditorModal extends Component {
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
-                count={this.state.count} 
                 readyToBuy={this.state.readyToBuy}
                 toolData={this.state.toolData}
                 viewerMode={this.state.viewerMode} 
