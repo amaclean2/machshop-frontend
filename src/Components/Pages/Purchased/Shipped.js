@@ -35,6 +35,13 @@ class Shipped extends Component {
         return item.tool_data.shopping === false && item.tool_data.purchased === false;
       });
 
+      data.forEach( item => {
+        for (var dataItem in item.tool_data) {
+          item[dataItem] = item.tool_data[dataItem];
+        }
+        delete item.tool_data;
+      });
+
       this.setState({ data: data, loaded: true });
       if(refresh && refresh === 'refresh')
         this.toggleModal('0');

@@ -5,9 +5,9 @@ class Table extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			columnOrder: this.props.headers.map( head => { return head[1]; }),
 			queryText: '',
-			data: this.props.data
+			data: this.props.data,
+			headers: this.props.headers.columns
 		}
 		this.columnNames=this.columnNames.bind(this);
 		this.rows=this.rows.bind(this);
@@ -37,34 +37,33 @@ class Table extends Component {
 
 		let data = this.state.data;
 		let rows = data.map( (row, j) => {
-			let searchable, fields;
+
+			let searchable, 
+				fields, 
+				tabledElements = [], 
+				headerDataTypes = this.state.headers.map( header => header.dataPoint );
 
 			this.props.searchable.forEach( item => {
-				fields = row.tool_data ? row.tool_data : row;
+				fields = row;
 				searchable += fields[item].toLowerCase() + ' ';
 			});
 
 			if( searchable.indexOf(this.state.queryText) !== -1 ) {
 
-				// minis are individual arrays of each property in the row
-				let minis = Object.entries(fields), elements = [];
+				let rowContents = headerDataTypes.map( (field, i) => {
 
-				for (var order of this.state.columnOrder) {
-					for ( var mini of minis ) {
-						if(mini[0] === order)
-							elements.push(mini[1]);
-					}
-				}
+					if( this.state.headers[i].link) {
+						return  (<td key={i} data-label={this.state.headers[i].title}>
+									<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{fields[field]}</a>
+									<span className='small-table-link'>{fields[field]}</span>
+								</td>);
+					} else {
+						var value = this.state.headers[i].formatted ? this.state.headers[i].formatted(fields[field]) : fields[field];
 
-				let rowContents = elements.map( (element, i) => {
-					if(this.props.headers[i][2] === 'e') {
-						return <td key={i} data-label={this.props.headers[i][0]}>
-											<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{element}</a>
-											<span className='small-table-link' >{element}</span>
-										</td>
+						return	(<td key={i} data-label={this.state.headers[i].title}>{value}</td>);
 					}
-					return <td key={i} data-label={this.props.headers[i][0]}><span className={'dollar ' + (this.props.headers[i][1] === 'price' ? '' : 'gone')}>$</span>{element}</td>
 				});
+
 				return <tr key={j * 10} >
 								{rowContents}
 								<td className='small-row-link' onClick={() => { this.props.toggleModal(row._id); }}></td>
@@ -82,11 +81,11 @@ class Table extends Component {
 	}
 
 	columnNames() {
-		let columnHeaders = this.props.headers.map( (head, i) => {
-			if(head.indexOf('sortable') !== -1) {
-				return <th className={'clickable-headers'} onClick={() => this.filterByColumn(head[1])} key={i}>{head[0]} </th>;
+		let columnHeaders = this.state.headers.map( (head, i) => {
+			if(head.sortable ) {
+				return <th className={'clickable-headers'} onClick={() => this.filterByColumn(head.dataPoint)} key={i}>{head.title} </th>;
 			} else {
-				return <th key={i} >{head[0]}</th>;
+				return <th key={i} >{head.title}</th>;
 			}
 		});
 

@@ -158,8 +158,6 @@ class OrderEditorModal extends Component {
   }
 
   save() {
-    console.log(this.state.toolId);
-
     if(this.state.toolId === '0') {
       this.post();
     } else {

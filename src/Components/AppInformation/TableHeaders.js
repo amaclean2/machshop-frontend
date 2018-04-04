@@ -9,11 +9,49 @@ let headers = {
 		['Part Name', 'part_name'], 
 		['Customer', 'customer']
 	],
-	Users : [
-		['Name', 'name', 'e'], 
-		['Company Name', 'company_name'], 
-		['Email', 'email']
-	],
+
+	Users : {
+		columns: [
+			{
+				title: 'Name',
+				dataPoint: 'name',
+				link: true,
+				sortable: false
+			},{
+				title: 'Company Name',
+				dataPoint: 'company_name',
+				link: false,
+				sortable: false
+			},{
+				title: 'Email',
+				dataPoint: 'email',
+				link: false,
+				sortable: false
+			}
+		]
+	},
+
+	Companies : {
+		columns: [
+			{
+				title: 'Name',
+				dataPoint: 'name',
+				link: true,
+				sortable: false
+			},{
+				title: 'Id',
+				dataPoint: '_id',
+				link: false,
+				sortable: false
+			},{
+				title: 'Location',
+				dataPoint: 'street_address',
+				link: false,
+				sortable: false
+			}
+		]
+	},
+
 	UsersWidget : [
 		['Name', 'name', 'e'], 
 		['Hours', 'hours']
@@ -34,62 +72,326 @@ let headers = {
 		['Part Number', 'part_number'], 
 		['Due Date', 'date_to_start']
 	],
-	Companies : [
-		['Name', 'name', 'e'], 
-		['Id', '_id'], 
-		['Location', 'street_address']
-	],
-	MillTools : [
-		['Type', 'tool_type', 'e', 'sortable'],
-		['Diameter','diameter', 'sortable'],
-		['Material', 'material', 'sortable'], 
-		['EDP Number', 'edp', 'sortable'],
-		['Location', 'location', 'sortable'],
-		['Price per Tool', 'price', 'sortable'],
-		['Quantity', 'count', 'sortable']
-		// ['Job Number', 'job_number']
-	],
-	OrderMill : [
-		['Type', 'tool_type', 'e', 'sortable'],
-		['Diameter','diameter', 'sortable'],
-		['Material', 'material', 'sortable'], 
-		['EDP Number', 'edp', 'sortable'],
-		['Price per Tool', 'price', 'sortable'],
-		['Quantity', 'count', 'sortable']
-		// ['Job Number', 'job_number']
-	],
-	LatheTools : [
-		['Type', 'tool_type', 'e', 'sortable'],
-		['Description','description', 'sortable'],
-		['Material', 'material', 'sortable'],
-		['Location', 'location', 'sortable'],
-		['Price per Tool', 'price', 'sortable'],
-		['Quantity', 'count', 'sortable']
-		// ['Part Number', 'part_number']
-	],
-	OrderLathe : [
-		['Type', 'tool_type', 'e'],
-		['Description', 'description'],
-		['Material', 'material'],
-		['Price per Tool', 'price'],
-		['Quantity', 'count']
 
-	],
-	OtherTools : [
-		['Name', 'name', 'e'],
-		['Description','description'],
-		['Location', 'location', 'sortable'],
-		['Price per Part', 'price', 'sortable'],
-		['Quantity', 'count', 'sortable']
-		// ['Part Number', 'part_number']
-	],
-	OrderOther : [
-		['Name', 'name', 'e'],
-		['Description','description'],
-		['Price per Part', 'price'],
-		['Quantity', 'count']
-		// ['Part Number', 'part_number']
-	],
+	MillTools : {
+		columns: [
+			{ 
+				title: 'Type',
+				dataPoint: 'tool_type',
+				link: true,
+				sortable: true
+			},{
+				title: 'Diameter',
+				dataPoint: 'diameter',
+				sortable: true,
+				link: false
+			},{
+				title: 'Material',
+				dataPoint: 'material',
+				sortable: true,
+				link: false
+			},{
+				title: 'EDP Number',
+				dataPoint: 'edp',
+				sortable: true,
+				link: false
+			},{
+				title: 'Location',
+				dataPoint: 'location',
+				sortable: true,
+				link: false
+			},{
+				title: 'Price per Tool',
+				dataPoint: 'price',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
+			},{
+				title: 'Quantity',
+				dataPoint: 'count',
+				sortable: true,
+				link: false
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	},
+
+	LatheTools : {
+		columns: [
+			{ 
+				title: 'Type',
+				dataPoint: 'tool_type',
+				link: true,
+				sortable: true
+			},{
+				title: 'Description',
+				dataPoint: 'description',
+				sortable: true,
+				link: false
+			},{
+				title: 'Material',
+				dataPoint: 'material',
+				sortable: true,
+				link: false
+			},{
+				title: 'Location',
+				dataPoint: 'location',
+				sortable: true,
+				link: false
+			},{
+				title: 'Price per Tool',
+				dataPoint: 'price',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
+			},{
+				title: 'Quantity',
+				dataPoint: 'count',
+				sortable: true,
+				link: false
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	},
+
+	OtherTools : {
+		columns: [
+			{ 
+				title: 'Name',
+				dataPoint: 'name',
+				link: true,
+				sortable: true
+			},{
+				title: 'Description',
+				dataPoint: 'description',
+				sortable: true,
+				link: false
+			},{
+				title: 'Location',
+				dataPoint: 'location',
+				sortable: true,
+				link: false
+			},{
+				title: 'Price per Part',
+				dataPoint: 'price',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
+			},{
+				title: 'Quantity',
+				dataPoint: 'count',
+				sortable: true,
+				link: false
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	},
+
+	OrderMill : {
+		columns: [
+			{ 
+				title: 'Type',
+				dataPoint: 'tool_type',
+				link: true,
+				sortable: true
+			},{
+				title: 'Diameter',
+				dataPoint: 'diameter',
+				sortable: true,
+				link: false
+			},{
+				title: 'Material',
+				dataPoint: 'material',
+				sortable: true,
+				link: false
+			},{
+				title: 'EDP Number',
+				dataPoint: 'edp',
+				sortable: true,
+				link: false
+			},{
+				title: 'Price per Tool',
+				dataPoint: 'price',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
+			},{
+				title: 'Quantity',
+				dataPoint: 'count',
+				sortable: true,
+				link: false
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	},
+
+	OrderLathe: {
+		columns: [
+			{
+				title: 'Type',
+				dataPoint: 'tool_type',
+				link: true,
+				sortable: true
+			},{
+				title: 'Description', 
+				dataPoint: 'description',
+				link: false,
+				sortable: true
+			},{
+				title: 'Material', 
+				dataPoint: 'material',
+				link: false,
+				sortable: true
+			},{
+				title: 'Price per Tool', 
+				dataPoint: 'price',
+				link: false,
+				sortable: true
+			},{
+				title: 'Quantity', 
+				dataPoint: 'count',
+				link: false,
+				sortable: true
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	},
+
+	OrderOther: {
+		columns: [
+			{
+				title: 'Name',
+				dataPoint: 'name',
+				link: true,
+				sortable: true
+			},{
+				title: 'Description', 
+				dataPoint: 'description',
+				link: false,
+				sortable: true
+			},{
+				title: 'Location', 
+				dataPoint: 'location',
+				link: false,
+				sortable: true
+			},{
+				title: 'Price per Part', 
+				dataPoint: 'price',
+				link: false,
+				sortable: true
+			},{
+				title: 'Quantity', 
+				dataPoint: 'count',
+				link: false,
+				sortable: true
+			},{
+				title: 'Added',
+				dataPoint: 'created_at',
+				sortable: true,
+				link: false,
+				formatted: (i) => {
+					if(i) {
+						var a = new Date(i),
+							year = a.getFullYear(),
+							month = a.getMonth(),
+							day = a.getDate();
+
+						return month + '-' + day + '-' + year;
+					} else {
+						return '-';
+					}
+				}
+			}
+		]
+	}
 };
 
 export default headers;
