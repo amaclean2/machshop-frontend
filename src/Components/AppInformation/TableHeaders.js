@@ -16,17 +16,20 @@ let headers = {
 				title: 'Name',
 				dataPoint: 'name',
 				link: true,
-				sortable: false
+				sortable: false,
+				searchable: true
 			},{
 				title: 'Company Name',
 				dataPoint: 'company_name',
 				link: false,
-				sortable: false
+				sortable: false,
+				searchable: true
 			},{
 				title: 'Email',
 				dataPoint: 'email',
 				link: false,
-				sortable: false
+				sortable: false,
+				searchable: true
 			}
 		]
 	},
@@ -37,17 +40,20 @@ let headers = {
 				title: 'Name',
 				dataPoint: 'name',
 				link: true,
-				sortable: false
+				sortable: false,
+				searchable: true
 			},{
 				title: 'Id',
 				dataPoint: '_id',
 				link: false,
-				sortable: false
+				sortable: false,
+				searchable: true
 			},{
 				title: 'Location',
 				dataPoint: 'street_address',
 				link: false,
-				sortable: false
+				sortable: false,
+				searchable: true
 			}
 		]
 	},
@@ -79,31 +85,37 @@ let headers = {
 				title: 'Type',
 				dataPoint: 'tool_type',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Diameter',
 				dataPoint: 'diameter',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Material',
 				dataPoint: 'material',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'EDP Number',
 				dataPoint: 'edp',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Location',
 				dataPoint: 'location',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Price per Tool',
 				dataPoint: 'price',
 				sortable: true,
+				searchable: true,
 				link: false,
 				formatted: (i) => {
 					return '$ ' + i;
@@ -112,6 +124,7 @@ let headers = {
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
+				searchable: true,
 				link: false
 			},{
 				title: 'Added',
@@ -140,26 +153,31 @@ let headers = {
 				title: 'Type',
 				dataPoint: 'tool_type',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Description',
 				dataPoint: 'description',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Material',
 				dataPoint: 'material',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Location',
 				dataPoint: 'location',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Price per Tool',
 				dataPoint: 'price',
 				sortable: true,
+				searchable: true,
 				link: false,
 				formatted: (i) => {
 					return '$ ' + i;
@@ -168,7 +186,8 @@ let headers = {
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Added',
 				dataPoint: 'created_at',
@@ -196,21 +215,25 @@ let headers = {
 				title: 'Name',
 				dataPoint: 'name',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Description',
 				dataPoint: 'description',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Location',
 				dataPoint: 'location',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Price per Part',
 				dataPoint: 'price',
 				sortable: true,
+				searchable: true,
 				link: false,
 				formatted: (i) => {
 					return '$ ' + i;
@@ -219,7 +242,8 @@ let headers = {
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Added',
 				dataPoint: 'created_at',
@@ -247,12 +271,14 @@ let headers = {
 				title: 'Type',
 				dataPoint: 'tool_type',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Diameter',
 				dataPoint: 'diameter',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Material',
 				dataPoint: 'material',
@@ -262,12 +288,14 @@ let headers = {
 				title: 'EDP Number',
 				dataPoint: 'edp',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Price per Tool',
 				dataPoint: 'price',
 				sortable: true,
 				link: false,
+				searchable: true,
 				formatted: (i) => {
 					return '$ ' + i;
 				}
@@ -275,7 +303,8 @@ let headers = {
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'Added',
 				dataPoint: 'created_at',
@@ -303,27 +332,32 @@ let headers = {
 				title: 'Type',
 				dataPoint: 'tool_type',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Description', 
 				dataPoint: 'description',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Material', 
 				dataPoint: 'material',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Price per Tool', 
 				dataPoint: 'price',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Quantity', 
 				dataPoint: 'count',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Added',
 				dataPoint: 'created_at',
@@ -351,22 +385,26 @@ let headers = {
 				title: 'Name',
 				dataPoint: 'name',
 				link: true,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Description', 
 				dataPoint: 'description',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Price per Part', 
 				dataPoint: 'price',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Quantity', 
 				dataPoint: 'count',
 				link: false,
-				sortable: true
+				sortable: true,
+				searchable: true
 			},{
 				title: 'Added',
 				dataPoint: 'created_at',

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-import searchableFields from '../../AppInformation/SearchableFields';
 
 class LatheTools extends Component {
 	constructor(props) {
@@ -19,7 +18,6 @@ class LatheTools extends Component {
           addText={'add to inventory'}
         	data={this.state.tools}
         	headers={headers.LatheTools}
-          searchable={searchableFields.lathe}
         	toggleModal={this.props.toggleModal} />
       </div>
     );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-import searchableFields from '../../AppInformation/SearchableFields';
 
 class MillTools extends Component {
 	constructor(props) {
@@ -19,7 +18,6 @@ class MillTools extends Component {
           addText={'add to inventory'}
           data={this.state.tools}
           headers={headers.MillTools}
-          searchable={searchableFields.mill}
           toggleModal={this.props.toggleModal} />
       </div>
     );

@@ -3,7 +3,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
-import searchableFields from '../AppInformation/SearchableFields';
 import UsersEditor from './UsersEditor';
 
 class Users extends Component {
@@ -67,7 +66,6 @@ class Users extends Component {
   			return <Table
         	data={this.state.users}
         	headers={headers.Users}
-        	searchable={searchableFields.users}
         	noAdd={true}
         	toggleModal={this.toggleModal} />;
   		} else {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-import searchableFields from '../../AppInformation/SearchableFields';
 
 class OrderLathe extends Component {
 	constructor(props) {
@@ -20,7 +19,6 @@ class OrderLathe extends Component {
           noAdd={this.props.noAdd}
         	data={this.state.tools}
         	headers={(this.props.noQty ? headers.LatheTools : headers.OrderLathe)}
-          searchable={searchableFields.orderLathe}
         	toggleModal={this.props.toggleModal} />
       </div>
     );

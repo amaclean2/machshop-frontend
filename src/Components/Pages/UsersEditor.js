@@ -136,11 +136,10 @@ constructor(props) {
   }
 
   viewInfo() {
-    let info;
     if(this.state.loaded) {
     	if (!this.state.editable) {
 	      return (
-	        <div onClick={ this.toggleEdit }>
+	        <div onClick={ this.toggleEdit } className='edit-page'>
 	        	<DescriptionItem header={'Name: '} value={this.state.userInfo.name} />
 				    <DescriptionItem header={'User Position: '} value={this.state.userInfo.user_position} />
 				    <DescriptionItem header={'Street Address: '} value={this.state.userInfo.street_address} />
@@ -154,7 +153,7 @@ constructor(props) {
 	        </div>);
 	    } else {
 	      return (
-	        <div>
+	        <div className='edit-page'>
 	        	<EditableItem header={'Name: '} value={this.state.userInfo.name} change={this.change} name={'name'} type='textOnly' />
 						<EditableItem header={'User Position: '} value={this.state.userInfo.user_position} change={this.change} name={'user_position'} type='textOnly' />
 						<EditableItem header={'Street Address: '} value={this.state.userInfo.street_address} change={this.change} name={'street_address'} />

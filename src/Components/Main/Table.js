@@ -39,13 +39,14 @@ class Table extends Component {
 		let rows = data.map( (row, j) => {
 
 			let searchable = [], 
-				fields, 
+				fields = row, 
 				tabledElements = [], 
 				headerDataTypes = this.state.headers.map( header => header.dataPoint );
 
-			this.props.searchable.forEach( item => {
-				fields = row;
-				searchable += fields[item].toLowerCase() + ' ';
+			this.state.headers.forEach( search => {
+				if(search.searchable) {
+					searchable += row[search.dataPoint].toLowerCase() + ' ';
+				}
 			});
 
 			if( searchable.indexOf(this.state.queryText) !== -1 ) {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-import searchableFields from '../../AppInformation/SearchableFields';
 
 class OrderMill extends Component {
 	constructor(props) {
@@ -20,7 +19,6 @@ class OrderMill extends Component {
           noAdd={this.props.noAdd}
           data={this.state.tools}
           headers={(this.props.noQty ? headers.MillTools : headers.OrderMill)}
-          searchable={searchableFields.orderMill}
           toggleModal={this.props.toggleModal} />
       </div>
     );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
-import searchableFields from '../AppInformation/SearchableFields';
 import CompanyEditor from './CompanyEditor';
 
 class Companies extends Component {
@@ -73,7 +72,6 @@ class Companies extends Component {
 			return <Table
 				data={this.state.companies}
 				headers={headers.Companies}
-				searchable={searchableFields.company}
 				noAdd={true}
 				noSearch={true}
 				toggleModal={this.toggleModal} />;

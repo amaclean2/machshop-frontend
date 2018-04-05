@@ -11,53 +11,6 @@ let searchableFields = {
 		'description',
 		'date_to_start',
 		'date_started'	
-	],
-	users: [
-		'name',
-		'company_name',
-		'email'
-	],
-	company: [
-		'name',
-		'_id',
-		'street_address'
-	],
-	mill: [
-		'tool_type',
-		'diameter',
-		'material',
-		'edp',
-		'location'
-	],
-	orderMill: [
-		'tool_type',
-		'diameter',
-		'material',
-		'edp',
-		'price',
-		'count'
-	],
-	lathe: [
-		'tool_type',
-		'description',
-		'material',
-		// 'part_number',
-		// 'location',
-	],
-	orderLathe: [
-		'tool_type',
-		'description',
-		'material'
-	],
-	other: [
-		'description',
-		'notes',
-		// 'location',
-		// 'part_number'
-	],
-	orderOther: [
-		'description',
-		'notes'
 	]
 };
 
