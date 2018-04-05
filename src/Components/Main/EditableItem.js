@@ -382,7 +382,7 @@ class EditableItem extends Component {
   render() {
     let type = this.showType();
     return (
-      <span className={'line-item ' + this.props.classes} onClick={this.props.onClick} onFocus={this.props.onClick} >
+      <span className={'line-item editable ' + this.props.classes} onClick={this.props.onClick} onFocus={this.props.onClick} >
         <span className='display' >{this.props.header}</span>
         {type}
       </span>

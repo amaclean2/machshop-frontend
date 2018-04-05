@@ -44,7 +44,16 @@
 		background-color: transparent;
 
 		@media screen and (max-width: 500px) {
-			width: 200px;
+			width: 100%;
+			margin-left: 0;
+		}
+	}
+}
+
+.editable {
+	@media screen and (max-width: 500px) {
+		.display {
+			display: none;
 		}
 	}
 }

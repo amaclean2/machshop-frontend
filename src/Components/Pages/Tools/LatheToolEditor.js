@@ -25,7 +25,6 @@ class LatheToolEditor extends Component {
   save() {
     this.toggleEdit();
     if(this.state.cfmMsg === 'Confirm') {
-      console.log('here');
       this.props.buyTool();
     } else {
       this.props.save();
