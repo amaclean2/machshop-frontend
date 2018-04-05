@@ -351,7 +351,10 @@ let headers = {
 				dataPoint: 'price',
 				link: false,
 				sortable: true,
-				searchable: true
+				searchable: true,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
 			},{
 				title: 'Quantity', 
 				dataPoint: 'count',
@@ -398,7 +401,10 @@ let headers = {
 				dataPoint: 'price',
 				link: false,
 				sortable: true,
-				searchable: true
+				searchable: true,
+				formatted: (i) => {
+					return '$ ' + i;
+				}
 			},{
 				title: 'Quantity', 
 				dataPoint: 'count',
