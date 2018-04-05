@@ -9,7 +9,7 @@ class OrderEditorModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toolData: {},
+			data: {tool_data: {}},
       viewerMode: 'Endmill',
 			toolId: this.props.id,
       machine: this.props.machine,
@@ -37,7 +37,7 @@ class OrderEditorModal extends Component {
   }
 
   change(e) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[e.target.name] = e.target.value;
     if(e.target.name === 'diameter' ) {
       toolData.undercut_width = e.target.value;
@@ -45,7 +45,7 @@ class OrderEditorModal extends Component {
   }
 
   buyTool() {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = true;
 
@@ -57,7 +57,8 @@ class OrderEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: toolData,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -66,6 +67,7 @@ class OrderEditorModal extends Component {
     }).then( data => {
       this.props.triggerUpdate();
       this.props.toggleModal('0');
+      this.props.toggleBig({target: {id: 'purchased'}});
     });
   }
 
@@ -94,20 +96,20 @@ class OrderEditorModal extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ toolData: data.tool_data, loaded: true});
+      this.setState({ data: data, loaded: true});
     })
 
   }
 
   output(value, name) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[name] = value;
     this.setViewerMode();
   }
 
   post() {
 
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = true;
     toolData.purchased = false;
 
@@ -134,7 +136,7 @@ class OrderEditorModal extends Component {
 
   put() {
 
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = true;
     toolData.purchased = false;
 
@@ -146,7 +148,8 @@ class OrderEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: toolData,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -166,8 +169,8 @@ class OrderEditorModal extends Component {
   }
 
   setViewerMode() {
-    if(this.state.toolData['tool_type']) {
-      switch(this.state.toolData['tool_type']) {
+    if(this.state.data.tool_data['tool_type']) {
+      switch(this.state.data.tool_data['tool_type']) {
         case 'Endmill' :
           this.setState({ viewerMode: 'Endmill' });
           break;
@@ -192,7 +195,7 @@ class OrderEditorModal extends Component {
       if(this.state.machine === 'mill')
         return <MillToolEditor 
                 viewerMode={this.state.viewerMode}
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 toolId={this.state.toolId} 
                 readyToBuy={this.state.readyToBuy}
                 save={this.save}
@@ -203,7 +206,7 @@ class OrderEditorModal extends Component {
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor  
                 readyToBuy={this.state.readyToBuy}
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save} 
@@ -214,7 +217,7 @@ class OrderEditorModal extends Component {
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 readyToBuy={this.state.readyToBuy}
-                toolData={this.state.toolData}
+                toolData={this.state.data.tool_data}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save} 

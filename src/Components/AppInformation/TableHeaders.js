@@ -358,11 +358,6 @@ let headers = {
 				link: false,
 				sortable: true
 			},{
-				title: 'Location', 
-				dataPoint: 'location',
-				link: false,
-				sortable: true
-			},{
 				title: 'Price per Part', 
 				dataPoint: 'price',
 				link: false,

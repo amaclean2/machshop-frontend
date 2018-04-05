@@ -38,7 +38,7 @@ class Table extends Component {
 		let data = this.state.data;
 		let rows = data.map( (row, j) => {
 
-			let searchable, 
+			let searchable = [], 
 				fields, 
 				tabledElements = [], 
 				headerDataTypes = this.state.headers.map( header => header.dataPoint );

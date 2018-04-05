@@ -13,7 +13,8 @@ class OtherToolEditor extends Component {
       fluteLength: false,
       radius: false,
       toolLength: false,
-      undercut: false
+      undercut: false,
+      cfmMsg: 'Save'
 		}
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
@@ -23,7 +24,16 @@ class OtherToolEditor extends Component {
 
   save() {
     this.toggleEdit();
-    this.props.save();
+    if(this.state.cfmMsg === 'Confirm') {
+      this.props.buyTool();
+    } else {
+      this.props.save();
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.readyToBuy)
+      this.setState({ editable: true, cfmMsg: 'Confirm' });
   }
 
   showTool(e) {
@@ -146,7 +156,7 @@ class OtherToolEditor extends Component {
             name={'job_number'} />*/}
         <span className='submit-button-line'>
           <button onClick={this.toggleEdit} className='button white-button small-button'>Cancel</button>
-          <button onClick={this.save} className='button save-button small-button'>Save</button>
+          <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
         </span>
       </div>
   	}

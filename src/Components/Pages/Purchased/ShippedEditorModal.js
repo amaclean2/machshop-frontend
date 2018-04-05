@@ -9,7 +9,7 @@ class ShippedEditorModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toolData: {},
+			data: { toolData: {} },
       viewerMode: 'Endmill',
 			toolId: this.props.id,
       machine: this.props.machine,
@@ -31,7 +31,7 @@ class ShippedEditorModal extends Component {
 	}
 
   change(e) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[e.target.name] = e.target.value;
     if(e.target.name === 'diameter' ) {
       toolData.undercut_width = e.target.value;
@@ -39,7 +39,7 @@ class ShippedEditorModal extends Component {
   }
 
   orderTool() {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = true;
     toolData.purchased = false;
 
@@ -51,7 +51,8 @@ class ShippedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: toolData,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -60,6 +61,7 @@ class ShippedEditorModal extends Component {
     }).then( data => {
       this.props.triggerUpdate();
       this.props.toggleModal('0');
+      this.props.toggleBig({target: {id: 'shopping'}});
     });
   }
 
@@ -88,20 +90,20 @@ class ShippedEditorModal extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ toolData: data.tool_data, loaded: true});
+      this.setState({ data: data, loaded: true});
     })
 
   }
 
   output(value, name) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[name] = value;
     this.setViewerMode();
   }
 
   post() {
 
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = false;
 
@@ -113,7 +115,7 @@ class ShippedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
+        tool_data: this.state.data.tool_data
       })
     });
 
@@ -128,7 +130,7 @@ class ShippedEditorModal extends Component {
 
   put() {
 
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = false;
 
@@ -140,7 +142,8 @@ class ShippedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
+        tool_data: this.state.data.tool_data,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -160,8 +163,8 @@ class ShippedEditorModal extends Component {
   }
 
   setViewerMode() {
-    if(this.state.toolData['tool_type']) {
-      switch(this.state.toolData['tool_type']) {
+    if(this.state.data.tool_data['tool_type']) {
+      switch(this.state.data.tool_data['tool_type']) {
         case 'Endmill' :
           this.setState({ viewerMode: 'Endmill' });
           break;
@@ -187,7 +190,7 @@ class ShippedEditorModal extends Component {
         return <MillToolEditor 
                 count={this.state.count} 
                 viewerMode={this.state.viewerMode}
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 toolId={this.state.toolId} 
                 save={this.save}
                 change={this.change} 
@@ -195,7 +198,7 @@ class ShippedEditorModal extends Component {
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
                 count={this.state.count} 
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save}
@@ -204,7 +207,7 @@ class ShippedEditorModal extends Component {
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 count={this.state.count} 
-                toolData={this.state.toolData}
+                toolData={this.state.data.tool_data}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save}

@@ -9,8 +9,14 @@ class Ordering extends Component {
     super()
     this.state = {
       purchased: 0,
+      subCat: 'mill'
     }
     this.togglePurchase=this.togglePurchase.bind(this);
+    this.toggleSubCat=this.toggleSubCat.bind(this);
+  }
+
+  toggleSubCat(category) {
+    this.setState({ subCat: category });
   }
 
   togglePurchase(e) {
@@ -23,13 +29,21 @@ class Ordering extends Component {
   }
 
   showPurchaseState() {
-
     if(this.state.purchased === 1) {
-      return <Purchased />
+      return <Purchased
+              category={this.state.subCat}
+              toggleCat={this.toggleSubCat}
+              toggleBig={this.togglePurchase} />
     } else if (this.state.purchased === 0) {
-      return <ToBuy />
+      return <ToBuy
+              category={this.state.subCat}
+              toggleCat={this.toggleSubCat}
+              toggleBig={this.togglePurchase} />
     } else if (this.state.purchased === 2) {
-      return <Shipped />
+      return <Shipped
+              category={this.state.subCat}
+              toggleCat={this.toggleSubCat}
+              toggleBig={this.togglePurchase} />
     }
   }
 

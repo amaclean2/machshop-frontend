@@ -9,13 +9,14 @@ class PurchasedEditorModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toolData: {},
+			data: {toolData: {}},
       viewerMode: 'Endmill',
 			toolId: this.props.id,
       machine: this.props.machine,
       loaded: false,
       modalHide: true,
-      redirect: false
+      redirect: false,
+      readyToBuy: false
 		}
     this.change=this.change.bind(this);
     this.delete=this.delete.bind(this);
@@ -27,18 +28,23 @@ class PurchasedEditorModal extends Component {
     this.stationSelector=this.stationSelector.bind(this);
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.receiveTool=this.receiveTool.bind(this);
+    this.confirmPurchase=this.confirmPurchase.bind(this);
 	}
 
   change(e) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[e.target.name] = e.target.value;
     if(e.target.name === 'diameter' ) {
       toolData.undercut_width = e.target.value;
     }
   }
 
+  confirmPurchase() {
+    this.setState({readyToBuy: true});
+  }
+
   receiveTool() {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = false;
 
@@ -50,7 +56,8 @@ class PurchasedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: toolData,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -59,6 +66,7 @@ class PurchasedEditorModal extends Component {
     }).then( data => {
       this.props.triggerUpdate();
       this.props.toggleModal('0');
+      this.props.toggleBig({target: {id: 'shipped'}});
     });
   }
 
@@ -87,20 +95,20 @@ class PurchasedEditorModal extends Component {
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
-      this.setState({ toolData: data.tool_data, loaded: true});
+    this.setState({ data: data, loaded: true});
     })
 
   }
 
   output(value, name) {
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData[name] = value;
     this.setViewerMode();
   }
 
   put() {
 
-    let toolData = this.state.toolData;
+    let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = true;
 
@@ -112,7 +120,8 @@ class PurchasedEditorModal extends Component {
       body: JSON.stringify({
         user: 'Andrew',
         company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
+        tool_data: toolData,
+        created_at: this.state.data.created_at
       })
     });
 
@@ -128,8 +137,8 @@ class PurchasedEditorModal extends Component {
   }
 
   setViewerMode() {
-    if(this.state.toolData['tool_type']) {
-      switch(this.state.toolData['tool_type']) {
+    if(this.state.data.tool_data['tool_type']) {
+      switch(this.state.data.tool_data['tool_type']) {
         case 'Endmill' :
           this.setState({ viewerMode: 'Endmill' });
           break;
@@ -153,33 +162,39 @@ class PurchasedEditorModal extends Component {
     if(this.state.loaded) {
       if(this.state.machine === 'mill')
         return <MillToolEditor 
+                readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
                 viewerMode={this.state.viewerMode}
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
                 change={this.change} 
+                buyTool={this.receiveTool}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
+                readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
-                toolData={this.state.toolData} 
+                toolData={this.state.data.tool_data} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
                 change={this.change}
+                buyTool={this.receiveTool}
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
+                readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
-                toolData={this.state.toolData}
+                toolData={this.state.data.tool_data}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
                 change={this.change}
+                buyTool={this.receiveTool}
                 output={this.output} />
     }
   }
@@ -216,8 +231,8 @@ class PurchasedEditorModal extends Component {
                     <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
                 <button
-                  className={'button table-button close-modal-button ' + (this.state.toolId === '0' ? 'gone' : '')}
-                  onClick={this.receiveTool} >
+                  className={'button table-button close-modal-button ' + (this.state.toolId === '0' || this.state.readyToBuy ? 'gone' : '')}
+                  onClick={this.confirmPurchase} >
                   receive
                 </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
@@ -226,6 +241,7 @@ class PurchasedEditorModal extends Component {
                 </a>
               </div>
             </div>
+            <div className={'purchase-command fade-in ' + (this.state.readyToBuy ? '' : 'gone')}>Check what you're receiving</div>
             {station}
           </div>
         </div>

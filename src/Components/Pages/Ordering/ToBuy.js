@@ -5,10 +5,9 @@ import OrderOther from './OrderOther';
 import OrderEditorModal from './OrderEditorModal';
 
 class ToBuy extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      tools: 'mill',
       editing: false,
       toolId: null,
       data: {},
@@ -21,10 +20,12 @@ class ToBuy extends Component {
   }
 
   get(refresh) {
+
     this.setState({ loaded: false });
     let url = sessionStorage.getItem('user').split(',')[2],
         id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/shopping/' + this.state.tools + '?company_id=' + id, {
+        category = refresh && refresh !== 'refresh' ? refresh : this.props.category,
+        request = new Request(url + '/shopping/' + category + '?company_id=' + id, {
       method: 'GET'
     });
 
@@ -39,7 +40,6 @@ class ToBuy extends Component {
         for (var dataItem in item.tool_data) {
           item[dataItem] = item.tool_data[dataItem];
         }
-        
         delete item.tool_data;
       });
 
@@ -50,9 +50,11 @@ class ToBuy extends Component {
   }
 
   toggle(i) {
-    this.setState({ tools: i, loaded: false }, () => {
-      this.get();
-    });
+    this.props.toggleCat(i);
+  }
+
+  componentWillReceiveProps(props) {
+    this.get(props.category);
   }
 
   toggleModal(toolId) {
@@ -63,8 +65,9 @@ class ToBuy extends Component {
     if(this.state.editing) {
       return <OrderEditorModal
               id={this.state.toolId}
-              machine={this.state.tools}
+              machine={this.props.category}
               toggleModal={this.toggleModal}
+              toggleBig={this.props.toggleBig}
               triggerUpdate={this.get} />;
     } else {
       return '';
@@ -73,7 +76,7 @@ class ToBuy extends Component {
 
   showTools() {
     if(this.state.loaded) {
-      switch(this.state.tools) {
+      switch(this.props.category) {
         default :
           return <OrderMill toggleModal={this.toggleModal} data={this.state.data} />
         case 'lathe' :
@@ -98,13 +101,13 @@ class ToBuy extends Component {
       <div>
         {toolEditorModal}
         <div className='toggle toggle-smaller'>
-            <div onClick={() => {this.toggle('mill') }} className={(this.state.tools === 'mill' ? 'toggled' : '')}>
+            <div onClick={() => {this.toggle('mill') }} className={(this.props.category === 'mill' ? 'toggled' : '')}>
                 Mill
             </div>
-            <div onClick={() => {this.toggle('lathe') }} className={(this.state.tools === 'lathe' ? 'toggled' : '')}>
+            <div onClick={() => {this.toggle('lathe') }} className={(this.props.category === 'lathe' ? 'toggled' : '')}>
                 Lathe
             </div>
-            <div onClick={() => {this.toggle('other') }} className={(this.state.tools === 'other' ? 'toggled' : '')}>
+            <div onClick={() => {this.toggle('other') }} className={(this.props.category === 'other' ? 'toggled' : '')}>
                 Other
             </div>
         </div>
