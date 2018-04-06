@@ -28,7 +28,7 @@ class Login extends Component {
         <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
-              <h1>MachShop</h1>
+              <h1>MStock</h1>
               <div className='login-description'>A purchasing tool for machine shops</div>
             </div>
             <div className='login'>
