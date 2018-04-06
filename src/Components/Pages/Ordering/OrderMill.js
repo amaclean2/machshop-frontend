@@ -15,10 +15,10 @@ class OrderMill extends Component {
     return (
     	<div className='order-mill'>
         <Table
-          addText={'request a new tool'}
+          addText={this.props.source === 'stock' ? 'add a new tool' : 'request a new tool'}
           noAdd={this.props.noAdd}
           data={this.state.tools}
-          headers={(this.props.noQty ? headers.MillTools : headers.OrderMill)}
+          headers={(this.props.source === 'stock' ? headers.MillTools : headers.OrderMill)}
           toggleModal={this.props.toggleModal} />
       </div>
     );

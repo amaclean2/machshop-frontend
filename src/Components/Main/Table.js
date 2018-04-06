@@ -7,7 +7,8 @@ class Table extends Component {
 		this.state = {
 			queryText: '',
 			data: this.props.data,
-			headers: this.props.headers.columns
+			headers: this.props.headers.columns,
+			filterDirection: 'forewards'
 		}
 		this.columnNames=this.columnNames.bind(this);
 		this.rows=this.rows.bind(this);
@@ -19,15 +20,18 @@ class Table extends Component {
 	filterByColumn(columnName) {
 		let data = this.props.data;
 		data = data.sort( (a, b) => {
-			if(a.tool_data) {
-				if(a.tool_data[columnName] < b.tool_data[columnName]) return -1;
-				if(a.tool_data[columnName] > b.tool_data[columnName]) return 1;
-				return 0;
-			} else {
+			if(this.state.filterDirection === 'forewards') {
+				this.setState({ filterDirection: 'reverse'});
 				if(a[columnName] < b[columnName]) return -1;
 				if(a[columnName] > b[columnName]) return 1;
 				return 0;
-			}	
+			} else {
+				this.setState({ filterDirection: 'forewards'});
+				if(b[columnName] < a[columnName]) return -1;
+				if(b[columnName] > a[columnName]) return 1;
+				return 0;
+
+			}
 		});
 		
 		this.setState({ data: data });
@@ -45,6 +49,7 @@ class Table extends Component {
 
 			this.state.headers.forEach( search => {
 				if(search.searchable) {
+					console.log(row[search.dataPoint]);
 					searchable += row[search.dataPoint].toLowerCase() + ' ';
 				}
 			});

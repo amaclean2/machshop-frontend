@@ -77,11 +77,11 @@ class Shipped extends Component {
     if(this.state.loaded) {
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noQty={true}/>
+          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noQty={true}/>
+          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noQty={true}/>
+          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;

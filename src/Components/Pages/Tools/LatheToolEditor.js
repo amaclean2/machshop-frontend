@@ -123,6 +123,7 @@ class LatheToolEditor extends Component {
         <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
         <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
         <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={'price ' + (this.props.order ? '' : 'gone')} />
+        <DescriptionItem header={'Location: '} value={this.props.toolData.location} classes={this.props.order ? 'gone' : ''} />
         <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
 
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
@@ -224,6 +225,13 @@ class LatheToolEditor extends Component {
           type={'price'}
           classes={this.props.order ? '' : 'gone'} />
         <EditableItem
+          header={'Location: '}
+          value={this.props.toolData.location}
+          change={this.props.change}
+          name={'location'}
+          onClick={this.showTool}
+          classes={this.props.order ? 'gone' : ''} />
+        <EditableItem
           header={'Notes: '}
           value={this.props.toolData.notes}
           change={this.props.change}
@@ -247,15 +255,18 @@ class LatheToolEditor extends Component {
 
   fillWithBlanks() {
 
-      this.props.change({ target: { name: 'tool_type', value: 'Drill' }});
-      this.props.change({ target: { name: 'diameter', value: '' }});
-      this.props.change({ target: { name: 'material', value: 'Cobalt' }});
-      this.props.change({ target: { name: 'tip_angle', value: '' }});
-      this.props.change({ target: { name: 'flute_length', value: '' }});
-      this.props.change({ target: { name: 'tool_length', value: '' }});
-      this.props.change({ target: { name: 'insert', value: '' }});
-      this.props.change({ target: { name: 'description', value: '' }});
-      this.props.change({ target: { name: 'notes', value: '' }});
+    this.props.change({ target: { name: 'tool_type', value: 'Drill' }});
+    this.props.change({ target: { name: 'diameter', value: '' }});
+    this.props.change({ target: { name: 'material', value: 'Cobalt' }});
+    this.props.change({ target: { name: 'tip_angle', value: '' }});
+    this.props.change({ target: { name: 'flute_length', value: '' }});
+    this.props.change({ target: { name: 'tool_length', value: '' }});
+    this.props.change({ target: { name: 'insert', value: '' }});
+    this.props.change({ target: { name: 'description', value: '' }});
+    this.props.change({ target: { name: 'notes', value: '' }});
+    this.props.change({ target: { name: 'count', value: '1' }});
+    this.props.change({ target: { name: 'price', value: '' }});
+    this.props.change({ target: { name: 'location', value: ''}});
   }
 
 	componentDidMount() {

@@ -174,6 +174,9 @@ class OtherToolEditor extends Component {
     this.props.change({ target: { name: 'name', value: '' }});
     this.props.change({ target: { name: 'description', value: '' }});
     this.props.change({ target: { name: 'notes', value: '' }});
+    this.props.change({ target: { name: 'location', value: ''}});
+    this.props.change({ target: { name: 'count', value: '1' }});
+    this.props.change({ target: { name: 'price', value: '' }});
   }
 
 	componentDidMount() {

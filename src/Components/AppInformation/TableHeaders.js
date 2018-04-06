@@ -172,7 +172,7 @@ let headers = {
 				dataPoint: 'location',
 				sortable: true,
 				link: false,
-				searchable: true
+				// searchable: true
 			},{
 				title: 'Price per Tool',
 				dataPoint: 'price',

@@ -32,7 +32,7 @@ class Header extends Component {
     return (
       <div>
 	    <div className="header-wrapper">
-	      <h2>MachShop</h2>
+	      <h2>MStock</h2>
 	   	  <div className="right-content">
           {sessionStorage.getItem('user').split(',')[3]}
 	      	{/*<Select output={this.selectOutput} name={'userName'} >

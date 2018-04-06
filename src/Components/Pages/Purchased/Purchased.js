@@ -77,11 +77,11 @@ class Purchased extends Component {
     if(this.state.loaded) {
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
+          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
+          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} />
+          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
