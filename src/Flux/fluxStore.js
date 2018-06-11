@@ -80,13 +80,13 @@ class FluxStore extends EventEmitter {
 	}
 
 	getOrdering(category) {
-		let data = this.store.ordering[category];
+		let ordering = JSON.parse(JSON.stringify(this.store.ordering));
+		let data = ordering[category];
 		data = data.filter( item => {
     		return item.tool_data && item.tool_data.shopping === true;
     	});
 
 		data.forEach( item => {
-			item = {...item};
 
 			for (var dataItem in item.tool_data) {
 				item[dataItem] = item.tool_data[dataItem];
