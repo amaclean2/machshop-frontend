@@ -4,6 +4,7 @@ import MillToolEditor from '../Tools/MillToolEditor';
 import LatheToolEditor from '../Tools/LatheToolEditor';
 import OtherToolEditor from '../Tools/OtherToolEditor';
 import DeleteModal from '../../Main/DeleteModal';
+import * as fluxActions from '../../../Flux/actions';
 
 class OrderEditorModal extends Component {
 	constructor(props) {
@@ -30,10 +31,15 @@ class OrderEditorModal extends Component {
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.buyTool=this.buyTool.bind(this);
     this.confirmPurchase=this.confirmPurchase.bind(this);
+    this.cancelPurchase=this.cancelPurchase.bind(this);
 	}
 
   confirmPurchase() {
     this.setState({readyToBuy: true});
+  }
+
+  cancelPurchase() {
+    this.setState({ readyToBuy: false});
   }
 
   change(e) {
@@ -45,6 +51,7 @@ class OrderEditorModal extends Component {
   }
 
   buyTool() {
+
     let toolData = this.state.data.tool_data;
     toolData.shopping = false;
     toolData.purchased = true;
@@ -113,24 +120,32 @@ class OrderEditorModal extends Component {
     toolData.shopping = true;
     toolData.purchased = false;
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine, {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData
-      })
-    });
+    // let url = sessionStorage.getItem('user').split(',')[2],
+    //     machine = this.state.machine,
+    //     request = new Request(url + '/shopping/' + machine, {
+    //   method: 'POST',
+    //   headers: new Headers({'Content-Type': 'application/json'}),
+    //   body: JSON.stringify({
+    //     user: 'Andrew',
+    //     company_id: sessionStorage.getItem('user').split(',')[1],
+    //     tool_data: toolData
+    //   })
+    // });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ toolId: data._id });
-      this.props.triggerUpdate();
-    });
+    // fetch(request).then( response => {
+    //   return response.json();
+    // }).then( data => {
+    //   this.setState({ toolId: data._id });
+    //   this.props.triggerUpdate();
+    // });
+
+    let body = {
+        user: 'Andrew',
+        tool_data: toolData
+      }, machine = this.state.machine;
+
+
+    fluxActions.addOrder( body , machine );
 
   }
 
@@ -198,6 +213,7 @@ class OrderEditorModal extends Component {
                 toolData={this.state.data.tool_data} 
                 toolId={this.state.toolId} 
                 readyToBuy={this.state.readyToBuy}
+                cancel={this.cancelPurchase}
                 save={this.save}
                 order={true}
                 change={this.change} 
@@ -208,6 +224,7 @@ class OrderEditorModal extends Component {
                 readyToBuy={this.state.readyToBuy}
                 toolData={this.state.data.tool_data} 
                 viewerMode={this.state.viewerMode}
+                cancel={this.cancelPurchase}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
@@ -219,6 +236,7 @@ class OrderEditorModal extends Component {
                 readyToBuy={this.state.readyToBuy}
                 toolData={this.state.data.tool_data}
                 viewerMode={this.state.viewerMode} 
+                cancel={this.cancelPurchase}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
@@ -251,7 +269,7 @@ class OrderEditorModal extends Component {
             <div className="modal-top">
               <h3>Tool Editor</h3>
               <div className={(this.state.modalHide ? 'gone' : '')} >
-                <DeleteModal delete={this.delete} reject={ this.toggleDeleteModal } link={''} />
+                <DeleteModal delete={this.delete} reject={ this.toggleDeleteModal } />
               </div>
               <div className='modal-corner-buttons'>
                 <button
@@ -264,7 +282,7 @@ class OrderEditorModal extends Component {
                   onClick={this.confirmPurchase /*this.buyTool*/}>
                   purchase
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-modal-button close-button'>
+                <a onClick={() => { this.props.toggleModal('0'); }} className={'button table-button close-modal-button close-button ' + (this.state.readyToBuy ? 'gone' : '')}>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Shopping List</span>
                 </a>

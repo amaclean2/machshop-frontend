@@ -20,7 +20,14 @@ class LatheToolEditor extends Component {
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
     this.fillWithBlanks=this.fillWithBlanks.bind(this);
+    this.cancel=this.cancel.bind(this);
 	}
+
+  cancel() {
+    this.toggleEdit();
+    if(this.state.cfmMsg === 'Confirm')
+      this.props.cancel();
+  }
 
   save() {
     this.toggleEdit();
@@ -246,7 +253,7 @@ class LatheToolEditor extends Component {
             output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'>
-          <button onClick={this.toggleEdit} className='button white-button small-button'>Cancel</button>
+          <button onClick={this.cancel} className='button white-button small-button'>Cancel</button>
           <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
         </span>
       </div>

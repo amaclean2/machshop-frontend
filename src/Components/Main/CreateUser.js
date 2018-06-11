@@ -7,11 +7,21 @@ class CreateUser extends Component {
     this.state = {
       companyList: [],
       company: 'new company',
-      progress: false
+      progress: false,
+      newCompany: false
     }
     this.get=this.get.bind(this);
     this.getCompany=this.getCompany.bind(this);
     this.addUser=this.addUser.bind(this);
+    this.toggleNewCompany=this.toggleNewCompany.bind(this);
+  }
+
+  toggleNewCompany() {
+    this.setState({ newCompany: !this.state.newCompany }, () => {
+      if(!this.state.newCompany) {
+        this.props.resetNewToNull();
+      }
+    });
   }
 
   addUser() {
@@ -67,13 +77,27 @@ class CreateUser extends Component {
             type='text'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
-            name='name' placeholder='name' />
+            name='name' placeholder="user's name" />
+          <span className={'create-name'}>
+            <input
+              type='checkbox'
+              id='newCompany'
+              onChange={this.toggleNewCompany}
+              name='newCompany' />
+            <label htmlFor={'newCompany'}>New Company</label>
+          </span>
+          <input
+            type='text'
+            className={'create-name ' + (this.state.newCompany ? '' : 'gone')}
+            name='newCompanyName'
+            onChange={this.props.createUserInfo}
+            placeholder={'company name'} />
           <input
             type='text'
             onChange={this.getCompany}
-            className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
+            className={'create-name required ' + (this.props.failed ? 'bad-input ' : '') + (this.state.newCompany ? 'gone ' : '')}
             name='cid' placeholder='company id' />
-          <div className={'create-name'} >{ this.state.company }</div>
+          <div className={'create-name ' + (this.state.newCompany ? 'gone ' : '')} >{ this.state.company }</div>
           <input
             type='email'
             onChange={this.props.createUserInfo}
@@ -105,7 +129,7 @@ class CreateUser extends Component {
         <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
-              <h1>MStock</h1>
+              <h1>{this.props.title}</h1>
               <div className='login-description'>A purchasing tool for machine shops</div>
             </div>
             <div className='create-user'>

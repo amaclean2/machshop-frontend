@@ -44,12 +44,10 @@ class Table extends Component {
 
 			let searchable = [], 
 				fields = row, 
-				tabledElements = [], 
 				headerDataTypes = this.state.headers.map( header => header.dataPoint );
 
 			this.state.headers.forEach( search => {
 				if(search.searchable) {
-					console.log(row[search.dataPoint]);
 					searchable += row[search.dataPoint].toLowerCase() + ' ';
 				}
 			});

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import HomePage from './Components/Main/HomePage';
 import Login from './Components/Main/Login';
 import CreateUser from './Components/Main/CreateUser';
+import ResetPassword from './Components/Main/ResetPassword';
+import * as fluxActions from './Flux/actions';
+
 import { auth } from './firebase';
 
 class App extends Component {
 	constructor() {
 		super();
 		this.state={
-			url: (window.location.href.substr(0, 5) === 'http:' ) ? 'http://localhost:3001/api' : 'https://machapi.herokuapp.com/api',
       user: null,
       email: '',
       password: '',
@@ -16,7 +18,10 @@ class App extends Component {
       failed: null,
       createUser: false,
       userInfo: [],
-      finished: false
+      finished: false,
+      resetPassword: false,
+      newCompanyName: null,
+      title: 'ToolBox'
 		}
 
     this.loginAction=this.loginAction.bind(this);
@@ -26,8 +31,15 @@ class App extends Component {
     this.createUserInfo=this.createUserInfo.bind(this);
     this.addUser=this.addUser.bind(this);
     this.post=this.post.bind(this);
+    this.addCompany = this.addCompany.bind(this);
+    this.resetNewToNull=this.resetNewToNull.bind(this);
     this.forgotPassword=this.forgotPassword.bind(this);
+    this.resendPassword=this.resendPassword.bind(this);
 	}
+
+  resetNewToNull() {
+    this.setState({ newCompanyName: null });
+  }
 
   post() {
 
@@ -47,12 +59,55 @@ class App extends Component {
     }).catch( error => {
       console.log(error);
     }).then( data => {
-      console.log(data);
+    });
+  }
+
+  addCompany() {
+    let request = new Request('https://machapi.herokuapp.com/api/companies', {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        name: this.state.newCompanyName,
+        street_address: '',
+        city: '',
+        state: '',
+        country: '',
+        email: '',
+        phone_number: ''
+      })
+    });
+
+    fetch(request).then( response => {
+      return response.json();
+    }).then( data => {
+      let info = this.state.userInfo;
+      info.companyId = data._id;
+      info.companyName = data.name;
+
+      auth.createUserWithEmailAndPassword(info.email, info.password)
+          .then( response => {
+            var user = auth.currentUser;
+            user.updateProfile({
+              displayName: info.displayName
+            }).then( response => {
+              user.sendEmailVerification().then( () => {
+                // post user data;
+                this.post();
+                this.setState({ finished: true });
+              }).catch( error => {
+                this.setState({ failed: 'invalid email'});
+              });
+            }).catch( error => {
+              this.setState({ failed: error.code });
+            });
+          }).catch( error => {
+            this.setState({ failed: error.code });
+          });
     });
   }
 
   forgotPassword() {
-    console.log('Haha, you can\'t do anything about this!');
+    this.setState({ resetPassword: !this.state.resetPassword });
   }
 
   createUserInfo(e) {
@@ -60,9 +115,6 @@ class App extends Component {
     switch(e.target.name) {
       case 'name' :
         info.displayName = e.target.value;
-        break;
-      case 'cname' :
-        info.companyName = e.target.value;
         break;
       case 'cid' :
         info.companyId = e.target.value;
@@ -79,6 +131,9 @@ class App extends Component {
       case 'verifyPass' :
         info.vword = e.target.value;
         break;
+      case 'newCompanyName' :
+        this.setState({ newCompanyName: e.target.value });
+        break;
       default :
         return;
     }
@@ -88,16 +143,20 @@ class App extends Component {
     this.setState({ createUser: !this.state.createUser, failed: false });
   }
 
-  componentDidMount() {
-    let cachedVars = sessionStorage.getItem('user');
-    if(cachedVars)
-      this.setState({ validEmail: cachedVars });
+  componentWillMount() {
+    fluxActions.setUrl();
+
+    if(sessionStorage.getItem('userId')) {
+      this.setState({ validEmail: true });
+      fluxActions.setUserInfo();
+    }
   }
 
   login() {
     if(this.state.validEmail) {
       return <HomePage
-                logout={this.logoutAction} />
+                logout={this.logoutAction}
+                title={this.state.title} />
     } else {
       if(this.state.createUser) {
         return <CreateUser
@@ -105,14 +164,23 @@ class App extends Component {
                   createUser={this.createUser}
                   createUserInfo={this.createUserInfo}
                   finished={this.state.finished}
-                  failed={this.state.failed} />
+                  resetNewToNull={this.resetNewToNull}
+                  failed={this.state.failed}
+                  title={this.state.title} />
+      } else if (this.state.resetPassword) {
+        return <ResetPassword 
+                  forgotPassword={this.forgotPassword}
+                  resendPassword={this.resendPassword}
+                  update={this.update}
+                  title={this.state.title}/>
       } else {
         return <Login
-              forgotPassword={this.forgotPassword}
+                forgotPassword={this.forgotPassword}
                 login={this.loginAction}
                 update={this.update}
                 createUser={this.createUser}
-                failed={this.state.failed} />
+                failed={this.state.failed}
+                title={this.state.title} />
       }
     } 
   }
@@ -132,10 +200,11 @@ class App extends Component {
 
             if(data.length > 0) {
 
-              let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0],
-                  company = userData.company_id;
+              let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0];
 
-              sessionStorage.setItem('user', [ userData.user_position, company, this.state.url, userData.name ]);
+              fluxActions.setUserInfo(userData);
+              sessionStorage.setItem('userId', userData._id);
+
               this.setState({ validEmail: result.email, password: null });
 
             } else {
@@ -151,31 +220,46 @@ class App extends Component {
       })
   }
 
+  resendPassword() {
+    auth.sendPasswordResetEmail(this.state.email)
+      .then( response => {
+        console.log(response);
+      }).catch( error => {
+        console.log(error);
+      });
+    this.forgotPassword();
+  }
+
   addUser() {
+
     this.setState({ failed: null });
     let info = this.state.userInfo;
-    if(!info.displayName || !info.companyId || !info.email ||  !info.password ) {
+    if(!info.displayName || (!info.companyId && !this.state.newCompanyName) || !info.email ||  !info.password ) {
       this.setState({ failed: 'required fields must be filled in' });
     } else {
-      auth.createUserWithEmailAndPassword(info.email, info.password)
-        .then( response => {
-          var user = auth.currentUser;
-          user.updateProfile({
-            displayName: info.displayName
-          }).then( response => {
-            user.sendEmailVerification().then( () => {
-              // post user data;
-              this.post();
-              this.setState({ finished: true });
+      if(this.state.newCompanyName) {
+        this.addCompany();
+      } else {
+        auth.createUserWithEmailAndPassword(info.email, info.password)
+          .then( response => {
+            var user = auth.currentUser;
+            user.updateProfile({
+              displayName: info.displayName
+            }).then( response => {
+              user.sendEmailVerification().then( () => {
+                // post user data;
+                this.post();
+                this.setState({ finished: true });
+              }).catch( error => {
+                this.setState({ failed: 'invalid email'});
+              });
             }).catch( error => {
-              this.setState({ failed: 'invalid email'});
+              this.setState({ failed: error.code });
             });
           }).catch( error => {
             this.setState({ failed: error.code });
           });
-        }).catch( error => {
-          this.setState({ failed: error.code });
-        });
+      } 
     }
   }
 

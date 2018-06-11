@@ -29,6 +29,7 @@ class PurchasedEditorModal extends Component {
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
     this.receiveTool=this.receiveTool.bind(this);
     this.confirmPurchase=this.confirmPurchase.bind(this);
+    this.cancelPurchase=this.cancelPurchase.bind(this);
 	}
 
   change(e) {
@@ -41,6 +42,10 @@ class PurchasedEditorModal extends Component {
 
   confirmPurchase() {
     this.setState({readyToBuy: true});
+  }
+
+  cancelPurchase() {
+    this.setState({ readyToBuy: false});
   }
 
   receiveTool() {
@@ -171,6 +176,7 @@ class PurchasedEditorModal extends Component {
                 order={true}
                 change={this.change} 
                 buyTool={this.receiveTool}
+                cancel={this.cancelPurchase}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
@@ -183,6 +189,7 @@ class PurchasedEditorModal extends Component {
                 order={true}
                 change={this.change}
                 buyTool={this.receiveTool}
+                cancel={this.cancelPurchase}
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
@@ -195,6 +202,7 @@ class PurchasedEditorModal extends Component {
                 order={true}
                 change={this.change}
                 buyTool={this.receiveTool}
+                cancel={this.cancelPurchase}
                 output={this.output} />
     }
   }
@@ -226,7 +234,7 @@ class PurchasedEditorModal extends Component {
               </div>
               <div className='modal-corner-buttons'>
                 <button
-                  className='button table-button delete-button'
+                  className={'button table-button delete-button ' + (this.state.toolId === '0' || this.state.readyToBuy ? 'gone' : '')}
                   onClick={this.toggleDeleteModal} >
                     <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
@@ -235,7 +243,7 @@ class PurchasedEditorModal extends Component {
                   onClick={this.confirmPurchase} >
                   receive
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
+                <a onClick={() => { this.props.toggleModal('0'); }} className={'button table-button close-modal-button close-button ' + (this.state.readyToBuy ? 'gone' : '')}>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Purchased List</span>
                 </a>

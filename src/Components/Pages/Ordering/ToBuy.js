@@ -3,6 +3,8 @@ import OrderMill from './OrderMill';
 import OrderLathe from './OrderLathe';
 import OrderOther from './OrderOther';
 import OrderEditorModal from './OrderEditorModal';
+import fluxStore from '../../../Flux/fluxStore';
+import * as fluxActions from '../../../Flux/actions';
 
 class ToBuy extends Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class ToBuy extends Component {
     this.state = {
       editing: false,
       toolId: null,
-      data: {},
+      data: [],
       loaded: false
     }
     this.toggle=this.toggle.bind(this);
@@ -20,37 +22,18 @@ class ToBuy extends Component {
   }
 
   get(refresh) {
-
-    this.setState({ loaded: false });
-    let url = sessionStorage.getItem('user').split(',')[2],
-        id = sessionStorage.getItem('user').split(',')[1],
-        category = refresh && refresh !== 'refresh' ? refresh : this.props.category,
-        request = new Request(url + '/shopping/' + category + '?company_id=' + id, {
-      method: 'GET'
-    });
-
-    fetch(request).then( response => {
-        return response.json();
-    }).then( data => {
-      data = data.filter( item => {
-        return item.tool_data.shopping === true;
-      });
-
-      data.forEach( item => {
-        for (var dataItem in item.tool_data) {
-          item[dataItem] = item.tool_data[dataItem];
-        }
-        delete item.tool_data;
-      });
-
-      this.setState({ data: data, loaded: true });
-      if(refresh && refresh === 'refresh')
-        this.toggleModal('0');
-    });
+    let category = refresh && refresh !== 'refresh' ? refresh : this.props.category;
   }
 
   toggle(i) {
     this.props.toggleCat(i);
+    this.setState({ data: fluxStore.getOrdering(i) });
+  }
+
+  componentWillMount() {
+    fluxStore.on('change', () => {
+      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
+    });
   }
 
   componentWillReceiveProps(props) {

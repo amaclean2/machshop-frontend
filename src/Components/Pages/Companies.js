@@ -13,21 +13,12 @@ class Companies extends Component {
 			loaded: false,
 			companyId: sessionStorage.getItem('user').split(',')[1]
 		}
-
-		this.copyButton=this.copyButton.bind(this);
+		
 		this.get=this.get.bind(this);
 		this.toggleModal=this.toggleModal.bind(this);
 	}
 
-	copyButton(e) {
-		let input = e.target.children[0];
-		input.select();
-
-		document.execCommand('Copy');
-		console.log(input.value);
-	}
-
-	get() {
+	get(refresh) {
 	  let urlTemp = sessionStorage.getItem('user').split(',')[2],
 	  		companyId = '/' + sessionStorage.getItem('user').split(',')[1];
 
@@ -48,6 +39,8 @@ class Companies extends Component {
 	    	newData.push(data);
 	  	}
 	    this.setState({ companies: newData, loaded: true });
+	    if(refresh && refresh === 'refresh')
+        	this.toggleModal('0');
 	  });
 	}
 

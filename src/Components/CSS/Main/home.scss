@@ -93,6 +93,7 @@
 	padding: 10px 2vw;
 	min-width: 250px;
 	box-sizing: border-box;
+	flex-direction: column;
 
 	@media screen and (max-width: 500px) {
 		width: 100%;

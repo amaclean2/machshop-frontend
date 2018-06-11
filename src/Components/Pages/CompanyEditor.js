@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
-import { NavLink, Redirect } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
 
 class CompanyEditor extends Component {
@@ -21,11 +20,11 @@ constructor(props) {
     this.get=this.get.bind(this);
     this.post=this.post.bind(this);
     this.put=this.put.bind(this);
-    this.delete=this.delete.bind(this);
+    // this.delete=this.delete.bind(this);
     this.toggleEdit=this.toggleEdit.bind(this);
     this.change=this.change.bind(this);
     this.save=this.save.bind(this);
-    this.toggleModal=this.toggleModal.bind(this);
+    this.toggleDelete=this.toggleDelete.bind(this);
 
   }
 
@@ -91,19 +90,20 @@ constructor(props) {
     });
   }
 
-  delete() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        request = new Request(url + '/companies/' + this.state.companyId, {
-      method: 'DELETE',
-      headers: new Headers({ 'Content-Type': 'application/json' })
-    });
+  // delete() {
+  //   let urlTemp = sessionStorage.getItem('user').split(',')[2],
+  //       url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+  //       request = new Request(url + '/companies/' + this.state.companyId, {
+  //     method: 'DELETE',
+  //     headers: new Headers({ 'Content-Type': 'application/json' })
+  //   });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-    });
-  }
+  //   fetch(request).then( response => {
+  //     return response.json();
+  //   }).then( data => {
+  //     this.props.triggerUpdate('refresh');
+  //   });
+  // }
 
   change(e) {
     let newInfo = this.state.companyInfo;
@@ -114,7 +114,7 @@ constructor(props) {
     this.setState({ editable: !this.state.editable });
   }
 
-  toggleModal() {
+  toggleDelete() {
     this.setState({ modalHide: !this.state.modalHide });
   }
 
@@ -150,7 +150,7 @@ constructor(props) {
           <EditableItem header={'State: '} value={this.state.companyInfo.state} change={this.change} name={'state'} />
           <EditableItem header={'Country: '} value={this.state.companyInfo.country} change={this.change} name={'country'} />
           <EditableItem header={'Email: '} value={this.state.companyInfo.email} change={this.change} name={'email'} />
-          <EditableItem header={'Phone Number: '} value={this.state.companyInfo.phone_number} change={this.change} name={'phone_number'} />
+          <EditableItem header={'Phone Number: '} value={this.state.companyInfo.phone_number} change={this.change} name={'phone_number'} type='phone' />
           <span className='submit-button-line'>
             <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
             <button onClick={this.save} className='button save-button small-button'>Save</button>
@@ -180,15 +180,7 @@ constructor(props) {
           <div className='modal-content editor'>
             <div className='modal-top'>
               <h3>Company Editor</h3>
-              <div className={(this.state.modalHide ? 'gone' : '')} >
-                <DeleteModal delete={this.delete} reject={this.toggleModal} link={'#'} />
-              </div>
               <div className='modal-corner-buttons'>
-                <button
-                  className='button table-button delete-button'
-                  onClick={this.toggleModal}>
-                    <i className="fa fa-trash" aria-hidden="true"></i>
-                </button>
                 <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Company</span>

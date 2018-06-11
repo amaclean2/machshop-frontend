@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
-import { NavLink, Redirect } from 'react-router-dom';
 import DeleteModal from '../Main/DeleteModal';
 
 class UsersEditor extends Component {
