@@ -5,6 +5,7 @@ import LatheToolEditor from '../Tools/LatheToolEditor';
 import OtherToolEditor from '../Tools/OtherToolEditor';
 import DeleteModal from '../../Main/DeleteModal';
 import * as fluxActions from '../../../Flux/actions';
+import fluxStore from '../../../Flux/fluxStore';
 
 class OrderEditorModal extends Component {
 	constructor(props) {
@@ -79,32 +80,20 @@ class OrderEditorModal extends Component {
   }
 
   delete() {
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId, {
-      method: 'DELETE'
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate('refresh');
-    });
+    fluxActions.deleteOrder(this.props.id, this.props.machine);
+  }
+
+  componentWillMount() {
+    fluxStore.on('change', () => {
+      this.toggleDeleteModal();
+      this.props.toggleModal('0');
+    })
   }
 
 	get() {
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/shopping/' + this.state.machine + '/' + this.state.toolId + '?company_id=' + id, {
-      method: 'GET'
-    });
-
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ data: data, loaded: true});
-    })
+    this.setState({ data: fluxStore.getForm(this.props.machine, this.props.id), loaded: true });
 
   }
 
@@ -119,25 +108,6 @@ class OrderEditorModal extends Component {
     let toolData = this.state.data.tool_data;
     toolData.shopping = true;
     toolData.purchased = false;
-
-    // let url = sessionStorage.getItem('user').split(',')[2],
-    //     machine = this.state.machine,
-    //     request = new Request(url + '/shopping/' + machine, {
-    //   method: 'POST',
-    //   headers: new Headers({'Content-Type': 'application/json'}),
-    //   body: JSON.stringify({
-    //     user: 'Andrew',
-    //     company_id: sessionStorage.getItem('user').split(',')[1],
-    //     tool_data: toolData
-    //   })
-    // });
-
-    // fetch(request).then( response => {
-    //   return response.json();
-    // }).then( data => {
-    //   this.setState({ toolId: data._id });
-    //   this.props.triggerUpdate();
-    // });
 
     let body = {
         user: 'Andrew',

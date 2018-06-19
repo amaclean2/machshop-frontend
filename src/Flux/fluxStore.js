@@ -5,7 +5,9 @@ import dispatcher from './dispatcher';
 class FluxStore extends EventEmitter {
 	constructor() {
 		super()
-		this.store = {}
+		this.store = {
+			form: {}
+		}
 	}
 
 	setUrl() {
@@ -45,6 +47,10 @@ class FluxStore extends EventEmitter {
 		return this.store.user;
 	}
 
+	getReady() {
+		return this.store.ready;
+	}
+
 	populateOrdering() {
 		let company = this.store.user.company_id;
 
@@ -65,18 +71,28 @@ class FluxStore extends EventEmitter {
 								return response.json();
 							}).then( data => {
 								this.store.ordering = {...this.store.ordering, other: data };
+								this.store.ready = true;
 								this.emit('change');
 							});
 					});
 			});
 	}
 
-	populatePurchasing() {
+	getForm(category, toolId) {
+		let ordering = JSON.parse(JSON.stringify(this.store.ordering)),
+			data = ordering[category];
 
+		let returnTool = data.find( tool => {
+			return tool._id === toolId;
+		});
+
+		this.store.form = returnTool
+
+		return returnTool;
 	}
 
-	populateStock() {
-
+	changeFormItem(property) {
+		console.log(property);
 	}
 
 	getOrdering(category) {
@@ -98,12 +114,32 @@ class FluxStore extends EventEmitter {
 	}
 
 	getPurchased(category) {
-		let data = this.store.purchased[category];
+		let purchased = JSON.parse(JSON.stringify(this.store.ordering));
+		let data = purchased[category];
 		data = data.filter( item => {
-    		return item.tool_data.shopping === false && item.tool_data.purchased === true;
+    		return item.tool_data && !item.tool_data.shopping && item.tool_data.purchased;
     	});
 
 		data.forEach( item => {
+
+			for (var dataItem in item.tool_data) {
+				item[dataItem] = item.tool_data[dataItem];
+			}
+			delete item.tool_data;
+		});
+
+		return data;
+	}
+
+	getShipped(category) {
+		let shipped = JSON.parse(JSON.stringify(this.store.ordering));
+		let data = shipped[category];
+		data = data.filter( item => {
+    		return item.tool_data && !item.tool_data.shopping && !item.tool_data.purchased;
+    	});
+
+		data.forEach( item => {
+
 			for (var dataItem in item.tool_data) {
 				item[dataItem] = item.tool_data[dataItem];
 			}
@@ -128,6 +164,15 @@ class FluxStore extends EventEmitter {
 		})
 	}
 
+	deleteOrder(id, category) {
+		fetch(this.store.url + '/shopping/' + category + '/' + id, { method: 'DELETE' })
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.populateOrdering();
+			});
+	}
+
 	handleActions(action) {
 		console.log('recieved an action', action);
 		switch(action.type) {
@@ -139,6 +184,12 @@ class FluxStore extends EventEmitter {
 				break;
 			case 'NEW_ORDER' :
 				this.sendOrder(action.body, action.category);
+				break;
+			case 'DELETE_ORDER' :
+				this.deleteOrder(action.id, action.category);
+				break;
+			case 'CHANGE_FORM' :
+				this.changeFormItem(action.property);
 				break;
 			default :
 				break;

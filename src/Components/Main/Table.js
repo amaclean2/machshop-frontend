@@ -38,7 +38,6 @@ class Table extends Component {
 	}
 
 	rows() {
-
 		let data = this.state.data;
 		let rows = data.map( (row, j) => {
 

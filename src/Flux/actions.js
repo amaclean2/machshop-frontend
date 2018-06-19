@@ -20,3 +20,18 @@ export function addOrder(body, category) {
 		category: category
 	});
 };
+
+export function deleteOrder(id, category) {
+	dispatcher.dispatch({
+		type: 'DELETE_ORDER',
+		id: id,
+		category: category
+	});
+};
+
+export function changeForm(newProperty) {
+	dispatcher.dispatch({
+		type: 'CHANGE_FORM',
+		property: newProperty
+	})
+}

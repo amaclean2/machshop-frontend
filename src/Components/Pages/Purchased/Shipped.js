@@ -3,6 +3,8 @@ import OrderMill from '../Ordering/OrderMill';
 import OrderLathe from '../Ordering/OrderLathe';
 import OrderOther from '../Ordering/OrderOther';
 import ShippedEditorModal from './ShippedEditorModal';
+import fluxStore from '../../../Flux/fluxStore';
+import * as fluxActions from '../../../Flux/actions';
 
 class Shipped extends Component {
   constructor(props) {
@@ -16,48 +18,23 @@ class Shipped extends Component {
     this.toggle=this.toggle.bind(this);
     this.generateEditorModal=this.generateEditorModal.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
-    this.get=this.get.bind(this);
-  }
-
-  get(refresh) {
-    this.setState({ loaded: false });
-    let url = sessionStorage.getItem('user').split(',')[2],
-        id = sessionStorage.getItem('user').split(',')[1],
-        category = refresh && refresh !== 'refresh' ? refresh : this.props.category,
-        request = new Request(url + '/shopping/' + category + '?company_id=' + id, {
-      method: 'GET'
-    });
-
-    fetch(request).then( response => {
-        return response.json();
-    }).then( data => {
-      data = data.filter( item => {
-        return item.tool_data.shopping === false && item.tool_data.purchased === false;
-      });
-
-      data.forEach( item => {
-        for (var dataItem in item.tool_data) {
-          item[dataItem] = item.tool_data[dataItem];
-        }
-        delete item.tool_data;
-      });
-
-      this.setState({ data: data, loaded: true });
-      if(refresh && refresh === 'refresh')
-        this.toggleModal('0');
-    });
   }
 
   toggle(i) {
     this.props.toggleCat(i);
   }
 
-  componentWillReceiveProps(props) {
-    this.get(props.category);
-  }
-
   toggleModal(toolId) {
     this.setState({ toolId: toolId, editing: !this.state.editing });
+  }
+
+  componentWillMount() {    
+    this.setState({ data: fluxStore.getShipped(this.props.category), loaded: true});
+
+    fluxStore.on('change', () => {
+      this.setState({ data: fluxStore.getShipped(this.props.category), loaded: true});
+
+    })
   }
 
   generateEditorModal() {
@@ -86,10 +63,6 @@ class Shipped extends Component {
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
     }
-  }
-
-  componentDidMount() {
-    this.get();
   }
 
   render() {

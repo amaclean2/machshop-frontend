@@ -4,6 +4,7 @@ import OrderLathe from '../Ordering/OrderLathe';
 import OrderOther from '../Ordering/OrderOther';
 import PurchasedEditorModal from './PurchasedEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
+import * as fluxActions from '../../../Flux/actions';
 
 class Purchased extends Component {
   constructor(props) {
@@ -17,24 +18,16 @@ class Purchased extends Component {
     this.toggle=this.toggle.bind(this);
     this.generateEditorModal=this.generateEditorModal.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
-    this.get=this.get.bind(this);
-  }
-
-  get(refresh) {
-    let category = refresh && refresh !== 'refresh' ? refresh : this.props.category;
   }
 
   toggle(i) {
     this.props.toggleCat(i);
+    this.setState({ data: fluxStore.getPurchased(i) });
   }
 
-  componentWillReceiveProps(props) {
-    this.get(props.category);
-  }
+  componentWillMount() {    
+    this.setState({ data: fluxStore.getPurchased(this.props.category), loaded: true});
 
-  componentWillMount() {
-    this.setState({ data: fluxStore.getPurchased(this.props.category)});
-    
     fluxStore.on('change', () => {
       this.setState({ data: fluxStore.getPurchased(this.props.category), loaded: true});
 
@@ -60,21 +53,20 @@ class Purchased extends Component {
 
   showTools() {
     if(this.state.loaded) {
+
+      let source = 'ordering';
+
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
+          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
+          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={'ordering'} />
+          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
     }
-  }
-
-  componentDidMount() {
-    this.get();
   }
 
   render() {

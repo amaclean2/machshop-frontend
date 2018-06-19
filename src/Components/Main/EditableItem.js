@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Select from './Select';
 import DrillSizes from '../AppInformation/DrillSizes';
 import InputRules from '../AppInformation/InputRules';
+import * as fluxActions from '../../Flux/actions';
+import fluxStore from '../../Flux/fluxStore';
 
 class EditableItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectList: [],
       loaded: false,
       value: this.props.value !== '' ? this.props.value : '',
       thisValue: this.props.properties && this.props.properties[this.props.name]
@@ -60,6 +61,9 @@ class EditableItem extends Component {
 
   change(e) {
     this.setState({ value: e.target.value });
+    let newObject = {};
+    newObject[e.target.name] = e.target.value;
+    fluxActions.changeForm(newObject);
     this.props.change(e);
   }
 

@@ -18,11 +18,6 @@ class ToBuy extends Component {
     this.toggle=this.toggle.bind(this);
     this.generateEditorModal=this.generateEditorModal.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
-    this.get=this.get.bind(this);
-  }
-
-  get(refresh) {
-    let category = refresh && refresh !== 'refresh' ? refresh : this.props.category;
   }
 
   toggle(i) {
@@ -31,13 +26,12 @@ class ToBuy extends Component {
   }
 
   componentWillMount() {
+    if(fluxStore.getReady())
+      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
+
     fluxStore.on('change', () => {
       this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
     });
-  }
-
-  componentWillReceiveProps(props) {
-    this.get(props.category);
   }
 
   toggleModal(toolId) {
@@ -59,21 +53,20 @@ class ToBuy extends Component {
 
   showTools() {
     if(this.state.loaded) {
+
+      let source = 'ordering';
+
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} source={'ordering'} />
+          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} source={source} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} source={'ordering'} />
+          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} source={source} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} source={'ordering'} />
+          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} source={source} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
     }
-  }
-
-  componentDidMount() {
-    this.get();
   }
 
   render() {

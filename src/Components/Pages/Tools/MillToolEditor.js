@@ -6,8 +6,8 @@ import Endmill from './SVGs/Endmill';
 import Drill from './SVGs/Drill';
 
 class MillToolEditor extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 		this.state = {
       diameter: false,
 			editable: false,
@@ -167,6 +167,29 @@ class MillToolEditor extends Component {
     }
   }
 
+  toolChoices = [
+    { value: 'Endmill', children: 'Endmill' },
+    { value: 'Drill', children: 'Drill' },
+    { value: 'Spot Drill', children: 'Spot Drill' },
+    { value: 'Chamfer Mill', children: 'Chamfer Mill'},
+    { value: 'Center Drill', children: 'Center Drill' },
+    { value: 'Reamer', children: 'Reamer' },
+    { value: 'Key Cutter', children: 'Key Cutter' },
+    { value: 'Face Mill', children: 'Face Mill' },
+    { value: 'Dove Mill', children: 'Dove Mill' },
+    { value: 'Tap', children: 'Tap' },
+    { value: 'Inserts', children: 'Inserts' },
+    { value: 'Other', children: 'Other' }
+  ];
+
+  materialChoices = [
+    { value: 'Carbide', children: 'Carbide' },
+    { value: 'Cobalt', children: 'Cobalt' },
+    { value: 'High Speed Steel', children: 'High Speed Steel' },
+    { value: 'Coated Carbide', children: 'Coated Carbide' },
+    { value: 'Other', children: 'Other' }
+  ];
+
   viewInfo() {
   	if(!this.state.editable) {
   		return <div onClick={this.toggleEdit} className='tool-data'>
@@ -259,20 +282,7 @@ class MillToolEditor extends Component {
           type={'select'}
           output={this.props.output}
           name={'tool_type'}
-          properties={[
-            { value: 'Endmill', children: 'Endmill' },
-            { value: 'Drill', children: 'Drill' },
-            { value: 'Spot Drill', children: 'Spot Drill' },
-            { value: 'Chamfer Mill', children: 'Chamfer Mill'},
-            { value: 'Center Drill', children: 'Center Drill' },
-            { value: 'Reamer', children: 'Reamer' },
-            { value: 'Key Cutter', children: 'Key Cutter' },
-            { value: 'Face Mill', children: 'Face Mill' },
-            { value: 'Dove Mill', children: 'Dove Mill' },
-            { value: 'Tap', children: 'Tap' },
-            { value: 'Inserts', children: 'Inserts' },
-            { value: 'Other', children: 'Other' }
-          ]}
+          properties={this.toolChoices}
           onClick={this.showTool} />
         <EditableItem
           header={'Description: '}
@@ -303,13 +313,7 @@ class MillToolEditor extends Component {
           output={this.props.output}
           classes={(this.toolProps('material').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
           name={'material'}
-          properties={[
-            { value: 'Carbide', children: 'Carbide' },
-            { value: 'Cobalt', children: 'Cobalt' },
-            { value: 'High Speed Steel', children: 'High Speed Steel' },
-            { value: 'Coated Carbide', children: 'Coated Carbide' },
-            { value: 'Other', children: 'Other' }
-          ]}
+          properties={this.materialChoices}
           onClick={this.showTool} />
         <EditableItem
           header={'Flutes: '}
