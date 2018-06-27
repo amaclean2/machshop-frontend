@@ -8,9 +8,12 @@ import fluxStore from '../../Flux/fluxStore';
 class EditableItem extends Component {
   constructor(props) {
     super(props)
+
+    let value = fluxStore.getFormValue(this.props.name) ? fluxStore.getFormValue(this.props.name) : '';
+
     this.state = {
       loaded: false,
-      value: this.props.value !== '' ? this.props.value : '',
+      value: value,
       thisValue: this.props.properties && this.props.properties[this.props.name]
     }
     this.makeSelect=this.makeSelect.bind(this);
@@ -28,9 +31,9 @@ class EditableItem extends Component {
       let optionList = this.props.properties;
       return (
         <Select
-          output={this.props.output}
+          output={this.change}
           name={this.props.name}
-          value={(this.state.value ? this.state.value : this.props.header.slice(0, -2))}
+          value={this.state.value}
           classes={'form-select'}
           data={optionList} />
         )
@@ -60,11 +63,13 @@ class EditableItem extends Component {
   }
 
   change(e) {
-    this.setState({ value: e.target.value });
     let newObject = {};
     newObject[e.target.name] = e.target.value;
-    fluxActions.changeForm(newObject);
-    this.props.change(e);
+    fluxActions.updateForm(newObject);
+
+    console.log(this.state.value);
+
+    this.setState({ value: fluxStore.getFormValue(this.props.name) });
   }
 
   makeMoney(e) {
@@ -86,10 +91,10 @@ class EditableItem extends Component {
         return <input
                   type='text'
                   className={'editable-input'}
-                  onChange={this.changeNumber}
+                  onChange={this.change}
                   placeholder={this.props.header.slice(0, -2)}
-                  name={this.props.name}
-                  value={this.state.value} />
+                  value={this.state.value}
+                  name={this.props.name} />
 
       case 'math' :
         return (
@@ -99,8 +104,8 @@ class EditableItem extends Component {
               placeholder={this.props.header.slice(0, -2)}
               onBlur={this.makeMath}
               name={this.props.name}
-              onChange={this.change}
-              value={this.state.value} />
+              value={this.state.value}
+              onChange={this.change} />
             <span className="input-hard-text">{this.props.units}</span>
           </div>);
       case 'phone' :
@@ -108,25 +113,25 @@ class EditableItem extends Component {
           <input
             type='text'
             placeholder={this.props.header.slice(0, -2)}
-            onChange={this.makePhone}
-            name={this.props.name}
-            value={this.state.value} />
+            onChange={this.change}
+            value={this.state.value}
+            name={this.props.name} />
         </div>)
       case 'textOnly' :
         return <input
               type='text'
               placeholder={this.props.header.slice(0, -2)}
               name={this.props.name}
-              onChange={this.changeText}
-              value={this.state.value} />;
+              value={this.state.value}
+              onChange={this.change} />;
       case 'date' :
         return <input
                   type='date'
                   className={'editable-input'}
                   onChange={this.change}
+                  value={this.state.value}
                   placeholder={this.props.header.slice(0, -2)}
-                  name={this.props.name}
-                  value={this.state.value} />
+                  name={this.props.name} />
 
       case 'select' :
         return this.makeSelect()
@@ -139,8 +144,8 @@ class EditableItem extends Component {
             placeholder='Price'
             onBlur={this.makeMoney}
             name={this.props.name}
-            onChange={this.changeNumber}
-            value={this.state.value} />
+            value={this.state.value}
+            onChange={this.change} />
         </div>;
 
       case 'size' :
@@ -149,25 +154,25 @@ class EditableItem extends Component {
                 className={'editable-input'}
                 onChange={this.change}
                 onBlur={this.checkSize}
+                value={this.state.value}
                 placeholder={this.props.header.slice(0, -2)}
-                name={this.props.name}
-                value={this.state.value} />;
+                name={this.props.name} />;
 
       case 'textArea' :
         return <textarea
                 className='editable-input'
                 onChange={this.change}
-                name={this.props.name}
-                value={this.state.value}>
+                value={this.state.value}
+                name={this.props.name}>
               </textarea>;
       default :
         return <input
                 type='text'
                 className={'editable-input'}
                 onChange={this.change}
+                value={this.state.value}
                 placeholder={this.props.header.slice(0, -2)}
-                name={this.props.name}
-                value={this.state.value} />
+                name={this.props.name} />
 
     }
   }
@@ -175,7 +180,7 @@ class EditableItem extends Component {
   render() {
     let type = this.showType();
     return (
-      <span className={'line-item editable ' + this.props.classes} onClick={this.props.onClick} onFocus={this.props.onClick} >
+      <span className={'line-item editable ' + this.props.classes} onClick={this.props.onClick} onFocus={this.props.onClick} id="EditableItem">
         <span className='display' >{this.props.header}</span>
         {type}
       </span>

@@ -274,7 +274,7 @@ class App extends Component {
   render() {
     let login = this.login();
     return (
-      <div className="App">
+      <div className="App" id="App">
         {login}
       </div>
     );

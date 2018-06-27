@@ -37,7 +37,7 @@ class HomePage extends Component {
 
 	primaryContent() {
 		return (
-			<div> 
+			<div id="HomePage"> 
 				<Header tabs={this.state.tabs} logout={this.props.logout} title={this.props.title} />
 				<div className="page-content">
 					<Route exact path='/' component={Ordering} />

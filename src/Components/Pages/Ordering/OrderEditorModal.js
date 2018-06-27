@@ -20,7 +20,6 @@ class OrderEditorModal extends Component {
       redirect: false,
       readyToBuy: false
 		}
-    this.change=this.change.bind(this);
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
     this.output=this.output.bind(this);
@@ -41,14 +40,6 @@ class OrderEditorModal extends Component {
 
   cancelPurchase() {
     this.setState({ readyToBuy: false});
-  }
-
-  change(e) {
-    let toolData = this.state.data.tool_data;
-    toolData[e.target.name] = e.target.value;
-    if(e.target.name === 'diameter' ) {
-      toolData.undercut_width = e.target.value;
-    }
   }
 
   buyTool() {
@@ -180,37 +171,34 @@ class OrderEditorModal extends Component {
       if(this.state.machine === 'mill')
         return <MillToolEditor 
                 viewerMode={this.state.viewerMode}
-                toolData={this.state.data.tool_data} 
+                toolData={this.state.data} 
                 toolId={this.state.toolId} 
                 readyToBuy={this.state.readyToBuy}
                 cancel={this.cancelPurchase}
                 save={this.save}
                 order={true}
-                change={this.change} 
                 buyTool={this.buyTool}
                 output={this.output} />
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor  
                 readyToBuy={this.state.readyToBuy}
-                toolData={this.state.data.tool_data} 
+                toolData={this.state.data} 
                 viewerMode={this.state.viewerMode}
                 cancel={this.cancelPurchase}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
-                change={this.change}
                 buyTool={this.buyTool}
                 output={this.output} />
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 readyToBuy={this.state.readyToBuy}
-                toolData={this.state.data.tool_data}
+                toolData={this.state.data}
                 viewerMode={this.state.viewerMode} 
                 cancel={this.cancelPurchase}
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
-                change={this.change}
                 buyTool={this.buyTool}
                 output={this.output} />
     }
@@ -232,7 +220,7 @@ class OrderEditorModal extends Component {
     let station = this.stationSelector();
 
     return (
-    	<div>
+    	<div id="OrderEditorModal">
         <div className="sidenav-background"></div>
         <div className="modal-container">
           <div className="modal-content editor">

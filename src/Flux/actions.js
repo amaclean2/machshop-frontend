@@ -29,9 +29,9 @@ export function deleteOrder(id, category) {
 	});
 };
 
-export function changeForm(newProperty) {
+export function updateForm(newProperty) {
 	dispatcher.dispatch({
-		type: 'CHANGE_FORM',
+		type: 'UPDATE_FORM',
 		property: newProperty
 	})
 }

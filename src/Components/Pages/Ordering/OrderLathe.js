@@ -13,7 +13,7 @@ class OrderLathe extends Component {
 
   render() {
     return (
-    	<div className='order-lathe'>
+    	<div className='order-lathe' id="OrderLathe">
         <Table
           addText={this.props.source === 'stock' ? 'add a new tool' : 'request a new tool'}
           noAdd={this.props.noAdd}

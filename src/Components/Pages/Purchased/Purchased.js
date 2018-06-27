@@ -74,7 +74,7 @@ class Purchased extends Component {
     let toolEditorModal = this.generateEditorModal();
 
     return (
-      <div>
+      <div id="Purchased">
         {toolEditorModal}
         <div className='toggle toggle-smaller'>
             <div onClick={() => {this.toggle('mill') }} className={(this.props.category === 'mill' ? 'toggled' : '')}>

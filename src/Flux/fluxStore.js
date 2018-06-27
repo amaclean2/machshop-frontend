@@ -86,13 +86,25 @@ class FluxStore extends EventEmitter {
 			return tool._id === toolId;
 		});
 
-		this.store.form = returnTool
+		for (var dataItem in returnTool.tool_data) {
+			returnTool[dataItem] = returnTool.tool_data[dataItem];
+		}
+
+		delete returnTool.tool_data;
+
+		this.store.form = returnTool;
 
 		return returnTool;
 	}
 
-	changeFormItem(property) {
-		console.log(property);
+	getFormValue(location) {
+		return this.store.form[location];
+	}
+
+	updateFormItem(property) {
+		for( var name in property ) {
+			this.store.form[name] = property[name];
+		}
 	}
 
 	getOrdering(category) {
@@ -174,7 +186,6 @@ class FluxStore extends EventEmitter {
 	}
 
 	handleActions(action) {
-		console.log('recieved an action', action);
 		switch(action.type) {
 			case 'SET_INFO' :
 				this.setUserInfo(action.position);
@@ -188,8 +199,8 @@ class FluxStore extends EventEmitter {
 			case 'DELETE_ORDER' :
 				this.deleteOrder(action.id, action.category);
 				break;
-			case 'CHANGE_FORM' :
-				this.changeFormItem(action.property);
+			case 'UPDATE_FORM' :
+				this.updateFormItem(action.property);
 				break;
 			default :
 				break;

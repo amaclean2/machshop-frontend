@@ -99,7 +99,7 @@ class Table extends Component {
   	let columnNames = this.columnNames();
   	let rows = this.rows();
     return (
-    	<div>
+    	<div id="Table">
     		<div className="table-top">
     			<div className={this.props.noAdd ? 'gone' : ''}>
     				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>{this.props.addText ? this.props.addText : 'add'}</button>
