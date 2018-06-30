@@ -97,6 +97,10 @@ class FluxStore extends EventEmitter {
 		return returnTool;
 	}
 
+	viewForm() {
+		return this.store.form;
+	}
+
 	getFormValue(location) {
 		return this.store.form[location];
 	}
@@ -105,6 +109,11 @@ class FluxStore extends EventEmitter {
 		for( var name in property ) {
 			this.store.form[name] = property[name];
 		}
+		this.emit('changeForm');
+	}
+
+	resetForm() {
+		this.store.form = {};
 	}
 
 	getOrdering(category) {
@@ -164,6 +173,7 @@ class FluxStore extends EventEmitter {
 	sendOrder(body, category) {
 
 		body.company_id = this.store.user.company_id;
+		body.created_at = new Date().getTime();
 
 		fetch(this.store.url + '/shopping/' + category, {
 			method: 'POST',
@@ -174,6 +184,33 @@ class FluxStore extends EventEmitter {
 		}).then( data => {
 			this.populateOrdering();
 		})
+	}
+
+	editOrder(body, category) {
+		body.company_id = body.tool_data.company_id;
+		delete body.tool_data.company_id;
+
+		body._id = body.tool_data._id;
+		delete body.tool_data._id;
+
+		body.user = body.tool_data.user;
+		delete body.tool_data.user;
+
+		body.created_at = body.tool_data.created_at;
+		delete body.tool_data.created_at;
+
+		let url = this.store.url + '/shopping/' + category + '/' + body._id,
+			request = new Request(url, {
+				method: 'PUT',
+				headers: new Headers({'Content-Type': 'application/json'}),
+				body: JSON.stringify(body)
+			} )
+
+		fetch(request).then( response => {
+			return response.json();
+		}).then( data => {
+			this.populateOrdering();
+		});
 	}
 
 	deleteOrder(id, category) {
@@ -196,12 +233,17 @@ class FluxStore extends EventEmitter {
 			case 'NEW_ORDER' :
 				this.sendOrder(action.body, action.category);
 				break;
+			case 'EDIT_ORDER' :
+				this.editOrder(action.body, action.category);
+				break;
 			case 'DELETE_ORDER' :
 				this.deleteOrder(action.id, action.category);
 				break;
 			case 'UPDATE_FORM' :
 				this.updateFormItem(action.property);
 				break;
+			case 'RESET_FORM' :
+				this.resetForm();
 			default :
 				break;
 		}

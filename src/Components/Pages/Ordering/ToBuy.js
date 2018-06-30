@@ -35,7 +35,11 @@ class ToBuy extends Component {
   }
 
   toggleModal(toolId) {
-    this.setState({ toolId: toolId, editing: !this.state.editing });
+    if(toolId) {
+      this.setState({ toolId: toolId, editing: !this.state.editing });
+    } else {
+      this.setState({ editing: !this.state.editing });
+    }
   }
 
   generateEditorModal() {
@@ -44,8 +48,7 @@ class ToBuy extends Component {
               id={this.state.toolId}
               machine={this.props.category}
               toggleModal={this.toggleModal}
-              toggleBig={this.props.toggleBig}
-              triggerUpdate={this.get} />;
+              toggleBig={this.props.toggleBig} />;
     } else {
       return '';
     }

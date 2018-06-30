@@ -28,21 +28,25 @@ class Select extends Component {
     }
   }
 
-  makeSelect() {
+  makeSelect(props) {
     let data;
-    if(this.props.data) {
-      data = this.props.data;
+    if(props.data) {
+      data = props.data;
     } else {
-      data = this.props.children.props.children.map( child => {
+      data = props.children.props.children.map( child => {
         return child.props;
       });
     }
-    this.setState({ data, chosen: (this.props.value ? { value: this.props.value, children: this.props.value } : data[0]) });
+    this.setState({ data, chosen: (props.value ? { value: props.value, children: props.value } : data[0]) });
   }
 
   componentDidMount() {
     this.getClasses();
-    this.makeSelect();
+    this.makeSelect(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.makeSelect(props);
   }
 
   selectItem(value) {

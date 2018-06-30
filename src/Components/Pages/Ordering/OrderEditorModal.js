@@ -22,7 +22,6 @@ class OrderEditorModal extends Component {
 		}
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
-    this.output=this.output.bind(this);
     this.post=this.post.bind(this);
     this.put=this.put.bind(this);
     this.save=this.save.bind(this);
@@ -44,42 +43,29 @@ class OrderEditorModal extends Component {
 
   buyTool() {
 
-    let toolData = this.state.data.tool_data;
+    let toolData = fluxStore.viewForm();
     toolData.shopping = false;
     toolData.purchased = true;
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId , {
-      method: 'PUT',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData,
-        created_at: this.state.data.created_at
-      })
-    });
+    let body = {
+      tool_data: toolData,
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate();
-      this.props.toggleModal('0');
-      this.props.toggleBig({target: {id: 'purchased'}});
-    });
+    }, machine = this.state.machine;
+
+    fluxActions.editOrder( body, machine );
+
+    this.props.toggleModal();
+    this.props.toggleBig({ target: { id: 'purchased' }});
   }
 
   delete() {
 
     fluxActions.deleteOrder(this.props.id, this.props.machine);
+    this.toggleDeleteModal();
   }
 
   componentWillMount() {
-    fluxStore.on('change', () => {
-      this.toggleDeleteModal();
-      this.props.toggleModal('0');
-    })
+    fluxActions.resetForm();
   }
 
 	get() {
@@ -88,15 +74,9 @@ class OrderEditorModal extends Component {
 
   }
 
-  output(value, name) {
-    let toolData = this.state.data.tool_data;
-    toolData[name] = value;
-    this.setViewerMode();
-  }
-
   post() {
 
-    let toolData = this.state.data.tool_data;
+    let toolData = fluxStore.viewForm();
     toolData.shopping = true;
     toolData.purchased = false;
 
@@ -106,34 +86,23 @@ class OrderEditorModal extends Component {
       }, machine = this.state.machine;
 
 
-    fluxActions.addOrder( body , machine );
+    fluxActions.addOrder( body, machine );
+    this.props.toggleModal();
 
   }
 
   put() {
 
-    let toolData = this.state.data.tool_data;
+    let toolData = fluxStore.viewForm();
     toolData.shopping = true;
     toolData.purchased = false;
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId , {
-      method: 'PUT',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData,
-        created_at: this.state.data.created_at
-      })
-    });
+    let body = {
+      tool_data: toolData,
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate();
-    });
+    }, machine = this.state.machine;
+
+    fluxActions.editOrder( body, machine );
   }
 
   save() {
@@ -177,8 +146,7 @@ class OrderEditorModal extends Component {
                 cancel={this.cancelPurchase}
                 save={this.save}
                 order={true}
-                buyTool={this.buyTool}
-                output={this.output} />
+                buyTool={this.buyTool}/>
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor  
                 readyToBuy={this.state.readyToBuy}
@@ -188,8 +156,7 @@ class OrderEditorModal extends Component {
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
-                buyTool={this.buyTool}
-                output={this.output} />
+                buyTool={this.buyTool}/>
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 readyToBuy={this.state.readyToBuy}
@@ -199,8 +166,7 @@ class OrderEditorModal extends Component {
                 toolId={this.state.toolId} 
                 save={this.save} 
                 order={true}
-                buyTool={this.buyTool}
-                output={this.output} />
+                buyTool={this.buyTool}/>
     }
   }
 

@@ -5,6 +5,9 @@ import LatheToolEditor from '../Tools/LatheToolEditor';
 import OtherToolEditor from '../Tools/OtherToolEditor';
 import DeleteModal from '../../Main/DeleteModal';
 
+import * as fluxActions from '../../../Flux/actions';
+import fluxStore from '../../../Flux/fluxStore';
+
 class PurchasedEditorModal extends Component {
 	constructor(props) {
 		super(props)
@@ -18,10 +21,9 @@ class PurchasedEditorModal extends Component {
       redirect: false,
       readyToBuy: false
 		}
-    this.change=this.change.bind(this);
+
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
-    this.output=this.output.bind(this);
     this.put=this.put.bind(this);
     this.save=this.save.bind(this);
     this.setViewerMode=this.setViewerMode.bind(this);
@@ -32,14 +34,6 @@ class PurchasedEditorModal extends Component {
     this.cancelPurchase=this.cancelPurchase.bind(this);
 	}
 
-  change(e) {
-    let toolData = this.state.data.tool_data;
-    toolData[e.target.name] = e.target.value;
-    if(e.target.name === 'diameter' ) {
-      toolData.undercut_width = e.target.value;
-    }
-  }
-
   confirmPurchase() {
     this.setState({readyToBuy: true});
   }
@@ -48,93 +42,49 @@ class PurchasedEditorModal extends Component {
     this.setState({ readyToBuy: false});
   }
 
+  get() {
+    this.setState({ data: fluxStore.getForm(this.props.machine, this.props.id), loaded: true });
+  }
+
   receiveTool() {
-    let toolData = this.state.data.tool_data;
+
+    let toolData = fluxStore.viewForm();
     toolData.shopping = false;
     toolData.purchased = false;
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId, {
-      method: 'PUT',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData,
-        created_at: this.state.data.created_at
-      })
-    });
+    let body = {
+      tool_data: toolData,
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate();
-      this.props.toggleModal('0');
-      this.props.toggleBig({target: {id: 'shipped'}});
-    });
+    }, machine = this.state.machine;
+
+    fluxActions.editOrder( body, machine );
+
+    this.props.toggleModal();
+    this.props.toggleBig({ target: { id: 'purchased' }});
+  }
+
+  componentWillMount() {
+    fluxActions.resetForm();
   }
 
   delete() {
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId, {
-      method: 'DELETE'
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate('refresh');
-    });
-  }
-
-	get() {
-
-    let url = sessionStorage.getItem('user').split(',')[2],
-        id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/shopping/' + this.state.machine + '/' + this.state.toolId + '?company_id=' + id, {
-      method: 'GET'
-    });
-
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-    this.setState({ data: data, loaded: true});
-    })
-
-  }
-
-  output(value, name) {
-    let toolData = this.state.data.tool_data;
-    toolData[name] = value;
-    this.setViewerMode();
+    fluxActions.deleteOrder(this.props.id, this.props.machine);
+    this.toggleDeleteModal();
   }
 
   put() {
 
-    let toolData = this.state.data.tool_data;
+    let toolData = fluxStore.viewForm();
     toolData.shopping = false;
     toolData.purchased = true;
 
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.machine,
-        request = new Request(url + '/shopping/' + machine + '/' + this.state.toolId , {
-      method: 'PUT',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: toolData,
-        created_at: this.state.data.created_at
-      })
-    });
+    let body = {
+      tool_data: toolData,
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.props.triggerUpdate();
-    });
+    }, machine = this.state.machine;
+
+    fluxActions.editOrder( body, machine );
   }
 
   save() {
@@ -170,40 +120,34 @@ class PurchasedEditorModal extends Component {
                 readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
                 viewerMode={this.state.viewerMode}
-                toolData={this.state.data.tool_data} 
+                toolData={this.state.data} 
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
-                change={this.change} 
                 buyTool={this.receiveTool}
-                cancel={this.cancelPurchase}
-                output={this.output} />
+                cancel={this.cancelPurchase}/>
       else if(this.state.machine === 'lathe')
         return <LatheToolEditor 
                 readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
-                toolData={this.state.data.tool_data} 
+                toolData={this.state.data} 
                 viewerMode={this.state.viewerMode}
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
-                change={this.change}
                 buyTool={this.receiveTool}
-                cancel={this.cancelPurchase}
-                output={this.output} />
+                cancel={this.cancelPurchase}/>
       else if(this.state.machine === 'other')
         return <OtherToolEditor 
                 readyToBuy={this.state.readyToBuy}
                 count={this.state.count} 
-                toolData={this.state.data.tool_data}
+                toolData={this.state.data}
                 viewerMode={this.state.viewerMode} 
                 toolId={this.state.toolId} 
                 save={this.save}
                 order={true}
-                change={this.change}
                 buyTool={this.receiveTool}
-                cancel={this.cancelPurchase}
-                output={this.output} />
+                cancel={this.cancelPurchase} />
     }
   }
 

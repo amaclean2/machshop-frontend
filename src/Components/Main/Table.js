@@ -47,7 +47,7 @@ class Table extends Component {
 
 			this.state.headers.forEach( search => {
 				if(search.searchable) {
-					searchable += row[search.dataPoint].toLowerCase() + ' ';
+					searchable += row[search.dataPoint] ? row[search.dataPoint].toLowerCase() + ' ' : '';
 				}
 			});
 

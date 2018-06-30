@@ -21,6 +21,14 @@ export function addOrder(body, category) {
 	});
 };
 
+export function editOrder(body, category) {
+	dispatcher.dispatch({
+		type: 'EDIT_ORDER',
+		body: body,
+		category: category
+	});
+};
+
 export function deleteOrder(id, category) {
 	dispatcher.dispatch({
 		type: 'DELETE_ORDER',
@@ -33,5 +41,11 @@ export function updateForm(newProperty) {
 	dispatcher.dispatch({
 		type: 'UPDATE_FORM',
 		property: newProperty
+	})
+}
+
+export function resetForm() {
+	dispatcher.dispatch({
+		type: 'RESET_FORM'
 	})
 }

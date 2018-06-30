@@ -135,7 +135,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;
@@ -197,7 +197,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;
@@ -253,7 +253,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;
@@ -283,7 +283,8 @@ let headers = {
 				title: 'Material',
 				dataPoint: 'material',
 				sortable: true,
-				link: false
+				link: false,
+				searchable: true
 			},{
 				title: 'EDP Number',
 				dataPoint: 'edp',
@@ -314,7 +315,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;
@@ -370,7 +371,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;
@@ -420,7 +421,7 @@ let headers = {
 					if(i) {
 						var a = new Date(i),
 							year = a.getFullYear(),
-							month = a.getMonth(),
+							month = a.getMonth() + 1,
 							day = a.getDate();
 
 						return month + '-' + day + '-' + year;

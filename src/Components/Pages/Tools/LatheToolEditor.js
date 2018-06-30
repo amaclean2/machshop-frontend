@@ -3,6 +3,7 @@ import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
 import Endmill from './SVGs/Endmill';
 import Drill from './SVGs/Drill';
+import fluxStore from '../../../Flux/fluxStore';
 
 class LatheToolEditor extends Component {
 	constructor(props) {
@@ -19,7 +20,6 @@ class LatheToolEditor extends Component {
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
-    this.fillWithBlanks=this.fillWithBlanks.bind(this);
     this.cancel=this.cancel.bind(this);
 	}
 
@@ -260,26 +260,9 @@ class LatheToolEditor extends Component {
   	}
   }
 
-  fillWithBlanks() {
-
-    this.props.change({ target: { name: 'tool_type', value: 'Drill' }});
-    this.props.change({ target: { name: 'diameter', value: '' }});
-    this.props.change({ target: { name: 'material', value: 'Cobalt' }});
-    this.props.change({ target: { name: 'tip_angle', value: '' }});
-    this.props.change({ target: { name: 'flute_length', value: '' }});
-    this.props.change({ target: { name: 'tool_length', value: '' }});
-    this.props.change({ target: { name: 'insert', value: '' }});
-    this.props.change({ target: { name: 'description', value: '' }});
-    this.props.change({ target: { name: 'notes', value: '' }});
-    this.props.change({ target: { name: 'count', value: '1' }});
-    this.props.change({ target: { name: 'price', value: '' }});
-    this.props.change({ target: { name: 'location', value: ''}});
-  }
-
 	componentDidMount() {
     if(this.props.toolId === '0') {
       this.setState({ editable: true });
-      this.fillWithBlanks();
     }
 	}
 

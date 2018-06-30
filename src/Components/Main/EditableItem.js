@@ -43,31 +43,27 @@ class EditableItem extends Component {
   }
 
   checkSize(e) {
-    e = InputRules.checkSize.format(e, this.change);
+    e = InputRules.checkSize.format(e);
   }
 
   changeText(e) {
-    e = InputRules.textOnly.format(e, this.change);
+    e = InputRules.textOnly.format(e);
   }
 
   changeNumber(e) {
-    e = InputRules.number.format(e, this.change);
+    e = InputRules.number.format(e);
   }
 
   makePhone(e) {
-    e = InputRules.phone.format(e, this.change);
+    e = InputRules.phone.format(e);
   }
 
   makeMath(e) {
-    e = InputRules.math.format(e, this.change);
+    e = InputRules.math.format(e);
   }
 
   change(e) {
-    let newObject = {};
-    newObject[e.target.name] = e.target.value;
-    fluxActions.updateForm(newObject);
-
-    console.log(this.state.value);
+    InputRules.change(e);
 
     this.setState({ value: fluxStore.getFormValue(this.props.name) });
   }
@@ -76,13 +72,10 @@ class EditableItem extends Component {
     e = InputRules.makeMoney.format(e, this.change);
   }
 
-  componentWillReceiveProps(props) {
-    switch(props.name) {
-      case 'undercut_width' :
-        let data = InputRules.fields.undercutWidth.format(props),
-            value = data.data.undercut_width;
-        this.setState({ value });
-    }
+  componentWillMount() {
+    fluxStore.on('changeForm', () => {
+      this.setState({ value: fluxStore.getFormValue(this.props.name), loaded: true});
+    });
   }
 
   showType() {
@@ -92,6 +85,7 @@ class EditableItem extends Component {
                   type='text'
                   className={'editable-input'}
                   onChange={this.change}
+                  onBlur={this.changeNumber}
                   placeholder={this.props.header.slice(0, -2)}
                   value={this.state.value}
                   name={this.props.name} />
@@ -163,6 +157,7 @@ class EditableItem extends Component {
                 className='editable-input'
                 onChange={this.change}
                 value={this.state.value}
+                placeholder={this.props.header.slice(0, -2)}
                 name={this.props.name}>
               </textarea>;
       default :

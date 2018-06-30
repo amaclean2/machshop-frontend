@@ -1,8 +1,10 @@
 import DrillSizes from './DrillSizes';
+import * as fluxActions from '../../Flux/actions';
+import fluxStore from '../../Flux/fluxStore';
 
 let InputRules = {
 	number: {
-		format: (e, callback) => {
+		format: (e) => {
 			let number = e.target.value;
 		    number = number.replace(/[^0-9.]/g, '');
 
@@ -11,11 +13,11 @@ let InputRules = {
 		    }
 		    e.target.value = number;
 		    
-		    callback(e);
+		    change(e);
 		} 
 	},
 	math: {
-		format: (e, callback) => {
+		format: (e) => {
 			let string = e.target.value;
 
 			string = string.toString();
@@ -72,11 +74,11 @@ let InputRules = {
 
 			e.target.value = finished;
 
-			callback(e);
+			change(e);
 		}
 	},
 	phone: {
-		format: (e, callback) => {
+		format: (e) => {
 			let number = e.target.value;
 			number = number.replace(/[^0-9()\- ]/g, '');
 
@@ -90,26 +92,26 @@ let InputRules = {
 
 			e.target.value = number;
 
-			callback(e);
+			change(e);
 		}
 	},
 	textOnly: {
-		format: (e, callback) => {
+		format: (e) => {
 			e.target.value = e.target.value.replace(/[^A-z`' ]/g, '');
 
-			callback(e);
+			change(e);
 		}
 	},
 	makeMoney: {
-		format: (e, callback) => {
+		format: (e) => {
 			let price = Number(e.target.value);
     		e.target.value = price.toFixed(2);
 
-    		callback(e);
+    		change(e);
 		}
 	},
 	checkSize: {
-		format: (e, callback) => {
+		format: (e) => {
 			let preVal = e.target.value;
 
     		// this.makeMath(e);
@@ -121,20 +123,62 @@ let InputRules = {
     		if(val) e.target.value = val.size;
     		else e.target.value = preVal;
 
-    		callback(e);
+    		change(e);
 		}
 	},
-	fields: {
-		undercutWidth: {
-			format: props => {
-				if(props.data.tool_type === 'Endmill' && props.data.diameter !== '') {
-					props.data.undercut_width = props.data.diameter;
-					console.log(props);
-				} 
-				return props;
-			}
+	fields: (e) => {
+		switch(e.target.name) {
+			case 'tool_type' :
+				switch(e.target.value) {
+					case 'Endmill' :
+						fluxActions.updateForm({
+							material: 'Carbide',
+							undercut_width: '0',
+							undercut_length: '0' });
+						break;
+					case 'Drill' :
+						fluxActions.updateForm({ 
+							material: 'Cobalt', 
+							tip_angle: '118',
+							undercut_width: '0',
+							undercut_length: '0'  });
+					case 'Spot Drill' :
+						fluxActions.updateForm({
+							flutes: '2'
+						})
+					default :
+						return;
+				}
+				break;
+			case 'diameter' :
+				if(fluxStore.getFormValue('diameter') !== '') {
+					fluxActions.updateForm({undercut_width: fluxStore.getFormValue('diameter')});
+				}
+				break;
+			case 'size' :
+				let drill = DrillSizes.find( item => { return item.size === e.target.value; })
+				if(drill) {
+					let newProps = {
+						diameter: drill.diameter,
+						flute_length: drill.flute_length,
+						tool_length: drill.oal_length
+					};
+					fluxActions.updateForm( newProps );
+				}
+				break;
 		}
+	},
+	change: function(e) {
+		change(e);
 	}
+}
+
+let change = e => {
+	let newObject = {};
+    newObject[e.target.name] = e.target.value;
+    fluxActions.updateForm(newObject);
+
+    InputRules.fields(e);
 }
 
 export default InputRules;

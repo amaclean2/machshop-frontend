@@ -168,6 +168,7 @@ class MillToolEditor extends Component {
   }
 
   toolChoices = [
+    { value: 'Tool Type', children: 'Tool Type'},
     { value: 'Endmill', children: 'Endmill' },
     { value: 'Drill', children: 'Drill' },
     { value: 'Spot Drill', children: 'Spot Drill' },
@@ -183,12 +184,17 @@ class MillToolEditor extends Component {
   ];
 
   materialChoices = [
+    { value: 'Tool Material', children: 'Tool Material'},
     { value: 'Carbide', children: 'Carbide' },
     { value: 'Cobalt', children: 'Cobalt' },
     { value: 'High Speed Steel', children: 'High Speed Steel' },
     { value: 'Coated Carbide', children: 'Coated Carbide' },
     { value: 'Other', children: 'Other' }
   ];
+
+  showItem(property) {
+    return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone'
+  }
 
   viewInfo() {
   	if(!this.state.editable) {
@@ -199,59 +205,59 @@ class MillToolEditor extends Component {
         <DescriptionItem
           header={'Description: '}
           value={'description'} 
-          classes={(this.toolProps('description').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('description')}/>
         <DescriptionItem
           header={'Size: '}
           value={'size'}
-          classes={(this.toolProps('size').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('size')}/>
         <DescriptionItem
           header={'Diameter: '}
           value={'diameter'}
-          classes={(this.toolProps('diameter').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('diameter')}
           units={'inches'}/>
         <DescriptionItem
           header={'Material: '}
-          classes={(this.toolProps('material').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('material')}
           value={'material'} />
         <DescriptionItem
           header={'Flutes: '}
           value={'flutes'}
-          classes={(this.toolProps('flutes').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('flutes')}/>
         <DescriptionItem
           header={this.props.toolData.tool_type === 'Dove Mill' ? 'Angle: ' : 'Tip Angle: '}
           value={'tip_angle'}
-          classes={(this.toolProps('tip_angle').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('tip_angle')}
           units={'degrees'}/>
         <DescriptionItem
           header={'Flute Length: '}
           value={'flute_length'}
-          classes={(this.toolProps('flute_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('flute_length')}
           units={'inches'}/>
         <DescriptionItem
           header={'Corner Radius: '}
           value={'corner_radius'}
           units={'inches'}
-          classes={(this.toolProps('corner_radius').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('corner_radius')}/>
         <DescriptionItem
           header={'Tool Length: '}
           value={'tool_length'}
-          classes={(this.toolProps('tool_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('tool_length')}
           units={'inches'} />
         <DescriptionItem
           header={this.props.toolData.tool_type === 'Inserts' ? 'Thickness: ' : 'Cutting Height: '}
           value={'cutting_height'}
-          classes={(this.toolProps('cutting_height').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('cutting_height')}
           units={'inches'} />
         <DescriptionItem
           header={'Relief Width: '}
           value={'undercut_width'}
           units={'inches'}
-          classes={(this.toolProps('relief_width').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('relief_width')}/>
         <DescriptionItem
           header={'Relief Length: '}
           value={'undercut_length'}
           units={'inches'}
-          classes={(this.toolProps('relief_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}/>
+          classes={this.showItem('relief_length')}/>
         <DescriptionItem
           header={'EDP Number: '}
           value={'edp'} />
@@ -286,13 +292,11 @@ class MillToolEditor extends Component {
           onClick={this.showTool} />
         <EditableItem
           header={'Description: '}
-          classes={(this.toolProps('description').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
-          data={this.props.toolData}
+          classes={this.showItem('description')}
           name={'description'} />
         <EditableItem
           header={'Size: '}
-          classes={(this.toolProps('size').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
-          data={this.props.toolData}
+          classes={this.showItem('size')}
           name={'size'}
           type={'size'}
           onClick={this.showTool} />
@@ -300,72 +304,67 @@ class MillToolEditor extends Component {
           type={'math'}
           units={'inches'}
           header={'Diameter: '}
-          data={this.props.toolData}
-          classes={(this.toolProps('diameter').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('diameter')}
           name={'diameter'}
           onClick={this.showTool} />
         <EditableItem
           header={'Material: '}
           type={'select'}
           output={this.props.output}
-          classes={(this.toolProps('material').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('material')}
           name={'material'}
           properties={this.materialChoices}
           onClick={this.showTool} />
         <EditableItem
           header={'Flutes: '}
-          classes={(this.toolProps('flutes').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('flutes')}
           name={'flutes'}
           type='number'
           onClick={this.showTool} />
         <EditableItem
-          classes={(this.toolProps('tip_angle').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('tip_angle')}
           header={this.props.toolData.tool_type === 'Dove Mill' ? 'Angle: ' : 'Tip Angle: '}
           name={'tip_angle'}
-          data={this.props.toolData}
           units={'degrees'}
           type='math'
           onClick={this.showTool} />
         <EditableItem
           header={'Flute Length: '}
-          classes={(this.toolProps('flute_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
-          data={this.props.toolData}
+          classes={this.showItem('flute_length')}
           name={'flute_length'}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Corner Radius: '}
-          classes={(this.toolProps('corner_radius').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('corner_radius')}
           name={'corner_radius'}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Tool Length: '}
-          classes={(this.toolProps('tool_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('tool_length')}
           name={'tool_length'}
-          data={this.props.toolData}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={this.props.toolData.tool_type === 'Inserts' ? 'Thickness: ' : 'Cutting Height: '}
-          classes={(this.toolProps('cutting_height').indexOf(this.props.toolData.tool_type) !== -1 ? '' : 'gone')}
+          classes={this.showItem('cutting_height')}
           name={'cutting_height'}
           type={'math'}
           units={'inches'} />
         <EditableItem
           header={'Relief Width: '}
-          classes={(this.toolProps('relief_width').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
-          data={this.props.toolData}
+          classes={this.showItem('relief_width')}
           name={'undercut_width'}
           type={'math'}
           units={'inches'}
           onClick={this.showTool} />
         <EditableItem
           header={'Relief Length: '}
-          classes={(this.toolProps('relief_length').indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone')}
+          classes={this.showItem('relief_length')}
           name={'undercut_length'}
           units={'inches'}
           onClick={this.showTool}

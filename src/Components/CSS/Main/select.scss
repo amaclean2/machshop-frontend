@@ -59,7 +59,7 @@
 			color: $text;
 			background-color: $textOnPrimary;
 			width: 100%;
-			font-size: 12px;
+			font-size: inherit;
 			padding: 5px 8px;
 			cursor: pointer;
 			transition: all 0.3s ease-in-out;

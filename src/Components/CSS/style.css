@@ -255,7 +255,7 @@ h4 {
   display: inline-block;
   font-weight: normal; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\0000319}}
-  .button:hover {
+  .button:hover, .button:focus {
     background-color: #446E89;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     text-decoration: none;
@@ -267,7 +267,7 @@ h4 {
   color: #547E99;
   box-shadow: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\0000332}}
-  .white-button:hover {
+  .white-button:hover, .white-button:focus {
     background-color: #E4E7E7;
     color: #446E89;
     box-shadow: none; }
@@ -292,7 +292,7 @@ h4 {
   font-size: 16px;
   padding: 6px 10px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\0000358}}
-  .delete-button:hover {
+  .delete-button:hover, .delete-button:focus {
     background-color: #cd3e49;
     color: #E4E7E7; }
 
@@ -302,7 +302,7 @@ h4 {
   font-size: 16px;
   padding: 3px 8px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\0000369}}
-  .small-delete:hover {
+  .small-delete:hover, .small-delete:focus {
     background-color: #cd3e49;
     color: #E4E7E7; }
 
@@ -311,7 +311,7 @@ h4 {
   background-color: #FFF;
   color: #ed5e69; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\0000379}}
-  .delete-button-reverse:hover {
+  .delete-button-reverse:hover, .delete-button-reverse:focus {
     background-color: #E4E7E7;
     color: #cd3e49; }
 
@@ -343,7 +343,7 @@ h4 {
   font-size: 15px;
   box-shadow: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003113}}
-  .close-button:hover {
+  .close-button:hover, .close-button:focus {
     background-color: #E2E7E9;
     color: #576D75;
     box-shadow: none; }
@@ -369,7 +369,7 @@ h4 {
   padding: 5px 9px;
   box-shadow: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003140}}
-  .scroll-button:hover {
+  .scroll-button:hover, .scroll-button:focus {
     background-color: #E2E7E9;
     color: #576D75;
     box-shadow: none; }
@@ -382,7 +382,7 @@ h4 {
 .delete-modal-button {
   background-color: #FFF; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003154}}
-  .delete-modal-button:hover {
+  .delete-modal-button:hover, .delete-modal-button:focus {
     background-color: #E4E7E7; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003160}}
@@ -390,14 +390,14 @@ h4 {
   background-color: #ed5e69;
   color: #FFF; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003164}}
-  .accept:hover {
+  .accept:hover, .accept:focus {
     background-color: #cd3e49; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003168}}
 .reject {
   color: #547E99; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/buttons\.scss}line{font-family:\00003171}}
-  .reject:hover {
+  .reject:hover, .reject:focus {
     color: #446E89; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/amaclean\/machShop\/machshop-frontend\/src\/Components\/CSS\/Main\/sideNav\.scss}line{font-family:\000034}}
@@ -1347,7 +1347,7 @@ h4 {
       color: #000000;
       background-color: #FFF;
       width: 100%;
-      font-size: 12px;
+      font-size: inherit;
       padding: 5px 8px;
       cursor: pointer;
       transition: all 0.3s ease-in-out;

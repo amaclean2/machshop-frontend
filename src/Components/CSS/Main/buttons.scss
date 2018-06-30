@@ -16,7 +16,7 @@
 	display: inline-block;
 	font-weight: normal;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $primaryHover;
 		box-shadow: 0 0 8px rgba(0,0,0,0.3);
 		text-decoration: none;
@@ -29,7 +29,7 @@
 	color: $primary;
 	box-shadow: none;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $textOnPrimaryHover;
 		color: $primaryHover;
 		box-shadow: none;
@@ -55,7 +55,7 @@
 	font-size: 16px;
 	padding: 6px 10px;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $deleteHover;
 		color: $textOnPrimaryHover;
 	}
@@ -66,7 +66,7 @@
 	font-size: 16px;
 	padding: 3px 8px;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $deleteHover;
 		color: $textOnPrimaryHover;
 	}
@@ -76,7 +76,7 @@
 	background-color: $textOnPrimary;
 	color: $delete;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $textOnPrimaryHover;
 		color: $deleteHover;
 	}
@@ -110,7 +110,7 @@
 	// padding: 2px 5px;
 	box-shadow: none;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $grey2;
 		color: $grey1;
 		box-shadow: none;
@@ -137,7 +137,7 @@
 	padding: 5px 9px;
 	box-shadow: none;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $grey2;
 		color: $grey1;
 		box-shadow: none;
@@ -151,7 +151,7 @@
 .delete-modal-button {
 	background-color: $textOnPrimary;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $textOnPrimaryHover;
 	}
 
@@ -161,14 +161,14 @@
 	background-color: $delete;
 	color: $textOnPrimary;
 
-	&:hover {
+	&:hover, &:focus {
 		background-color: $deleteHover;
 	}
 }
 .reject {
 	color: $primary;
 
-	&:hover {
+	&:hover, &:focus {
 		color: $primaryHover;
 	}
 }
