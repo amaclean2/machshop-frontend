@@ -8,6 +8,8 @@ class FluxStore extends EventEmitter {
 		this.store = {
 			form: {}
 		}
+
+		this.setMaxListeners(30);
 	}
 
 	setUrl() {
@@ -244,6 +246,7 @@ class FluxStore extends EventEmitter {
 				break;
 			case 'RESET_FORM' :
 				this.resetForm();
+				break;
 			default :
 				break;
 		}

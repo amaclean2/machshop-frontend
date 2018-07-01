@@ -127,56 +127,55 @@ let InputRules = {
 		}
 	},
 	fields: (e) => {
+		let newObject = {};
+		newObject[e.target.name] = e.target.value;
+
 		switch(e.target.name) {
 			case 'tool_type' :
 				switch(e.target.value) {
 					case 'Endmill' :
-						fluxActions.updateForm({
-							material: 'Carbide',
-							undercut_width: '0',
-							undercut_length: '0' });
+						newObject.material = 'Carbide';
+						newObject.undercut_width = '0';
+						newObject.undercut_length = '0';
+
+						fluxActions.updateForm(newObject);
 						break;
 					case 'Drill' :
-						fluxActions.updateForm({ 
-							material: 'Cobalt', 
-							tip_angle: '118',
-							undercut_width: '0',
-							undercut_length: '0'  });
+						newObject.material = 'Cobalt';
+						newObject.tip_angle = '118';
+						newObject.undercut_width = '0';
+						newObject.undercut_length = '0';
+
+						fluxActions.updateForm(newObject);
+						break;
 					case 'Spot Drill' :
-						fluxActions.updateForm({
-							flutes: '2'
-						})
+						newObject.flutes = '2';
+						fluxActions.updateForm(newObject);
+						break;
 					default :
 						return;
 				}
 				break;
 			case 'diameter' :
 				if(fluxStore.getFormValue('diameter') !== '') {
-					fluxActions.updateForm({undercut_width: fluxStore.getFormValue('diameter')});
+					newObject.undercut_width = fluxStore.getFormValue('diameter');
+					fluxActions.updateForm(newObject);
 				}
 				break;
 			case 'size' :
 				let drill = DrillSizes.find( item => { return item.size === e.target.value; })
 				if(drill) {
-					let newProps = {
-						diameter: drill.diameter,
-						flute_length: drill.flute_length,
-						tool_length: drill.oal_length
-					};
-					fluxActions.updateForm( newProps );
+					newObject.diameter = drill.diameter;
+					newObject.flute_length = drill.flute_length;
+					newObject.tool_length = drill.oal_length;
+					fluxActions.updateForm(newObject);
 				}
 				break;
 		}
-	},
-	change: function(e) {
-		change(e);
 	}
 }
 
 let change = e => {
-	let newObject = {};
-    newObject[e.target.name] = e.target.value;
-    fluxActions.updateForm(newObject);
 
     InputRules.fields(e);
 }

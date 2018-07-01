@@ -111,16 +111,18 @@ let headers = {
 				sortable: true,
 				link: false,
 				searchable: true
-			},{
-				title: 'Price per Tool',
-				dataPoint: 'price',
-				sortable: true,
-				searchable: true,
-				link: false,
-				formatted: (i) => {
-					return '$ ' + i;
-				}
-			},{
+			},
+			// {
+			// 	title: 'Price per Tool',
+			// 	dataPoint: 'price',
+			// 	sortable: true,
+			// 	searchable: true,
+			// 	link: false,
+			// 	formatted: (i) => {
+			// 		return '$ ' + i;
+			// 	}
+			// },
+			{
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,

@@ -9,7 +9,7 @@ class EditableItem extends Component {
   constructor(props) {
     super(props)
 
-    let value = fluxStore.getFormValue(this.props.name) ? fluxStore.getFormValue(this.props.name) : '';
+    let value = fluxStore.getFormValue(this.props.name) !== undefined ? fluxStore.getFormValue(this.props.name) : '';
 
     this.state = {
       loaded: false,
@@ -62,19 +62,20 @@ class EditableItem extends Component {
     e = InputRules.math.format(e);
   }
 
-  change(e) {
-    InputRules.change(e);
-
-    this.setState({ value: fluxStore.getFormValue(this.props.name) });
-  }
-
   makeMoney(e) {
     e = InputRules.makeMoney.format(e, this.change);
   }
 
+  change(e) {
+    InputRules.fields(e);
+
+    this.setState({ value: fluxStore.getFormValue(this.props.name) });
+  }
+
   componentWillMount() {
     fluxStore.on('changeForm', () => {
-      this.setState({ value: fluxStore.getFormValue(this.props.name), loaded: true});
+      let fluxValue = fluxStore.getFormValue(this.props.name);
+      this.setState({ value: (fluxValue === undefined ? '': fluxValue), loaded: true});
     });
   }
 
