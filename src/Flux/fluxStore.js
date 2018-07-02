@@ -41,6 +41,7 @@ class FluxStore extends EventEmitter {
 					})};
 
 					this.populateOrdering();
+					this.populateUsers();
 				})
 		}
 	}
@@ -53,8 +54,12 @@ class FluxStore extends EventEmitter {
 		return this.store.ready;
 	}
 
+	getCompanyId() {
+		return this.store.user.company_id;
+	}
+
 	populateOrdering() {
-		let company = this.store.user.company_id;
+		let company = this.getCompanyId();
 
 		this.store = {...this.store, ordering: this.store.ordering ? this.store.ordering : [] };
 
@@ -80,19 +85,37 @@ class FluxStore extends EventEmitter {
 			});
 	}
 
-	getForm(category, toolId) {
-		let ordering = JSON.parse(JSON.stringify(this.store.ordering)),
-			data = ordering[category];
+	populateUsers() {
+		let company = this.getCompanyId(),
+			url = this.store.url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		this.store = {...this.store, users: this.store.users ? this.store.users : []};
+
+		fetch(url + '/users?company_id=' + company)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.store = {...this.store, users: data};
+				this.emit('change');
+			})
+	}
+
+	getForm(page, toolId, category) {
+		let ordering = JSON.parse(JSON.stringify(this.store[page]));
+
+		let data = category ? ordering[category] : ordering;
 
 		let returnTool = data.find( tool => {
 			return tool._id === toolId;
 		});
 
-		for (var dataItem in returnTool.tool_data) {
-			returnTool[dataItem] = returnTool.tool_data[dataItem];
-		}
+		if(category) {
+			for (var dataItem in returnTool.tool_data) {
+				returnTool[dataItem] = returnTool.tool_data[dataItem];
+			}
 
-		delete returnTool.tool_data;
+			delete returnTool.tool_data;
+		}
 
 		this.store.form = returnTool;
 
@@ -136,6 +159,10 @@ class FluxStore extends EventEmitter {
 		return data;
 	}
 
+	getUsers() {
+		return this.store.users;
+	}
+
 	getPurchased(category) {
 		let purchased = JSON.parse(JSON.stringify(this.store.ordering));
 		let data = purchased[category];
@@ -174,7 +201,7 @@ class FluxStore extends EventEmitter {
 
 	sendOrder(body, category) {
 
-		body.company_id = this.store.user.company_id;
+		body.company_id = this.getCompanyId();
 		body.created_at = new Date().getTime();
 
 		fetch(this.store.url + '/shopping/' + category, {

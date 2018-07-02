@@ -5,19 +5,21 @@ import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
 import UsersEditor from './UsersEditor';
 
+import fluxStore from '../../Flux/fluxStore';
+
 class Users extends Component {
 	constructor() {
 		super()
+
 		this.state = {
 			users: [],
 			companies: [],
 			editing: false,
 			loaded: false,
-			companyId: sessionStorage.getItem('user').split(',')[1]
+			companyId: ''
 		}
 
 		this.copyButton=this.copyButton.bind(this);
-		this.get=this.get.bind(this);
 		this.toggleModal=this.toggleModal.bind(this);
 	}
 
@@ -27,22 +29,6 @@ class Users extends Component {
 
 		document.execCommand('Copy');
 		console.log(input.value);
-	}
-
-	get() {
-	  	let id = sessionStorage.getItem('user').split(',')[1],
-	  		urlTemp = sessionStorage.getItem('user').split(',')[2],
-			url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-			request = new Request(url + '/users?company_id=' + id, {
-	      method: 'GET',
-	      headers: new Headers({ 'Content-Type': 'application/json' })
-	    });
-
-	    fetch(request).then( response => {
-	    	return response.json();
-	    }).then( data => {
-	      this.setState({ users: data, loaded: true });
-	    });
 	}
 
 	toggleModal(userId) {
@@ -74,7 +60,12 @@ class Users extends Component {
   	}
 
 	componentWillMount() {
-		this.get();
+	    if(fluxStore.getReady())
+	    	this.setState({ users: fluxStore.getUsers(), loaded: true, companyId: fluxStore.getCompanyId()});
+
+	    fluxStore.on('change', () => {
+	    	this.setState({ users: fluxStore.getUsers(), loaded: true, companyId: fluxStore.getCompanyId()});
+	    });
 	}
 
 

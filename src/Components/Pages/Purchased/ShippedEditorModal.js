@@ -55,7 +55,7 @@ class ShippedEditorModal extends Component {
   }
 
 	get() {
-    this.setState({ data: fluxStore.getForm(this.props.machine, this.props.id), loaded: true });
+    this.setState({ data: fluxStore.getForm('ordering', this.props.id, this.props.machine), loaded: true });
 
   }
 
