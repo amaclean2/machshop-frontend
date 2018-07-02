@@ -68,7 +68,7 @@ class FluxStore extends EventEmitter {
 				return response.json();
 			}).then( data => {
 				this.store.ordering = {...this.store.ordering, mill: data };
-				this.emit('millUpdated;')
+				this.emit('millUpdated');
 				fetch(this.store.url + '/shopping/lathe?company_id=' + company)
 					.then( response => {
 						return response.json();
