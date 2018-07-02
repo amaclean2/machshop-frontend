@@ -29,7 +29,7 @@ class ToBuy extends Component {
     if(fluxStore.getReady())
       this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
 
-    fluxStore.on('change', () => {
+    fluxStore.on('millUpdated', () => {
       this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
     });
   }

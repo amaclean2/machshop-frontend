@@ -68,18 +68,20 @@ class FluxStore extends EventEmitter {
 				return response.json();
 			}).then( data => {
 				this.store.ordering = {...this.store.ordering, mill: data };
+				this.emit('millUpdated;')
 				fetch(this.store.url + '/shopping/lathe?company_id=' + company)
 					.then( response => {
 						return response.json();
 					}).then( data => {
 						this.store.ordering = {...this.store.ordering, lathe: data };
+						this.emit('latheUpdated');
 						fetch(this.store.url + '/shopping/other?company_id=' + company)
 							.then( response => {
 								return response.json();
 							}).then( data => {
 								this.store.ordering = {...this.store.ordering, other: data };
 								this.store.ready = true;
-								this.emit('change');
+								this.emit('otherUpdated');
 							});
 					});
 			});

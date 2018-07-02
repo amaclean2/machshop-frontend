@@ -28,7 +28,7 @@ class Purchased extends Component {
   componentWillMount() {    
     this.setState({ data: fluxStore.getPurchased(this.props.category), loaded: true});
 
-    fluxStore.on('change', () => {
+    fluxStore.on('millUpdated', () => {
       this.setState({ data: fluxStore.getPurchased(this.props.category), loaded: true});
 
     })
