@@ -52,6 +52,7 @@ class ShippedEditorModal extends Component {
 
     fluxActions.deleteOrder(this.props.id, this.props.machine);
     this.toggleDeleteModal();
+    this.props.toggleModal();
   }
 
 	get() {
@@ -174,7 +175,7 @@ class ShippedEditorModal extends Component {
 
     return (
     	<div>
-        <div className="sidenav-background"></div>
+        <div className="sidenav-background" onClick={this.props.toggleModal}></div>
         <div className="modal-container">
           <div className="modal-content editor">
             <div className="modal-top">

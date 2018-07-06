@@ -156,28 +156,27 @@ constructor(props) {
 
     return (
       <div>
-        <div className='sidenav-background'>
-          <div className='modal-container'>
-            <div className='modal-content editor'>
-              <div className='modal-top'>
-                <h3>User Profile</h3>
-                <div className={(this.state.modalHide ? 'gone' : '')} >
-                  <DeleteModal delete={this.delete} reject={this.toggleModal} link={'#'} />
-                </div>
-                <div className='modal-corner-buttons'>
-                  <button
-                    className='button table-button delete-button'
-                    onClick={this.toggleModal}>
-                      <i className="fa fa-trash" aria-hidden="true"></i>
-                  </button>
-                  <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
-                    <span className='close-small'><i className="fa fa-times close-x"></i></span>
-                    <span className='close-big'>Return to Users</span>
-                  </a>
-                </div>
+        <div className='sidenav-background' onClick={this.props.toggleModal}></div>
+        <div className='modal-container'>
+          <div className='modal-content editor'>
+            <div className='modal-top'>
+              <h3>User Profile</h3>
+              <div className={(this.state.modalHide ? 'gone' : '')} >
+                <DeleteModal delete={this.delete} reject={this.toggleModal} link={'#'} />
               </div>
-              {info}
+              <div className='modal-corner-buttons'>
+                <button
+                  className='button table-button delete-button'
+                  onClick={this.toggleModal}>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
+                  <span className='close-small'><i className="fa fa-times close-x"></i></span>
+                  <span className='close-big'>Return to Users</span>
+                </a>
+              </div>
             </div>
+            {info}
           </div>
         </div>
         {/*<button className='button'> Clock In</button>*/}

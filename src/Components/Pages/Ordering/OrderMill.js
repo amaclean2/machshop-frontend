@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-import fluxStore from '../../../Flux/fluxStore';
 
 class OrderMill extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class OrderMill extends Component {
 
   render() {
     return (
-    	<div className='order-mill' id="OrderMill">
+    	<div className='order-mill' id="Ordering/OrderMill">
         <Table
           addText={this.props.source === 'stock' ? 'add a new tool' : 'request a new tool'}
           noAdd={this.props.noAdd}

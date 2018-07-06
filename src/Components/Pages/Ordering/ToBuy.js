@@ -27,10 +27,11 @@ class ToBuy extends Component {
 
   componentWillMount() {
     if(fluxStore.getReady())
-      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
+      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true });
 
     fluxStore.on('millUpdated', () => {
-      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true});
+      this.setState({ loaded: false });
+      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true });
     });
   }
 
@@ -77,7 +78,7 @@ class ToBuy extends Component {
     let toolEditorModal = this.generateEditorModal();
 
     return (
-      <div id="ToBuy">
+      <div id="Ordering/ToBuy">
         {toolEditorModal}
         <div className='toggle toggle-smaller'>
             <div onClick={() => {this.toggle('mill') }} className={(this.props.category === 'mill' ? 'toggled' : '')}>

@@ -60,7 +60,7 @@ class PurchasedEditorModal extends Component {
     fluxActions.editOrder( body, machine );
 
     this.props.toggleModal();
-    this.props.toggleBig({ target: { id: 'purchased' }});
+    this.props.toggleBig({ target: { id: 'shipped' }});
   }
 
   componentWillMount() {
@@ -71,6 +71,7 @@ class PurchasedEditorModal extends Component {
 
     fluxActions.deleteOrder(this.props.id, this.props.machine);
     this.toggleDeleteModal();
+    this.props.toggleModal();
   }
 
   put() {
@@ -168,7 +169,7 @@ class PurchasedEditorModal extends Component {
 
     return (
     	<div>
-        <div className="sidenav-background"></div>
+        <div className="sidenav-background" onClick={this.props.toggleModal}></div>
         <div className="modal-container">
           <div className="modal-content editor">
             <div className="modal-top">

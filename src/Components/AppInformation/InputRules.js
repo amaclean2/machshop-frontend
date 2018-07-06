@@ -168,8 +168,8 @@ let InputRules = {
 					newObject.diameter = drill.diameter;
 					newObject.flute_length = drill.flute_length;
 					newObject.tool_length = drill.oal_length;
-					fluxActions.updateForm(newObject);
 				}
+				fluxActions.updateForm(newObject);
 				break;
 			default :
 				fluxActions.updateForm(newObject);
