@@ -29,6 +29,13 @@ export function editOrder(body, category) {
 	});
 };
 
+export function editUser(body) {
+	dispatcher.dispatch({
+		type: 'EDIT_USER',
+		body: body
+	});
+};
+
 export function deleteOrder(id, category) {
 	dispatcher.dispatch({
 		type: 'DELETE_ORDER',

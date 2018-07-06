@@ -171,6 +171,9 @@ let InputRules = {
 					fluxActions.updateForm(newObject);
 				}
 				break;
+			default :
+				fluxActions.updateForm(newObject);
+				break;
 		}
 	}
 }

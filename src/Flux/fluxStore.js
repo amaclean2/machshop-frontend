@@ -244,6 +244,40 @@ class FluxStore extends EventEmitter {
 		});
 	}
 
+	putUser(body) {
+		let url = this.store.url + '/users/' + body._id;
+		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		let request = new Request(url, {
+			method: 'PUT',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify(body)
+		});
+
+		fetch(request).then( response => {
+			return response.json();
+		}).then( data => {
+			this.populateUsers();
+		});
+	}
+
+	postUser(body) {
+		let url = this.store.url + '/users/' + body._id;
+		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		let request = new Request(url, {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify(body)
+		});
+
+		fetch(request).then( response => {
+			return response.json();
+		}).then( data => {
+			this.populateUsers();
+		})
+	}
+
 	deleteOrder(id, category) {
 		fetch(this.store.url + '/shopping/' + category + '/' + id, { method: 'DELETE' })
 			.then( response => {
@@ -275,6 +309,12 @@ class FluxStore extends EventEmitter {
 				break;
 			case 'RESET_FORM' :
 				this.resetForm();
+				break;
+			case 'EDIT_USER' :
+				this.putUser(action.body);
+				break;
+			case 'CREATE_USER' :
+				this.postUser(action.body);
 				break;
 			default :
 				break;

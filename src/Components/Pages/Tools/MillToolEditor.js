@@ -286,7 +286,6 @@ class MillToolEditor extends Component {
         <EditableItem
           header={'Tool Type: '}
           type={'select'}
-          output={this.props.output}
           name={'tool_type'}
           properties={this.toolChoices}
           onClick={this.showTool} />

@@ -4,6 +4,9 @@ import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import DeleteModal from '../Main/DeleteModal';
 
+import * as fluxActions from '../../Flux/actions';
+import fluxStore from '../../Flux/fluxStore';
+
 class UsersEditor extends Component {
 constructor(props) {
     super(props);
@@ -21,25 +24,13 @@ constructor(props) {
     this.put=this.put.bind(this);
     this.delete=this.delete.bind(this);
     this.toggleEdit=this.toggleEdit.bind(this);
-    this.change=this.change.bind(this);
     this.save=this.save.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
   }
 
   get() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/users/' + this.state.userId + '?company_id=' + id, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json' })
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ userInfo: data, loaded: true });
-    })
+    this.setState({ userInfo: fluxStore.getForm('users', this.props.id), loaded: true });
   }
 
   post() {
@@ -67,32 +58,14 @@ constructor(props) {
     }).then( data => {
       this.setState({ userId: data._id });
     });
+
+
   }
 
   put() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        request = new Request(url + '/users/' + this.state.userId, {
-      method: 'PUT',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({
-        name: this.state.userInfo.name,
-        company_name: this.state.userInfo.company_name,
-		    company_id: this.state.userInfo.company_id,
-		    user_position: this.state.userInfo.user_position,
-		    email: this.state.userInfo.email,
-		    street_address: this.state.userInfo.street_address,
-		    city: this.state.userInfo.city,
-		    state: this.state.userInfo.state,
-		    country: this.state.userInfo.country,
-		    phone_number: this.state.userInfo.phone_number
-      })
-    });
+    let userData = fluxStore.viewForm();
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-    });
+    fluxActions.editUser( userData );
   }
 
   delete() {
@@ -108,11 +81,6 @@ constructor(props) {
     }).then( data => {
       this.setState({ redirect: true });
     });
-  }
-
-  change(e) {
-    let newInfo = this.state.userInfo;
-    newInfo[e.target.name] = e.target.value;
   }
 
   toggleEdit() {
@@ -139,30 +107,30 @@ constructor(props) {
     	if (!this.state.editable) {
 	      return (
 	        <div onClick={ this.toggleEdit } className='edit-page'>
-	        	<DescriptionItem header={'Name: '} value={this.state.userInfo.name} />
-				    <DescriptionItem header={'User Position: '} value={this.state.userInfo.user_position} />
-				    <DescriptionItem header={'Street Address: '} value={this.state.userInfo.street_address} />
-				    <DescriptionItem header={'City: '} value={this.state.userInfo.city} />
-				    <DescriptionItem header={'State: '} value={this.state.userInfo.state} />
-				    <DescriptionItem header={'Country: '} value={this.state.userInfo.country} />
-				    <DescriptionItem header={'Phone Number: '} value={this.state.userInfo.phone_number} />
-            <DescriptionItem header={'Email: '} value={this.state.userInfo.email} />
-            <DescriptionItem header={'Company Name: '} value={this.state.userInfo.company_name} />
-            <DescriptionItem header={'Company Id: '} value={this.state.userInfo.company_id} />
+	        	<DescriptionItem header={'Name: '} value={'name'} />
+				    <DescriptionItem header={'User Position: '} value={'user_position'} />
+				    <DescriptionItem header={'Street Address: '} value={'street_address'} />
+				    <DescriptionItem header={'City: '} value={'city'} />
+				    <DescriptionItem header={'State: '} value={'state'} />
+				    <DescriptionItem header={'Country: '} value={'country'} />
+				    <DescriptionItem header={'Phone Number: '} value={'phone_number'} />
+            <DescriptionItem header={'Email: '} value={'email'} />
+            <DescriptionItem header={'Company Name: '} value={'company_name'} />
+            <DescriptionItem header={'Company Id: '} value={'company_id'} />
 	        </div>);
 	    } else {
 	      return (
 	        <div className='edit-page'>
-	        	<EditableItem header={'Name: '} value={this.state.userInfo.name} change={this.change} name={'name'} type='textOnly' />
-						<EditableItem header={'User Position: '} value={this.state.userInfo.user_position} change={this.change} name={'user_position'} type='textOnly' />
-						<EditableItem header={'Street Address: '} value={this.state.userInfo.street_address} change={this.change} name={'street_address'} />
-						<EditableItem header={'City: '} value={this.state.userInfo.city} change={this.change} name={'city'} type='textOnly'/>
-						<EditableItem header={'State: '} value={this.state.userInfo.state} change={this.change} name={'state'} type='textOnly'/>
-						<EditableItem header={'Country: '} value={this.state.userInfo.country} change={this.change} name={'country'} type='textOnly'/>
-						<EditableItem header={'Phone Number: '} value={this.state.userInfo.phone_number} change={this.change} name={'phone_number'} type='phone' />
-            <DescriptionItem header={'Email: '} value={this.state.userInfo.email} />
-            <DescriptionItem header={'Company Name: '} value={this.state.userInfo.company_name} />
-            <DescriptionItem header={'Company Id: '} value={this.state.userInfo.company_id} />
+	        	<EditableItem header={'Name: '} name={'name'} type='textOnly' />
+						<EditableItem header={'User Position: '} name={'user_position'} type='textOnly' />
+						<EditableItem header={'Street Address: '} name={'street_address'} />
+						<EditableItem header={'City: '} name={'city'} type='textOnly'/>
+						<EditableItem header={'State: '} name={'state'} type='textOnly'/>
+						<EditableItem header={'Country: '} name={'country'} type='textOnly'/>
+						<EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
+            <DescriptionItem header={'Email: '} value={'email'} />
+            <DescriptionItem header={'Company Name: '} value={'company_name'} />
+            <DescriptionItem header={'Company Id: '} value={'company_id'} />
 	          <span className='submit-button-line'>
               <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
               <button onClick={this.save} className='button save-button small-button'>Save</button>
