@@ -34,31 +34,10 @@ constructor(props) {
   }
 
   post() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-      	request = new Request(url + '/companies', {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        name: this.state.userInfo.name,
-        company_name: this.state.userInfo.company_name,
-		    company_id: this.state.userInfo.company_id,
-		    user_position: this.state.userInfo.user_position,
-		    email: this.state.userInfo.email,
-		    street_address: this.state.userInfo.street_address,
-		    city: this.state.userInfo.city,
-		    state: this.state.userInfo.state,
-		    country: this.state.userInfo.country,
-		    phone_number: this.state.userInfo.phone_number
-      })
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ userId: data._id });
-    });
+    let userData = fluxStore.viewForm();
 
+    fluxActions.addUser( userData );
 
   }
 
@@ -170,7 +149,7 @@ constructor(props) {
                   onClick={this.toggleModal}>
                     <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
+                <a onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Users</span>
                 </a>

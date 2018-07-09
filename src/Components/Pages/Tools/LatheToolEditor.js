@@ -116,22 +116,46 @@ class LatheToolEditor extends Component {
     }
   }
 
+  toolChoices = [
+    { value: 'Boring Bar', children: 'Boring Bar' },
+    { value: 'Insert', children: 'Insert'},
+    { value: 'Center Drill', children: 'Center Drill'},
+    { value: 'OD Tool', children: 'OD Tool'},
+    { value: 'Groove Tool', children: 'Groove Tool'},
+    { value: 'Drill', children: 'Drill' },
+    { value: 'Cutoff Tool', children: 'Cutoff Tool'},
+    { value: 'Other', children: 'Other' },
+  ]
+
+  materialChoices = [
+    { value: 'Carbide', children: 'Carbide' },
+    { value: 'Cobalt', children: 'Cobalt' },
+    { value: 'High Speed Steel', children: 'High Speed Steel' },
+    { value: 'Coated Carbide', children: 'Coated Carbide' },
+    { value: 'Other', children: 'Other' }
+  ]
+
+  showItem(property) {
+    // return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone';
+    fluxStore.getFormValue('tool_type') === property ? '' : 'gone';
+  }
+
   viewInfo() {
 
   	if(!this.state.editable) {
   		return <div onClick={this.toggleEdit} className={'tool-data'} >
-  			<DescriptionItem header={'Tool Type: '} value={this.props.toolData.tool_type} />
-        <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Material: '} value={this.props.toolData.material} />
-        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
-        <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
-        <DescriptionItem header={'Insert Code: '} value={this.props.toolData.insert} />
-        <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
-        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={'price ' + (this.props.order ? '' : 'gone')} />
-        <DescriptionItem header={'Location: '} value={this.props.toolData.location} classes={this.props.order ? 'gone' : ''} />
-        <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
+  			<DescriptionItem header={'Tool Type: '} value={'tool_type'} />
+        <DescriptionItem header={'Diameter: '} value={'diameter'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Material: '} value={'material'} />
+        <DescriptionItem header={'Tip Angle: '} value={'tip_angle'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Flute Length: '} value={'flute_length'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Tool Length: '} value={'tool_length'} />
+        <DescriptionItem header={'Description: '} value={'description'} />
+        <DescriptionItem header={'Insert Code: '} value={'insert'} />
+        <DescriptionItem header={'Quantity: '} value={'count'} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={'price'} classes={'price ' + (this.props.order ? '' : 'gone')} />
+        <DescriptionItem header={'Location: '} value={'location'} classes={this.props.order ? 'gone' : ''} />
+        <DescriptionItem header={'Notes: '} value={'notes'} classes={'notes'} />
 
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
@@ -139,49 +163,26 @@ class LatheToolEditor extends Component {
   		return <div className={'tool-data'} >
         <EditableItem
           header={'Tool Type: '}
-          value={this.props.toolData.tool_type || 'Drill'}
           type={'select'}
-          output={this.props.output}
           name={'tool_type'}
-          data={[
-            { value: 'Boring Bar', children: 'Boring Bar' },
-            { value: 'Insert', children: 'Insert'},
-            { value: 'Center Drill', children: 'Center Drill'},
-            { value: 'OD Tool', children: 'OD Tool'},
-            { value: 'Groove Tool', children: 'Groove Tool'},
-            { value: 'Drill', children: 'Drill' },
-            { value: 'Cutoff Tool', children: 'Cutoff Tool'},
-            { value: 'Other', children: 'Other' },
-          ]}
+          properties={this.toolChoices}
           onClick={this.showTool} />
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           type={'math'}
           header={'Diameter: '}
-          value={this.props.toolData.diameter}
-          change={this.props.change}
           name={'diameter'}
           units='inches'
           onClick={this.showTool} />
         <EditableItem
           header={'Material: '}
-          value={this.props.toolData.material}
           type={'select'}
-          output={this.props.output}
           name={'material'}
-          data={[
-            { value: 'Carbide', children: 'Carbide' },
-            { value: 'Cobalt', children: 'Cobalt' },
-            { value: 'High Speed Steel', children: 'High Speed Steel' },
-            { value: 'Coated Carbide', children: 'Coated Carbide' },
-            { value: 'Other', children: 'Other' }
-          ]}
+          properties={this.materialChoices}
           onClick={this.showTool} />
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
-          value={this.props.toolData.tip_angle}
-          change={this.props.change}
           name={'tip_angle'}
           units='degrees'
           type='number'
@@ -189,59 +190,43 @@ class LatheToolEditor extends Component {
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Flute Length: '}
-          value={this.props.toolData.flute_length}
-          change={this.props.change}
           name={'flute_length'}
           units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem
           header={'Tool Length: '}
-          value={this.props.toolData.tool_length}
-          change={this.props.change}
           name={'tool_length'}
           units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem
           header={'Description: '}
-          value={this.props.toolData.description}
-          change={this.props.change}
           name={'description'}
           onClick={this.showTool} />
         <EditableItem
           header={'Insert Code: '}
-          value={this.props.toolData.insert}
-          change={this.props.change}
           name={'insert'}
           onClick={this.showTool} />
         <EditableItem
           header={'Quantity: '}
           type={'number'}
-          value={this.props.toolData.count}
-          change={this.props.change}
           name={'count'}
           onClick={this.showTool}
           classes={(this.props.count !== 0 ? '' : 'gone')} />
         <EditableItem
           header={'Price: '}
-          value={this.props.toolData.price}
-          change={this.props.change}
           name={'price'}
           onClick={this.showTool}
           type={'price'}
           classes={this.props.order ? '' : 'gone'} />
         <EditableItem
           header={'Location: '}
-          value={this.props.toolData.location}
-          change={this.props.change}
           name={'location'}
           onClick={this.showTool}
           classes={this.props.order ? 'gone' : ''} />
         <EditableItem
           header={'Notes: '}
-          value={this.props.toolData.notes}
-          change={this.props.change}
           name={'notes'}
           onClick={this.showTool}
           type={'textArea'} />
@@ -250,7 +235,6 @@ class LatheToolEditor extends Component {
             value={this.props.toolData.job_number}
             type={'select'}
             link={'/jobs/'}
-            output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'>
           <button onClick={this.cancel} className='button white-button small-button'>Cancel</button>

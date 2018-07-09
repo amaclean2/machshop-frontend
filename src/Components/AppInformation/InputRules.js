@@ -137,29 +137,23 @@ let InputRules = {
 						newObject.material = 'Carbide';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
-
-						fluxActions.updateForm(newObject);
 						break;
 					case 'Drill' :
 						newObject.material = 'Cobalt';
 						newObject.tip_angle = '118';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
-
-						fluxActions.updateForm(newObject);
 						break;
 					case 'Spot Drill' :
 						newObject.flutes = '2';
-						fluxActions.updateForm(newObject);
 						break;
 					default :
-						return;
+						break;
 				}
 				break;
 			case 'diameter' :
 				if(fluxStore.getFormValue('diameter') !== '') {
 					newObject.undercut_width = fluxStore.getFormValue('diameter');
-					fluxActions.updateForm(newObject);
 				}
 				break;
 			case 'size' :
@@ -169,12 +163,12 @@ let InputRules = {
 					newObject.flute_length = drill.flute_length;
 					newObject.tool_length = drill.oal_length;
 				}
-				fluxActions.updateForm(newObject);
 				break;
 			default :
-				fluxActions.updateForm(newObject);
 				break;
 		}
+
+		fluxActions.updateForm(newObject);
 	}
 }
 

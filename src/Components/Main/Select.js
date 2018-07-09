@@ -51,6 +51,7 @@ class Select extends Component {
 
   selectItem(value) {
     this.props.output({ target: { value: value.value, name: this.props.name}});
+    console.log(value);
     this.setState({ chosen: value });
     this.toggleShown();
   }
@@ -68,6 +69,7 @@ class Select extends Component {
 
   render() {
     let list = this.showList();
+    console.log('rendered', this.state.chosen);
     return (
       <div className={'ms-select ' + this.state.classes} id="Select" >
         <div className={'screen-cover ' + ( !this.state.shown ? 'gone' : '')} onClick={this.toggleShown}></div>

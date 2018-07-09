@@ -4,6 +4,9 @@ import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import DeleteModal from '../Main/DeleteModal';
 
+import * as fluxActions from '../../Flux/actions';
+import fluxStore from '../../Flux/fluxStore';
+
 class CompanyEditor extends Component {
 constructor(props) {
     super(props);
@@ -29,65 +32,22 @@ constructor(props) {
   }
 
   get() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        request = new Request(url + '/companies/' + this.state.companyId, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json' })
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ companyInfo: data, loaded: true });
-    })
+    this.setState({ companyInfo: fluxStore.getForm('companies', this.props.id), loaded: true });
   }
 
   post() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        request = new Request(url + '/companies', {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        name: this.state.companyInfo.name,
-        street_address: this.state.companyInfo.street_address,
-        city: this.state.companyInfo.city,
-        state: this.state.companyInfo.state,
-        country: this.state.companyInfo.country,
-        email: this.state.companyInfo.email,
-        phone_number: this.state.companyInfo.phone_number
-      })
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      this.setState({ companyId: data._id });
-    });
+    let body = fluxStore.viewForm();
+
+    fluxActions.createCompany(body);
   }
 
   put() {
-    let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-        request = new Request(url + '/companies/' + this.state.companyId, {
-      method: 'PUT',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({
-        name: this.state.companyInfo.name,
-        street_address: this.state.companyInfo.street_address,
-        city: this.state.companyInfo.city,
-        state: this.state.companyInfo.state,
-        country: this.state.companyInfo.country,
-        email: this.state.companyInfo.email,
-        phone_number: this.state.companyInfo.phone_number
-      })
-    });
+    
+    let body = fluxStore.viewForm();
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-    });
+    fluxActions.editCompany(body);
   }
 
   // delete() {
@@ -133,24 +93,24 @@ constructor(props) {
     if(this.state.loaded) {
       if (!this.state.editable) {
         return (<div onClick={ this.toggleEdit } className='edit-page'>
-          <DescriptionItem header={'Company Id: '} value={this.state.companyId} />
-          <DescriptionItem header={'Company Name: '} value={this.state.companyInfo.name} />
-          <DescriptionItem header= {'Street Addresss: '} value={this.state.companyInfo.street_address} />
-          <DescriptionItem header={'City: '} value={this.state.companyInfo.city}/>
-          <DescriptionItem header={'State: '} value={this.state.companyInfo.state}/>
-          <DescriptionItem header={'Country: '} value={this.state.companyInfo.country} />
-          <DescriptionItem header={'Email: '} value={this.state.companyInfo.email} />
-          <DescriptionItem header={'Phone Number: '} value={this.state.companyInfo.phone_number} />
+          <DescriptionItem header={'Company Id: '} value={'_id'} />
+          <DescriptionItem header={'Company Name: '} value={'name'} />
+          <DescriptionItem header= {'Street Addresss: '} value={'street_address'} />
+          <DescriptionItem header={'City: '} value={'city'}/>
+          <DescriptionItem header={'State: '} value={'state'}/>
+          <DescriptionItem header={'Country: '} value={'country'} />
+          <DescriptionItem header={'Email: '} value={'email'} />
+          <DescriptionItem header={'Phone Number: '} value={'phone_number'} />
         </div>);
       } else {
         return (<div className='edit-page'>
-          <EditableItem header={'Company Name: '} value={this.state.companyInfo.name} change={this.change} name={'name'} />
-          <EditableItem header={'Street Address: '} value={this.state.companyInfo.street_address} change={this.change} name={'street_address'} />
-          <EditableItem header={'City: '} value={this.state.companyInfo.city} change={this.change} name={'city'} />
-          <EditableItem header={'State: '} value={this.state.companyInfo.state} change={this.change} name={'state'} />
-          <EditableItem header={'Country: '} value={this.state.companyInfo.country} change={this.change} name={'country'} />
-          <EditableItem header={'Email: '} value={this.state.companyInfo.email} change={this.change} name={'email'} />
-          <EditableItem header={'Phone Number: '} value={this.state.companyInfo.phone_number} change={this.change} name={'phone_number'} type='phone' />
+          <EditableItem header={'Company Name: '} name={'name'} />
+          <EditableItem header={'Street Address: '} name={'street_address'} />
+          <EditableItem header={'City: '} name={'city'} />
+          <EditableItem header={'State: '} name={'state'} />
+          <EditableItem header={'Country: '} name={'country'} />
+          <EditableItem header={'Email: '} name={'email'} />
+          <EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
           <span className='submit-button-line'>
             <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
             <button onClick={this.save} className='button save-button small-button'>Save</button>
@@ -175,21 +135,20 @@ constructor(props) {
     let info = this.viewInfo();
 
     return (<div>
-      <div className='sidenav-background'>
-        <div className='modal-container'>
-          <div className='modal-content editor'>
-            <div className='modal-top'>
-              <h3>Company Editor</h3>
-              <div className='modal-corner-buttons'>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
-                  <span className='close-small'><i className="fa fa-times close-x"></i></span>
-                  <span className='close-big'>Return to Company</span>
-                </a>
-              </div>
+      <div className='sidenav-background' onClick={this.props.toggleModal}></div>
+      <div className='modal-container'>
+        <div className='modal-content editor'>
+          <div className='modal-top'>
+            <h3>Company Editor</h3>
+            <div className='modal-corner-buttons'>
+              <a onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
+                <span className='close-small'><i className="fa fa-times close-x"></i></span>
+                <span className='close-big'>Return to Company</span>
+              </a>
             </div>
-            <div className='edit-page'>
-              {info}
-            </div>
+          </div>
+          <div className='edit-page'>
+            {info}
           </div>
         </div>
       </div>

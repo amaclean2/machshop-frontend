@@ -32,7 +32,11 @@ class Users extends Component {
 	}
 
 	toggleModal(userId) {
-	    this.setState({ toolId: userId, editing: !this.state.editing });
+		if(userId) {
+			this.setState({ userId: userId, editing: !this.state.editing });
+		} else {
+			this.setState({ editing: !this.state.editing });
+		}
 	}
 
 	generateEditorModal() {
@@ -64,6 +68,7 @@ class Users extends Component {
 	    	this.setState({ users: fluxStore.getUsers(), loaded: true, companyId: fluxStore.getCompanyId()});
 
 	    fluxStore.on('change', () => {
+	    	this.setState({ loaded: false });
 	    	this.setState({ users: fluxStore.getUsers(), loaded: true, companyId: fluxStore.getCompanyId()});
 	    });
 	}
@@ -73,17 +78,17 @@ class Users extends Component {
   	let userEditorModal = this.generateEditorModal();
   	let table = this.drawTable();
     return (
-    	<div>
+    	<div id='Pages/Users'>
     		{userEditorModal}
-        <h3>Users</h3>
-        <div className='company-id' >
-        	<span className='label'>Company Id: </span>
-        	<span>{ this.state.companyId }</span>
-        	<CopyToClipboard text={this.state.companyId}>
-	          <span className='button small-button'>Copy id</span>
-	        </CopyToClipboard>
-        </div>
-        {table}
+	        <h3>Users</h3>
+	        <div className='company-id' >
+	        	<span className='label'>Company Id: </span>
+	        	<span>{ this.state.companyId }</span>
+	        	<CopyToClipboard text={this.state.companyId}>
+		          <span className='button small-button'>Copy id</span>
+		        </CopyToClipboard>
+	        </div>
+	        {table}
       </div>
     );
   }

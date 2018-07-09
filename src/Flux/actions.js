@@ -36,6 +36,27 @@ export function editUser(body) {
 	});
 };
 
+export function addUser(body) {
+	dispatcher.dispatch({
+		type: 'CREATE_USER',
+		body: body
+	});
+};
+
+export function editCompany(body) {
+	dispatcher.dispatch({
+		type: 'EDIT_COMPANY',
+		body: body
+	});
+};
+
+export function createCompany(body) {
+	dispatcher.dispatch({
+		type: 'CREATE_COMPANY',
+		body: body
+	});
+};
+
 export function deleteOrder(id, category) {
 	dispatcher.dispatch({
 		type: 'DELETE_ORDER',

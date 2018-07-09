@@ -19,7 +19,6 @@ class OtherToolEditor extends Component {
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
-    this.fillWithBlanks=this.fillWithBlanks.bind(this);
     this.cancel=this.cancel.bind(this);
 	}
 
@@ -41,55 +40,6 @@ class OtherToolEditor extends Component {
   componentWillReceiveProps(props) {
     if(props.readyToBuy)
       this.setState({ editable: true, cfmMsg: 'Confirm' });
-  }
-
-  showTool(e) {
-    switch(e.target.name) {
-      case 'tip_angle':
-      case 'diameter':
-        this.setState({ diameter: true,
-                        fluteLength: false,
-                        radius: false,
-                        toolLength: false,
-                        undercut: false });
-        break;
-      case 'flute_length':
-        this.setState({ diameter: false,
-                        fluteLength: true,
-                        radius: false,
-                        toolLength: false,
-                        undercut: false });
-        break;
-      case 'corner_radius':
-        this.setState({ fluteLength: false,
-                        diameter: false,
-                        radius: true,
-                        toolLength: false,
-                        undercut: false });
-        break;
-      case 'tool_length':
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: true,
-                        undercut: false });
-        break;
-      case 'undercut_width':
-      case 'undercut_length':
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: false,
-                        undercut: true });
-        break;
-      default:
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: false,
-                        undercut: false });
-        break;
-    }
   }
 
 	toggleEdit() {
@@ -120,21 +70,29 @@ class OtherToolEditor extends Component {
 
   	if(!this.state.editable) {
   		return <div onClick={this.toggleEdit}>
-        <DescriptionItem header={'Name: '} value={this.props.toolData.name} />
-        <DescriptionItem header={'Description: '} value={this.props.toolData.description} />
-        <DescriptionItem header={'Quantity: '} value={this.props.toolData.count} classes={this.props.order ? '' : 'gone'} />
-        <DescriptionItem header={'Price: '} value={this.props.toolData.price} classes={ 'price ' + (this.props.order ? '' : 'gone')} />
-        <DescriptionItem header={'Location: '} value={this.props.toolData.location} classes={this.props.order ? 'gone' : ''} />
-        <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} classes={'notes'} />
+        <DescriptionItem header={'Name: '} value={'name'} />
+        <DescriptionItem header={'Description: '} value={'description'} />
+        <DescriptionItem header={'Quantity: '} value={'count'} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={'price'} classes={ 'price ' + (this.props.order ? '' : 'gone')} />
+        <DescriptionItem header={'Location: '} value={'location'} classes={this.props.order ? 'gone' : ''} />
+        <DescriptionItem header={'Notes: '} value={'notes'} classes={'notes'} />
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
   	} else {
   		return <div>
-        <EditableItem header={'Name: '} value={this.props.toolData.name} change={this.props.change} name={'name'} onClick={this.showTool} />
-        <EditableItem header={'Description: '} value={this.props.toolData.description} change={this.props.change} name={'description'} onClick={this.showTool} />
+        <EditableItem
+          header={'Name: '}
+          value={this.props.toolData.name}
+          change={this.props.change}
+          name={'name'}
+          onClick={this.showTool} />
+        <EditableItem
+          header={'Description: '}
+          change={this.props.change}
+          name={'description'}
+          onClick={this.showTool} />
         <EditableItem
           header={'Quantity: '}
-          value={this.props.toolData.count}
           change={this.props.change}
           type={'number'}
           name={'count'}
@@ -142,7 +100,6 @@ class OtherToolEditor extends Component {
           classes={(this.props.count !== 0 ? '' : 'gone')} />
         <EditableItem
           header={'Price: '}
-          value={this.props.toolData.price}
           change={this.props.change}
           name={'price'}
           onClick={this.showTool}
@@ -150,14 +107,12 @@ class OtherToolEditor extends Component {
           classes={this.props.order ? '' : 'gone'} />
         <EditableItem
           header={'Location: '}
-          value={this.props.toolData.location}
           change={this.props.change}
           name={'location'}
           onClick={this.showTool}
           classes={this.props.order ? 'gone' : ''} />
         <EditableItem
           header={'Notes: '}
-          value={this.props.toolData.notes}
           change={this.props.change}
           name={'notes'}
           onClick={this.showTool}
@@ -177,19 +132,9 @@ class OtherToolEditor extends Component {
   	}
   }
 
-  fillWithBlanks() {
-    this.props.change({ target: { name: 'name', value: '' }});
-    this.props.change({ target: { name: 'description', value: '' }});
-    this.props.change({ target: { name: 'notes', value: '' }});
-    this.props.change({ target: { name: 'location', value: ''}});
-    this.props.change({ target: { name: 'count', value: '1' }});
-    this.props.change({ target: { name: 'price', value: '' }});
-  }
-
 	componentDidMount() {
     if(this.props.toolId === '0') {
       this.setState({ editable: true });
-      this.fillWithBlanks();
     }
 	}
 

@@ -42,6 +42,7 @@ class FluxStore extends EventEmitter {
 
 					this.populateOrdering();
 					this.populateUsers();
+					this.populateCompanies();
 				})
 		}
 	}
@@ -91,14 +92,31 @@ class FluxStore extends EventEmitter {
 		let company = this.getCompanyId(),
 			url = this.store.url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
 
-		this.store = {...this.store, users: this.store.users ? this.store.users : []};
+		url = url + '/users?company_id=' + company;
 
-		fetch(url + '/users?company_id=' + company)
+		fetch(url)
 			.then( response => {
 				return response.json();
 			}).then( data => {
 				this.store = {...this.store, users: data};
 				this.emit('change');
+			})
+	}
+
+	populateCompanies() {
+		let companyId = this.getCompanyId(),
+			url = this.store.url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		url = url + '/companies/' + companyId;
+
+		fetch(url)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				if(!Array.isArray(data))
+					data = [data];
+				this.store = {...this.store, companies: data};
+				this.emit('updatedCompanies');
 			})
 	}
 
@@ -163,6 +181,10 @@ class FluxStore extends EventEmitter {
 
 	getUsers() {
 		return this.store.users;
+	}
+
+	getCompanies() {
+	  	return this.store.companies;
 	}
 
 	getPurchased(category) {
@@ -262,7 +284,7 @@ class FluxStore extends EventEmitter {
 	}
 
 	postUser(body) {
-		let url = this.store.url + '/users/' + body._id;
+		let url = this.store.url + '/users';
 		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
 
 		let request = new Request(url, {
@@ -275,6 +297,40 @@ class FluxStore extends EventEmitter {
 			return response.json();
 		}).then( data => {
 			this.populateUsers();
+		})
+	}
+
+	putCompany(body) {
+		let url = this.store.url + '/companies/' + body._id;
+		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		let request = new Request(url, {
+			method: 'PUT',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify(body)
+		});
+
+		fetch(request).then( response => {
+			return response.json();
+		}).then( dadta => {
+			this.populateCompanies();
+		})
+	}
+
+	postCompany(body) {
+		let url = this.store.url + '/companies';
+		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+
+		let request = new Request(url, {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify(body)
+		});
+
+		fetch(request).then( response => {
+			return response.json();
+		}).then( dadta => {
+			this.populateCompanies();
 		})
 	}
 
@@ -315,6 +371,12 @@ class FluxStore extends EventEmitter {
 				break;
 			case 'CREATE_USER' :
 				this.postUser(action.body);
+				break;
+			case 'EDIT_COMPANY' :
+				this.putCompany(action.body);
+				break;
+			case 'CREATE_COMPANY' :
+				this.postCompany(action.body);
 				break;
 			default :
 				break;
