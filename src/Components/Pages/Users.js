@@ -16,7 +16,8 @@ class Users extends Component {
 			companies: [],
 			editing: false,
 			loaded: false,
-			companyId: ''
+			companyId: '',
+			userId: ''
 		}
 
 		this.copyButton=this.copyButton.bind(this);
@@ -42,10 +43,8 @@ class Users extends Component {
 	generateEditorModal() {
 	    if(this.state.editing) {
 	        return <UsersEditor
-	            	id={this.state.toolId}
-	              	machine={this.state.tools}
-	              	toggleModal={this.toggleModal}
-	              	triggerUpdate={this.get} />
+	            	id={this.state.userId}
+	              	toggleModal={this.toggleModal} />
 	    } else {
 	      	return '';
 	    }

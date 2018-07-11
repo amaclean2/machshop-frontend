@@ -64,6 +64,8 @@ class FluxStore extends EventEmitter {
 
 		this.store = {...this.store, ordering: this.store.ordering ? this.store.ordering : [] };
 
+		this.store.ready = false;
+
 		fetch(this.store.url + '/shopping/mill?company_id=' + company)
 			.then( response => {
 				return response.json();
@@ -94,11 +96,14 @@ class FluxStore extends EventEmitter {
 
 		url = url + '/users?company_id=' + company;
 
+		this.store.ready = false;
+
 		fetch(url)
 			.then( response => {
 				return response.json();
 			}).then( data => {
 				this.store = {...this.store, users: data};
+				this.store.ready = true;
 				this.emit('change');
 			})
 	}
@@ -109,6 +114,8 @@ class FluxStore extends EventEmitter {
 
 		url = url + '/companies/' + companyId;
 
+		this.store.ready = false;
+
 		fetch(url)
 			.then( response => {
 				return response.json();
@@ -116,6 +123,7 @@ class FluxStore extends EventEmitter {
 				if(!Array.isArray(data))
 					data = [data];
 				this.store = {...this.store, companies: data};
+				this.store.ready = true;
 				this.emit('updatedCompanies');
 			})
 	}

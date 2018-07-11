@@ -46,26 +46,6 @@ class OtherToolEditor extends Component {
 		this.setState({ editable: !this.state.editable });
 	}
 
-  millImage() {
-    switch(this.props.toolData.tool_type) {
-      case 'Endmill' :
-        return (<Endmill 
-                  fluteLength={this.state.fluteLength}
-                  radius={this.state.radius} 
-                  toolLength={this.state.toolLength} 
-                  undercut={this.state.undercut}
-                  diameter={this.state.diameter} />);
-      case 'Drill' :
-        return (<Drill
-                  fluteLength={this.state.fluteLength}
-                  radius={this.state.radius}
-                  toolLength={this.state.toolLength}
-                  diameter={this.state.diameter} />);
-      default :
-        return '';
-    }
-  }
-
   viewInfo() {
 
   	if(!this.state.editable) {

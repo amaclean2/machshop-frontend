@@ -31,10 +31,8 @@ class Companies extends Component {
 	generateEditorModal() {
 		if(this.state.editing) {
 			return <CompanyEditor
-							id={this.state.toolId}
-							machine={this.state.tools}
-							toggleModal={this.toggleModal}
-							triggerUpdate={this.get} />
+					id={this.state.toolId}
+					toggleModal={this.toggleModal} />
 		} else {
 			return '';
 		}
