@@ -63,7 +63,7 @@ class Users extends Component {
   	}
 
 	componentWillMount() {
-	    if(fluxStore.getReady())
+	    if(fluxStore.getReady('u'))
 	    	this.setState({ users: fluxStore.getUsers(), loaded: true, companyId: fluxStore.getCompanyId()});
 
 	    fluxStore.on('change', () => {

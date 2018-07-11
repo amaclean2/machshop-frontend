@@ -26,7 +26,7 @@ class ToBuy extends Component {
   }
 
   componentWillMount() {
-    if(fluxStore.getReady())
+    if(fluxStore.getReady('t'))
       this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true });
 
     fluxStore.on('millUpdated', () => {

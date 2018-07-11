@@ -29,6 +29,8 @@ class FluxStore extends EventEmitter {
 			this.store = {...this.store, user: position};
 
 			this.populateOrdering();
+			this.populateUsers();
+			this.populateCompanies();
 		}
 
 		else {
@@ -51,8 +53,8 @@ class FluxStore extends EventEmitter {
 		return this.store.user;
 	}
 
-	getReady() {
-		return this.store.ready;
+	getReady(location) {
+		return this.store[location];
 	}
 
 	getCompanyId() {
@@ -64,7 +66,7 @@ class FluxStore extends EventEmitter {
 
 		this.store = {...this.store, ordering: this.store.ordering ? this.store.ordering : [] };
 
-		this.store.ready = false;
+		this.store.t = false;
 
 		fetch(this.store.url + '/shopping/mill?company_id=' + company)
 			.then( response => {
@@ -83,7 +85,7 @@ class FluxStore extends EventEmitter {
 								return response.json();
 							}).then( data => {
 								this.store.ordering = {...this.store.ordering, other: data };
-								this.store.ready = true;
+								this.store.t = true;
 								this.emit('otherUpdated');
 							});
 					});
@@ -96,14 +98,14 @@ class FluxStore extends EventEmitter {
 
 		url = url + '/users?company_id=' + company;
 
-		this.store.ready = false;
+		this.store.u = false;
 
 		fetch(url)
 			.then( response => {
 				return response.json();
 			}).then( data => {
 				this.store = {...this.store, users: data};
-				this.store.ready = true;
+				this.store.u = true;
 				this.emit('change');
 			})
 	}
@@ -114,7 +116,7 @@ class FluxStore extends EventEmitter {
 
 		url = url + '/companies/' + companyId;
 
-		this.store.ready = false;
+		this.store.c = false;
 
 		fetch(url)
 			.then( response => {
@@ -123,7 +125,7 @@ class FluxStore extends EventEmitter {
 				if(!Array.isArray(data))
 					data = [data];
 				this.store = {...this.store, companies: data};
-				this.store.ready = true;
+				this.store.c = true;
 				this.emit('updatedCompanies');
 			})
 	}

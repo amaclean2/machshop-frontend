@@ -52,7 +52,7 @@ class Companies extends Component {
 	}
 
 	componentWillMount() {
-	    if(fluxStore.getReady())
+	    if(fluxStore.getReady('c'))
 	    	this.setState({ companies: fluxStore.getCompanies(), loaded: true, companyId: fluxStore.getCompanyId()});
 
 	    fluxStore.on('updatedCompanies', () => {

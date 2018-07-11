@@ -22,7 +22,6 @@ class MillToolEditor extends Component {
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
     this.toolProps=this.toolProps.bind(this);
-    this.presets=this.presets.bind(this);
     this.cancel=this.cancel.bind(this);
 	}
 
@@ -407,10 +406,6 @@ class MillToolEditor extends Component {
         </span>
       </div>
   	}
-  }
-
-  presets() {
-
   }
 
 	componentDidMount() {
