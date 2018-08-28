@@ -34,6 +34,42 @@ let headers = {
 		]
 	},
 
+	SetupSheets: {
+		columns: [
+			{
+				title: 'Job Number',
+				dataPoint: 'job_number',
+				link: true,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Part Number',
+				dataPoint: 'part_number',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Revision',
+				dataPoint: 'revision',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Customer',
+				dataPoint: 'customer',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Operation',
+				dataPoint: 'operation',
+				link: false,
+				sortable: true,
+				searchable: true
+			}
+		]
+	},
+
 	Companies : {
 		columns: [
 			{

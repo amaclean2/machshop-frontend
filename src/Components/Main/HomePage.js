@@ -8,6 +8,7 @@ import Header from './Header';
 // import Machining from '../Pages/Machining';
 //import Tools from '../Pages/Tools/Tools';
 import Ordering from '../Pages/Ordering/Ordering';
+import SetupSheets from '../Pages/SetupSheets';
 //import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
 //import PartsEditor from '../Pages/PartsEditor';
@@ -28,6 +29,7 @@ class HomePage extends Component {
 				// 'Jobs',
 				// { name: 'Tools', value: 'machining'}, 
 				{ name: 'Tooling', value: 'ordering'}, 
+				{ name: 'Setup Sheets', value: 'setup'},
 				// 'Inspection',
 				{name: 'Users', value: 'users'}, 
 				{name: 'My Company', value: 'companies'}
@@ -42,6 +44,7 @@ class HomePage extends Component {
 				<div className="page-content">
 					<Route exact path='/' component={Ordering} />
 					<Route path='/ordering' component={Ordering} />
+					<Route path='/setup' component={SetupSheets} />
 					<Route path='/?mode=resetPassword' component={Companies} />
 					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />

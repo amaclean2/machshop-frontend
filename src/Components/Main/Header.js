@@ -40,7 +40,12 @@ class Header extends Component {
 	      </div>
 	    </div>
 
-	    <SideNav hidden={this.state.hidden} gone={this.state.gone} toggleHideSideNav={this.toggleHideSideNav} tabs={this.props.tabs} logout={this.props.logout} />
+	    <SideNav
+        hidden={this.state.hidden}
+        gone={this.state.gone}
+        toggleHideSideNav={this.toggleHideSideNav}
+        tabs={this.props.tabs}
+        logout={this.props.logout} />
       </div>
     );
   }
