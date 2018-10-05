@@ -2,46 +2,75 @@ import React, { Component } from 'react';
 
 import Table from '../Main/Table';
 import headers from '../AppInformation/TableHeaders';
+import CompanyEditor from './CompanyEditor';
+
+import fluxStore from '../../Flux/fluxStore';
 
 class Companies extends Component {
 	constructor() {
 		super()
 		this.state = {
-			companies: []
+			companies: [],
+			editing: false,
+			loaded: false,
+			companyId: ''
 		}
-		this.get=this.get.bind(this);
+		
+		this.toggleModal=this.toggleModal.bind(this);
 	}
 
-	get() {
-	  	let urlTemp = sessionStorage.getItem('user').split(',')[2],
-			url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
-			request = new Request(url + '/companies', {
-	      method: 'GET',
-	      headers: new Headers({ 'Content-Type': 'application/json' })
-	    });
+	toggleModal(companyId) {
 
-	    fetch(request).then( response => {
-	    	return response.json();
-	    }).then( data => {
-	    	console.log('all companies loaded');
-	      this.setState({ companies: data });
-	    });
+    	if(companyId) {
+    		this.setState({ toolId: companyId, editing: !this.state.editing });
+    	} else {
+    		this.setState({ editing: !this.state.editing });
+    	}
+	}
+
+	generateEditorModal() {
+		if(this.state.editing) {
+			return <CompanyEditor
+					id={this.state.toolId}
+					toggleModal={this.toggleModal} />
+		} else {
+			return '';
+		}
+	}
+
+	drawTable() {
+		if(this.state.loaded) {
+			return <Table
+				data={this.state.companies}
+				headers={headers.Companies}
+				noAdd={true}
+				noSearch={true}
+				toggleModal={this.toggleModal} />;
+		} else {
+			return <span className='loading-screen'>It's a lot of work to assemble a table</span>;
+		}
 	}
 
 	componentWillMount() {
-		this.get();
+	    if(fluxStore.getReady('c'))
+	    	this.setState({ companies: fluxStore.getCompanies(), loaded: true, companyId: fluxStore.getCompanyId()});
+
+	    fluxStore.on('updatedCompanies', () => {
+	    	this.setState({ loaded: false });
+	    	this.setState({ companies: fluxStore.getCompanies(), loaded: true, companyId: fluxStore.getCompanyId()});
+	    });
 	}
 
+
   render() {
+  	let companyEditorModal = this.generateEditorModal(),
+  		table = this.drawTable();
     return (
-      <div className='companies'>
-      	<h3>Companies</h3>
-      	<Table 
-      		data={this.state.companies}
-      		headers={headers.Companies}
-      		link={'/company/'} />
-      </div>
-    );
+    	<div className='companies' id='Pages/Companies'>
+    		{companyEditorModal}
+        	<h3>My Company</h3>
+        	{table}
+      	</div>);
   }
 }
 

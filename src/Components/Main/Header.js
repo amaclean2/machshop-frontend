@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import fluxStore from '../../Flux/fluxStore';
 import SideNav from './SideNav';
-import Select from './Select';
+// import Select from './Select';
 
 class Header extends Component {
   constructor() {
@@ -32,17 +33,9 @@ class Header extends Component {
     return (
       <div>
 	    <div className="header-wrapper">
-	      <h2>MachShop</h2>
-
+	      <h2>{this.props.title}</h2>
 	   	  <div className="right-content">
-	      	{/*<Select output={this.selectOutput} name={'userName'} >
-            <select className = 'header-select'>
-              <option value="default">Select User</option>
-              <option value='Andrew_Maclean' selected>Andrew Maclean</option>
-            </select>
-          </Select>
-	      	<button className="button white-button header-select-btn">Select</button>*/}
-	      	{/*<i className="fa fa-bell-o hoverable" aria-hidden="true"></i>*/}
+          {/*fluxStore.getUserInfo()*/}
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
 	      </div>
 	    </div>

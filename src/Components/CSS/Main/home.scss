@@ -7,31 +7,59 @@
 }
 
 .line-item {	
-	font-size: 13px;
+	font-size: inherit;
 	padding: 5px;
 	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	max-width: 300px;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		background-color: $grey3;
+	}
+
+	div {
+		text-align: right;
+	}
 
 	.display {
 		font-weight: normal;
 		color: $primaryHover;
 		min-width: 75px;
+		font-size: 13px;
 	}
 
 	.value {
 		font-weight: lighter;
 		margin-left: 10px;
+		white-space: pre-wrap;
 	}
 
-	input {
-		padding: 5px;
+	input, textarea {
 		margin-left: 10px;
 		width: 150px;
 		font-family: inherit;
+		background-color: transparent;
+
+		@media screen and (max-width: 500px) {
+			width: 100%;
+			margin-left: 0;
+		}
 	}
+}
+
+.editable {
+	@media screen and (max-width: 500px) {
+		.display {
+			display: none;
+		}
+	}
+}
+
+.description {
+	font-size: 13px;
 }
 
 .card {
@@ -62,7 +90,19 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	height: 100%;
-	margin-top: 10px;
+	padding: 10px 2vw;
+	min-width: 250px;
+	box-sizing: border-box;
+	flex-direction: column;
+
+	@media screen and (max-width: 500px) {
+		width: 100%;
+
+		.line-item {
+			max-width: 100%;
+			width: 100%;
+		}
+	}
 }
 
 .left-column {
@@ -114,8 +154,21 @@
 }
 
 .company-id {
-	margin: 10px 0;
+	margin: 25px 0;
 	color: $primary;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
+	.label {
+		color: $headerGrey;
+		margin-right: 7px;
+	}
+	.button {
+		margin-left: 20px;
+	}
 }
 
 .companies {
@@ -131,10 +184,11 @@
 }
 
 .toggle {
-	margin-left: 30px;
+	margin-left: 0px;
 	min-width: 216px;
 
 	@media screen and (max-width: 500px) {
+		text-align: center;
 		margin-left: 0px;
 	}
 
@@ -183,6 +237,10 @@
 	}
 }
 
+.notes {
+	padding: 15px 5px;
+}
+
 .flexible {
 	display: flex;
 	justify-content: flex-start;
@@ -198,6 +256,19 @@
 }
 
 .tool-image {
-	margin-top: 20px;
 	max-width: 500px;
+	flex: 1;
+	min-width: 200px;
+
+	@media screen and (max-width: 500px) {
+		margin: 20px 2vw;
+	}
+}
+
+.tool-data {
+	width: 100%;
+}
+
+.loading-screen {
+	font-size: 15px;
 }

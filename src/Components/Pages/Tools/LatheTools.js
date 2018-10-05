@@ -4,40 +4,21 @@ import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
 
 class LatheTools extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
-			tools: []
+			tools: this.props.data
 		}
-		this.get=this.get.bind(this);
-	}
-
-	get() {
-  	let url = sessionStorage.getItem('user').split(',')[2],
-  		id = sessionStorage.getItem('user').split(',')[1],
-  		request = new Request(url + '/lathe?company_id=' + id, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json' })
-    });
-
-    fetch(request).then( response => {
-    	return response.json();
-    }).then( data => {
-      this.setState({ tools: data });
-    });
-	}
-
-	componentWillMount() {
-		this.get();
 	}
 
   render() {
     return (
     	<div className='lathe-tools'>
         <Table
+          addText={'add to inventory'}
         	data={this.state.tools}
         	headers={headers.LatheTools}
-        	link={'/tool/lathe/'} />
+        	toggleModal={this.props.toggleModal} />
       </div>
     );
   }

@@ -109,9 +109,9 @@ class PartsEditor extends Component {
     });
   }
 
-  delete(partId) {
+  delete() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        request = new Request(url + '/parts/' + partId, {
+        request = new Request(url + '/parts/' + this.state.partId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
@@ -221,7 +221,7 @@ class PartsEditor extends Component {
       <div>
         <h3>Part Editor</h3>
         <div className={(this.state.modalHide ? 'gone' : '')} >
-          <DeleteModal delete={() => {this.delete(this.state.partId)}} reject={this.toggleModal} link={'/parts'} />
+          <DeleteModal delete={this.delete} reject={this.toggleModal} link={'/parts'} />
         </div>
         <NavLink to={'/parts'} className='button table-button'>Return to Parts</NavLink>
         <button

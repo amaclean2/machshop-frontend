@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import MillToolEditor from './MillToolEditor';
 import LatheToolEditor from './LatheToolEditor';
+import OtherToolEditor from './OtherToolEditor';
+import DeleteModal from '../../Main/DeleteModal';
 
 class ToolEditor extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			toolData: {},
+      count: 1,
 			toolId: this.props.match.params.toolId,
-			mill: this.props.match.url.indexOf('mill') !== -1 ? 'mill' : null,
-			lathe: this.props.match.url.indexOf('lathe') !== -1 ? 'lathe' : null,
-			other: this.props.match.url.indexOf('other') !== -1 ? 'other' : null,
-      loaded: false
+      machine: this.props.match.url.indexOf('mill') !== -1 ? 'mill' : this.props.match.url.indexOf('lathe') !== -1 ? 'lathe' : 'other',
+      loaded: false,
+      modalHide: true,
+      redirect: false
 		}
 		this.get=this.get.bind(this);
     this.post=this.post.bind(this);
@@ -21,7 +24,9 @@ class ToolEditor extends Component {
     this.delete=this.delete.bind(this);
     this.save=this.save.bind(this);
     this.stationSelector=this.stationSelector.bind(this);
+    this.toggleModal=this.toggleModal.bind(this);
     this.change=this.change.bind(this);
+    this.changeCount=this.changeCount.bind(this);
     this.output=this.output.bind(this);
 	}
 
@@ -29,7 +34,7 @@ class ToolEditor extends Component {
 
     let url = sessionStorage.getItem('user').split(',')[2],
         id = sessionStorage.getItem('user').split(',')[1],
-        request = new Request(url + '/' + (this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other') + '/' + this.state.toolId + '?company_id=' + id, {
+        request = new Request(url + '/' + this.state.machine + '/' + this.state.toolId + '?company_id=' + id, {
       method: 'GET'
     });
 
@@ -42,29 +47,33 @@ class ToolEditor extends Component {
   }
 
   post() {
-    let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
-        request = new Request(url + '/' + machine, {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify({
-        user: 'Andrew',
-        company_id: sessionStorage.getItem('user').split(',')[1],
-        tool_data: this.state.toolData
-      })
-    });
 
-    fetch(request).then( response => {
-      return response.json();
-    }).then( data => {
-      console.log(data);
-      this.setState({ toolId: data._id });
-    });
+    for (var i = 0; i < this.state.count; i++) {
+
+      let url = sessionStorage.getItem('user').split(',')[2],
+          machine = this.state.machine,
+          request = new Request(url + '/' + machine, {
+        method: 'POST',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        body: JSON.stringify({
+          user: 'Andrew',
+          company_id: sessionStorage.getItem('user').split(',')[1],
+          tool_data: this.state.toolData
+        })
+      });
+
+      fetch(request).then( response => {
+        return response.json();
+      }).then( data => {
+        this.setState({ toolId: data._id });
+      });
+    }
+
   }
 
   put() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
+        machine = this.state.machine,
         request = new Request(url + '/' + machine + '/' + this.state.toolId , {
       method: 'PUT',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -83,20 +92,29 @@ class ToolEditor extends Component {
 
   delete() {
     let url = sessionStorage.getItem('user').split(',')[2],
-        machine = this.state.mill ? 'mill' : this.state.lathe ? 'lathe' : 'other',
-        request = new Request(url + machine + this.state.toolId, {
+        machine = this.state.machine,
+        request = new Request(url + '/' + machine + '/' + this.state.toolId, {
       method: 'DELETE'
     });
 
     fetch(request).then( response => {
       return response.json();
     }).then( data => {
+      this.setState({ redirect: true });
     });
+  }
+
+  toggleModal() {
+    this.setState({ modalHide: !this.state.modalHide });
   }
 
   change(e) {
     let toolData = this.state.toolData;
     toolData[e.target.name] = e.target.value;
+  }
+
+  changeCount(e) {
+    this.setState({ count: e.target.value });
   }
 
   output(value, name) {
@@ -106,12 +124,33 @@ class ToolEditor extends Component {
 
   stationSelector() {
     if(this.state.loaded) {
-      if(this.state.mill)
-        return <MillToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
-      else if(this.state.lathe)
-        return <LatheToolEditor toolData={this.state.toolData} toolId={this.state.toolId} save={this.save} change={this.change} output={this.output} />
-      else if(this.state.other)
-        return 'other'; // <OtherToolEditor data={this.state.toolData} toolId={this.state.toolId} />
+      if(this.state.machine === 'mill')
+        return <MillToolEditor 
+                count={this.state.count} 
+                toolData={this.state.toolData} 
+                toolId={this.state.toolId} 
+                save={this.save} 
+                change={this.change} 
+                changeCount={this.changeCount}
+                output={this.output} />
+      else if(this.state.machine === 'lathe')
+        return <LatheToolEditor 
+                count={this.state.count} 
+                toolData={this.state.toolData} 
+                toolId={this.state.toolId} 
+                save={this.save} 
+                change={this.change}
+                changeCount={this.changeCount} 
+                output={this.output} />
+      else if(this.state.machine === 'other')
+        return <OtherToolEditor 
+                count={this.state.count} 
+                toolData={this.state.toolData} 
+                toolId={this.state.toolId} 
+                save={this.save} 
+                change={this.change}
+                changeCount={this.changeCount} 
+                output={this.output} />
     }
   }
 
@@ -126,6 +165,7 @@ class ToolEditor extends Component {
   componentDidMount() {
     if(this.state.toolId !== '0') {
       this.get();
+      this.setState({ count: 0 });
     } else {
       this.setState({ loaded: true });
     }
@@ -133,15 +173,24 @@ class ToolEditor extends Component {
 
   render() {
     let station = this.stationSelector();
+
+    if(this.state.redirect)
+      return <Redirect to="/machining" />;
+
     return (
     	<div>
-        <h3>Tool Editor</h3>
-        <NavLink to={'/machining'} className='button table-button'>Return to Machining</NavLink>
-        <button
-          className='button table-button delete-button'>
-          {/*onClick={this.toggleModal}>*/}
-            <i className="fa fa-trash" aria-hidden="true"></i>
-        </button>
+        <div className="top-elements">
+          <h3>Tool Editor</h3>
+          <div className={(this.state.modalHide ? 'gone' : '')} >
+            <DeleteModal delete={this.delete} reject={ this.toggleModal } link={'#'} />
+          </div>
+          <NavLink to={'/machining'} className='button table-button'>Return to Machining</NavLink>
+          <button
+            className='button table-button delete-button'
+            onClick={this.toggleModal} >
+              <i className="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
         {station}
       </div>
     );

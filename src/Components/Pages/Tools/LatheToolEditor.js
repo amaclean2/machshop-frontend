@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
-import { NavLink } from 'react-router-dom';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
+import Endmill from './SVGs/Endmill';
+import Drill from './SVGs/Drill';
+import fluxStore from '../../../Flux/fluxStore';
 
 class LatheToolEditor extends Component {
 	constructor(props) {
@@ -13,16 +14,33 @@ class LatheToolEditor extends Component {
       fluteLength: false,
       radius: false,
       toolLength: false,
-      undercut: false
+      undercut: false,
+      cfmMsg: 'Save'
 		}
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
+    this.cancel=this.cancel.bind(this);
 	}
+
+  cancel() {
+    this.toggleEdit();
+    if(this.state.cfmMsg === 'Confirm')
+      this.props.cancel();
+  }
 
   save() {
     this.toggleEdit();
-    this.props.save();
+    if(this.state.cfmMsg === 'Confirm') {
+      this.props.buyTool();
+    } else {
+      this.props.save();
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.readyToBuy)
+      this.setState({ editable: true, cfmMsg: 'Confirm' });
   }
 
   showTool(e) {
@@ -79,261 +97,169 @@ class LatheToolEditor extends Component {
 	}
 
   millImage() {
-    if(this.props.toolData.tool_type === 'Endmill')
-    {
-      return (
-        <svg height="50" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
-          <defs>
-            <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopOpacity': 0 }} />
-              <stop offset="100%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} /> 
-            </linearGradient>
-            <linearGradient id="shadow2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} /> 
-            </linearGradient>
-            <linearGradient id="shadow3" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} />  
-            </linearGradient>
-          </defs>
-          
-          <path d="M 300 0 L 500 0 L 500 50 L 300 50 Z" fill={ this.state.fluteLength ? '#FC9' : '#89A' } />
-          <path d="M 480 0 q 15 0 20 10 L 500 0" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          <path d="M 480 50 q 15 0 20 -10 L 500 50" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          
-          <path d="M 250 0 c 40 0 50 50 100 50 L 400 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 300 0 c 40 0 50 50 100 50 L 450 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 350 0 c 40 0 50 50 100 50 L 500 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 400 0 c 40 0 50 50 100 50 L 550 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-          <path d="M 450 0 c 40 0 50 50 100 50 L 600 50 c -50 0 -50 -50 -100 -50" fill="url(#shadow3)"/>
-
-          <path d="M 290 0 c 40 0 50 50 100 50 L 400 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 340 0 c 40 0 50 50 100 50 L 450 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 390 0 c 40 0 50 50 100 50 L 500 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 440 0 c 40 0 50 50 100 50 L 550 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-          <path d="M 490 0 c 40 0 50 50 100 50 L 600 50 c -50 0 -50 -50 -100 -50" fill="#89A"/>
-
-          <path d="M 0 0 L 300 0 L 300 50 L0 50" fill="#EEE" />
-          <path d="M 300 0 L 320 0 L 320 50 L 300 50" fill="#89A" />
-
-          <path d="M 0 0 L 500 0 L 500 50 L 0 50" fill={ this.state.toolLength ? '#FC9' : 'transparent' } />
-          <path d="M 150 5 L 290 5 L 290 45 L 150 45" fill={ this.state.undercut ? '#FC9' : 'transparent' } />
-          <path d="M 490 0 L 500 0 L 500 50 L 490 50" fill={ this.state.diameter ? '#FC9' : 'transparent' } />
-
-          <path d="M 0 20 L 500 20 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 0 30 L 500 30 L 500 50 L 0 50" fill="url(#shadow2)" />
-          <path d="M 0 50 L 500 50 L 500 50 L 0 50" fill="url(#shadow1)" />
-
-          <path d="M 150 0 L 290 0 L 290 5 L 150 5" fill={ this.state.undercut ? '#FFF' : 'transparent' } />
-          <path d="M 150 50 L 290 50 L 290 45 L 150 45" fill={ this.state.undercut ? '#FFF' : 'transparent' } />
-
-        </svg>);
-    } else if (this.props.toolData.tool_type === 'Drill') {
-      return (
-        <svg height="30" width="500" version="1.1" id="Endmill" xmlns="http://www.w3.org/2000/svg" >
-          <defs>
-            <linearGradient id="shadow1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopOpacity': 0 }} />
-              <stop offset="100%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} /> 
-            </linearGradient>
-            <linearGradient id="shadow2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} /> 
-            </linearGradient>
-            <linearGradient id="shadow3" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" style={{ 'stopColor': 'rgba(0,0,0,0.2)' }} />
-              <stop offset="100%" style={{ 'stopOpacity': 0 }} />  
-            </linearGradient>
-          </defs>
-          
-          <path d="M 0 0 L 300 0 L 300 30 L0 30" fill="#AAA" />
-          <path d="M 250 0 L 500 0 L 500 30 L 250 30 Z" fill={ this.state.fluteLength ? '#FC9' : '#AAA' } />
-          <path d="M 480 0 q 15 0 20 10 L 500 0" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          <path d="M 480 50 q 15 0 20 -10 L 500 50" fill={ this.state.radius ? '#FC9' : 'transparent' } />
-          
-          <path d="M 250 0 c 40 0 50 30 100 30 L 400 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 300 0 c 40 0 50 30 100 30 L 450 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 350 0 c 40 0 50 30 100 30 L 500 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 400 0 c 40 0 50 30 100 30 L 550 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-          <path d="M 450 0 c 40 0 50 30 100 30 L 600 30 c -50 0 -50 -30 -100 -30" fill="url(#shadow3)"/>
-
-          <path d="M 290 0 c 40 0 50 30 100 30 L 400 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 340 0 c 40 0 50 30 100 30 L 450 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 390 0 c 40 0 50 30 100 30 L 500 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 440 0 c 40 0 50 30 100 30 L 550 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-          <path d="M 490 0 c 40 0 50 30 100 30 L 600 30 c -50 0 -50 -30 -100 -30" fill="#AAA"/>
-
-          <path d="M 0 0 L 500 0 L 500 30 L 0 30" fill={ this.state.toolLength ? '#FC9' : 'transparent' } />
-          <path d="M 490 0 L 500 0 L 500 30 L 490 30" fill={ this.state.diameter ? '#FC9' : 'transparent' } />
-
-          <path d="M 0 20 L 500 20 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 0 30 L 500 30 L 500 30 L 0 30" fill="url(#shadow2)" />
-          <path d="M 0 30 L 500 30 L 500 30 L 0 30" fill="url(#shadow1)" />
-          <path d="M 490 0 L 500 0 L 500 15" fill="#FFF" />
-          <path d="M 490 30 L 500 30 L 500 15" fill="#FFF" />
-
-        </svg>);
+    switch(this.props.toolData.tool_type) {
+      case 'Endmill' :
+        return (<Endmill 
+                  fluteLength={this.state.fluteLength}
+                  radius={this.state.radius} 
+                  toolLength={this.state.toolLength} 
+                  undercut={this.state.undercut}
+                  diameter={this.state.diameter} />);
+      case 'Drill' :
+        return (<Drill
+                  fluteLength={this.state.fluteLength}
+                  radius={this.state.radius}
+                  toolLength={this.state.toolLength}
+                  diameter={this.state.diameter} />);
+      default :
+        return '';
     }
+  }
 
+  toolChoices = [
+    { value: 'Boring Bar', children: 'Boring Bar' },
+    { value: 'Insert', children: 'Insert'},
+    { value: 'Center Drill', children: 'Center Drill'},
+    { value: 'OD Tool', children: 'OD Tool'},
+    { value: 'Groove Tool', children: 'Groove Tool'},
+    { value: 'Drill', children: 'Drill' },
+    { value: 'Cutoff Tool', children: 'Cutoff Tool'},
+    { value: 'Other', children: 'Other' },
+  ]
+
+  materialChoices = [
+    { value: 'Carbide', children: 'Carbide' },
+    { value: 'Cobalt', children: 'Cobalt' },
+    { value: 'High Speed Steel', children: 'High Speed Steel' },
+    { value: 'Coated Carbide', children: 'Coated Carbide' },
+    { value: 'Other', children: 'Other' }
+  ]
+
+  showItem(property) {
+    // return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone';
+    fluxStore.getFormValue('tool_type') === property ? '' : 'gone';
   }
 
   viewInfo() {
 
-  	let info;
-
   	if(!this.state.editable) {
-  		info = (<div onClick={this.toggleEdit}>
-  			<DescriptionItem header={'Tool Type: '} value={this.props.toolData.tool_type} />
-        <DescriptionItem header={'Diameter: '} value={this.props.toolData.diameter} />
-        <DescriptionItem header={'Material: '} value={this.props.toolData.material} />
-        <DescriptionItem header={'Flutes: '} value={this.props.toolData.flutes} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tip Angle: '} value={this.props.toolData.tip_angle} classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Flute Length: '} value={this.props.toolData.flute_length} />
-        <DescriptionItem header={'Corner Radius: '} value={this.props.toolData.corner_radius} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Tool Length: '} value={this.props.toolData.tool_length} />
-        <DescriptionItem header={'Undercut Width: '} value={this.props.toolData.undercut_width} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'Undercut Length: '} value={this.props.toolData.undercut_length} classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}/>
-        <DescriptionItem header={'EDP Number: '} value={this.props.toolData.edp} />
-        <DescriptionItem header={'Notes: '} value={this.props.toolData.notes} />
+  		return <div onClick={this.toggleEdit} className={'tool-data'} >
+  			<DescriptionItem header={'Tool Type: '} value={'tool_type'} />
+        <DescriptionItem header={'Diameter: '} value={'diameter'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Material: '} value={'material'} />
+        <DescriptionItem header={'Tip Angle: '} value={'tip_angle'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Flute Length: '} value={'flute_length'} classes={this.showItem('Drill')}/>
+        <DescriptionItem header={'Tool Length: '} value={'tool_length'} />
+        <DescriptionItem header={'Description: '} value={'description'} />
+        <DescriptionItem header={'Insert Code: '} value={'insert'} />
+        <DescriptionItem header={'Quantity: '} value={'count'} classes={this.props.order ? '' : 'gone'} />
+        <DescriptionItem header={'Price: '} value={'price'} classes={'price ' + (this.props.order ? '' : 'gone')} />
+        <DescriptionItem header={'Location: '} value={'location'} classes={this.props.order ? 'gone' : ''} />
+        <DescriptionItem header={'Notes: '} value={'notes'} classes={'notes'} />
+
         {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
-  		</div>)
+  		</div>
   	} else {
-  		info = (<div>
+  		return <div className={'tool-data'} >
         <EditableItem
           header={'Tool Type: '}
-          value={this.props.toolData.tool_type}
           type={'select'}
-          output={this.props.output}
           name={'tool_type'}
-          data={[
-            { value: 'Boring Bar', children: 'Endmill' },
-            { value: 'Insert', children: 'Insert'},
-            { value: 'Center Drill', children: 'Center Drill'},
-            { value: 'OD Groover', children: 'OD Groover'},
-            { value: 'Drill', children: 'Drill' },
-            // { value: 'reemer', children: 'Reemer' },
-            // { value: 'key_cutter', children: 'Key Cutter' },
-            // { value: 'spot_drill', children: 'Spot Drill' },
-            // { value: 'center_drill', children: 'Center Drill' },
-            // { value: 'face_mill', children: 'Face Mill' },
-            // { value: 'dove_mill', children: 'Dove Mill' },
-            // { value: 'tap', children: 'Tap' },
-            // { value: 'thread_mill', children: 'Thread Mill' },
-            { value: 'Other', children: 'Other' }
-          ]}
+          properties={this.toolChoices}
           onClick={this.showTool} />
         <EditableItem
+          classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           type={'math'}
           header={'Diameter: '}
-          value={this.props.toolData.diameter}
-          change={this.props.change}
           name={'diameter'}
+          units='inches'
           onClick={this.showTool} />
         <EditableItem
           header={'Material: '}
-          value={this.props.toolData.material}
           type={'select'}
-          output={this.props.output}
           name={'material'}
-          data={[
-            { value: 'Carbide', children: 'Carbide' },
-            { value: 'Cobalt', children: 'Cobalt' },
-            { value: 'High Speed Steel', children: 'High Speed Steel' },
-            { value: 'Coated Carbide', children: 'Coated Carbide' },
-            { value: 'Other', children: 'Other' }
-          ]}
-          onClick={this.showTool} />
-        <EditableItem
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          header={'Flutes: '}
-          value={this.props.toolData.flutes}
-          change={this.props.change}
-          name={'flutes'}
-          type='number'
+          properties={this.materialChoices}
           onClick={this.showTool} />
         <EditableItem
           classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Tip Angle: '}
-          value={this.props.toolData.tip_angle}
-          change={this.props.change}
           name={'tip_angle'}
+          units='degrees'
           type='number'
           onClick={this.showTool} />
         <EditableItem
+          classes={(this.props.toolData.tool_type === 'Drill' ? '' : 'gone')}
           header={'Flute Length: '}
-          value={this.props.toolData.flute_length}
-          change={this.props.change}
           name={'flute_length'}
-          type={'math'}
-          onClick={this.showTool} />
-        <EditableItem
-          header={'Corner Radius: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.corner_radius}
-          change={this.props.change}
-          name={'corner_radius'}
+          units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem
           header={'Tool Length: '}
-          value={this.props.toolData.tool_length}
-          change={this.props.change}
           name={'tool_length'}
+          units='inches'
           type={'math'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Undercut Width: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.undercut_width}
-          change={this.props.change}
-          name={'undercut_width'}
-          type={'math'}
+          header={'Description: '}
+          name={'description'}
           onClick={this.showTool} />
         <EditableItem
-          header={'Undercut Length: '}
-          classes={(this.props.toolData.tool_type === 'Endmill' ? '' : 'gone')}
-          value={this.props.toolData.undercut_length}
-          change={this.props.change}
-          name={'undercut_length'}
+          header={'Insert Code: '}
+          name={'insert'}
+          onClick={this.showTool} />
+        <EditableItem
+          header={'Quantity: '}
+          type={'number'}
+          name={'count'}
           onClick={this.showTool}
-          type={'math'} />
-        <EditableItem header={'EDP Number: '} value={this.props.toolData.edp} change={this.props.change} name={'edp'} onClick={this.showTool} />
-        <EditableItem header={'Notes: '} value={this.props.toolData.notes} change={this.props.change} name={'notes'} onClick={this.showTool} />
+          classes={(this.props.count !== 0 ? '' : 'gone')} />
+        <EditableItem
+          header={'Price: '}
+          name={'price'}
+          onClick={this.showTool}
+          type={'price'}
+          classes={this.props.order ? '' : 'gone'} />
+        <EditableItem
+          header={'Location: '}
+          name={'location'}
+          onClick={this.showTool}
+          classes={this.props.order ? 'gone' : ''} />
+        <EditableItem
+          header={'Notes: '}
+          name={'notes'}
+          onClick={this.showTool}
+          type={'textArea'} />
         {/*<EditableItem
             header={'Job Number: '}
             value={this.props.toolData.job_number}
             type={'select'}
             link={'/jobs/'}
-            output={this.props.output}
             name={'job_number'} />*/}
-        <span className='submit-button-line'><button onClick={this.save} className='button save-button small-button'>Save</button></span>
-      </div>)
+        <span className='submit-button-line'>
+          <button onClick={this.cancel} className='button white-button small-button'>Cancel</button>
+          <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
+        </span>
+      </div>
   	}
-
-  	return (<div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-  			{info}
-  		</div>);
-
   }
 
 	componentDidMount() {
-    if(this.props.toolId === '0')
+    if(this.props.toolId === '0') {
       this.setState({ editable: true });
+    }
 	}
 
   render() {
   	let info = this.viewInfo();
     let mill = this.millImage();
     return (
-    	<div>
+    	<div className='editor-content'>
         <div className='tool-image' >
           {mill}
         </div>
         <div className='edit-page'>
         	{info}
-        	<div className='work-flow card no-fade'>
-          </div>
         </div>
       </div>
     );

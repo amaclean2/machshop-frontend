@@ -28,25 +28,30 @@ class Select extends Component {
     }
   }
 
-  makeSelect() {
+  makeSelect(props) {
     let data;
-    if(this.props.data) {
-      data = this.props.data;
+    if(props.data) {
+      data = props.data;
     } else {
-      data = this.props.children.props.children.map( child => {
+      data = props.children.props.children.map( child => {
         return child.props;
       });
     }
-    this.setState({ data, chosen: (this.props.value ? { value: this.props.value, children: this.props.value } : data[0]) });
+    this.setState({ data, chosen: (props.value ? { value: props.value, children: props.value } : data[0]) });
   }
 
   componentDidMount() {
     this.getClasses();
-    this.makeSelect();
+    this.makeSelect(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.makeSelect(props);
   }
 
   selectItem(value) {
-    this.props.output(value.value, this.props.name);
+    this.props.output({ target: { value: value.value, name: this.props.name}});
+    console.log(value);
     this.setState({ chosen: value });
     this.toggleShown();
   }
@@ -64,8 +69,9 @@ class Select extends Component {
 
   render() {
     let list = this.showList();
+    console.log('rendered', this.state.chosen);
     return (
-      <div className={'ms-select ' + this.state.classes}>
+      <div className={'ms-select ' + this.state.classes} id="Select" >
         <div className={'screen-cover ' + ( !this.state.shown ? 'gone' : '')} onClick={this.toggleShown}></div>
         <div className={'shown-box'} onClick={this.toggleShown}>
           <span className='view'>{this.state.chosen.children}</span>

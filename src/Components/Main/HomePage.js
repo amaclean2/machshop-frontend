@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './Header';
-import Dashboard from '../Pages/Dashboard';
-import Parts from '../Pages/Parts';
-import Jobs from '../Pages/Jobs';
-import Machining from '../Pages/Machining';
-import Ordering from '../Pages/Ordering';
-import Inspection from '../Pages/Inspection';
+//import Dashboard from '../Pages/Dashboard';
+//import Parts from '../Pages/Parts';
+//import Jobs from '../Pages/Jobs';
+// import Machining from '../Pages/Machining';
+//import Tools from '../Pages/Tools/Tools';
+import Ordering from '../Pages/Ordering/Ordering';
+//import Inspection from '../Pages/Inspection';
 import Users from '../Pages/Users';
-import PartsEditor from '../Pages/PartsEditor';
-import JobsEditor from '../Pages/JobsEditor';
-import UsersEditor from '../Pages/UsersEditor';
+//import PartsEditor from '../Pages/PartsEditor';
+//import JobsEditor from '../Pages/JobsEditor';
 import Companies from '../Pages/Companies';
-import CompanyEditor from '../Pages/CompanyEditor';
-import ToolEditor from '../Pages/Tools/ToolEditor';
+//import CompanyEditor from '../Pages/CompanyEditor';
+// import ResetPassword from '../Pages/ResetPassword';
 // import LatheToolEditor from '../Pages/Tools/LatheToolEditor';
 // import OtherToolEditor from '../Pages/Tools/OtherToolEditor';
 
@@ -23,11 +23,12 @@ class HomePage extends Component {
 		super()
 		this.state = {
 			tabs: [
-				/*'Dashboard', 
-				'Parts', 'Jobs', */ 
-				{ name: 'Tools', value: 'machining'}, 
-				{ name: 'Shopping List', value: 'ordering'}, 
-				/*'Inspection', */
+				// 'Dashboard', 
+				// 'Parts', 
+				// 'Jobs',
+				// { name: 'Tools', value: 'machining'}, 
+				{ name: 'Tooling', value: 'ordering'}, 
+				// 'Inspection',
 				{name: 'Users', value: 'users'}, 
 				{name: 'My Company', value: 'companies'}
 			]
@@ -36,23 +37,12 @@ class HomePage extends Component {
 
 	primaryContent() {
 		return (
-			<div> 
-				<Header tabs={this.state.tabs} logout={this.props.logout} />
+			<div id="HomePage"> 
+				<Header tabs={this.state.tabs} logout={this.props.logout} title={this.props.title} />
 				<div className="page-content">
 					<Route exact path='/' component={Ordering} />
-					<Route path='/dashboard' component={Dashboard} />
-					<Route path='/parts/:partId' component={PartsEditor} />
-					<Route exact path='/parts'component={Parts} />
-					<Route path='/jobs/:jobId' component={JobsEditor} />
-					<Route exact path='/jobs' component={Jobs} />
-					<Route path='/machining' component={Machining} />
-					<Route path='/tool/mill/:toolId' component={ToolEditor} />
-					<Route path='/tool/lathe/:toolId' component={ToolEditor} />
-					<Route path='/tool/other/:toolId' component={ToolEditor} />
 					<Route path='/ordering' component={Ordering} />
-					<Route path='/inspection' component={Inspection} />
-					<Route path='/users/:userId' component={UsersEditor} />
-					<Route path='/company/:companyId' component={CompanyEditor} />
+					<Route path='/?mode=resetPassword' component={Companies} />
 					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />
 				</div>

@@ -13,11 +13,18 @@
 	align-items: center;
 	padding: 0 15px;
 	box-sizing: border-box;
+	z-index: 2;
 
 	.right-content {
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+		font-size: 15px;
+		overflow: hidden;
+
+		@media screen and (max-width: 500px) {
+			max-width: 42px;
+		}
 
 		select {
 			margin: 0 10px;
@@ -29,6 +36,7 @@
 			transition: all 0.3s ease-in-out;
 			cursor: pointer;
 			margin: 0 10px;
+			margin-left: 25px;
 
 			&:hover {
 				color: $textOnPrimaryHover;

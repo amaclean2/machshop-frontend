@@ -1,70 +1,95 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import searchableFields from '../AppInformation/SearchableFields';
 
 
 class Table extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			columnOrder: this.props.headers.map( head => { return head[1]; }),
-			queryText: ''
+			queryText: '',
+			data: this.props.data,
+			headers: this.props.headers.columns,
+			filterDirection: 'forewards'
 		}
 		this.columnNames=this.columnNames.bind(this);
 		this.rows=this.rows.bind(this);
 		this.updateQuery=this.updateQuery.bind(this);
+		this.filterByColumn=this.filterByColumn.bind(this);
+
+	}
+
+	filterByColumn(columnName) {
+		let data = this.props.data;
+		data = data.sort( (a, b) => {
+			if(this.state.filterDirection === 'forewards') {
+				this.setState({ filterDirection: 'reverse'});
+				if(a[columnName] < b[columnName]) return -1;
+				if(a[columnName] > b[columnName]) return 1;
+				return 0;
+			} else {
+				this.setState({ filterDirection: 'forewards'});
+				if(b[columnName] < a[columnName]) return -1;
+				if(b[columnName] > a[columnName]) return 1;
+				return 0;
+
+			}
+		});
+		
+		this.setState({ data: data });
 	}
 
 	rows() {
-		let page = this.props.link.replace(/\//g, ''),
-			data;
-
-		if(page.indexOf('tool') !== -1) {
-			page = page.replace('tool', '');
-			data = this.props.data.map( item => {
-				item.tool_data._id = item._id;
-				return item.tool_data;
-			})
-		} else {
-			data = this.props.data;
-		}
-
+		let data = this.state.data;
 		let rows = data.map( (row, j) => {
-			let searchable
-			
-			for (var i = 0; i < searchableFields[page].length; i++) {
-				searchable += row[searchableFields[page][i]] + ' ';
-			}
-			if( searchable.indexOf(this.state.queryText) !== -1 ) {
-				// minis are individual arrays of each property in the row
-				let minis = Object.entries(row), elements = [];
-				for (var order of this.state.columnOrder) {
-					for ( var mini of minis ) {
-						if(mini[0] === order)
-							elements.push(mini[1]);
-					}
+
+			let searchable = [], 
+				fields = row, 
+				headerDataTypes = this.state.headers.map( header => header.dataPoint );
+
+			this.state.headers.forEach( search => {
+				if(search.searchable) {
+					searchable += row[search.dataPoint] ? row[search.dataPoint].toLowerCase() + ' ' : '';
 				}
-				let rowContents = elements.map( (element, i) => {
-					if(this.props.headers[i][2]) {
-						return <td key={i} data-label={this.props.headers[i][0]}><NavLink to={this.props.link + row._id} >{element}</NavLink></td>
+			});
+
+			if( searchable.indexOf(this.state.queryText) !== -1 ) {
+
+				let rowContents = headerDataTypes.map( (field, i) => {
+
+					if( this.state.headers[i].link) {
+						return  (<td key={i} data-label={this.state.headers[i].title}>
+									<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{fields[field]}</a>
+									<span className='small-table-link'>{fields[field]}</span>
+								</td>);
+					} else {
+						var value = this.state.headers[i].formatted ? this.state.headers[i].formatted(fields[field]) : fields[field];
+
+						return	(<td key={i} data-label={this.state.headers[i].title}>{value}</td>);
 					}
-					return <td key={i} data-label={this.props.headers[i][0]}>{element}</td>
 				});
-				return <tr key={j * 10}>{rowContents}</tr>
+
+				return <tr key={j * 10} >
+								{rowContents}
+								<td className='small-row-link' onClick={() => { this.props.toggleModal(row._id); }}></td>
+							</tr>
 			} else {
 				return null;
 			}
 		});
+
 		return rows;
 	}
 
 	updateQuery(e) {
-		this.setState({ queryText: e.target.value });
+		this.setState({ queryText: e.target.value.toLowerCase() });
 	}
 
 	columnNames() {
-		let columnHeaders = this.props.headers.map( (head, i) => {
-			return <th key={i} >{head[0]}</th>
+		let columnHeaders = this.state.headers.map( (head, i) => {
+			if(head.sortable ) {
+				return <th className={'clickable-headers'} onClick={() => this.filterByColumn(head.dataPoint)} key={i}>{head.title} </th>;
+			} else {
+				return <th key={i} >{head.title}</th>;
+			}
 		});
 
 		return columnHeaders;
@@ -74,12 +99,12 @@ class Table extends Component {
   	let columnNames = this.columnNames();
   	let rows = this.rows();
     return (
-    	<div>
+    	<div id="Table">
     		<div className="table-top">
     			<div className={this.props.noAdd ? 'gone' : ''}>
-    				<NavLink to={this.props.link + '0'} className='button table-button'>Add</NavLink>
+    				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>{this.props.addText ? this.props.addText : 'add'}</button>
     			</div>
-    			<div className="search-bar">
+    			<div className={'search-bar ' + (this.props.noSearch ? 'gone' : '')}>
     				<input type="text" placeholder='Search' onChange={this.updateQuery} />
     			</div>
     		</div>

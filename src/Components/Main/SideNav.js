@@ -23,11 +23,11 @@ class SideNav extends Component {
         </div>
       	<div className={'sidenav-view ' + (this.props.hidden ? 'hide ' : '')} >
       		<div className={'sidenav-header'} >
+            <button className='button white-button' onClick={this.props.logout} >Logout</button>
      	  	</div>
      	  	<div className={'sidenav-content'} >
      	  		<ul>
      	  			{tabs}
-              <li><button className='button' onClick={this.props.logout} >Logout</button></li>
      	  		</ul>
      	  	</div>
       	</div>

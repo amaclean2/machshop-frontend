@@ -8,30 +8,47 @@
 		float: none;
 	}
 
-	h1 {
-		font-size: 40px;
-		width: 100vw;
-		color: $primaryHover;
-		text-align: center;
-		margin-top: 10px;
+		
 
-		@media screen and (max-width: 500px) {
+	.title-box {
+		width: 100vw;
+		text-align: center;
+		margin: 20px 0;
+
+		@media screen and (max-width: 830px) {
 			text-align: inherit;
-			margin-top: 0px;
+		}
+
+		h1 {
+			font-size: 40px;
+			color: $primaryHover;
+			margin: 10px 0;
+		}
+
+		.login-description {
+			font-size: 16px;
+			color: $hyperLink;
 		}
 	}
+
 	.login-modal {
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		max-width: 600px;
+		max-width: 800px;
 
-		@media screen and (max-width: 500px) {
+		.login-title {
+			font-size: 18px;
+		}
+
+		@media screen and (max-width: 830px) {
 			box-shadow: none;
-			height: 120vh;
-			max-height: 120vh;
-			padding: 80px 20px;
+			padding: 20px;
+			padding-bottom: 60px;
+			max-height: none;
+			min-height: 100vh;
 			align-items: center;
+			max-width: 500px;
 
 			.login-title {
 				min-width: 250px;
@@ -40,7 +57,7 @@
 
 		.create-email, .create-password, .create-name {
 			border: none;
-			font-size: 15px;
+			font-size: 16px;
 			padding: 8px 15px;
 			border-bottom: 1px solid $borderGrey;
 			display: inline-block;
@@ -51,7 +68,7 @@
 			min-width: 300px;
 			text-align: start;
 
-			@media screen and (max-width: 500px) {
+			@media screen and (max-width: 830px) {
 				min-width: 200px;
 			}
 		}
@@ -75,7 +92,7 @@
 			text-align: left;
 			padding: 15px;
 
-			@media screen and (max-width: 500px) {
+			@media screen and (max-width: 830px) {
 				text-align: inherit;
 			}
 		}
@@ -86,12 +103,16 @@
 
 		.login {
 			border-right: 1px solid $borderGrey;
-			flex: 1;
+			flex: 3;
 			padding-right: 30px;
 
-			@media screen and (max-width: 500px) {
+			@media screen and (max-width: 830px) {
 				border-right: none;
 				padding: 0px;
+				min-width: 300px;
+			}
+
+			@media screen and (max-width: 350px) {
 				min-width: 275px;
 			}
 
@@ -106,13 +127,15 @@
 		}
 
 		.register {
-			flex: 1;
+			flex: 2;
 			padding-left: 30px;
 
-			@media screen and (max-width: 500px) {
-				border-right: none;
+			@media screen and (max-width: 830px) {
 				padding: 0px;
-
+				padding-top: 0px;
+			}
+			@media screen and (max-width: 600px) {
+				padding-top: 50px;
 			}
 		}
 	}
@@ -120,6 +143,7 @@
 	.error-message {
 		color: $delete;
 		font-size: 12px;
+		display: block;
 	}
 
 	.bad-input {
@@ -128,7 +152,7 @@
 
 	.final-message {
 		font-size: 15px;
-		margin-top: 20px;
+		margin: 40px 0;
 		color: $primary;
 	}
 
@@ -137,6 +161,26 @@
 		border-bottom: 1px solid $hyperLink;
 		color: $hyperLink;
 		margin-left: 20px;
+	}
+
+	.finish-buttons {
+		.progress {
+			width: 100%;
+			background-color: transparent;
+			height: 5px;
+			margin-top: 5px;
+
+			.progress-slide {
+				width: 0%;
+				height: 100%;
+				background-color: $hyperLink;
+				transition: width 5s;
+			}
+
+			.grow {
+				width: 100%;
+			}
+		}
 	}
 }
 	

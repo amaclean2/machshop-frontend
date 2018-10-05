@@ -1,5 +1,5 @@
 .shown-box {
-	font-size: 12px;
+	font-size: inherit;
 	padding: 5px 8px;
 	cursor: pointer;
 	color: $text;
@@ -53,12 +53,13 @@
 		box-shadow: 0 0 4px rgba(0,0,0,0.3);
 		border-radius: 2px;
 		z-index: 1;
+		text-align: left;
 
 		li {
 			color: $text;
 			background-color: $textOnPrimary;
 			width: 100%;
-			font-size: 12px;
+			font-size: inherit;
 			padding: 5px 8px;
 			cursor: pointer;
 			transition: all 0.3s ease-in-out;
@@ -87,6 +88,11 @@
 	&:hover {
 		box-shadow: none;
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 100%;
+		margin-left: 0;
+	}
 }
 
 .time-select {
@@ -99,5 +105,44 @@
 
 	&:hover {
 		box-shadow: none;
+	}
+}
+
+.price-box {
+	padding: 5px 8px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-start;
+
+	input {
+		border: none;
+		width: 90px;
+		padding: 0;
+		margin: 0;
+	}
+
+	.input-hard-text {
+		font-size: inherit;
+		color: $grey1;
+		padding-right: 5px;
+	}
+}
+
+.math-box {
+	padding: 5px 8px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+
+	input {
+		border: none;
+		width: 90px;
+		padding: 0;
+		margin: 0;
+	}
+
+	.input-hard-text {
+		font-size: inherit;
+		color: $grey1;
 	}
 }

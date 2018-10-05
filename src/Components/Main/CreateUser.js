@@ -1,14 +1,40 @@
 import React, { Component } from 'react';
+import Progress from './Progress';
 
 class CreateUser extends Component {
   constructor() {
     super()
     this.state = {
       companyList: [],
-      company: 'new company'
+      company: 'new company',
+      progress: false,
+      newCompany: false
     }
     this.get=this.get.bind(this);
     this.getCompany=this.getCompany.bind(this);
+    this.addUser=this.addUser.bind(this);
+    this.toggleNewCompany=this.toggleNewCompany.bind(this);
+  }
+
+  toggleNewCompany() {
+    this.setState({ newCompany: !this.state.newCompany }, () => {
+      if(!this.state.newCompany) {
+        this.props.resetNewToNull();
+      }
+    });
+  }
+
+  addUser() {
+    this.props.addUser();
+
+    setTimeout(() => {
+
+      if(!this.props.failed) {
+        this.setState({ progress: true });
+      }
+
+    }, 100);
+    
   }
 
   get() {
@@ -24,17 +50,23 @@ class CreateUser extends Component {
   }
 
   getCompany(e) {
-    this.state.companyList.map( company => {
+    if(e.target.value.toLowerCase() === 'test') {
+      e.target.value = '5a43011d6ceec000140f63dd';
+    }
+    this.state.companyList.forEach( company => {
       if(e.target.value === company._id) {
         this.setState({company: company.name});
+        this.props.createUserInfo({ target: { name: 'cname', value: this.state.company }});
       }
     })
-    this.props.createUserInfo(e);
   }
 
   finished() {
     if(this.props.finished) {
-      return <div className='final-message fade-in'>View your email for final steps to confirm your account. Thanks for joining</div>
+      return <div>
+              <div className='final-message fade-in'>View your email for final steps to confirm your account. Thanks for joining</div>
+              <button className='button fade-in' onClick={this.props.createUser} >back to Login</button>
+            </div>
     } else {
       return (
         <div className='interactions'>
@@ -45,15 +77,29 @@ class CreateUser extends Component {
             type='text'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
-            name='name' placeholder='name' />
+            name='name' placeholder="user's name" />
+          <span className={'create-name'}>
+            <input
+              type='checkbox'
+              id='newCompany'
+              onChange={this.toggleNewCompany}
+              name='newCompany' />
+            <label htmlFor={'newCompany'}>New Company</label>
+          </span>
+          <input
+            type='text'
+            className={'create-name ' + (this.state.newCompany ? '' : 'gone')}
+            name='newCompanyName'
+            onChange={this.props.createUserInfo}
+            placeholder={'company name'} />
           <input
             type='text'
             onChange={this.getCompany}
-            className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
+            className={'create-name required ' + (this.props.failed ? 'bad-input ' : '') + (this.state.newCompany ? 'gone ' : '')}
             name='cid' placeholder='company id' />
-          <div className={'create-name'} >{ this.state.company }</div>
+          <div className={'create-name ' + (this.state.newCompany ? 'gone ' : '')} >{ this.state.company }</div>
           <input
-            type='text'
+            type='email'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='email' placeholder='email' />
@@ -62,13 +108,14 @@ class CreateUser extends Component {
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
             name='pass'
             placeholder='password' />
-            <div>
-              <button className='button create-button' onClick={this.props.addUser} >
+            <div className="finish-buttons">
+              <button className='button create-button' onClick={this.addUser} >
                 Create user
               </button>
               <button className='button white-button' onClick={this.props.createUser} >
                 back to Login
               </button>
+              <Progress activated={this.state.progress} />
             </div>
         </div>
       )
@@ -79,9 +126,12 @@ class CreateUser extends Component {
     let finished = this.finished();
     return (
       <div className="login-screen">
-        <div className="modal-container">
+        <div className="modal-container login-container">
           <div className='modal-content login-modal'>
-            <h1>MachShop</h1>
+            <div className='title-box'>
+              <h1>{this.props.title}</h1>
+              <div className='login-description'>A purchasing tool for machine shops</div>
+            </div>
             <div className='create-user'>
               <span className='login-title'>Set up a new account</span>
               {finished}
