@@ -176,15 +176,6 @@ let headers = {
 				link: false,
 				// searchable: true
 			},{
-				title: 'Price per Tool',
-				dataPoint: 'price',
-				sortable: true,
-				searchable: true,
-				link: false,
-				formatted: (i) => {
-					return '$ ' + i;
-				}
-			},{
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
@@ -238,6 +229,7 @@ let headers = {
 				searchable: true,
 				link: false,
 				formatted: (i) => {
+					i = i ? i : '-';
 					return '$ ' + i;
 				}
 			},{
@@ -300,6 +292,7 @@ let headers = {
 				link: false,
 				searchable: true,
 				formatted: (i) => {
+					i = i ? i : '-';
 					return '$ ' + i;
 				}
 			},{
@@ -356,6 +349,7 @@ let headers = {
 				sortable: true,
 				searchable: true,
 				formatted: (i) => {
+					i = i ? i : '-';
 					return '$ ' + i;
 				}
 			},{
@@ -406,6 +400,7 @@ let headers = {
 				sortable: true,
 				searchable: true,
 				formatted: (i) => {
+					i = i ? i : '-';
 					return '$ ' + i;
 				}
 			},{

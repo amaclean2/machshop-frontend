@@ -66,7 +66,7 @@
 .modal-container .editor {
 	width: 100%;
 	max-width: 830px;
-	overflow: auto;
+	overflow: visible;
 
 	@media screen and (max-height: 400px) {
 		height: auto;
@@ -83,11 +83,7 @@
 }
 
 .close-small {
-	display: none;
-
-	@media screen and (max-width: 400px) {
-		display: block;
-	}
+	display: block;
 
 	.close-x {
 		font-size: 19px;

@@ -86,7 +86,6 @@ class FluxStore extends EventEmitter {
 							}).then( data => {
 								this.store.ordering = {...this.store.ordering, other: data };
 								this.store.t = true;
-								this.emit('otherUpdated');
 							});
 					});
 			});

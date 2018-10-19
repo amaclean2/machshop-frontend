@@ -4,7 +4,6 @@ import OrderLathe from '../Ordering/OrderLathe';
 import OrderOther from '../Ordering/OrderOther';
 import PurchasedEditorModal from './PurchasedEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
-import * as fluxActions from '../../../Flux/actions';
 
 class Purchased extends Component {
   constructor(props) {
@@ -59,11 +58,23 @@ class Purchased extends Component {
 
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
+          return <OrderMill
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getPurchased(this.props.category)}
+                  noAdd={true}
+                  source={source} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
+          return <OrderLathe
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getPurchased(this.props.category)}
+                  noAdd={true}
+                  source={source} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} noAdd={true} source={source} />
+          return <OrderOther
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getPurchased(this.props.category)}
+                  noAdd={true}
+                  source={source} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;

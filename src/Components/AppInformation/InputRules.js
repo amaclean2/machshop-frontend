@@ -1,4 +1,5 @@
 import DrillSizes from './DrillSizes';
+import CenterdrillSizes from './CenterdrillSizes';
 import * as fluxActions from '../../Flux/actions';
 import fluxStore from '../../Flux/fluxStore';
 
@@ -30,8 +31,7 @@ let InputRules = {
 				let subs = addend.split('-');
 
 				subs.forEach( (sub, k) => {
-					let factors = sub.split('*'),
-						multiplying;
+					let factors = sub.split('*');
 
 					factors.forEach( (factor, j) => {
 						let divisors = factor.split('/');
@@ -112,11 +112,15 @@ let InputRules = {
 	},
 	checkSize: {
 		format: (e) => {
-			let preVal = e.target.value;
+			let preVal = e.target.value, directory;
 
-    		// this.makeMath(e);
+			if (fluxStore.getFormValue('tool_type') === 'Center Drill') {
+				directory = CenterdrillSizes;
+			} else if (fluxStore.getFormValue('tool_type') === 'Drill') {
+				directory = DrillSizes;
+			}
 
-    		let val = DrillSizes.find( drill => {
+    		let val = directory.find( drill => {
       			return drill.diameter === e.target.value;
     		});
 
@@ -133,6 +137,7 @@ let InputRules = {
 		switch(e.target.name) {
 			case 'tool_type' :
 				switch(e.target.value) {
+					case 'Groove Tool' :
 					case 'Endmill' :
 						newObject.material = 'Carbide';
 						newObject.undercut_width = '0';
@@ -144,12 +149,22 @@ let InputRules = {
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						break;
+					case 'Center Drill' :
+						newObject.tip_angle = '60';
+						newObject.material = 'High Speed Steel';
+						break;
 					case 'Spot Drill' :
 						newObject.flutes = '2';
+						break;
+					case 'Cutoff Tool' :
+					case 'Reamer' :
+					case 'Tap' :
+						newObject.material = 'High Speed Steel';
 						break;
 					default :
 						break;
 				}
+				newObject.count = '1';
 				break;
 			case 'diameter' :
 				if(fluxStore.getFormValue('diameter') !== '') {
@@ -157,7 +172,15 @@ let InputRules = {
 				}
 				break;
 			case 'size' :
-				let drill = DrillSizes.find( item => { return item.size === e.target.value; })
+				let directory;
+
+				if (fluxStore.getFormValue('tool_type') === 'Center Drill') {
+					directory = CenterdrillSizes;
+				} else if (fluxStore.getFormValue('tool_type') === 'Drill') {
+					directory = DrillSizes;
+				}
+
+				let drill = directory.find( item => { return item.size === e.target.value; })
 				if(drill) {
 					newObject.diameter = drill.diameter;
 					newObject.flute_length = drill.flute_length;

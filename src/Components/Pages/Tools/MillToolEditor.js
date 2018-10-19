@@ -83,13 +83,13 @@ class MillToolEditor extends Component {
         return ['Key Cutter', 'Inserts'];
 
       case 'description' :
-        return ['Inserts'];
+        return ['Inserts', 'Other'];
 
       case 'pitch' :
         return ['Tap'];
 
       default :
-        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts', 'Other'];
+        return ['Endmill', 'Drill', 'Spot Drill', 'Chamfer Mill', 'Reamer', 'Face Mill', 'Tap', 'Center Drill', 'Key Cutter', 'Dove Mill', 'Inserts'];
     }
   }
 
@@ -276,7 +276,6 @@ class MillToolEditor extends Component {
           header={'Notes: '}
           value={'notes'}
           classes={'notes'} />
-        {/*<DescriptionItem header={'Job Number: '} value={this.props.toolData.job_number}/>*/}
   		</div>
 
   	} else {
@@ -393,16 +392,9 @@ class MillToolEditor extends Component {
           name={'notes'}
           onClick={this.showTool}
           type={'textArea'} />
-        {/*<EditableItem
-            header={'Job Number: '}
-            value={this.props.toolData.job_number}
-            type={'select'}
-            link={'/jobs/'}
-            output={this.props.output}
-            name={'job_number'} />*/}
         <span className='submit-button-line'>
-          <button onClick={this.cancel} className='button small-button white-button'>Cancel</button>
-          <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
+          <button onClick={this.cancel} className='button white-button'>Cancel</button>
+          <button onClick={this.save} className='button save-button'>{this.state.cfmMsg}</button>
         </span>
       </div>
   	}
@@ -418,7 +410,7 @@ class MillToolEditor extends Component {
   	let info = this.viewInfo();
     let mill = this.millImage();
     return (
-    	<div className='editor-content'>
+    	<div className='editor-content' id='Pages/Tools/MillToolEditor'>
         <div className='tool-image' >
           {mill}
         </div>

@@ -47,7 +47,7 @@ class Table extends Component {
 
 			this.state.headers.forEach( search => {
 				if(search.searchable) {
-					searchable += row[search.dataPoint] ? row[search.dataPoint].toLowerCase() + ' ' : '';
+					searchable += row[search.dataPoint] ? String(row[search.dataPoint]).toLowerCase() + ' ' : '';
 				}
 			});
 
@@ -99,7 +99,7 @@ class Table extends Component {
   	let columnNames = this.columnNames();
   	let rows = this.rows();
     return (
-    	<div id="Table">
+    	<div id="Main/Table">
     		<div className="table-top">
     			<div className={this.props.noAdd ? 'gone' : ''}>
     				<button onClick={() => {this.props.toggleModal('0')}} className='button table-button'>{this.props.addText ? this.props.addText : 'add'}</button>

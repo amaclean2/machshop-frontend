@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fluxStore from '../../Flux/fluxStore';
+// import fluxStore from '../../Flux/fluxStore';
 import SideNav from './SideNav';
 // import Select from './Select';
 

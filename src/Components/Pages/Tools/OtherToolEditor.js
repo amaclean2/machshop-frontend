@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
-import Endmill from './SVGs/Endmill';
-import Drill from './SVGs/Drill';
 
 class OtherToolEditor extends Component {
 	constructor(props) {
@@ -105,8 +103,8 @@ class OtherToolEditor extends Component {
             output={this.props.output}
             name={'job_number'} />*/}
         <span className='submit-button-line'>
-          <button onClick={this.cancel} className='button white-button small-button'>Cancel</button>
-          <button onClick={this.save} className='button save-button small-button'>{this.state.cfmMsg}</button>
+          <button onClick={this.cancel} className='button white-button'>Cancel</button>
+          <button onClick={this.save} className='button save-button'>{this.state.cfmMsg}</button>
         </span>
       </div>
   	}

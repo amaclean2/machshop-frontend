@@ -4,7 +4,6 @@ import OrderLathe from '../Ordering/OrderLathe';
 import OrderOther from '../Ordering/OrderOther';
 import ShippedEditorModal from './ShippedEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
-import * as fluxActions from '../../../Flux/actions';
 
 class Shipped extends Component {
   constructor(props) {
@@ -32,8 +31,7 @@ class Shipped extends Component {
     this.setState({ data: fluxStore.getShipped(this.props.category), loaded: true });
 
     fluxStore.on('millUpdated', () => {
-      this.setState({ loaded: false });
-      this.setState({ data: fluxStore.getShipped(this.props.category), loaded: true });
+      this.setState({ loaded: true });
 
     })
   }
@@ -55,11 +53,11 @@ class Shipped extends Component {
     if(this.state.loaded) {
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
+          return <OrderMill toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
+          return <OrderLathe toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={this.state.data} source={'stock'}/>
+          return <OrderOther toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
@@ -71,7 +69,7 @@ class Shipped extends Component {
     let toolEditorModal = this.generateEditorModal();
 
     return (
-      <div id="Shipped">
+      <div id="Pages/Purchased/Shipped">
         {toolEditorModal}
         <div className='toggle toggle-smaller'>
             <div onClick={() => {this.toggle('mill') }} className={(this.props.category === 'mill' ? 'toggled' : '')}>

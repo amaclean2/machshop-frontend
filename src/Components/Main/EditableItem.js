@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Select from './Select';
-import DrillSizes from '../AppInformation/DrillSizes';
 import InputRules from '../AppInformation/InputRules';
-import * as fluxActions from '../../Flux/actions';
 import fluxStore from '../../Flux/fluxStore';
 
 class EditableItem extends Component {

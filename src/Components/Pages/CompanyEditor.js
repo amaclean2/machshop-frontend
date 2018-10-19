@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
-import DeleteModal from '../Main/DeleteModal';
+// import DeleteModal from '../Main/DeleteModal';
 
 import * as fluxActions from '../../Flux/actions';
 import fluxStore from '../../Flux/fluxStore';

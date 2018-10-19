@@ -37,6 +37,12 @@ class ShippedEditorModal extends Component {
     toolData.shopping = true;
     toolData.purchased = false;
 
+    delete toolData.created_at;
+    delete toolData.updated_at;
+    delete toolData.user;
+    delete toolData._id;
+    delete toolData.company_id;
+
     let body = {
         user: 'Andrew',
         tool_data: toolData

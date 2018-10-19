@@ -36,6 +36,11 @@
 	}
 }
 
+.login-button {
+	margin-top: 20px;
+	
+}
+
 .header-select-btn {
 	margin-right: 15px;
 	padding: 5px 10px;
@@ -118,10 +123,7 @@
 }
 
 .close-big {
-	display: block;
-	@media screen and (max-width: 400px) {
-		display: none;
-	}
+	display: none;
 }
 
 .close-modal-button {

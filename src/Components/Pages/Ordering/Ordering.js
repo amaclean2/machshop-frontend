@@ -51,7 +51,7 @@ class Ordering extends Component {
     let screen = this.showPurchaseState();
 
     return (
-      <div id="Ordering/Ordering">
+      <div id="Pages/Ordering/Ordering">
         <div className="purchase-toggle">
 
           <input name="ordering" id="shopping" type="radio" onChange={this.togglePurchase} checked={this.state.purchased === 0}/>
