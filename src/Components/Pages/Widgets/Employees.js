@@ -16,7 +16,7 @@ class Employees extends Component {
 
 	get() {
 	  	let urlTemp = sessionStorage.getItem('user').split(',')[2],
-	  		url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+	  		url = urlTemp.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com'),
 	  		id = sessionStorage.getItem('user').split(',')[1],
 	  		request = new Request(url + '/users?company_id=' + id, {
 	      method: 'GET',

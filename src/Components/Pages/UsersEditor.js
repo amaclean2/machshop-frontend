@@ -49,7 +49,7 @@ constructor(props) {
 
   delete() {
     let urlTemp = sessionStorage.getItem('user').split(',')[2],
-        url = urlTemp.replace('http://localhost:3001', 'https://machapi.herokuapp.com'),
+        url = urlTemp.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com'),
         request = new Request(url + '/users/' + this.state.userId, {
       method: 'DELETE',
       headers: new Headers({ 'Content-Type': 'application/json' })

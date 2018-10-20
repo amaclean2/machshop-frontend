@@ -43,7 +43,7 @@ class App extends Component {
 
   post() {
 
-    let request = new Request('https://machapi.herokuapp.com/api/users', {
+    let request = new Request('https://toolbbe.herokuapp.com/api/users', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   addCompany() {
-    let request = new Request('https://machapi.herokuapp.com/api/companies', {
+    let request = new Request('https://toolbbe.herokuapp.com/api/companies', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({
@@ -195,7 +195,7 @@ class App extends Component {
     this.setState({ failed: null });
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then( result => {
-        fetch('https://machapi.herokuapp.com/api/allusers')
+        fetch('https://toolbbe.herokuapp.com/api/allusers')
           .then( response => { return response.json(); }).then( data => {
 
             if(data.length > 0) {

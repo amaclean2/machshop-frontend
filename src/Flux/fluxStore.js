@@ -18,7 +18,7 @@ class FluxStore extends EventEmitter {
 		if(window.location.href.indexOf('localhost') !== -1) {
 			url = 'http://localhost:3001/api';
 		} else {
-			url = 'https://machapi.herokuapp.com/api';
+			url = 'https://toolbbe.herokuapp.com/api';
 		}
 
 		this.store = {...this.store, url: url};
@@ -34,7 +34,7 @@ class FluxStore extends EventEmitter {
 		}
 
 		else {
-			fetch('https://machapi.herokuapp.com/api/allusers')
+			fetch('https://toolbbe.herokuapp.com/api/allusers')
 				.then( response => {
 					return response.json();
 				}).then( data => {
@@ -93,7 +93,7 @@ class FluxStore extends EventEmitter {
 
 	populateUsers() {
 		let company = this.getCompanyId(),
-			url = this.store.url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+			url = this.store.url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		url = url + '/users?company_id=' + company;
 
@@ -111,7 +111,7 @@ class FluxStore extends EventEmitter {
 
 	populateCompanies() {
 		let companyId = this.getCompanyId(),
-			url = this.store.url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+			url = this.store.url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		url = url + '/companies/' + companyId;
 
@@ -277,7 +277,7 @@ class FluxStore extends EventEmitter {
 
 	putUser(body) {
 		let url = this.store.url + '/users/' + body._id;
-		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+		url = url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		let request = new Request(url, {
 			method: 'PUT',
@@ -294,7 +294,7 @@ class FluxStore extends EventEmitter {
 
 	postUser(body) {
 		let url = this.store.url + '/users';
-		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+		url = url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		let request = new Request(url, {
 			method: 'POST',
@@ -311,7 +311,7 @@ class FluxStore extends EventEmitter {
 
 	putCompany(body) {
 		let url = this.store.url + '/companies/' + body._id;
-		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+		url = url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		let request = new Request(url, {
 			method: 'PUT',
@@ -328,7 +328,7 @@ class FluxStore extends EventEmitter {
 
 	postCompany(body) {
 		let url = this.store.url + '/companies';
-		url = url.replace('http://localhost:3001', 'https://machapi.herokuapp.com');
+		url = url.replace('http://localhost:3001', 'https://toolbbe.herokuapp.com');
 
 		let request = new Request(url, {
 			method: 'POST',
