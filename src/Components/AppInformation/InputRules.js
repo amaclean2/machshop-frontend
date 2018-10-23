@@ -142,6 +142,7 @@ let InputRules = {
 						newObject.material = 'Carbide';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
+						newObject.corner_radius = '0';
 						break;
 					case 'Drill' :
 						newObject.material = 'Cobalt';
@@ -161,6 +162,9 @@ let InputRules = {
 					case 'Tap' :
 						newObject.material = 'High Speed Steel';
 						break;
+					case 'Dove Mill' :
+					case 'Groove Tool' :
+						newObject.corner_radius = '0';
 					default :
 						break;
 				}
