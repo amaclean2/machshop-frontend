@@ -15,6 +15,12 @@
 	box-sizing: border-box;
 	z-index: 2;
 
+	.company-title {
+		font-size: 20px;
+		font-weight: bolder;
+		color: $grey2;
+	}
+
 	.right-content {
 		display: flex;
 		justify-content: flex-end;

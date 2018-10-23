@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import fluxStore from '../../Flux/fluxStore';
+import fluxStore from '../../Flux/fluxStore';
 import SideNav from './SideNav';
-// import Select from './Select';
 
 class Header extends Component {
   constructor() {
@@ -11,8 +10,9 @@ class Header extends Component {
   		gone: true,
       data: [
         { value: 'default', children: 'Select User'},
-        { value: 'andrew_maclean', children: 'Andrew Maclean'}
-      ]
+        { value: 'andrew_maclean', children: 'Andrew Maclean'},
+      ],
+      title: ''
   	}
   	this.toggleHideSideNav=this.toggleHideSideNav.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
@@ -29,13 +29,23 @@ class Header extends Component {
   	}, 300);
   }
 
+  componentWillMount() {
+    let userInfo = fluxStore.getUserInfo();
+
+    fluxStore.on('millUpdated', () => {
+      let userInfo = fluxStore.getUserInfo();
+      this.setState({ title: userInfo.company_name });
+    });
+  }
+
   render() {
     return (
       <div>
 	    <div className="header-wrapper">
 	      <h2>{this.props.title}</h2>
+        <div className="flex-spacer"></div>
+        <span className="company-title">{this.state.title}</span>
 	   	  <div className="right-content">
-          {/*fluxStore.getUserInfo()*/}
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
 	      </div>
 	    </div>
