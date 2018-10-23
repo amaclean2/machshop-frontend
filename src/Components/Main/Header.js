@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import fluxStore from '../../Flux/fluxStore';
 import SideNav from './SideNav';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   constructor() {
@@ -44,7 +45,7 @@ class Header extends Component {
 	    <div className="header-wrapper">
 	      <h2>{this.props.title}</h2>
         <div className="flex-spacer"></div>
-        <span className="company-title">{this.state.title}</span>
+        <NavLink className="company-title" to={'/companies'}>{this.state.title}</NavLink>
 	   	  <div className="right-content">
 	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
 	      </div>
