@@ -60,11 +60,20 @@ class ToBuy extends Component {
 
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={fluxStore.getOrdering(this.props.category)} source={source} />
+          return <OrderMill
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getOrdering(this.props.category)}
+                  source={source} />
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={fluxStore.getOrdering(this.props.category)} source={source} />
+          return <OrderLathe
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getOrdering(this.props.category)}
+                  source={source} />
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={fluxStore.getOrdering(this.props.category)} source={source} />
+          return <OrderOther
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getOrdering(this.props.category)}
+                  source={source} />
       }
     } else {
       return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;

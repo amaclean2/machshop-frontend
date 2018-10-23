@@ -77,7 +77,7 @@ class CreateUser extends Component {
             type='text'
             onChange={this.props.createUserInfo}
             className={'create-name required ' + (this.props.failed ? 'bad-input' : '')}
-            name='name' placeholder="user's name" />
+            name='name' placeholder="first and last name" />
           <span className={'create-name'}>
             <input
               type='checkbox'
@@ -125,7 +125,7 @@ class CreateUser extends Component {
   render() {
     let finished = this.finished();
     return (
-      <div className="login-screen">
+      <div className="login-screen" id="Main/CreateUser">
         <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
