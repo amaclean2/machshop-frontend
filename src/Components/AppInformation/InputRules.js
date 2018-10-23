@@ -165,6 +165,7 @@ let InputRules = {
 					case 'Dove Mill' :
 					case 'Groove Tool' :
 						newObject.corner_radius = '0';
+						break;
 					default :
 						break;
 				}

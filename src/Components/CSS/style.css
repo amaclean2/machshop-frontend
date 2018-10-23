@@ -1204,6 +1204,17 @@ h4 {
 .login-screen .login-modal .login-title {
   font-size: 18px;
 }
+.login-screen .login-modal .register-desc {
+  font-size: 15px;
+  margin-bottom: 15px;
+  line-height: 1.4em;
+}
+.login-screen .login-modal .read-more-action {
+  margin: 0 0 10px 0;
+  font-weight: normal;
+  display: block;
+  font-size: 15px;
+}
 @media screen and (max-width: 830px) {
   .login-screen .login-modal {
     box-shadow: none;

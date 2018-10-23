@@ -31,7 +31,6 @@ class Header extends Component {
   }
 
   componentWillMount() {
-    let userInfo = fluxStore.getUserInfo();
 
     fluxStore.on('millUpdated', () => {
       let userInfo = fluxStore.getUserInfo();
