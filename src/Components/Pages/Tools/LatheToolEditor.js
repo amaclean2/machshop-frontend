@@ -68,6 +68,9 @@ class LatheToolEditor extends Component {
       case 'insert' :
         return ['Insert'];
 
+      case 'description' :
+        return ['Insert', 'Groove Tool', 'OD Tool', 'Other'];
+
       default :
         return ['Boring Bar', 'Insert', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool', 'Other'];
     }
@@ -206,6 +209,7 @@ class LatheToolEditor extends Component {
           value={'tool_length'} />
         <DescriptionItem
           header={'Description: '}
+          classes={this.showItem('description')}
           value={'description'} />
         <DescriptionItem
           header={'Insert Code: '}
