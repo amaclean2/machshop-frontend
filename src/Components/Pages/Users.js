@@ -29,7 +29,6 @@ class Users extends Component {
 		input.select();
 
 		document.execCommand('Copy');
-		console.log(input.value);
 	}
 
 	toggleModal(userId) {

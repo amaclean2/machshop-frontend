@@ -16,19 +16,25 @@ let headers = {
 				title: 'Name',
 				dataPoint: 'name',
 				link: true,
-				sortable: false,
+				sortable: true,
 				searchable: true
 			},{
 				title: 'Company Name',
 				dataPoint: 'company_name',
 				link: false,
-				sortable: false,
+				sortable: true,
 				searchable: true
+			},{
+				title: 'Position',
+				dataPoint: 'user_position',
+				link: false,
+				sortable: true,
+				searchable: false
 			},{
 				title: 'Email',
 				dataPoint: 'email',
 				link: false,
-				sortable: false,
+				sortable: true,
 				searchable: true
 			}
 		]

@@ -57,6 +57,8 @@
 		padding: 3px 0;
 		z-index: 1;
 		text-align: left;
+		max-height: 300px;
+		overflow: auto;
 
 		li {
 			color: $text;

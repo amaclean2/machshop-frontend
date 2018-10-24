@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 import DeleteModal from '../Main/DeleteModal';
+import States from '../AppInformation/States';
 
 import * as fluxActions from '../../Flux/actions';
 import fluxStore from '../../Flux/fluxStore';
@@ -39,6 +40,12 @@ constructor(props) {
 
     fluxActions.addUser( userData );
 
+  }
+
+  createStates() {
+    return States.map( state => {
+      return { value: state, children: state };
+    });
   }
 
   put() {
@@ -81,6 +88,18 @@ constructor(props) {
 
   }
 
+  userPositions = [
+    { value: 'Admin', children: 'Admin' },
+    { value: 'Manager', children: 'Manager' },
+    { value: 'Inspection Manager', children: 'Inspection Manager' },
+    { value: 'Inspector', children: 'Inspectior' },
+    { value: 'Operator', children: 'Operator' },
+    { value: 'Setup Machinist', children: 'Setup Machinist' },
+    { value: 'Programmer', children: 'Programmer' },
+    { value: 'Purchaser', children: 'Purchaser' },
+    { value: 'Accounting', children: 'Accounting' }
+  ];
+
   viewInfo() {
     if(this.state.loaded) {
     	if (!this.state.editable) {
@@ -91,7 +110,7 @@ constructor(props) {
 				    <DescriptionItem header={'Street Address: '} value={'street_address'} />
 				    <DescriptionItem header={'City: '} value={'city'} />
 				    <DescriptionItem header={'State: '} value={'state'} />
-				    <DescriptionItem header={'Country: '} value={'country'} />
+				    {/*<DescriptionItem header={'Country: '} value={'country'} />*/}
 				    <DescriptionItem header={'Phone Number: '} value={'phone_number'} />
             <DescriptionItem header={'Email: '} value={'email'} />
             <DescriptionItem header={'Company Name: '} value={'company_name'} />
@@ -101,11 +120,11 @@ constructor(props) {
 	      return (
 	        <div className='edit-page'>
 	        	<EditableItem header={'Name: '} name={'name'} type='textOnly' />
-						<EditableItem header={'User Position: '} name={'user_position'} type='textOnly' />
+            <EditableItem header={'User Position: '} type={'select'} name={'user_position'} properties={this.userPositions} />
 						<EditableItem header={'Street Address: '} name={'street_address'} />
 						<EditableItem header={'City: '} name={'city'} type='textOnly'/>
-						<EditableItem header={'State: '} name={'state'} type='textOnly'/>
-						<EditableItem header={'Country: '} name={'country'} type='textOnly'/>
+            <EditableItem header={'State: '} type={'select'} name={'state'} properties={this.createStates()} />
+						{/*<EditableItem header={'Country: '} name={'country'} type='textOnly'/>*/}
 						<EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
             <DescriptionItem header={'Email: '} value={'email'} />
             <DescriptionItem header={'Company Name: '} value={'company_name'} />

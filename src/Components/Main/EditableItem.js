@@ -61,7 +61,7 @@ class EditableItem extends Component {
   }
 
   makeMoney(e) {
-    e = InputRules.makeMoney.format(e, this.change);
+    e = InputRules.makeMoney.format(e);
   }
 
   change(e) {
@@ -102,14 +102,12 @@ class EditableItem extends Component {
             <span className="input-hard-text">{this.props.units}</span>
           </div>);
       case 'phone' :
-        return (<div>
-          <input
+        return (<input
             type='text'
             placeholder={this.props.header.slice(0, -2)}
-            onChange={this.change}
+            onChange={this.makePhone}
             value={this.state.value}
-            name={this.props.name} />
-        </div>)
+            name={this.props.name} />)
       case 'textOnly' :
         return <input
               type='text'

@@ -222,9 +222,8 @@ class App extends Component {
 
   resendPassword() {
     auth.sendPasswordResetEmail(this.state.email)
-      .then( response => {
-        console.log(response);
-      }).catch( error => {
+      .then( () => {})
+      .catch( error => {
         console.log(error);
       });
     this.forgotPassword();

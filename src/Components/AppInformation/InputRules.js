@@ -79,6 +79,7 @@ let InputRules = {
 	},
 	phone: {
 		format: (e) => {
+			console.log('here');
 			let number = e.target.value;
 			number = number.replace(/[^0-9()\- ]/g, '');
 
@@ -138,11 +139,16 @@ let InputRules = {
 			case 'tool_type' :
 				switch(e.target.value) {
 					case 'Groove Tool' :
+					case 'Dove Mill' :
+						newObject.material = 'Carbide';
+						newObject.corner_radius = '0';
+						break;
 					case 'Endmill' :
 						newObject.material = 'Carbide';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						newObject.corner_radius = '0';
+						newObject.flutes = '4';
 						break;
 					case 'Drill' :
 						newObject.material = 'Cobalt';
@@ -157,14 +163,13 @@ let InputRules = {
 					case 'Spot Drill' :
 						newObject.flutes = '2';
 						break;
-					case 'Cutoff Tool' :
 					case 'Reamer' :
+						newObject.material = 'High Speed Steel';
+						newObject.flutes = '6';
+						break;
+					case 'Cutoff Tool' :
 					case 'Tap' :
 						newObject.material = 'High Speed Steel';
-						break;
-					case 'Dove Mill' :
-					case 'Groove Tool' :
-						newObject.corner_radius = '0';
 						break;
 					default :
 						break;
@@ -173,7 +178,7 @@ let InputRules = {
 				break;
 			case 'diameter' :
 				if(fluxStore.getFormValue('diameter') !== '') {
-					newObject.undercut_width = fluxStore.getFormValue('diameter');
+					newObject.undercut_width = newObject.diameter;
 				}
 				break;
 			case 'size' :

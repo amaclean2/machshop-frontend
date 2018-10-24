@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ResetPassword extends Component {
 
   render() {
-    return (<div className='login-screen'>
+    return (<div className='login-screen' id='Main/ResetPassword'>
         <div className="modal-container login-container">
           <div className='modal-content login-modal'>
             <div className='title-box'>
@@ -20,7 +20,7 @@ class ResetPassword extends Component {
                   name='email' placeholder='email' />
                 <div className="finish-buttons">
                   <button className='button login-button' onClick={this.props.resendPassword}>Send Password</button>
-                  <button className='button white-button' onClick={this.props.forgotPassword}>back to Login</button>
+                  <button className='button white-button' onClick={this.props.forgotPassword}>Back to Login</button>
                 </div>
               </div>
             </div>

@@ -45,6 +45,7 @@ class HomePage extends Component {
 					<Route path='/?mode=resetPassword' component={Companies} />
 					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />
+					<Route path='/?mode=resetPassword' component={Users} />
 				</div>
 			</div> );
 	}
