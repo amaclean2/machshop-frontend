@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DescriptionItem from '../Main/DescriptionItem';
 import EditableItem from '../Main/EditableItem';
 // import DeleteModal from '../Main/DeleteModal';
+import States from '../AppInformation/States';
 
 import * as fluxActions from '../../Flux/actions';
 import fluxStore from '../../Flux/fluxStore';
@@ -41,6 +42,12 @@ constructor(props) {
     let body = fluxStore.viewForm();
 
     fluxActions.createCompany(body);
+  }
+
+  createStates() {
+    return States.map( state => {
+      return { value: state, children: state };
+    });
   }
 
   put() {
@@ -98,7 +105,7 @@ constructor(props) {
           <DescriptionItem header= {'Street Addresss: '} value={'street_address'} />
           <DescriptionItem header={'City: '} value={'city'}/>
           <DescriptionItem header={'State: '} value={'state'}/>
-          <DescriptionItem header={'Country: '} value={'country'} />
+          {/*<DescriptionItem header={'Country: '} value={'country'} />*/}
           <DescriptionItem header={'Email: '} value={'email'} />
           <DescriptionItem header={'Phone Number: '} value={'phone_number'} />
         </div>);
@@ -107,8 +114,8 @@ constructor(props) {
           <EditableItem header={'Company Name: '} name={'name'} />
           <EditableItem header={'Street Address: '} name={'street_address'} />
           <EditableItem header={'City: '} name={'city'} />
-          <EditableItem header={'State: '} name={'state'} />
-          <EditableItem header={'Country: '} name={'country'} />
+          <EditableItem header={'State: '} type={'select'} name={'state'} properties={this.createStates()} />
+          {/*<EditableItem header={'Country: '} name={'country'} />*/}
           <EditableItem header={'Email: '} name={'email'} />
           <EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
           <span className='submit-button-line'>
