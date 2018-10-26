@@ -4,6 +4,7 @@
 	height: 100%;
 	box-sizing: border-box;
 	padding: 15px;
+	position: relative;
 }
 
 .line-item {	
@@ -183,57 +184,44 @@
 	}
 }
 
-.toggle {
-	margin-left: 0px;
-	min-width: 216px;
+.toggle-pills {
+	border: 1px solid $borderGrey;
+	border-radius: 3px;
+	display: inline-block;
+	margin-bottom: 10px;
 
-	@media screen and (max-width: 500px) {
-		text-align: center;
-		margin-left: 0px;
+	input {
+		display: none;
 	}
 
-	&>div {
+	label {
+		padding: 8px 25px;
 		display: inline-block;
-		border: 1px solid $primary;
-		padding: 5px 20px;
-		color: $hyperLink;
-		cursor: pointer;
-		font-weight: inherit;
+		font-size: 13px;
+		color: $grey1;
 		transition: all 0.3s ease-in-out;
-		border-right: none;
-
-		&:first-child {
-			border-top-left-radius: 3px;
-			border-bottom-left-radius: 3px;
-		}
-
-		&:last-child {
-			border-top-right-radius: 3px;
-			border-bottom-right-radius: 3px;
-			border-right: 1px solid $primary;
-		}
+		border-right: 1px solid $borderGrey;
+		cursor: pointer;
 
 		&:hover {
-			background-color: $textOnPrimaryHover;
+			background-color: $grey3;
 		}
-	}
-
-	.toggled {
-		background-color: $textOnPrimaryHover;
-	}
-}
-
-.toggle-smaller {
-	font-size: 13px;
-	margin-bottom: 20px;
-
-	&>div {
-		color: $grey1;
-		border-color: $borderGrey;
 
 		&:last-child {
-			border-color: $borderGrey;
+			border-right: none;
 		}
+	}
+	input[type=radio]:checked + label {
+		background-color: $grey2;
+	}
+
+	&.inverted {
+		margin-bottom: 70px;
+	}
+
+	&.under-inverted {
+		position: absolute;
+		top: 70px;
 	}
 }
 

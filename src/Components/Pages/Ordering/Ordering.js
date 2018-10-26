@@ -52,16 +52,16 @@ class Ordering extends Component {
 
     return (
       <div id="Pages/Ordering/Ordering">
-        <div className="purchase-toggle">
+        <div className="toggle-pills under-inverted">
 
           <input name="ordering" id="shopping" type="radio" onChange={this.togglePurchase} checked={this.state.purchased === 0}/>
-          <label htmlFor="shopping" className={'purchase-label-one ' + (this.state.purchased === 0 ? 'checked-label' : '')}>Shopping</label>
+          <label htmlFor="shopping">Shopping</label>
 
           <input name="ordering" id="purchased" type="radio" onChange={this.togglePurchase} checked={this.state.purchased === 1} />
-          <label className={(this.state.purchased === 1 ? 'checked-label' : '')} htmlFor="purchased" >Purchased</label>
+          <label htmlFor="purchased" >Purchased</label>
 
           <input name="ordering" id="shipped" type="radio" onChange={this.togglePurchase} checked={this.state.purchased === 2} />
-          <label htmlFor="shipped" className={(this.state.purchased === 2 ? 'checked-label' : '')}>Stock</label>
+          <label htmlFor="shipped" >Stock</label>
 
         </div>
         <div>

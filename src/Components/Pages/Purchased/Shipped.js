@@ -19,8 +19,9 @@ class Shipped extends Component {
     this.toggleModal=this.toggleModal.bind(this);
   }
 
-  toggle(i) {
-    this.props.toggleCat(i);
+  toggle(e) {
+    this.props.toggleCat(e.target.id);
+    this.setState({ data: fluxStore.getOrdering(e.target.id) });
   }
 
   toggleModal(toolId) {
@@ -71,16 +72,15 @@ class Shipped extends Component {
     return (
       <div id="Pages/Purchased/Shipped">
         {toolEditorModal}
-        <div className='toggle toggle-smaller'>
-            <div onClick={() => {this.toggle('mill') }} className={(this.props.category === 'mill' ? 'toggled' : '')}>
-                Mill
-            </div>
-            <div onClick={() => {this.toggle('lathe') }} className={(this.props.category === 'lathe' ? 'toggled' : '')}>
-                Lathe
-            </div>
-            <div onClick={() => {this.toggle('other') }} className={(this.props.category === 'other' ? 'toggled' : '')}>
-                Other
-            </div>
+        <div className='toggle-pills inverted'>
+            <input type="radio" name="dept" id="mill" onChange={this.toggle} checked/>
+            <label htmlFor="mill">Mill</label>
+
+            <input type="radio" name="dept" id="lathe" onChange={this.toggle} />
+            <label htmlFor="lathe">Lathe</label>
+
+            <input type="radio" name="dept" id="other" onChange={this.toggle} />
+            <label htmlFor="other">Other</label>
         </div>
         <div>
             {categories}
