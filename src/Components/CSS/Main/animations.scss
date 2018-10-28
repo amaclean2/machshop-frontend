@@ -18,6 +18,10 @@
 	animation: spun-back 0.3s;
 }
 
+.slide-across {
+	animation: slide-across 1s ease-out infinite;
+}
+
 @keyframes slide-to-right {
 	from { right: -300px; }
 	to   { right: 0; }
@@ -41,4 +45,9 @@
 @keyframes spun-back {
 	from { transform: rotate(180deg); }
 	to   { transform: rotate(0deg); }
+}
+
+@keyframes slide-across {
+	from { left: -30%; }
+	to   { left: 100%; }
 }

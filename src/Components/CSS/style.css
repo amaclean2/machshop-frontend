@@ -19,6 +19,10 @@
   animation: spun-back 0.3s;
 }
 
+.slide-across {
+  animation: slide-across 1s ease-out infinite;
+}
+
 @keyframes slide-to-right {
   from {
     right: -300px;
@@ -57,6 +61,14 @@
   }
   to {
     transform: rotate(0deg);
+  }
+}
+@keyframes slide-across {
+  from {
+    left: -30%;
+  }
+  to {
+    left: 100%;
   }
 }
 body {
@@ -708,6 +720,28 @@ h4 {
   box-sizing: border-box;
   padding: 15px;
   position: relative;
+}
+
+.loading-block .loading-message {
+  font-size: 15px;
+}
+.loading-block .loading-bar-container {
+  height: 10px;
+  width: 100%;
+  background-color: #E2E7E9;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.loading-block .loading-bar-container .loading-bar-movement {
+  width: 30%;
+  height: 100%;
+  background-color: #547E99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
 }
 
 .line-item {

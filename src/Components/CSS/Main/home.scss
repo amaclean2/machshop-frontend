@@ -7,6 +7,31 @@
 	position: relative;
 }
 
+.loading-block {
+	.loading-message {
+		font-size: 15px;
+	}
+	.loading-bar-container {
+		height: 10px;
+		width: 100%;
+		background-color: $grey2;
+		margin-top: 10px;
+		position: relative;
+		overflow: hidden;
+		border-radius: 5px;
+
+		.loading-bar-movement {
+			width: 30%;
+			height: 100%;
+			background-color: $primary;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-radius: 5px;
+		}
+	}
+}
+
 .line-item {	
 	font-size: inherit;
 	padding: 5px;
