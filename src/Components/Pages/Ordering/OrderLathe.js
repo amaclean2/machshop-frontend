@@ -7,9 +7,13 @@ class OrderLathe extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			tools: this.props.data
+			data: props.data
 		}
 	}
+
+  componentWillReceiveProps(props) {
+    this.setState({ data: props.data });
+  }
 
   render() {
     return (
@@ -17,7 +21,7 @@ class OrderLathe extends Component {
         <Table
           addText={this.props.source === 'stock' ? 'add a new tool' : 'request a new tool'}
           noAdd={this.props.noAdd}
-        	data={this.state.tools}
+        	data={this.state.data}
         	headers={(this.props.source === 'stock' ? headers.LatheTools : headers.OrderLathe)}
         	toggleModal={this.props.toggleModal} />
       </div>

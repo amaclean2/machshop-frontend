@@ -86,6 +86,7 @@ class FluxStore extends EventEmitter {
 							}).then( data => {
 								this.store.ordering = {...this.store.ordering, other: data };
 								this.store.t = true;
+								this.emit('allUpdated');
 							});
 					});
 			});
@@ -254,6 +255,9 @@ class FluxStore extends EventEmitter {
 
 		body._id = body.tool_data._id;
 		delete body.tool_data._id;
+
+		body.updated_at = body.tool_data.updated_at;
+		delete body.tool_data.updated_at;
 
 		body.user = body.tool_data.user;
 		delete body.tool_data.user;

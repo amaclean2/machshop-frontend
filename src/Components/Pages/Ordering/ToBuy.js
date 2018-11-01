@@ -4,6 +4,7 @@ import OrderLathe from './OrderLathe';
 import OrderOther from './OrderOther';
 import OrderEditorModal from './OrderEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
+import LoadingBlock from '../../Main/LoadingBlock';
 
 class ToBuy extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class ToBuy extends Component {
       editing: false,
       toolId: null,
       data: [],
-      loaded: false
+      loaded: false,
+      tool: this.props.category
     }
     this.toggle=this.toggle.bind(this);
     this.generateEditorModal=this.generateEditorModal.bind(this);
@@ -21,14 +23,14 @@ class ToBuy extends Component {
 
   toggle(e) {
     this.props.toggleCat(e.target.id);
-    this.setState({ data: fluxStore.getOrdering(e.target.id) });
+    this.setState({ data: fluxStore.getOrdering(e.target.id), tool: e.target.id });
   }
 
   componentWillMount() {
     if(fluxStore.getReady('t'))
-      this.setState({ data: fluxStore.getOrdering(this.props.category), loaded: true });
+      this.setState({ loaded: true });
 
-    fluxStore.on('millUpdated', () => {
+    fluxStore.on('allUpdated', () => {
       this.setState({ loaded: true });
     });
   }
@@ -76,7 +78,7 @@ class ToBuy extends Component {
                   source={source} />
       }
     } else {
-      return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
+      return <LoadingBlock loadingMessage="Loading Shopping List" />;
     }
   }
 
@@ -88,13 +90,13 @@ class ToBuy extends Component {
       <div id="Ordering/ToBuy">
         {toolEditorModal}
         <div className='toggle-pills inverted'>
-            <input type="radio" name="dept" id="mill" onChange={this.toggle} checked/>
+            <input type="radio" name="dept" id="mill" onChange={this.toggle} checked={this.state.tool === 'mill' } />
             <label htmlFor="mill">Mill</label>
 
-            <input type="radio" name="dept" id="lathe" onChange={this.toggle} />
+            <input type="radio" name="dept" id="lathe" onChange={this.toggle} checked={this.state.tool === 'lathe' } />
             <label htmlFor="lathe">Lathe</label>
 
-            <input type="radio" name="dept" id="other" onChange={this.toggle} />
+            <input type="radio" name="dept" id="other" onChange={this.toggle} checked={this.state.tool === 'other' } />
             <label htmlFor="other">Other</label>
         </div>
         <div>

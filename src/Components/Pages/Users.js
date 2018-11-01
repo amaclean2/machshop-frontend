@@ -72,24 +72,22 @@ class Users extends Component {
 	}
 
 
-  render() {
-  	let userEditorModal = this.generateEditorModal();
-  	let table = this.drawTable();
-    return (
-    	<div id='Pages/Users'>
-    		{userEditorModal}
-	        <h3>Users</h3>
-	        <div className='company-id' >
-	        	<span className='label'>Company Id: </span>
-	        	<span>{ this.state.companyId }</span>
-	        	<CopyToClipboard text={this.state.companyId}>
-		          <span className='button small-button'>Copy id</span>
-		        </CopyToClipboard>
-	        </div>
-	        {table}
-      </div>
-    );
-  }
+  	render() {
+  		let userEditorModal = this.generateEditorModal();
+  		let table = this.drawTable();
+    	return (<div id='Pages/Users'>
+			{userEditorModal}
+        	<h3>Users</h3>
+        	<div className='company-id' >
+        		<span className='label'>Company Id: </span>
+        		<span>{ this.state.companyId }</span>
+        		<CopyToClipboard text={this.state.companyId}>
+	          		<span className='button small-button'>Copy id</span>
+	        	</CopyToClipboard>
+        	</div>
+        	{table}
+  		</div>);
+	}
 }
 
 export default Users;

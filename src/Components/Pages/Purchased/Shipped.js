@@ -4,6 +4,7 @@ import OrderLathe from '../Ordering/OrderLathe';
 import OrderOther from '../Ordering/OrderOther';
 import ShippedEditorModal from './ShippedEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
+import LoadingBlock from '../../Main/LoadingBlock';
 
 class Shipped extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Shipped extends Component {
       editing: false,
       toolId: null,
       data: {},
-      loaded: false
+      loaded: false,
+      tool: this.props.category
     }
     this.toggle=this.toggle.bind(this);
     this.generateEditorModal=this.generateEditorModal.bind(this);
@@ -21,7 +23,7 @@ class Shipped extends Component {
 
   toggle(e) {
     this.props.toggleCat(e.target.id);
-    this.setState({ data: fluxStore.getOrdering(e.target.id) });
+    this.setState({ data: fluxStore.getOrdering(e.target.id), tool: e.target.id });
   }
 
   toggleModal(toolId) {
@@ -54,14 +56,23 @@ class Shipped extends Component {
     if(this.state.loaded) {
       switch(this.props.category) {
         default :
-          return <OrderMill toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
+          return <OrderMill
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getShipped(this.props.category)}
+                  source={'stock'}/>
         case 'lathe' :
-          return <OrderLathe toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
+          return <OrderLathe
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getShipped(this.props.category)}
+                  source={'stock'}/>
         case 'other' :
-          return <OrderOther toggleModal={this.toggleModal} data={fluxStore.getShipped(this.props.category)} source={'stock'}/>
+          return <OrderOther
+                  toggleModal={this.toggleModal}
+                  data={fluxStore.getShipped(this.props.category)}
+                  source={'stock'}/>
       }
     } else {
-      return <span className='loading-screen'>You spent too much money! Just kidding, I'm loading...</span>;
+      return <LoadingBlock loadingMessage="Loading Inventory List" />;
     }
   }
 
@@ -73,13 +84,13 @@ class Shipped extends Component {
       <div id="Pages/Purchased/Shipped">
         {toolEditorModal}
         <div className='toggle-pills inverted'>
-            <input type="radio" name="dept" id="mill" onChange={this.toggle} checked/>
+            <input type="radio" name="dept" id="mill" onChange={this.toggle} checked={this.state.tool === 'mill' } />
             <label htmlFor="mill">Mill</label>
 
-            <input type="radio" name="dept" id="lathe" onChange={this.toggle} />
+            <input type="radio" name="dept" id="lathe" onChange={this.toggle} checked={this.state.tool === 'lathe' } />
             <label htmlFor="lathe">Lathe</label>
 
-            <input type="radio" name="dept" id="other" onChange={this.toggle} />
+            <input type="radio" name="dept" id="other" onChange={this.toggle} checked={this.state.tool === 'other' } />
             <label htmlFor="other">Other</label>
         </div>
         <div>

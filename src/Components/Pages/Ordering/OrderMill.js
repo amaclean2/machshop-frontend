@@ -11,6 +11,10 @@ class OrderMill extends Component {
     }
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({ data: props.data });
+  }
+
   render() {
     return (
     	<div className='order-mill' id="Ordering/OrderMill">

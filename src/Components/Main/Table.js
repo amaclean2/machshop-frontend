@@ -6,7 +6,7 @@ class Table extends Component {
 		super(props);
 		this.state = {
 			queryText: '',
-			data: this.props.data,
+			data: props.data,
 			headers: this.props.headers.columns,
 			filterDirection: 'forewards'
 		}
@@ -17,8 +17,12 @@ class Table extends Component {
 
 	}
 
+	componentWillReceiveProps(props) {
+		this.setState({ data: props.data });
+	}
+
 	filterByColumn(columnName) {
-		let data = this.props.data;
+		let data = this.state.data;
 		data = data.sort( (a, b) => {
 			if(this.state.filterDirection === 'forewards') {
 				this.setState({ filterDirection: 'reverse'});

@@ -7,9 +7,13 @@ class OrderOther extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			tools: this.props.data
+			tools: props.data
 		}
 	}
+
+  componentWillReceiveProps(props) {
+    this.setState({ data: props.data });
+  }
 
   render() {
     return (
