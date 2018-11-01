@@ -13,7 +13,7 @@ class OtherTools extends Component {
 
   render() {
     return (
-    	<div className='other-tools'>
+    	<div className='other-tools' id='Pages/Tools/OtherTools'>
         <Table
           addText={'add to inventory'}
         	data={this.state.tools}

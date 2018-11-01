@@ -33,7 +33,7 @@ class Shipped extends Component {
   componentWillMount() {    
     this.setState({ data: fluxStore.getShipped(this.props.category), loaded: true });
 
-    fluxStore.on('millUpdated', () => {
+    fluxStore.on('allUpdated', () => {
       this.setState({ loaded: true });
 
     })

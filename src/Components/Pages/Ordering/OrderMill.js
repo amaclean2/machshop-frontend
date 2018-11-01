@@ -17,7 +17,7 @@ class OrderMill extends Component {
 
   render() {
     return (
-    	<div className='order-mill' id="Ordering/OrderMill">
+    	<div className='order-mill' id="Pages/Ordering/OrderMill">
         <Table
           addText={this.props.source === 'stock' ? 'add a new tool' : 'request a new tool'}
           noAdd={this.props.noAdd}

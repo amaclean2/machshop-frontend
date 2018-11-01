@@ -15,7 +15,6 @@ class OtherToolEditor extends Component {
       cfmMsg: 'Save'
 		}
 		this.toggleEdit=this.toggleEdit.bind(this);
-    this.showTool=this.showTool.bind(this);
     this.save=this.save.bind(this);
     this.cancel=this.cancel.bind(this);
 	}
@@ -118,12 +117,8 @@ class OtherToolEditor extends Component {
 
   render() {
   	let info = this.viewInfo();
-    let mill = this.millImage();
     return (
     	<div className='editor-content'>
-        <div className='tool-image' >
-          {mill}
-        </div>
         <div className='edit-page'>
         	{info}
         </div>

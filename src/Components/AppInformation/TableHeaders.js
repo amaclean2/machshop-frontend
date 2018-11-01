@@ -229,16 +229,6 @@ let headers = {
 				link: false,
 				searchable: true
 			},{
-				title: 'Price per Part',
-				dataPoint: 'price',
-				sortable: true,
-				searchable: true,
-				link: false,
-				formatted: (i) => {
-					i = i ? i : '-';
-					return '$ ' + i;
-				}
-			},{
 				title: 'Quantity',
 				dataPoint: 'count',
 				sortable: true,
