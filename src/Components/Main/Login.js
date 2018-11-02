@@ -56,11 +56,11 @@ class Login extends Component {
             </div>
             <div className='register'>
               <div className="register-desc">
-                ToolBox is there to help. At work or out running errands, wherever you are, you can access your shop. We make the tools you need to do your job easier to use than ever
+                <button className='button toggle-bio' onClick={this.props.createUserBioToggle} >Find out about ToolBox</button>
               </div>
               {/*<a href="#" className="read-more-action">Read More</a>*/}
-              <div className='login-title'>Register for a new account</div>
-              <button className='button login-button save-button' onClick={this.props.createUser} >Get started</button>
+              {/*<div className='login-title'>Register for a new account</div>
+              <button className='button login-button save-button' onClick={this.props.createUser} >Get started</button>*/}
             </div>
           </div>
         </div>

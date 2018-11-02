@@ -24,6 +24,26 @@
 	}
 }
 
+.toggle-bio {
+	background-color: $textOnPrimary;
+	color: $primary;
+	font-size: 32px;
+	padding-left: 0;
+	text-align: left;
+	text-transform: none;
+	box-shadow: none;
+
+	@media screen and (max-width: 400px) {
+		text-align: center;
+	}
+
+	&:hover {
+		background-color: $textOnPrimary;
+		color: $primaryHover;
+		box-shadow: none;
+	}
+}
+
 .white-button {
 	background-color: $textOnPrimary;
 	color: $primary;

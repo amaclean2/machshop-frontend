@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HomePage from './Components/Main/HomePage';
 import Login from './Components/Main/Login';
 import CreateUser from './Components/Main/CreateUser';
+import CreateUserBio from './Components/Main/CreateUserBio';
 import ResetPassword from './Components/Main/ResetPassword';
 import * as fluxActions from './Flux/actions';
 
@@ -21,13 +22,15 @@ class App extends Component {
       finished: false,
       resetPassword: false,
       newCompanyName: null,
-      title: 'ToolBox'
+      title: 'ToolBox',
+      createUserBio: false
 		}
 
     this.loginAction=this.loginAction.bind(this);
     this.logoutAction=this.logoutAction.bind(this);
     this.update=this.update.bind(this);
     this.createUser=this.createUser.bind(this);
+    this.createUserBioToggle=this.createUserBioToggle.bind(this);
     this.createUserInfo=this.createUserInfo.bind(this);
     this.addUser=this.addUser.bind(this);
     this.post=this.post.bind(this);
@@ -143,6 +146,10 @@ class App extends Component {
     this.setState({ createUser: !this.state.createUser, failed: false });
   }
 
+  createUserBioToggle() {
+    this.setState({ createUserBio: !this.state.createUserBio, failed: false });
+  }
+
   componentWillMount() {
     fluxActions.setUrl();
 
@@ -155,29 +162,35 @@ class App extends Component {
   login() {
     if(this.state.validEmail) {
       return <HomePage
-                logout={this.logoutAction}
-                title={this.state.title} />
+              logout={this.logoutAction}
+              title={this.state.title} />
     } else {
       if(this.state.createUser) {
         return <CreateUser
-                  addUser={this.addUser}
-                  createUser={this.createUser}
-                  createUserInfo={this.createUserInfo}
-                  finished={this.state.finished}
-                  resetNewToNull={this.resetNewToNull}
-                  failed={this.state.failed}
-                  title={this.state.title} />
+                addUser={this.addUser}
+                createUser={this.createUser}
+                createUserInfo={this.createUserInfo}
+                finished={this.state.finished}
+                resetNewToNull={this.resetNewToNull}
+                failed={this.state.failed}
+                title={this.state.title} />
+      } else if (this.state.createUserBio) {
+        return <CreateUserBio 
+                createUser={this.createUser}
+                createUserBioToggle={this.createUserBioToggle}
+                title={this.state.title} />
       } else if (this.state.resetPassword) {
         return <ResetPassword 
-                  forgotPassword={this.forgotPassword}
-                  resendPassword={this.resendPassword}
-                  update={this.update}
-                  title={this.state.title}/>
+                forgotPassword={this.forgotPassword}
+                resendPassword={this.resendPassword}
+                update={this.update}
+                title={this.state.title}/>
       } else {
         return <Login
                 forgotPassword={this.forgotPassword}
                 login={this.loginAction}
                 update={this.update}
+                createUserBioToggle={this.createUserBioToggle}
                 createUser={this.createUser}
                 failed={this.state.failed}
                 title={this.state.title} />

@@ -291,6 +291,26 @@ h4 {
   color: #E4E7E7;
 }
 
+.toggle-bio {
+  background-color: #FFF;
+  color: #547E99;
+  font-size: 32px;
+  padding-left: 0;
+  text-align: left;
+  text-transform: none;
+  box-shadow: none;
+}
+@media screen and (max-width: 400px) {
+  .toggle-bio {
+    text-align: center;
+  }
+}
+.toggle-bio:hover {
+  background-color: #FFF;
+  color: #446E89;
+  box-shadow: none;
+}
+
 .white-button {
   background-color: #FFF;
   color: #547E99;
@@ -1296,7 +1316,6 @@ h4 {
   margin-top: 20px;
 }
 .login-screen .login-modal .login {
-  border-right: 1px solid #B6C4C9;
   flex: 3;
   padding-right: 30px;
 }
@@ -1305,6 +1324,8 @@ h4 {
     border-right: none;
     padding: 0px;
     min-width: 300px;
+    width: 100vw;
+    flex: initial;
   }
 }
 @media screen and (max-width: 350px) {
@@ -1324,6 +1345,8 @@ h4 {
   .login-screen .login-modal .register {
     padding: 0px;
     padding-top: 0px;
+    width: 100vw;
+    flex: initial;
   }
 }
 @media screen and (max-width: 600px) {

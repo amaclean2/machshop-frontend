@@ -116,7 +116,6 @@
 		}
 
 		.login {
-			border-right: 1px solid $borderGrey;
 			flex: 3;
 			padding-right: 30px;
 
@@ -124,6 +123,8 @@
 				border-right: none;
 				padding: 0px;
 				min-width: 300px;
+				width: 100vw;
+				flex: initial;
 			}
 
 			@media screen and (max-width: 350px) {
@@ -143,6 +144,8 @@
 			@media screen and (max-width: 830px) {
 				padding: 0px;
 				padding-top: 0px;
+				width: 100vw;
+				flex: initial;
 			}
 			@media screen and (max-width: 600px) {
 				padding-top: 50px;
