@@ -48,13 +48,13 @@ class LatheToolEditor extends Component {
         return ['Boring Bar', 'Center Drill', 'Groove Tool', 'Drill'];
 
       case 'material' :
-        return ['Boring Bar', 'Insert', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool', 'Other'];
+        return ['Boring Bar', 'Inserts', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool', 'Other'];
 
       case 'tip_angle' :
-        return ['Insert', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill'];
+        return ['Inserts', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill'];
 
       case 'corner_radius' :
-        return ['Insert', 'Groove Tool'];
+        return ['Inserts', 'Groove Tool'];
 
       case 'flute_length' :
         return ['Center Drill', 'Drill'];
@@ -63,16 +63,16 @@ class LatheToolEditor extends Component {
         return ['Boring Bar', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool'];
 
       case 'cutting_height' :
-        return ['Insert', 'Groove Tool'];
+        return ['Inserts', 'Groove Tool'];
 
       case 'insert' :
-        return ['Insert'];
+        return ['Inserts'];
 
       case 'description' :
-        return ['Insert', 'Groove Tool', 'OD Tool', 'Other'];
+        return ['Inserts', 'Groove Tool', 'OD Tool', 'Other'];
 
       default :
-        return ['Boring Bar', 'Insert', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool', 'Other'];
+        return ['Boring Bar', 'Inserts', 'Center Drill', 'OD Tool', 'Groove Tool', 'Drill', 'Cutoff Tool', 'Other'];
     }
   }
 
@@ -142,7 +142,7 @@ class LatheToolEditor extends Component {
   toolChoices = [
     { value: 'Tool Type', children: 'Tool Type'},
     { value: 'Boring Bar', children: 'Boring Bar' },
-    { value: 'Insert', children: 'Insert'},
+    { value: 'Inserts', children: 'Inserts'},
     { value: 'Center Drill', children: 'Center Drill'},
     { value: 'OD Tool', children: 'OD Tool'},
     { value: 'Groove Tool', children: 'Groove Tool'},
