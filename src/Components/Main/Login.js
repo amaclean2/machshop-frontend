@@ -57,10 +57,10 @@ class Login extends Component {
             <div className='register'>
               <div className="register-desc">
                 <button className='button toggle-bio' onClick={this.props.createUserBioToggle} >Find out about ToolBox</button>
+                <button className='button login-button white-button' onClick={this.props.createUser} >Create an Account</button>
               </div>
               {/*<a href="#" className="read-more-action">Read More</a>*/}
-              {/*<div className='login-title'>Register for a new account</div>
-              <button className='button login-button save-button' onClick={this.props.createUser} >Get started</button>*/}
+              {/*<div className='login-title'>Register for a new account</div>*/}
             </div>
           </div>
         </div>
