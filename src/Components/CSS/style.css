@@ -1238,6 +1238,34 @@ h4 {
   font-size: 16px;
   color: #749eb9;
 }
+.login-screen .bio-box {
+  text-align: left;
+}
+@media screen and (max-width: 400px) {
+  .login-screen .bio-box {
+    margin-top: 0;
+  }
+  .login-screen .bio-box h1 {
+    margin: 0;
+  }
+}
+.login-screen .bio-box .toolbox-bio {
+  font-size: 17px;
+  line-height: 1.5em;
+  width: 70%;
+  font-weight: normal;
+}
+@media screen and (max-width: 430px) {
+  .login-screen .bio-box .toolbox-bio {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .login-screen .bio-box .toolbox-bio {
+    width: 100%;
+    font-size: 15px;
+  }
+}
 .login-screen .login-modal {
   display: flex;
   justify-content: space-between;
