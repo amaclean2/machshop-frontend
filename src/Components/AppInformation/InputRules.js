@@ -140,6 +140,7 @@ let InputRules = {
 				switch(e.target.value) {
 					case 'Groove Tool' :
 					case 'Dove Mill' :
+					case 'Inserts' :
 						newObject.material = 'Carbide';
 						newObject.corner_radius = '0';
 						break;
