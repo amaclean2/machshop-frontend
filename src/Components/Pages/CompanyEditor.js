@@ -148,10 +148,10 @@ constructor(props) {
           <div className='modal-top'>
             <h3>Company Editor</h3>
             <div className='modal-corner-buttons'>
-              <a onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
+              <button onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
                 <span className='close-small'><i className="fa fa-times close-x"></i></span>
                 <span className='close-big'>Return to Company</span>
-              </a>
+              </button>
             </div>
           </div>
           <div className='edit-page'>

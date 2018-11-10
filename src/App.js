@@ -4,6 +4,7 @@ import Login from './Components/Main/Login';
 import CreateUser from './Components/Main/CreateUser';
 import CreateUserBio from './Components/Main/CreateUserBio';
 import ResetPassword from './Components/Main/ResetPassword';
+import FromEmail from './Components/Pages/FromEmail';
 import * as fluxActions from './Flux/actions';
 
 import { auth } from './firebase';
@@ -38,6 +39,7 @@ class App extends Component {
     this.resetNewToNull=this.resetNewToNull.bind(this);
     this.forgotPassword=this.forgotPassword.bind(this);
     this.resendPassword=this.resendPassword.bind(this);
+    this.passResetFn=this.passResetFn.bind(this);
 	}
 
   resetNewToNull() {
@@ -160,7 +162,10 @@ class App extends Component {
   }
 
   login() {
-    if(this.state.validEmail) {
+    let urlParams = new URLSearchParams(window.location.search),
+        apiKey = urlParams.get('apiKey');
+
+    if(this.state.validEmail ) {
       return <HomePage
               logout={this.logoutAction}
               title={this.state.title} />
@@ -183,8 +188,14 @@ class App extends Component {
         return <ResetPassword 
                 forgotPassword={this.forgotPassword}
                 resendPassword={this.resendPassword}
+                failed={this.state.failed}
+                message={this.state.message}
                 update={this.update}
                 title={this.state.title}/>
+      } else if ( apiKey ) {
+        return <FromEmail 
+                title={this.state.title}
+                passReset={this.passResetFn}/>
       } else {
         return <Login
                 forgotPassword={this.forgotPassword}
@@ -213,7 +224,7 @@ class App extends Component {
 
             if(data.length > 0) {
 
-              let userData = data.filter( item => { return item.email.toLowerCase() === result.email.toLowerCase() })[0];
+              let userData = data.find( item => { return item.email.toLowerCase() === result.email.toLowerCase() });
 
               fluxActions.setUserInfo(userData);
               sessionStorage.setItem('userId', userData._id);
@@ -234,12 +245,47 @@ class App extends Component {
   }
 
   resendPassword() {
-    auth.sendPasswordResetEmail(this.state.email)
-      .then( () => {})
+
+    var actionCodeSettings = {
+      url: 'http://localhost:3000/reset?email=' + this.state.email
+    };
+
+    auth.sendPasswordResetEmail(this.state.email, actionCodeSettings)
+      .then( () => {
+        fetch('https://toolbbe.herokuapp.com/api/allusers')
+          .then( response => { return response.json(); }).then( data => {
+
+            if(data.length > 0) {
+
+              let userData = data.find( item => { return item.email.toLowerCase() === this.state.email.toLowerCase() });
+
+              fluxActions.setUserInfo(userData);
+              sessionStorage.setItem('userId', userData._id);
+
+              this.setState({ validEmail: this.state.email, password: null });
+
+            } else {
+              this.setState({ failed: 'login database error' });
+            }
+          });
+          this.setState({failed: null});
+          fluxActions.setPasswordReset();
+          this.forgotPassword();
+      })
       .catch( error => {
-        console.log(error);
+        this.setState({ failed: error.message });
       });
-    this.forgotPassword();
+  }
+
+  passResetFn(newPassword, code) {
+    auth.confirmPasswordReset(newPassword, code)
+      .then( () => {
+        setTimeout(() => {
+          window.location.href = "http://www.toolboxproject.io";
+        }, 2000);
+      }).catch( error => {
+        console.log('didn\'t work ', error.message);
+      });
   }
 
   addUser() {

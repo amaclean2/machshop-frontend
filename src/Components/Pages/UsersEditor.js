@@ -168,10 +168,10 @@ constructor(props) {
                   onClick={this.toggleModal}>
                     <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
-                <a onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
+                <button onClick={ this.props.toggleModal } className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Users</span>
-                </a>
+                </button>
               </div>
             </div>
             {info}

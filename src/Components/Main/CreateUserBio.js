@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Progress from './Progress';
 
 class CreateUser extends Component {
   constructor() {
@@ -26,8 +25,8 @@ class CreateUser extends Component {
                 Taking a new approach to shop management, ToolBox creates an environment that lets you run your business easily and effectiently. 
                 Now you can get access to all of your data anywhere you have an internet connection. <br /><br />
                 With an online interface, whether you're out running errands, or in front of your computer, you can quickly see the state of the inventory in your shop. 
-                Ordering machines, tools, material, and anything else you need can be done with one button, and you can track the progress of your inventory as it goes from a vendor through your shop's jobs. 
-
+                Ordering machines, tools, material, and anything else you need can be done with one button, and you can track the progress of your inventory as it goes from a vendor through your shop's jobs. <br /><br />
+                Click Get Started to create a free account for your company
               </p>
               <div className='bio-button-area'>
                 <button className='button login-button save-button' onClick={this.createUserToggle} >Get started</button>

@@ -61,7 +61,7 @@ class Table extends Component {
 
 					if( this.state.headers[i].link) {
 						return  (<td key={i} data-label={this.state.headers[i].title}>
-									<a className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{fields[field]}</a>
+									<a href='#' className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{fields[field]}</a>
 									<span className='small-table-link'>{fields[field]}</span>
 								</td>);
 					} else {

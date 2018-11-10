@@ -188,10 +188,10 @@ class PurchasedEditorModal extends Component {
                   onClick={this.confirmPurchase} >
                   receive
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className={'button table-button close-modal-button close-button ' + (this.state.readyToBuy ? 'gone' : '')}>
+                <button onClick={() => { this.props.toggleModal('0'); }} className={'button table-button close-modal-button close-button ' + (this.state.readyToBuy ? 'gone' : '')}>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Purchased List</span>
-                </a>
+                </button>
               </div>
             </div>
             <div className={'purchase-command fade-in ' + (this.state.readyToBuy ? '' : 'gone')}>Check what you're receiving</div>

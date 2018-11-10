@@ -13,6 +13,12 @@ export function setUrl() {
 	});
 };
 
+export function setPasswordReset() {
+	dispatcher.dispatch({
+		type: 'SET_PASS_RESET'
+	});
+}
+
 export function addOrder(body, category) {
 	dispatcher.dispatch({
 		type: 'NEW_ORDER',

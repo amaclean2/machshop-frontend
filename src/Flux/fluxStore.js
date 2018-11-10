@@ -49,6 +49,18 @@ class FluxStore extends EventEmitter {
 		}
 	}
 
+	setPasswordReset() {
+		this.store.limited = true;
+	}
+
+	getPasswordReset() {
+		return this.store.limited;
+	}
+
+	unsetPasswordReset() {
+		this.store.limited = false;
+	}
+
 	getUserInfo() {
 		return this.store.user;
 	}
@@ -360,6 +372,9 @@ class FluxStore extends EventEmitter {
 		switch(action.type) {
 			case 'SET_INFO' :
 				this.setUserInfo(action.position);
+				break;
+			case 'SET_PASS_RESET' :
+				this.setPasswordReset();
 				break;
 			case 'SET_URL' :
 				this.setUrl();

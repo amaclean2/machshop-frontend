@@ -200,10 +200,10 @@ class ShippedEditorModal extends Component {
                   onClick={this.orderTool} >
                   order
                 </button>
-                <a onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
+                <button onClick={() => { this.props.toggleModal('0'); }} className='button table-button close-button close-modal-button'>
                   <span className='close-small'><i className="fa fa-times close-x"></i></span>
                   <span className='close-big'>Return to Stock List</span>
-                </a>
+                </button>
               </div>
             </div>
             {station}

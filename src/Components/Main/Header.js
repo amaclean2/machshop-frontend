@@ -38,19 +38,26 @@ class Header extends Component {
     });
   }
 
-  render() {
-    return (
-      <div>
-	    <div className="header-wrapper">
-	      <h2>{this.props.title}</h2>
+  showFullHeader() {
+    return <div>
+      <div className="header-wrapper">
+        <h2>{this.props.title}</h2>
         <div className="flex-spacer"></div>
         <NavLink className="company-title" to={'/companies'}>{this.state.title}</NavLink>
-	   	  <div className="right-content">
-	      	<i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
-	      </div>
-	    </div>
+        <div className="right-content">
+          <i className="fa fa-bars hoverable" aria-hidden="true" onClick={this.toggleHideSideNav} ></i>
+        </div>
+      </div>
 
-	    <SideNav hidden={this.state.hidden} gone={this.state.gone} toggleHideSideNav={this.toggleHideSideNav} tabs={this.props.tabs} logout={this.props.logout} />
+      <SideNav hidden={this.state.hidden} gone={this.state.gone} toggleHideSideNav={this.toggleHideSideNav} tabs={this.props.tabs} logout={this.props.logout} />
+    </div>;
+  }
+
+  render() {
+    let header = this.showFullHeader();
+    return (
+      <div>
+	     {header}
       </div>
     );
   }
