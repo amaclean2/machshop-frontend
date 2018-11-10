@@ -245,32 +245,9 @@ class App extends Component {
   }
 
   resendPassword() {
-
-    var actionCodeSettings = {
-      url: 'http://www.toolboxproject.io/?email=' + this.state.email
-    };
-
-    auth.sendPasswordResetEmail(this.state.email, actionCodeSettings)
+    auth.sendPasswordResetEmail(this.state.email)
       .then( () => {
-        fetch('https://toolbbe.herokuapp.com/api/allusers')
-          .then( response => { return response.json(); }).then( data => {
-
-            if(data.length > 0) {
-
-              let userData = data.find( item => { return item.email.toLowerCase() === this.state.email.toLowerCase() });
-
-              fluxActions.setUserInfo(userData);
-              sessionStorage.setItem('userId', userData._id);
-
-              this.setState({ validEmail: this.state.email, password: null });
-
-            } else {
-              this.setState({ failed: 'login database error' });
-            }
-          });
-          this.setState({failed: null});
-          fluxActions.setPasswordReset();
-          this.forgotPassword();
+        
       })
       .catch( error => {
         this.setState({ failed: error.message });
