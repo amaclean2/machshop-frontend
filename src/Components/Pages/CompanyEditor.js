@@ -119,8 +119,8 @@ constructor(props) {
           <EditableItem header={'Email: '} name={'email'} />
           <EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
           <span className='submit-button-line'>
-            <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
-            <button onClick={this.save} className='button save-button small-button'>Save</button>
+            <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
+            <button onClick={this.save} className='button small-button'>Save</button>
           </span>
         </div>);
       }
@@ -141,7 +141,7 @@ constructor(props) {
   render() {
     let info = this.viewInfo();
 
-    return (<div>
+    return (<div id="Pages/CompanyEditor">
       <div className='sidenav-background' onClick={this.props.toggleModal}></div>
       <div className='modal-container'>
         <div className='modal-content editor'>
