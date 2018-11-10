@@ -39,6 +39,10 @@ class FromEmail extends Component {
 		this.setState({ passShow: !this.state.passShow });
 	}
 
+	returnToHome() {
+		window.location.href = "http://toolboxproject.io";
+	}
+
 	enterPassword(e) {
 		let obj = {};
 		obj[e.target.name] = e.target.value;
@@ -76,7 +80,7 @@ class FromEmail extends Component {
 	            			</div>
 	            			<div className="finish-buttons">
 			                  <button className='button login-button' onClick={this.testPassword} >Reset Password</button>
-			                  <button className='button white-button' >Cancel</button>
+			                  <button className='button white-button' onClick={this.returnToHome}>Cancel</button>
 			                </div>
 	            		</div>
 	            	</div>

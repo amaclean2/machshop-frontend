@@ -247,7 +247,7 @@ class App extends Component {
   resendPassword() {
 
     var actionCodeSettings = {
-      url: 'http://localhost:3000/reset?email=' + this.state.email
+      url: 'http://www.toolboxproject.io/?email=' + this.state.email
     };
 
     auth.sendPasswordResetEmail(this.state.email, actionCodeSettings)
