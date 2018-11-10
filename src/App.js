@@ -163,7 +163,7 @@ class App extends Component {
 
   login() {
     let urlParams = new URLSearchParams(window.location.search),
-        apiKey = urlParams.get('apiKey');
+        mode = urlParams.get('mode');
 
     if(this.state.validEmail ) {
       return <HomePage
@@ -192,7 +192,7 @@ class App extends Component {
                 message={this.state.message}
                 update={this.update}
                 title={this.state.title}/>
-      } else if ( apiKey ) {
+      } else if ( mode === 'resetPassword' ) {
         return <FromEmail 
                 title={this.state.title}
                 passReset={this.passResetFn}/>
@@ -277,15 +277,22 @@ class App extends Component {
       });
   }
 
-  passResetFn(newPassword, code) {
-    auth.confirmPasswordReset(newPassword, code)
-      .then( () => {
-        setTimeout(() => {
-          window.location.href = "http://www.toolboxproject.io";
-        }, 2000);
+  passResetFn(newPassword) {
+    let urlParams = new URLSearchParams(window.location.search),
+      actionCode = urlParams.get('oobCode');
+
+    auth.verifyPasswordResetCode(actionCode).then( email => {
+      var accountEmail = email;
+
+      auth.confirmPasswordReset(actionCode, newPassword).then( resp => {
+        console.log(resp);
+        window.location.href = "http://www.toolboxproject.io";
       }).catch( error => {
-        console.log('didn\'t work ', error.message);
+        console.log(error);
       });
+    }).catch( error => {
+      console.log(error);
+    });
   }
 
   addUser() {

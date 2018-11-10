@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import fluxStore from '../../Flux/fluxStore';
 import * as fluxActions from '../../Flux/actions';
 
-import { auth } from '../../firebase';
-
 class FromEmail extends Component {
 	constructor() {
 		super()
@@ -23,12 +21,8 @@ class FromEmail extends Component {
 		let validPass = this.state.password === this.state.password2;
 		validPass = validPass && this.state.password.length > 6;
 
-		let urlParams = new URLSearchParams(window.location.search);
-
 		if(validPass) {
-			let oobCode = urlParams.get('oobCode');
-
-			this.props.passReset(this.state.password, oobCode);
+			this.props.passReset(this.state.password);
 
 		} else {
 			this.setState({ error: true });
