@@ -65,7 +65,7 @@
 
 	input, textarea {
 		margin-left: 10px;
-		width: 150px;
+		width: 180px;
 		font-family: inherit;
 		background-color: transparent;
 
@@ -123,6 +123,7 @@
 
 	@media screen and (max-width: 500px) {
 		width: 100%;
+		max-height: none !important;
 
 		.line-item {
 			max-width: 100%;

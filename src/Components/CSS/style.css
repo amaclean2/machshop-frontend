@@ -77,7 +77,7 @@ body {
   margin: 0;
   font-size: 11px;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 830px) {
   body {
     font-size: 16px;
   }
@@ -626,7 +626,7 @@ h4 {
 }
 @media screen and (max-width: 830px) {
   .modal-container .editor {
-    max-height: 2000px;
+    max-height: 100vh;
     border-radius: 0;
     display: flex;
     flex-direction: column;
@@ -667,13 +667,22 @@ h4 {
 .editor-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
+  overflow: auto;
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 830px) {
   .editor-content {
     justify-content: center;
   }
+  .editor-content .edit-page {
+    min-width: 300px;
+    max-height: calc(100vh - 95px);
+    overflow: auto;
+  }
+}
+.editor-content .tool-image {
+  margin-top: 50px;
 }
 
 .units-space {
@@ -793,7 +802,7 @@ h4 {
 }
 .line-item input, .line-item textarea {
   margin-left: 10px;
-  width: 150px;
+  width: 180px;
   font-family: inherit;
   background-color: transparent;
 }
@@ -849,6 +858,7 @@ h4 {
 @media screen and (max-width: 500px) {
   .edit-page {
     width: 100%;
+    max-height: none !important;
   }
   .edit-page .line-item {
     max-width: 100%;
@@ -1499,7 +1509,7 @@ h4 {
 .form-select {
   box-shadow: none;
   margin-left: 10px;
-  width: 150px;
+  width: 180px;
   font-family: inherit;
   border: 1px solid #B6C4C9;
   box-sizing: border-box;

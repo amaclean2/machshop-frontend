@@ -74,7 +74,7 @@
 	}
 
 	@media screen and (max-width: 830px) {
-		max-height: 2000px;
+		max-height: 100vh;
 		border-radius: 0;
 		display: flex;
 		flex-direction: column;
@@ -116,11 +116,22 @@
 .editor-content {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 	flex-wrap: wrap;
+	overflow: auto;
 
-	@media screen and ( max-width: 700px ) {
+	@media screen and ( max-width: 830px ) {
 		justify-content: center;
+
+		.edit-page {
+			min-width: 300px;
+			max-height: calc(100vh - 95px);
+			overflow: auto;
+		}
+	}
+
+	.tool-image {
+		margin-top: 50px;
 	}
 }
 
