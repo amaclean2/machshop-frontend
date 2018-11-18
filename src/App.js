@@ -116,6 +116,7 @@ class App extends Component {
   }
 
   createUserInfo(e) {
+    this.setState({ failed: false });
     let info = this.state.userInfo;
     switch(e.target.name) {
       case 'name' :

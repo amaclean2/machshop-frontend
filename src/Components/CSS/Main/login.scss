@@ -141,6 +141,15 @@
 
 		.interactions {
 			margin-top: 20px;
+
+			.company-instructions {
+				text-align: left;
+				width: 100%;
+				max-width: 400px;
+				margin: auto;
+				font-weight: normal;
+				font-size: 13px;
+			}
 		}
 
 		.login {

@@ -1353,6 +1353,14 @@ h4 {
 .login-screen .login-modal .interactions {
   margin-top: 20px;
 }
+.login-screen .login-modal .interactions .company-instructions {
+  text-align: left;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  font-weight: normal;
+  font-size: 13px;
+}
 .login-screen .login-modal .login {
   flex: 3;
   padding-right: 30px;

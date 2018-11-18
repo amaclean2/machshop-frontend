@@ -56,7 +56,7 @@ class CreateUser extends Component {
     this.state.companyList.forEach( company => {
       if(e.target.value === company._id) {
         this.setState({company: company.name});
-        this.props.createUserInfo({ target: { name: 'cname', value: this.state.company }});
+        this.props.createUserInfo(e);
       }
     })
   }
@@ -83,6 +83,7 @@ class CreateUser extends Component {
               type='checkbox'
               id='newCompany'
               onChange={this.toggleNewCompany}
+              onBlur={this.toggleNewCompany}
               name='newCompany' />
             <label htmlFor={'newCompany'}>New Company</label>
           </span>
@@ -97,6 +98,7 @@ class CreateUser extends Component {
             onChange={this.getCompany}
             className={'create-name required ' + (this.props.failed ? 'bad-input ' : '') + (this.state.newCompany ? 'gone ' : '')}
             name='cid' placeholder='company id' />
+          <div className="company-instructions">To get the company id, someone that already is associated with the company needs to login to their accound, go to the companies page, and copy the company id. Then you can enter it when you create a new user.</div>
           <div className={'create-name ' + (this.state.newCompany ? 'gone ' : '')} >{ this.state.company }</div>
           <input
             type='email'

@@ -130,8 +130,8 @@ constructor(props) {
             <DescriptionItem header={'Company Name: '} value={'company_name'} />
             <DescriptionItem header={'Company Id: '} value={'company_id'} />
 	          <span className='submit-button-line'>
-              <button onClick={this.toggleEdit} className='button small-button white-button'>Cancel</button>
-              <button onClick={this.save} className='button save-button small-button'>Save</button>
+              <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
+              <button onClick={this.save} className='button save-button'>Save</button>
             </span>
 	        </div>);
 	    }
