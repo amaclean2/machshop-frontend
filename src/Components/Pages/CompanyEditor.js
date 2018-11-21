@@ -120,7 +120,7 @@ constructor(props) {
           <EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
           <span className='submit-button-line'>
             <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
-            <button onClick={this.save} className='button small-button'>Save</button>
+            <button onClick={this.save} className='button'>Save</button>
           </span>
         </div>);
       }
