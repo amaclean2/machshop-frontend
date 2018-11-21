@@ -562,7 +562,6 @@ h4 {
   width: 100vw;
   height: 100vh;
   z-index: 5;
-  overflow: auto;
   pointer-events: none;
 }
 @media screen and (max-height: 600px) {
@@ -589,6 +588,7 @@ h4 {
   transition: all 0.3s ease-in-out;
   position: relative;
   pointer-events: auto;
+  overflow: auto;
 }
 @media screen and (max-width: 500px) {
   .modal-container .modal-content {
@@ -1302,8 +1302,7 @@ h4 {
     box-shadow: none;
     padding: 20px;
     padding-bottom: 60px;
-    max-height: none;
-    min-height: 100vh;
+    height: 100vh;
     align-items: center;
     max-width: 500px;
   }

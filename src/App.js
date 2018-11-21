@@ -260,7 +260,6 @@ class App extends Component {
       actionCode = urlParams.get('oobCode');
 
     auth.verifyPasswordResetCode(actionCode).then( email => {
-      var accountEmail = email;
 
       auth.confirmPasswordReset(actionCode, newPassword).then( resp => {
         console.log(resp);

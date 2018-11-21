@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import fluxStore from '../../Flux/fluxStore';
 import * as fluxActions from '../../Flux/actions';
 
 class FromEmail extends Component {
