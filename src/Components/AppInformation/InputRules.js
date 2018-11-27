@@ -191,7 +191,7 @@ let InputRules = {
 					directory = DrillSizes;
 				}
 
-				let drill = directory.find( item => { return item.size === e.target.value; })
+				let drill = directory.find( item => { return item.size.toLowerCase() === e.target.value.toLowerCase(); })
 				if(drill) {
 					newObject.diameter = drill.diameter;
 					newObject.flute_length = drill.flute_length;
