@@ -73,6 +73,14 @@ class FluxStore extends EventEmitter {
 		return this.store.user.company_id;
 	}
 
+	checkFullUpdated() {
+		this.fullUpdated.push(true);
+		if(this.fullUpdated.length > 3) {
+			this.emit('allUpdated');
+			this.fullUpdated = [];
+		}
+	}
+
 	populateOrdering() {
 		let company = this.getCompanyId();
 
@@ -80,27 +88,41 @@ class FluxStore extends EventEmitter {
 
 		this.store.t = false;
 
+		this.fullUpdated = [];
+
 		fetch(this.store.url + '/shopping/mill?company_id=' + company)
 			.then( response => {
 				return response.json();
 			}).then( data => {
 				this.store.ordering = {...this.store.ordering, mill: data };
 				this.emit('millUpdated');
-				fetch(this.store.url + '/shopping/lathe?company_id=' + company)
-					.then( response => {
-						return response.json();
-					}).then( data => {
-						this.store.ordering = {...this.store.ordering, lathe: data };
-						this.emit('latheUpdated');
-						fetch(this.store.url + '/shopping/other?company_id=' + company)
-							.then( response => {
-								return response.json();
-							}).then( data => {
-								this.store.ordering = {...this.store.ordering, other: data };
-								this.store.t = true;
-								this.emit('allUpdated');
-							});
-					});
+
+				this.checkFullUpdated();
+			});
+		fetch(this.store.url + '/shopping/lathe?company_id=' + company)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.store.ordering = {...this.store.ordering, lathe: data };
+
+				this.checkFullUpdated();
+			});
+		fetch(this.store.url + '/shopping/other?company_id=' + company)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.store.ordering = {...this.store.ordering, other: data };
+
+				this.checkFullUpdated();
+			});
+		fetch(this.store.url + '/setup?company_id=' + company)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.store = {...this.store, setupSheets: data };
+				this.store.t = true;
+
+				this.checkFullUpdated();
 			});
 	}
 
