@@ -1,0 +1,36 @@
+.setup {
+	.setup-modal {
+		.editor {
+			max-width: 1000px;
+			display: block;
+
+			h4 {
+				margin: 10px 0 5px 0;
+				font-size: 16px;
+				font-weight: 500;
+				color: $headerGrey;
+			}
+
+			.setup-header, .work-holding, .material-info {
+				padding-bottom: 10px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-start;
+				align-items: center;
+				.line-item {
+					min-width: 300px;
+					max-width: 300px;
+					padding: 5px 10px;
+				}
+			}
+
+			.work-holding {
+				align-items: flex-start;
+			}
+
+			.column-group {
+
+			}
+		}
+	}
+}
