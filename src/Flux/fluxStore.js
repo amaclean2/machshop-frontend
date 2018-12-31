@@ -190,13 +190,31 @@ class FluxStore extends EventEmitter {
 		return this.store.form;
 	}
 
-	getFormValue(location) {
-		return this.store.form[location];
+	getFormValue(location, additionalData) {
+		if(additionalData) {
+			if(this.store.form[additionalData.subClass]) {
+				if (this.store.form[additionalData.subClass].length === additionalData.index) {
+					this.store.form[additionalData.subClass].push({});
+				}
+				return this.store.form[additionalData.subClass][additionalData.index][location];
+			} else {
+				return '';
+			}
+		} else {
+			return this.store.form[location]
+		}
 	}
 
-	updateFormItem(property) {
+	updateFormItem(property, additionalData) {
 		for( var name in property ) {
-			this.store.form[name] = property[name];
+			if(additionalData && additionalData.subClass) {
+				if ( !this.store.form[additionalData.subClass] ) {
+					this.store.form[additionalData.subClass] = [{}];
+				}
+				this.store.form[additionalData.subClass][additionalData.index][name] = property[name];
+			} else {
+				this.store.form[name] = property[name];
+			}
 		}
 		this.emit('changeForm');
 	}
@@ -219,6 +237,13 @@ class FluxStore extends EventEmitter {
 			}
 			delete item.tool_data;
 		});
+
+		return data;
+	}
+
+	getAllToolsInCat(cat) {
+		let data = JSON.parse(JSON.stringify(this.store.ordering))
+		data = data[cat];
 
 		return data;
 	}
@@ -411,7 +436,7 @@ class FluxStore extends EventEmitter {
 				this.deleteOrder(action.id, action.category);
 				break;
 			case 'UPDATE_FORM' :
-				this.updateFormItem(action.property);
+				this.updateFormItem(action.property, action.additionalData);
 				break;
 			case 'RESET_FORM' :
 				this.resetForm();

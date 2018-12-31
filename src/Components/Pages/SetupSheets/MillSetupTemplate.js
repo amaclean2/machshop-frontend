@@ -2,24 +2,54 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
+import fluxStore from '../../../Flux/fluxStore';
+import * as fluxActions from '../../../Flux/actions';
 
 class MillSetupTemplate extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			data: this.props.data,
-      edit: false
+      edit: props.editView,
+      tools: [{}]
 		}
 
     this.toggleEdit=this.toggleEdit.bind(this);
+    this.addTool=this.addTool.bind(this);
+    this.toolsList=this.toolsList.bind(this);
+    this.parseTools=this.parseTools.bind(this);
+    this.showMaterial=this.showMaterial.bind(this);
+    this.showFluteLength=this.showFluteLength.bind(this);
+    this.getAdditionalParameters=this.getAdditionalParameters.bind(this);
 	}
 
   toggleEdit() {
     this.setState({ edit: !this.state.edit });
   }
 
+  componentWillReceiveProps(props) {
+      this.setState({ edit: props.editView, });
+  }
+
+  toolChoices = [
+    { value: 'Tool Type', children: 'Tool Type'},
+    { value: 'Endmill', children: 'Endmill' },
+    { value: 'Drill', children: 'Drill' },
+    { value: 'Spot Drill', children: 'Spot Drill' },
+    { value: 'Chamfer Mill', children: 'Chamfer Mill'},
+    { value: 'Center Drill', children: 'Center Drill' },
+    { value: 'Reamer', children: 'Reamer' },
+    { value: 'Key Cutter', children: 'Key Cutter' },
+    { value: 'Face Mill', children: 'Face Mill' },
+    { value: 'Dove Mill', children: 'Dove Mill' },
+    { value: 'Tap', children: 'Tap' },
+    { value: 'Inserts', children: 'Inserts' },
+    { value: 'Other', children: 'Other' }
+  ];
+
   showForms() {
     if(this.state.edit) {
+      let toolsList = this.toolsList();
       return (<div>
         <h4>Part Info</h4>
         <div className={'setup-header'}>
@@ -73,6 +103,7 @@ class MillSetupTemplate extends Component {
             <div className="column-group"> 
               <EditableItem 
                 header={'Machine Requirements: '}
+                type={'textArea'}
                 name={'machine_requirements'} />
               <EditableItem 
                 header={'Parts per Cycle: '}
@@ -84,81 +115,241 @@ class MillSetupTemplate extends Component {
             </div>
           </div>
           <h4>Tools</h4>
-          <div className={'setup-tools'}>
-            Some tool selection goes here
-          </div>
+          {toolsList}
         <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
         <button onClick={this.toggleEdit} className='button save-button'>Save</button>
       </div>);
     } else {
+      let descriptionList = this.descriptionToolsList();
       return (<div onClick={this.toggleEdit}>
-          <h4>Part Info</h4>
-          <div className={'setup-header'}>
-            <DescriptionItem 
-              header={'Part Number: '}
-              value={'part_number'} />
-            <DescriptionItem 
-              header={'Part Name: '}
-              value={'part_name'} />
-            <DescriptionItem 
-              header={'Customer: '}
-              value={'customer'} />
-            <DescriptionItem 
-              header={'Job Number: '}
-              value={'job_number'} />
-            <DescriptionItem 
-              header={'Revision: '}
-              value={'revision'} />
-            <DescriptionItem 
-              header={'Operation: '}
-              value={'operation'} />
-          </div>
-          <h4>Material Info</h4>
-          <div className="material-info">
-            <DescriptionItem 
-              header={'Material: '}
-              value={'material'} />
-            <DescriptionItem 
-              header={'Material Dimensions: '}
-              value={'material_dimensions'} />
-          </div>
-          <h4>Work Holding</h4>
-          <div className={'work-holding'}>
-            <div className="column-group">
+          <div className="part-data">
+            <div className="meta-block">
+              <div className="name-block">
+                <DescriptionItem
+                  classes={'part-number-heading'}
+                  header={'Part Number: '}
+                  value={'part_number'} />
+                <span className={'part-name-dash'}>-</span>
+                <DescriptionItem 
+                  header={'Part Name: '}
+                  classes={'part-name-heading'}
+                  value={'part_name'} />
+              </div>
               <DescriptionItem 
-                header={'X-Zero: '}
-                value={'x_zero'} />
+                header={'Revision: '}
+                classes={'revision-heading'}
+                value={'revision'} />
               <DescriptionItem 
-                header={'Y-Zero: '}
-                value={'y_zero'} />
+                header={'Operation: '}
+                classes={'operation-heading'}
+                value={'operation'} />
               <DescriptionItem 
-                header={'Z-Zero: '}
-                value={'z_zero'} />
+                header={'Job Number: '}
+                classes={'job-number-heading'}
+                value={'job_number'} />
               <DescriptionItem 
-                header={'A-Zero: '}
-                value={'A_zero'} />
-              <DescriptionItem 
-                header={'B-Zero: '}
-                value={'B_zero'} />
+                header={'Customer: '}
+                classes={'customer-heading'}
+                value={'customer'} />
             </div>
-            <div className="column-group">
-              <DescriptionItem 
-                header={'Machine Requirements: '}
-                value={'machine_requirements'} />
-              <DescriptionItem 
-                header={'Parts per Cycle: '}
-                value={'parts_per_cycle'} />
-              <DescriptionItem 
-              header={'Work Holding: '}
-              value={'work_holding'} />
+            <div className="setup-info">
+              <h4>Material Info</h4>
+              <div className="material-info">
+                <DescriptionItem 
+                  header={'Material: '}
+                  value={'material'} />
+                <DescriptionItem 
+                  header={'Material Dimensions: '}
+                  value={'material_dimensions'} />
+              </div>
+              <h4>Work Holding</h4>
+              <div className={'work-holding'}>
+                <div className="column-group">
+                  <DescriptionItem 
+                    header={'X-Zero: '}
+                    value={'x_zero'} />
+                  <DescriptionItem 
+                    header={'Y-Zero: '}
+                    value={'y_zero'} />
+                  <DescriptionItem 
+                    header={'Z-Zero: '}
+                    value={'z_zero'} />
+                  <DescriptionItem 
+                    header={'A-Zero: '}
+                    value={'A_zero'} />
+                  <DescriptionItem 
+                    header={'B-Zero: '}
+                    value={'B_zero'} />
+                </div>
+                <div className="column-group">
+                  <DescriptionItem 
+                    header={'Machine Requirements: '}
+                    value={'machine_requirements'} />
+                  <DescriptionItem 
+                    header={'Parts per Cycle: '}
+                    value={'parts_per_cycle'} />
+                  <DescriptionItem 
+                  header={'Work Holding: '}
+                  value={'work_holding'} />
+                </div>
+              </div>
             </div>
           </div>
           <h4>Tools</h4>
-          <div className={'setup-tools'}>
-            Some tool selection goes here
-          </div>
+          {descriptionList}
         </div>);
     }
+  }
+
+  addTool() {
+    let tools = this.state.tools
+    tools.push({});
+    this.setState({ tools });
+  }
+
+  parseTools() {
+    let options = fluxStore.getAllToolsInCat('mill');
+    options = options.map( tool => {
+      let shown = tool.tool_data.diameter + '" ' + tool.tool_data.tool_type;
+      return { value: tool._id, children: shown };
+    });
+    return options;
+  }
+
+  showMaterial(i) {
+    return fluxStore.getFormValue('material', { subClass: 'tools', index: i });
+  }
+
+  showFluteLength(i) {
+    return fluxStore.getFormValue('flute_length', { subClass: 'tools', index: i });
+  }
+
+  getAdditionalParameters(i) {
+    let toolId = fluxStore.getFormValue('tool', { subClass: 'tools', index: i })[0];
+
+    let tool = fluxStore.getAllToolsInCat('mill').find( tool => {
+      return tool._id === toolId;
+    });
+
+    fluxActions.updateForm({ material: tool.tool_data.material, flute_length: tool.tool_data.flute_length }, { subClass: 'tools', index: i});
+    this.setState({ data: fluxStore.viewForm()});
+  }
+
+  descriptionToolsList() {
+    // let options = this.parseTools();
+    let headers = (<thead className="tool-row">
+      <tr>
+        <th>Tool</th>
+        <th>Material</th>
+        <th>Flute Length</th>
+        <th>Tool Clearance</th>
+        <th>Tool Life</th>
+      </tr>
+    </thead>);
+    let tools = (<tr></tr>);
+    if(fluxStore.viewForm().tools) {
+      tools = fluxStore.viewForm().tools.map( (tool, i) => {
+        let material = this.showMaterial(i),
+            fluteLength = this.showFluteLength(i);
+        return (<tr key={i} className="tool-row">
+            <td>
+              <DescriptionItem
+                classes={'select-tool'}
+                header={''}
+                additionalData={{ subClass: 'tools', index: i, fillWithData: true }}
+                value={'tool'} />
+            </td>
+            <td>
+              <span className="fixed-value" >{material}</span>
+            </td>
+            <td>
+              <span className="fixed-value" >{fluteLength}"</span>
+            </td>
+            <td>
+              <DescriptionItem
+                classes={'tool-clearance'}
+                header={'Tool Clearance: '}
+                units={'inches'}
+                additionalData={{ subClass: 'tools', index: i }}
+                value={'tool_clearance'} />
+            </td>
+            <td>
+              <DescriptionItem
+                classes={'tool-life'}
+                header={'Tool Life: '}
+                units={'pieces'}
+                additionalData={{ subClass: 'tools', index: i }}
+                value={'tool_life'} />
+            </td>
+          </tr>);
+      });
+    }
+    return (<table className={'setup-tools'}>
+      {headers}
+      <tbody>
+        {tools}
+      </tbody>
+    </table>);
+  }
+
+  toolsList() {
+    let options = this.parseTools();
+    let headers = (<thead className="tool-row">
+      <tr>
+        <th>Tool</th>
+        <th>Material</th>
+        <th>Flute Length</th>
+        <th>Tool Clearance</th>
+        <th>Tool Life</th>
+      </tr>
+    </thead>);
+
+    let tools = this.state.tools.map( (tool, i) => {
+      let material = this.showMaterial(i),
+          fluteLength = this.showFluteLength(i);
+      return (<tr key={i} className="tool-row">
+          <td>
+            <EditableItem
+              classes={'select-tool'}
+              header={''}
+              type={'select'}
+              additionalFunction={() => {this.getAdditionalParameters(i)}}
+              additionalData={{ subClass: 'tools', index: i, fillWithData: true }}
+              name={'tool'}
+              properties={options} />
+          </td>
+          <td><span className="fixed-value" >{material}</span></td>
+          <td><span className="fixed-value" >{fluteLength}"</span></td>
+          <td>
+            <EditableItem
+              classes={'tool-clearance'}
+              header={'Tool Clearance: '}
+              units={'inches'}
+              type={'math'}
+              additionalData={{ subClass: 'tools', index: i }}
+              name={'tool_clearance'} />
+          </td>
+          <td>
+            <EditableItem
+              classes={'tool-life'}
+              header={'Tool Life: '}
+              units={'pieces'}
+              type={'number'}
+              additionalData={{ subClass: 'tools', index: i }}
+              name={'tool_life'} />
+          </td>
+        </tr>);
+    });
+
+    return (<div>
+      <table className={'setup-tools'}>
+        {headers}
+        <tbody>
+          {tools}
+        </tbody>
+      </table>
+      <button onClick={this.addTool} className='button small-button white-button'>Add Tool</button>
+    </div>);
   }
 
   render() {

@@ -4,6 +4,17 @@
 			max-width: 1000px;
 			display: block;
 
+			.part-data {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				flex-wrap: wrap;
+
+				.meta-block {
+					min-width: 300px;
+				}
+			}
+
 			h4 {
 				margin: 10px 0 5px 0;
 				font-size: 16px;
@@ -21,6 +32,110 @@
 					min-width: 300px;
 					max-width: 300px;
 					padding: 5px 10px;
+				}
+			}
+
+			.select-tool, .tool-clearance, .tool-life {
+				margin: 0 5px;
+				margin-left: 0;
+				.display {
+					display: none;
+					min-width: 0;
+					max-width: max-content;
+				}
+
+				div {
+					margin-left: 0;
+				}
+			}
+
+			.fixed-value {
+				font-size: 13px;
+				min-width: 170px;
+			}
+
+			.part-number-heading,
+			.part-name-heading,
+			.customer-heading,
+			.job-number-heading,
+			.revision-heading,
+			.operation-heading {
+				min-width: 0;
+				padding: 2px 0;
+				padding-right: 5px;
+				display: inline-block;
+				.display {
+					display: none;
+				}
+				.value {
+					margin-left: 0;
+				}
+			}
+
+			.name-block {
+				margin-bottom: 10px;
+			}
+
+			.part-number-heading {
+				.value {
+					font-size: 20px;
+					font-weight: 500;
+				}
+			}
+
+			.part-name-dash {
+				font-size: 20px;
+				font-weight: 400;
+			}
+
+			.part-name-heading {
+				.value {
+					font-size: 18px;
+					margin-left: 5px;
+				}
+			}
+
+			.setup-tools {
+				width: 100%;
+				margin-top: 20px;
+
+				th {
+					text-align: left;
+					font-size: 13px;
+				}
+
+				.line-item {
+					&:hover {
+						background-color: transparent;
+					}
+				}
+
+				.tool-row {
+					.value {
+						margin-left: 0;
+					}
+					transition: all 0.3s ease-in-out;
+
+					&:hover {
+						background-color: $grey3;
+					}
+				}
+
+				thead.tool-row:hover {
+					background-color: transparent;
+				}
+			}
+
+			.job-number-heading,
+			.customer-heading,
+			.revision-heading,
+			.operation-heading {
+				display: flex;
+				max-width: max-content;
+				font-size: 15px;
+				.display {
+					display: inline-block;
+					margin-right: 10px;
 				}
 			}
 

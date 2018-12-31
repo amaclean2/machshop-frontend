@@ -4,7 +4,8 @@ import fluxStore from '../../Flux/fluxStore';
 class DescriptionItem extends Component {
 
   render() {
-    let value = fluxStore.getFormValue(this.props.value);
+    let value = fluxStore.getFormValue(this.props.value, this.props.additionalData);
+    value = typeof(value) === 'string' || value === undefined ? value : value[1];
 
     return (
       <span className={'line-item description ' + this.props.classes}>

@@ -16,11 +16,6 @@ class Select extends Component {
   }
 
   getClasses() {
-    if(this.props.children && this.props.children.props.className) {
-      let classes = this.state.classes;
-      classes += this.props.children.props.className + ' ';
-      this.setState({ classes });
-    }
     if(this.props.classes) {
       let classes = this.state.classes;
       classes += this.props.classes + ' ';
@@ -32,12 +27,8 @@ class Select extends Component {
     let data;
     if(props.data) {
       data = props.data;
-    } else {
-      data = props.children.props.children.map( child => {
-        return child.props;
-      });
     }
-    this.setState({ data, chosen: (props.value ? { value: props.value, children: props.value } : data[0]) });
+    this.setState({ data, chosen: (props.value ? { value: props.value[0], children: props.value[1] } : data[0]) });
   }
 
   componentDidMount() {
@@ -50,7 +41,7 @@ class Select extends Component {
   }
 
   selectItem(value) {
-    this.props.output({ target: { value: value.value, name: this.props.name}});
+    this.props.output({ target: { value: value.value, children: value.children, name: this.props.name}});
     this.setState({ chosen: value });
     this.toggleShown();
   }

@@ -7,7 +7,7 @@ class EditableItem extends Component {
   constructor(props) {
     super(props)
 
-    let value = fluxStore.getFormValue(this.props.name) !== undefined ? fluxStore.getFormValue(this.props.name) : '';
+    let value = fluxStore.getFormValue(props.name, props.additionalData) !== undefined ? fluxStore.getFormValue(props.name, props.additionalData) : '';
 
     this.state = {
       loaded: false,
@@ -41,38 +41,38 @@ class EditableItem extends Component {
   }
 
   checkSize(e) {
-    e = InputRules.checkSize.format(e);
+    e = InputRules.checkSize.format(e, this.props.additionalData);
   }
 
   changeText(e) {
-    e = InputRules.textOnly.format(e);
+    e = InputRules.textOnly.format(e, this.props.additionalData);
   }
 
   changeNumber(e) {
-    e = InputRules.number.format(e);
+    e = InputRules.number.format(e, this.props.additionalData);
   }
 
   makePhone(e) {
-    e = InputRules.phone.format(e);
+    e = InputRules.phone.format(e, this.props.additionalData);
   }
 
   makeMath(e) {
-    e = InputRules.math.format(e);
+    e = InputRules.math.format(e, this.props.additionalData);
   }
 
   makeMoney(e) {
-    e = InputRules.makeMoney.format(e);
+    e = InputRules.makeMoney.format(e, this.props.additionalData);
   }
 
   change(e) {
-    InputRules.fields(e);
-
-    this.setState({ value: fluxStore.getFormValue(this.props.name) });
+    InputRules.fields(e, this.props.additionalData);
+    if (this.props.additionalFunction) this.props.additionalFunction();
   }
 
   componentWillMount() {
     fluxStore.on('changeForm', () => {
-      let fluxValue = fluxStore.getFormValue(this.props.name);
+      let fluxValue = fluxStore.getFormValue(this.props.name, this.props.additionalData);
+
       this.setState({ value: (fluxValue === undefined ? '': fluxValue), loaded: true});
     });
   }
@@ -80,14 +80,17 @@ class EditableItem extends Component {
   showType() {
     switch(this.props.type) {
       case 'number' :
-        return <input
-                  type='text'
-                  className={'editable-input'}
-                  onChange={this.change}
-                  onBlur={this.changeNumber}
-                  placeholder={this.props.header.slice(0, -2)}
-                  value={this.state.value}
-                  name={this.props.name} />
+        return <div className="math-box form-select">
+                  <input
+                    type='text'
+                    className={'editable-input'}
+                    onChange={this.change}
+                    onBlur={this.changeNumber}
+                    placeholder={this.props.header.slice(0, -2)}
+                    value={this.state.value}
+                    name={this.props.name} />
+                  <span className="input-hard-text">{this.props.units}</span>
+                </div>
 
       case 'math' :
         return (

@@ -71,10 +71,11 @@ export function deleteOrder(id, category) {
 	});
 };
 
-export function updateForm(newProperty) {
+export function updateForm(newProperty, addData) {
 	dispatcher.dispatch({
 		type: 'UPDATE_FORM',
-		property: newProperty
+		property: newProperty,
+		additionalData: addData
 	})
 }
 

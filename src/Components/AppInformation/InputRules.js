@@ -5,7 +5,7 @@ import fluxStore from '../../Flux/fluxStore';
 
 let InputRules = {
 	number: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			let number = e.target.value;
 		    number = number.replace(/[^0-9.]/g, '');
 
@@ -14,11 +14,11 @@ let InputRules = {
 		    }
 		    e.target.value = number;
 		    
-		    change(e);
+		    change(e, additionalData);
 		} 
 	},
 	math: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			let string = e.target.value;
 
 			string = string.toString();
@@ -74,11 +74,11 @@ let InputRules = {
 
 			e.target.value = finished;
 
-			change(e);
+			change(e, additionalData);
 		}
 	},
 	phone: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			console.log('here');
 			let number = e.target.value;
 			number = number.replace(/[^0-9()\- ]/g, '');
@@ -93,26 +93,26 @@ let InputRules = {
 
 			e.target.value = number;
 
-			change(e);
+			change(e, additionalData);
 		}
 	},
 	textOnly: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			e.target.value = e.target.value.replace(/[^A-z`' ]/g, '');
 
-			change(e);
+			change(e, additionalData);
 		}
 	},
 	makeMoney: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			let price = Number(e.target.value);
     		e.target.value = price.toFixed(2);
 
-    		change(e);
+    		change(e, additionalData);
 		}
 	},
 	checkSize: {
-		format: (e) => {
+		format: (e, additionalData) => {
 			let preVal = e.target.value, directory;
 
 			if (fluxStore.getFormValue('tool_type') === 'Center Drill') {
@@ -128,12 +128,12 @@ let InputRules = {
     		if(val) e.target.value = val.size;
     		else e.target.value = preVal;
 
-    		change(e);
+    		change(e, additionalData);
 		}
 	},
-	fields: (e) => {
+	fields: (e, additionalData) => {
 		let newObject = {};
-		newObject[e.target.name] = e.target.value;
+		newObject[e.target.name] = e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA" ? [e.target.value, e.target.children] : e.target.value;
 
 		switch(e.target.name) {
 			case 'tool_type' :
@@ -141,36 +141,36 @@ let InputRules = {
 					case 'Groove Tool' :
 					case 'Dove Mill' :
 					case 'Inserts' :
-						newObject.material = 'Carbide';
+						newObject.material[1] = 'Carbide';
 						newObject.corner_radius = '0';
 						break;
 					case 'Endmill' :
-						newObject.material = 'Carbide';
+						newObject.material[1] = 'Carbide';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						newObject.corner_radius = '0';
 						newObject.flutes = '4';
 						break;
 					case 'Drill' :
-						newObject.material = 'Cobalt';
+						newObject.material[1] = 'Cobalt';
 						newObject.tip_angle = '118';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						break;
 					case 'Center Drill' :
 						newObject.tip_angle = '60';
-						newObject.material = 'High Speed Steel';
+						newObject.material[1] = 'High Speed Steel';
 						break;
 					case 'Spot Drill' :
 						newObject.flutes = '2';
 						break;
 					case 'Reamer' :
-						newObject.material = 'High Speed Steel';
+						newObject.material[1] = 'High Speed Steel';
 						newObject.flutes = '6';
 						break;
 					case 'Cutoff Tool' :
 					case 'Tap' :
-						newObject.material = 'High Speed Steel';
+						newObject.material[1] = 'High Speed Steel';
 						break;
 					default :
 						break;
@@ -202,13 +202,13 @@ let InputRules = {
 				break;
 		}
 
-		fluxActions.updateForm(newObject);
+		fluxActions.updateForm(newObject, additionalData);
 	}
 }
 
-let change = e => {
+let change = (e, additionalData) => {
 
-    InputRules.fields(e);
+    InputRules.fields(e, additionalData);
 }
 
 export default InputRules;

@@ -14,7 +14,8 @@ class SetupEditorModal extends Component {
       loaded: false,
       modalHide: true,
       redirect: false,
-      station: 0
+      station: 0,
+      editView: false
 		}
     this.delete=this.delete.bind(this);
     this.get=this.get.bind(this);
@@ -47,6 +48,8 @@ class SetupEditorModal extends Component {
         break;
       case 'other' :
         station = 2;
+        break;
+      default :
         break;
     }
     this.setState({ station: station });
@@ -111,18 +114,17 @@ class SetupEditorModal extends Component {
     if(this.state.setupId !== '0') {
       this.get();
     } else {
-      this.setState({ loaded: true });
+      this.setState({ loaded: true, editView: true });
     }
   }
 
   render() {
     return (
-    	<div id="Pages/SetupSheets/SetupEditorModal" class="setup-modal">
+    	<div id="Pages/SetupSheets/SetupEditorModal" className="setup-modal">
         <div className="sidenav-background" onClick={this.props.toggleModal}></div>
         <div className="modal-container">
           <div className="modal-content editor">
             <div className="modal-top">
-              <h3>Setup Sheet Editor</h3>
               <div className={(this.state.modalHide ? 'gone' : '')} >
                 <DeleteModal delete={this.delete} reject={ this.toggleDeleteModal } />
               </div>
@@ -138,7 +140,7 @@ class SetupEditorModal extends Component {
                 </button>
               </div>
             </div>
-            <div className="toggle-pills">
+            {/*<div className="toggle-pills">
               <input name="setupStation" id="mill" type="radio" onChange={this.toggleStation} checked={this.state.station === 0}/>
               <label htmlFor="mill">Mill</label>
 
@@ -147,10 +149,10 @@ class SetupEditorModal extends Component {
 
               <input name="setupStation" id="other" type="radio" checked={this.state.station === 2} />
               <label htmlFor="other" >Other</label>
-
-            </div>
+            </div>*/}
             <MillSetupTemplate
-              edit={this.editTemplate}
+              editTemplate={this.editTemplate}
+              editView={this.state.editView}
               data={this.state.data}/>
           </div>
         </div>
