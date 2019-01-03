@@ -115,9 +115,9 @@ let InputRules = {
 		format: (e, additionalData) => {
 			let preVal = e.target.value, directory;
 
-			if (fluxStore.getFormValue('tool_type') === 'Center Drill') {
+			if (fluxStore.getFormValue('tool_type')[0] === 'Center Drill') {
 				directory = CenterdrillSizes;
-			} else if (fluxStore.getFormValue('tool_type') === 'Drill') {
+			} else if (fluxStore.getFormValue('tool_type')[0] === 'Drill') {
 				directory = DrillSizes;
 			}
 
@@ -141,36 +141,37 @@ let InputRules = {
 					case 'Groove Tool' :
 					case 'Dove Mill' :
 					case 'Inserts' :
-						newObject.material[1] = 'Carbide';
+						newObject.material = ['Coated Carbide', 'Coated Carbide'];
 						newObject.corner_radius = '0';
 						break;
 					case 'Endmill' :
-						newObject.material[1] = 'Carbide';
+						newObject.material = ['Coated Carbide', 'Coated Carbide'];
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						newObject.corner_radius = '0';
 						newObject.flutes = '4';
 						break;
 					case 'Drill' :
-						newObject.material[1] = 'Cobalt';
+						newObject.material = ['Cobalt', 'Cobalt'];
 						newObject.tip_angle = '118';
 						newObject.undercut_width = '0';
 						newObject.undercut_length = '0';
 						break;
 					case 'Center Drill' :
 						newObject.tip_angle = '60';
-						newObject.material[1] = 'High Speed Steel';
+						newObject.material = ['High Speed Steel', 'High Speed Steel'];
 						break;
 					case 'Spot Drill' :
 						newObject.flutes = '2';
+						newObject.material = ['Carbide', 'Carbide'];
 						break;
 					case 'Reamer' :
-						newObject.material[1] = 'High Speed Steel';
+						newObject.material = ['High Speed Steel', 'High Speed Steel'];
 						newObject.flutes = '6';
 						break;
 					case 'Cutoff Tool' :
 					case 'Tap' :
-						newObject.material[1] = 'High Speed Steel';
+						newObject.material = ['High Speed Steel', 'High Speed Steel'];
 						break;
 					default :
 						break;
@@ -185,9 +186,9 @@ let InputRules = {
 			case 'size' :
 				let directory;
 
-				if (fluxStore.getFormValue('tool_type') === 'Center Drill') {
+				if (fluxStore.getFormValue('tool_type')[0] === 'Center Drill') {
 					directory = CenterdrillSizes;
-				} else if (fluxStore.getFormValue('tool_type') === 'Drill') {
+				} else if (fluxStore.getFormValue('tool_type')[0] === 'Drill') {
 					directory = DrillSizes;
 				}
 

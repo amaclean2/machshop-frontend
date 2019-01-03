@@ -192,7 +192,7 @@ class MillToolEditor extends Component {
   ];
 
   showItem(property) {
-    return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type')) !== -1 ? '' : 'gone'
+    return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type') && fluxStore.getFormValue('tool_type')[0]) !== -1 ? '' : 'gone'
   }
 
   viewInfo() {
@@ -286,6 +286,7 @@ class MillToolEditor extends Component {
           type={'select'}
           name={'tool_type'}
           properties={this.toolChoices}
+          autoFocus={true}
           onClick={this.showTool} />
         <EditableItem
           header={'Description: '}

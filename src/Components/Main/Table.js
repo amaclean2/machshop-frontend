@@ -59,13 +59,18 @@ class Table extends Component {
 
 				let rowContents = headerDataTypes.map( (field, i) => {
 
+					let displayName = fields[field];
+					if(typeof(displayName) === 'object') {
+						displayName = displayName[1];
+					}
+
 					if( this.state.headers[i].link) {
 						return  (<td key={i} data-label={this.state.headers[i].title}>
-									<a href='#' className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{fields[field]}</a>
-									<span className='small-table-link'>{fields[field]}</span>
+									<a href='#' className='large-table-link' onClick={() => { this.props.toggleModal(row._id); }}>{displayName}</a>
+									<span className='small-table-link'>{displayName}</span>
 								</td>);
 					} else {
-						var value = this.state.headers[i].formatted ? this.state.headers[i].formatted(fields[field]) : fields[field];
+						var value = this.state.headers[i].formatted ? this.state.headers[i].formatted(displayName) : displayName;
 
 						return	(<td key={i} data-label={this.state.headers[i].title}>{value}</td>);
 					}

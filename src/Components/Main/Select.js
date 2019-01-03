@@ -13,6 +13,7 @@ class Select extends Component {
     this.toggleShown=this.toggleShown.bind(this);
     this.selectItem=this.selectItem.bind(this);
     this.getClasses=this.getClasses.bind(this);
+    this.arrows=this.arrows.bind(this);
   }
 
   getClasses() {
@@ -28,6 +29,21 @@ class Select extends Component {
     if(props.data) {
       data = props.data;
     }
+
+    data.forEach( item => {
+      item.selected = false;
+    });
+
+    if(props.value) {
+      let selected = data.find( item => {
+        return item.value === props.value[0];
+      });
+
+      selected.selected = true;
+    } else {
+      data[0].selected = true;
+    }
+
     this.setState({ data, chosen: (props.value ? { value: props.value[0], children: props.value[1] } : data[0]) });
   }
 
@@ -46,14 +62,57 @@ class Select extends Component {
     this.toggleShown();
   }
 
+  arrows(e) {
+    e.preventDefault();
+    let data = this.state.data;
+    if ( e.which === 38 ) {
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].selected) {
+          data[i].selected = false;
+          data[i - 1].selected = true;
+          i = data.length;
+        }
+      }
+      this.setState({ data });
+    } else if ( e.which === 40 ) {
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].selected) {
+          data[i].selected = false;
+          data[i + 1].selected = true;
+          i = data.length;
+        }
+      }
+      this.setState({ data });
+    } else if ( e.which === 13 ) {
+
+      let item = this.state.data.find(item => {
+        return item.selected === true;
+      });
+
+      this.selectItem(item);
+    }
+  }
+
   showList() {
+
     let items = this.state.data.map( (item, i) => {
-      return <li key={i} onClick={() => {this.selectItem(item)}} value={item.value}>{item.children}</li>;
+      let chosen = item.selected;
+
+      return <li
+              autoFocus={chosen ? 'true' : 'false'}
+              className={ chosen ? 'selected' : ''}
+              key={i}
+              tabIndex="-1"
+              onClick={() => {this.selectItem(item)}}
+              onKeyDown={this.arrows}
+              value={item.value}>
+                {item.children}
+            </li>;
     })
     return items;
   }
 
-  toggleShown() {
+  toggleShown(e) {
     this.setState({ shown: !this.state.shown });
   }
 
@@ -62,7 +121,7 @@ class Select extends Component {
     return (
       <div className={'ms-select ' + this.state.classes} id="Select" >
         <div className={'screen-cover ' + ( !this.state.shown ? 'gone' : '')} onClick={this.toggleShown}></div>
-        <div className={'shown-box'} onClick={this.toggleShown}>
+        <div tabIndex="0" className={'shown-box'} onFocus={this.toggleShown} onKeyDown={this.arrows}>
           <span className='view'>{this.state.chosen.children}</span>
           <i className={'fa fa-caret-up select-icon ' + (this.state.shown ? 'spun-back' : 'spun down')} aria-hidden="true"></i>
         </div>
