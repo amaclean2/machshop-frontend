@@ -4,11 +4,32 @@
 .login-screen {
 	text-align: center;
 
+	.big-title {
+		position: fixed;
+		bottom: 0;
+		right: -5px;
+		font-size: 400px;
+		z-index: -1;
+		color: $primaryTranslucent;
+		line-height: 0.7em;
+		font-weight: bold;
+
+		@media screen and (max-width: 1400px) {
+			font-size: 300px;
+		}
+
+		@media screen and (max-width: 1000px) {
+			font-size: 250px;
+		}
+
+		@media screen and (max-width: 830px) {
+			display: none;
+		}
+	}
+
 	.save-button {
 		float: none;
 	}
-
-		
 
 	.title-box {
 		width: 100vw;
