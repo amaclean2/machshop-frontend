@@ -9,15 +9,20 @@
 				align-items: flex-start;
 				justify-content: space-between;
 				flex-wrap: wrap;
+				padding-top: 15px;
 
 				.meta-block {
 					min-width: 300px;
+
+					.line-item, .line-item .display {
+						font-size: 15px;
+					}
 				}
 			}
 
 			h4 {
 				margin: 10px 0 5px 0;
-				font-size: 16px;
+				font-size: 20px;
 				font-weight: 500;
 				color: $headerGrey;
 			}
@@ -73,24 +78,31 @@
 			}
 
 			.name-block {
-				margin-bottom: 10px;
+				position: absolute;
+				display: flex;
+				align-items: center;
+				top: 10px;
+				left: 20px;
 			}
 
 			.part-number-heading {
 				.value {
-					font-size: 20px;
+					color: $primaryHover;
+					font-size: 30px;
 					font-weight: 500;
 				}
 			}
 
 			.part-name-dash {
-				font-size: 20px;
+				color: $primaryHover;
+				font-size: 30px;
 				font-weight: 400;
 			}
 
 			.part-name-heading {
 				.value {
-					font-size: 18px;
+					color: $primaryHover;
+					font-size: 25px;
 					margin-left: 5px;
 				}
 			}
@@ -132,7 +144,6 @@
 			.operation-heading {
 				display: flex;
 				max-width: max-content;
-				font-size: 15px;
 				.display {
 					display: inline-block;
 					margin-right: 10px;

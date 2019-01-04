@@ -33,15 +33,16 @@ class Select extends Component {
     data.forEach( item => {
       item.selected = false;
     });
+    if(data.length) {
+      if(props.value) {
+        let selected = data.find( item => {
+          return item.value === props.value[0];
+        });
 
-    if(props.value) {
-      let selected = data.find( item => {
-        return item.value === props.value[0];
-      });
-
-      selected.selected = true;
-    } else {
-      data[0].selected = true;
+        selected ? selected.selected = true : data[0].selected = true;
+      } else {
+        data[0].selected = true;
+      }
     }
 
     this.setState({ data, chosen: (props.value ? { value: props.value[0], children: props.value[1] } : data[0]) });
@@ -65,8 +66,9 @@ class Select extends Component {
   arrows(e) {
     e.preventDefault();
     let data = this.state.data;
+    var i;
     if ( e.which === 38 ) {
-      for (var i = 0; i < data.length; i++) {
+      for (i = 0; i < data.length; i++) {
         if(data[i].selected) {
           data[i].selected = false;
           data[i - 1].selected = true;
@@ -75,7 +77,7 @@ class Select extends Component {
       }
       this.setState({ data });
     } else if ( e.which === 40 ) {
-      for (var i = 0; i < data.length; i++) {
+      for (i = 0; i < data.length; i++) {
         if(data[i].selected) {
           data[i].selected = false;
           data[i + 1].selected = true;
@@ -99,7 +101,7 @@ class Select extends Component {
       let chosen = item.selected;
 
       return <li
-              autoFocus={chosen ? 'true' : 'false'}
+              autoFocus={chosen ? true : false}
               className={ chosen ? 'selected' : ''}
               key={i}
               tabIndex="-1"

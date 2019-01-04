@@ -27,6 +27,22 @@ export function addOrder(body, category) {
 	});
 };
 
+export function addSetup(body, url) {
+	dispatcher.dispatch({
+		type: 'NEW_SETUP',
+		body: body,
+		url: url
+	});
+};
+
+export function editSetup(body, url) {
+	dispatcher.dispatch({
+		type: 'EDIT_SETUP',
+		body: body,
+		url: url
+	});
+};
+
 export function editOrder(body, category) {
 	dispatcher.dispatch({
 		type: 'EDIT_ORDER',

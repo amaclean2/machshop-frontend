@@ -164,26 +164,31 @@ class FluxStore extends EventEmitter {
 			})
 	}
 
-	getForm(page, toolId, category) {
-		let ordering = JSON.parse(JSON.stringify(this.store[page]));
+	getForm(page, itemId, category) {
+		let data = JSON.parse(JSON.stringify(this.store[page]));
 
-		let data = category ? ordering[category] : ordering;
+		data = category ? data[category] : data;
 
-		let returnTool = data.find( tool => {
-			return tool._id === toolId;
+		let returnData = data.find( item => {
+			return item._id === itemId;
 		});
 
-		if(category) {
-			for (var dataItem in returnTool.tool_data) {
-				returnTool[dataItem] = returnTool.tool_data[dataItem];
+		if(category || page === 'setupSheets') {
+			for (var dataItem in returnData.tool_data) {
+				returnData[dataItem] = returnData.tool_data[dataItem];
 			}
 
-			delete returnTool.tool_data;
+			for (var dataItem in returnData.setup_data) {
+				returnData[dataItem] = returnData.setup_data[dataItem];
+			}
+
+			delete returnData.tool_data;
+			delete returnData.setup_data;
 		}
 
-		this.store.form = returnTool;
+		this.store.form = returnData;
 
-		return returnTool;
+		return returnData;
 	}
 
 	viewForm() {
@@ -224,6 +229,7 @@ class FluxStore extends EventEmitter {
 	}
 
 	getOrdering(category) {
+		if(!this.store.ordering) return [];
 		let ordering = JSON.parse(JSON.stringify(this.store.ordering));
 		let data = ordering[category];
 		data = data.filter( item => {
@@ -241,7 +247,23 @@ class FluxStore extends EventEmitter {
 		return data;
 	}
 
+	getSetupSheets() {
+		if(!this.store.setupSheets) return [];
+		let data = JSON.parse(JSON.stringify(this.store.setupSheets));
+
+		data.forEach( item => {
+
+			for (var dataItem in item.setup_data) {
+				item[dataItem] = item.setup_data[dataItem];
+			}
+			delete item.setup_data;
+		});
+
+		return data;
+	}
+
 	getAllToolsInCat(cat) {
+		if(!this.store.ordering) return [];
 		let data = JSON.parse(JSON.stringify(this.store.ordering))
 		data = data[cat];
 
@@ -257,6 +279,7 @@ class FluxStore extends EventEmitter {
 	}
 
 	getPurchased(category) {
+		if(!this.store.ordering) return [];
 		let purchased = JSON.parse(JSON.stringify(this.store.ordering));
 		let data = purchased[category];
 		data = data.filter( item => {
@@ -275,6 +298,7 @@ class FluxStore extends EventEmitter {
 	}
 
 	getShipped(category) {
+		if(!this.store.ordering) return [];
 		let shipped = JSON.parse(JSON.stringify(this.store.ordering));
 		let data = shipped[category];
 		data = data.filter( item => {
@@ -308,6 +332,49 @@ class FluxStore extends EventEmitter {
 		})
 	}
 
+	addSetup(body, url) {
+
+		body.company_id = this.getCompanyId();
+		body.created_at = new Date().getTime();
+
+		fetch(this.store.url + url, {
+			method: 'POST',
+			headers: new Headers({'Content-Type': 'application/json'}),
+			body: JSON.stringify(body)
+		}).then( response => {
+			return response.json();
+		}).then( data => {
+			this.populateOrdering();
+		});
+	}
+
+	editSetup(body, url) {
+		body.company_id = body.setup_data.company_id;
+		delete body.setup_data.company_id;
+
+		body._id = body.setup_data._id;
+		delete body.setup_data._id;
+
+		body.updated_at = new Date().getTime();
+		delete body.setup_data.updated_at;
+
+		body.user = body.setup_data.user;
+		delete body.setup_data.user;
+
+		body.created_at = body.setup_data.created_at;
+		delete body.setup_data.created_at;
+
+		fetch(this.store.url + url + '/' + body._id, {
+			method: 'PUT',
+			headers: new Headers({'Content-Type': 'application/json'}),
+			body: JSON.stringify(body)
+		}).then( response => {
+			return response.json();
+		}).then( data => {
+			this.populateOrdering();
+		});
+	}
+
 	editOrder(body, category) {
 		body.company_id = body.tool_data.company_id;
 		delete body.tool_data.company_id;
@@ -315,7 +382,7 @@ class FluxStore extends EventEmitter {
 		body._id = body.tool_data._id;
 		delete body.tool_data._id;
 
-		body.updated_at = body.tool_data.updated_at;
+		body.updated_at = new Date().getTime();
 		delete body.tool_data.updated_at;
 
 		body.user = body.tool_data.user;
@@ -428,6 +495,12 @@ class FluxStore extends EventEmitter {
 				break;
 			case 'NEW_ORDER' :
 				this.sendOrder(action.body, action.category);
+				break;
+			case 'NEW_SETUP' :
+				this.addSetup(action.body, action.url);
+				break;
+			case 'EDIT_SETUP' :
+				this.editSetup(action.body, action.url);
 				break;
 			case 'EDIT_ORDER' :
 				this.editOrder(action.body, action.category);

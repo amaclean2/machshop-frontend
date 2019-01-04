@@ -56,42 +56,44 @@ class SetupEditorModal extends Component {
   }
 
 	get() {
-    this.setState({ data: fluxStore.getForm('ordering', this.props.id, this.props.machine), loaded: true });
+    this.setState({ data: fluxStore.getForm('setupSheets', this.props.id), loaded: true });
   }
 
   post() {
 
-    let toolData = fluxStore.viewForm();
-    toolData.shopping = true;
-    toolData.purchased = false;
+    let setupData = fluxStore.viewForm();
+    setupData.shopping = true;
+    setupData.purchased = false;
 
     let body = {
         user: 'Andrew',
-        tool_data: toolData
-      }, machine = this.state.machine;
+        setup_data: setupData
+      }, url = '/setup';
 
 
-    fluxActions.addOrder( body, machine );
+    fluxActions.addSetup( body, url );
     this.props.toggleModal();
 
   }
 
   put() {
 
-    let toolData = fluxStore.viewForm();
-    toolData.shopping = true;
-    toolData.purchased = false;
+    let setupData = fluxStore.viewForm();
+    setupData.shopping = true;
+    setupData.purchased = false;
 
     let body = {
-      tool_data: toolData,
+        user: 'Andrew',
+        setup_data: setupData
+      }, url = '/setup';
 
-    }, machine = this.state.machine;
 
-    fluxActions.editOrder( body, machine );
+    fluxActions.editSetup( body, url );
+    this.props.toggleModal();
   }
 
   save() {
-    if(this.state.toolId === '0') {
+    if(this.state.setupId === '0') {
       this.post();
     } else {
       this.put();
@@ -152,6 +154,7 @@ class SetupEditorModal extends Component {
             </div>*/}
             <MillSetupTemplate
               editTemplate={this.editTemplate}
+              save={this.save}
               editView={this.state.editView}
               data={this.state.data}/>
           </div>

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
 import SetupEditorModal from './SetupEditorModal';
+import fluxStore from '../../../Flux/fluxStore';
+import LoadingBlock from '../../Main/LoadingBlock';
 
 class SetupSheets extends Component {
 	constructor() {
@@ -15,8 +17,29 @@ class SetupSheets extends Component {
 		this.toggleModal=this.toggleModal.bind(this);
 	}
 
-	toggleModal() {
-		this.setState({ edit: !this.state.edit });
+	toggleModal(setupId) {
+		this.setState({ edit: !this.state.edit, setupId: setupId });
+	}
+
+	componentWillMount() {
+	    if(fluxStore.getReady('t'))
+	    	this.setState({ loaded: true });
+
+	    fluxStore.on('allUpdated', () => {
+	    	this.setState({ loaded: true });
+	    });
+	}
+
+	showTable() {
+		if (this.state.loaded) {
+			return (<Table
+          		addText={'add a new setup sheet'}
+          		data={fluxStore.getSetupSheets()}
+          		headers={headers.SetupSheets}
+          		toggleModal={this.toggleModal} />);
+		} else {
+			return (<LoadingBlock loadingMessage="loading setup sheets" />);
+		}
 	}
 
 	showModal() {
@@ -31,16 +54,12 @@ class SetupSheets extends Component {
 
   	render() {
   		let setupEditorModal = this.showModal();
+  		let table = this.showTable();
+
     	return (<div id="Pages/SetupSheets/SetupSheets" className="setup">
     			{setupEditorModal}
 	        	<h3>Setup Sheets</h3>
-	        	<Table
-	          		addText={'add a new setup sheet'}
-	          		data={this.state.data}
-	          		headers={headers.SetupSheets}
-	          		toggleModal={this.toggleModal} />
-
-
+        		{table}
       		</div>);
   		}
 	}

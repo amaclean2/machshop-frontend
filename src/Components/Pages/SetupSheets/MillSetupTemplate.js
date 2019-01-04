@@ -21,10 +21,16 @@ class MillSetupTemplate extends Component {
     this.showMaterial=this.showMaterial.bind(this);
     this.showFluteLength=this.showFluteLength.bind(this);
     this.getAdditionalParameters=this.getAdditionalParameters.bind(this);
+    this.save=this.save.bind(this);
 	}
 
   toggleEdit() {
     this.setState({ edit: !this.state.edit });
+  }
+
+  save() {
+    this.props.save();
+    this.toggleEdit();
   }
 
   componentWillReceiveProps(props) {
@@ -117,7 +123,7 @@ class MillSetupTemplate extends Component {
           <h4>Tools</h4>
           {toolsList}
         <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
-        <button onClick={this.toggleEdit} className='button save-button'>Save</button>
+        <button onClick={this.save} className='button save-button'>Save</button>
       </div>);
     } else {
       let descriptionList = this.descriptionToolsList();
@@ -135,6 +141,7 @@ class MillSetupTemplate extends Component {
                   classes={'part-name-heading'}
                   value={'part_name'} />
               </div>
+              <h4>Part Information</h4>
               <DescriptionItem 
                 header={'Revision: '}
                 classes={'revision-heading'}
@@ -153,7 +160,7 @@ class MillSetupTemplate extends Component {
                 value={'customer'} />
             </div>
             <div className="setup-info">
-              <h4>Material Info</h4>
+              <h4>Material Information</h4>
               <div className="material-info">
                 <DescriptionItem 
                   header={'Material: '}
@@ -210,14 +217,17 @@ class MillSetupTemplate extends Component {
   parseTools() {
     let options = fluxStore.getAllToolsInCat('mill');
     options = options.map( tool => {
-      let shown = tool.tool_data.diameter + '" ' + tool.tool_data.tool_type;
+      let shown = tool.tool_data.diameter + '" ' + (typeof(tool.tool_data.tool_type) !== 'string' ? tool.tool_data.tool_type[0] : tool.tool_data.tool_type);
       return { value: tool._id, children: shown };
     });
+
+    options.unshift({ value: 0, children: 'Select a Tool' });
+
     return options;
   }
 
   showMaterial(i) {
-    return fluxStore.getFormValue('material', { subClass: 'tools', index: i });
+    return fluxStore.getFormValue('material', { subClass: 'tools', index: i })[0];
   }
 
   showFluteLength(i) {
@@ -253,11 +263,11 @@ class MillSetupTemplate extends Component {
             fluteLength = this.showFluteLength(i);
         return (<tr key={i} className="tool-row">
             <td>
-              <DescriptionItem
+              <a href="#"><DescriptionItem
                 classes={'select-tool'}
                 header={''}
                 additionalData={{ subClass: 'tools', index: i, fillWithData: true }}
-                value={'tool'} />
+                value={'tool'} /></a>
             </td>
             <td>
               <span className="fixed-value" >{material}</span>
@@ -294,6 +304,7 @@ class MillSetupTemplate extends Component {
 
   toolsList() {
     let options = this.parseTools();
+    console.log(options);
     let headers = (<thead className="tool-row">
       <tr>
         <th>Tool</th>
