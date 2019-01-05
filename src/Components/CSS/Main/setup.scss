@@ -149,11 +149,52 @@
 
 					td {
 						min-width: 100px;
+
+						.display {
+							display: none;
+						}
+
+						.line-item {
+							padding-left: 0;
+						}
 					}
 				}
 
 				thead.tool-row:hover {
 					background-color: transparent;
+				}
+
+				@media screen and (max-width: 700px) {
+					th {
+						display: none;
+					}
+
+					.tool-row  {
+						margin: 10px;
+						box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+						border-radius: 3px;
+						padding: 10px;
+						display: block;
+
+						td {
+
+							display: block;
+							width: 100%;
+
+							.display {
+								display: inline-block;
+							}
+
+							.fixed-value {
+								text-align: right;
+							}
+						}
+					}
+
+					thead.tool-row {
+						padding: 0;
+						margin: 0;
+					}
 				}
 			}
 

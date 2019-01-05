@@ -262,20 +262,26 @@ class MillSetupTemplate extends Component {
             <td>
               <a href="#"><DescriptionItem
                 classes={'select-tool'}
-                header={''}
+                header={'Tool: '}
                 additionalData={{ subClass: 'tools', index: i, fillWithData: true }}
                 value={'tool'} /></a>
             </td>
             <td>
-              <span className="fixed-value" >{material}</span>
+              <div className="line-item">
+                <span className="display">Material: </span>
+                <span className="fixed-value" >{material}</span>
+              </div>
             </td>
             <td>
-              <span className="fixed-value" >{fluteLength}"</span>
+              <div className="line-item">
+                <span className="display">Flute Length: </span>
+                <span className="fixed-value" >{fluteLength}"</span>
+              </div>
             </td>
             <td>
               <DescriptionItem
                 classes={'tool-clearance'}
-                header={''}
+                header={'Tool Clearance: '}
                 units={'inches'}
                 additionalData={{ subClass: 'tools', index: i }}
                 value={'tool_clearance'} />
@@ -283,7 +289,7 @@ class MillSetupTemplate extends Component {
             <td>
               <DescriptionItem
                 classes={'tool-life'}
-                header={''}
+                header={'Tool Life: '}
                 units={'pieces'}
                 additionalData={{ subClass: 'tools', index: i }}
                 value={'tool_life'} />
@@ -318,19 +324,29 @@ class MillSetupTemplate extends Component {
           <td>
             <EditableItem
               classes={'select-tool'}
-              header={''}
+              header={'Tool: '}
               type={'select'}
               additionalFunction={() => {this.getAdditionalParameters(i)}}
               additionalData={{ subClass: 'tools', index: i, fillWithData: true }}
               name={'tool'}
               properties={options} />
           </td>
-          <td><span className="fixed-value" >{material}</span></td>
-          <td><span className="fixed-value" >{fluteLength}"</span></td>
+          <td>
+            <div className="line-item">
+              <span className="display">Material: </span>
+              <span className="fixed-value" >{material}</span>
+            </div>
+          </td>
+          <td>
+            <div className="line-item">
+              <span className="display">Flute Length: </span>
+              <span className="fixed-value" >{fluteLength}"</span>
+            </div>
+          </td>
           <td>
             <EditableItem
               classes={'tool-clearance'}
-              header={''}
+              header={' Tool Clearance: '}
               units={'inches'}
               type={'math'}
               additionalData={{ subClass: 'tools', index: i }}
@@ -339,7 +355,7 @@ class MillSetupTemplate extends Component {
           <td>
             <EditableItem
               classes={'tool-life'}
-              header={''}
+              header={'Tool Life: '}
               units={'pieces'}
               type={'number'}
               additionalData={{ subClass: 'tools', index: i }}

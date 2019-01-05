@@ -56,6 +56,7 @@ class FromEmail extends Component {
 		<div className='login-screen'>
 	        <div className="modal-container login-container">
 	          	<div className='modal-content login-modal'>
+	          		<span className='big-title'>{this.props.title}</span>
 		          	<div className='title-box'>
 		              <h1>{this.props.title}</h1>
 		              <div className='login-description'>A purchasing tool for machine shops</div>

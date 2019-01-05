@@ -6,6 +6,7 @@ class ResetPassword extends Component {
     return (<div className='login-screen' id='Main/ResetPassword'>
         <div className="modal-container login-container">
           <div className='modal-content login-modal'>
+            <span className='big-title'>{this.props.title}</span>
             <div className='title-box'>
               <h1>{this.props.title}</h1>
               <div className='login-description'>A purchasing tool for machine shops</div>
