@@ -55,7 +55,7 @@
 		font-weight: normal;
 		color: $primaryHover;
 		min-width: 75px;
-		font-size: 13px;
+		font-size: 15px;
 	}
 
 	.value {
@@ -65,28 +65,28 @@
 	}
 
 	input, textarea {
-		margin-left: 10px;
-		width: 180px;
+		width: 100%;
 		font-family: inherit;
 		background-color: transparent;
 
 		@media screen and (max-width: 500px) {
 			width: 100%;
-			margin-left: 0;
 		}
 	}
 }
 
 .editable {
-	@media screen and (max-width: 500px) {
-		.display {
-			display: none;
-		}
+	flex-wrap: wrap;
+	.display {
+		display: block;
+		width: 100%;
+		margin-bottom: 4px;
+		font-size: 13px;
 	}
 }
 
 .description {
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .card {

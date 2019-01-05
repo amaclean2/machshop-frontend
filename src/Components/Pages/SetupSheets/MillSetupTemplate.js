@@ -14,7 +14,6 @@ class MillSetupTemplate extends Component {
       tools: [{}]
 		}
 
-    this.toggleEdit=this.toggleEdit.bind(this);
     this.addTool=this.addTool.bind(this);
     this.toolsList=this.toolsList.bind(this);
     this.parseTools=this.parseTools.bind(this);
@@ -24,13 +23,9 @@ class MillSetupTemplate extends Component {
     this.save=this.save.bind(this);
 	}
 
-  toggleEdit() {
-    this.setState({ edit: !this.state.edit });
-  }
-
   save() {
     this.props.save();
-    this.toggleEdit();
+    this.props.toggleEdit();
   }
 
   componentWillReceiveProps(props) {
@@ -57,7 +52,7 @@ class MillSetupTemplate extends Component {
     if(this.state.edit) {
       let toolsList = this.toolsList();
       return (<div>
-        <h4>Part Info</h4>
+        <h4>Part Information</h4>
         <div className={'setup-header'}>
             <EditableItem 
               header={'Part Number: '}
@@ -78,7 +73,7 @@ class MillSetupTemplate extends Component {
               header={'Operation: '}
               name={'operation'} />
           </div>
-          <h4>Material Info</h4>
+          <h4>Material Information</h4>
           <div className="material-info">
             <EditableItem 
               header={'Material: '}
@@ -122,12 +117,12 @@ class MillSetupTemplate extends Component {
           </div>
           <h4>Tools</h4>
           {toolsList}
-        <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
+        <button onClick={this.props.toggleEdit} className='button white-button'>Cancel</button>
         <button onClick={this.save} className='button save-button'>Save</button>
       </div>);
     } else {
       let descriptionList = this.descriptionToolsList();
-      return (<div onClick={this.toggleEdit}>
+      return (<div onClick={this.props.toggleEdit}>
           <div className="part-data">
             <div className="meta-block">
               <div className="name-block">
@@ -141,7 +136,7 @@ class MillSetupTemplate extends Component {
                   classes={'part-name-heading'}
                   value={'part_name'} />
               </div>
-              <h4>Part Information</h4>
+              <h4 className="desc-header">Part Information</h4>
               <DescriptionItem 
                 header={'Revision: '}
                 classes={'revision-heading'}
@@ -160,7 +155,7 @@ class MillSetupTemplate extends Component {
                 value={'customer'} />
             </div>
             <div className="setup-info">
-              <h4>Material Information</h4>
+              <h4 className="desc-header">Material Information</h4>
               <div className="material-info">
                 <DescriptionItem 
                   header={'Material: '}
@@ -169,7 +164,7 @@ class MillSetupTemplate extends Component {
                   header={'Material Dimensions: '}
                   value={'material_dimensions'} />
               </div>
-              <h4>Work Holding</h4>
+              <h4 className="desc-header">Work Holding</h4>
               <div className={'work-holding'}>
                 <div className="column-group">
                   <DescriptionItem 
@@ -202,7 +197,7 @@ class MillSetupTemplate extends Component {
               </div>
             </div>
           </div>
-          <h4>Tools</h4>
+          <h4 className="desc-header">Tools</h4>
           {descriptionList}
         </div>);
     }
@@ -227,7 +222,9 @@ class MillSetupTemplate extends Component {
   }
 
   showMaterial(i) {
-    return fluxStore.getFormValue('material', { subClass: 'tools', index: i })[0];
+    let material = fluxStore.getFormValue('material', { subClass: 'tools', index: i });
+
+    return material && material[0];
   }
 
   showFluteLength(i) {
@@ -278,7 +275,7 @@ class MillSetupTemplate extends Component {
             <td>
               <DescriptionItem
                 classes={'tool-clearance'}
-                header={'Tool Clearance: '}
+                header={''}
                 units={'inches'}
                 additionalData={{ subClass: 'tools', index: i }}
                 value={'tool_clearance'} />
@@ -286,7 +283,7 @@ class MillSetupTemplate extends Component {
             <td>
               <DescriptionItem
                 classes={'tool-life'}
-                header={'Tool Life: '}
+                header={''}
                 units={'pieces'}
                 additionalData={{ subClass: 'tools', index: i }}
                 value={'tool_life'} />
@@ -304,7 +301,6 @@ class MillSetupTemplate extends Component {
 
   toolsList() {
     let options = this.parseTools();
-    console.log(options);
     let headers = (<thead className="tool-row">
       <tr>
         <th>Tool</th>
@@ -334,7 +330,7 @@ class MillSetupTemplate extends Component {
           <td>
             <EditableItem
               classes={'tool-clearance'}
-              header={'Tool Clearance: '}
+              header={''}
               units={'inches'}
               type={'math'}
               additionalData={{ subClass: 'tools', index: i }}
@@ -343,7 +339,7 @@ class MillSetupTemplate extends Component {
           <td>
             <EditableItem
               classes={'tool-life'}
-              header={'Tool Life: '}
+              header={''}
               units={'pieces'}
               type={'number'}
               additionalData={{ subClass: 'tools', index: i }}

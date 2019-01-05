@@ -23,8 +23,12 @@ class SetupEditorModal extends Component {
     this.put=this.put.bind(this);
     this.save=this.save.bind(this);
     this.toggleDeleteModal=this.toggleDeleteModal.bind(this);
-    this.editTemplate=this.editTemplate.bind(this);
+    this.toggleEdit=this.toggleEdit.bind(this);
 	}
+
+  toggleEdit() {
+    this.setState({ editView: !this.state.editView });
+  }
 
   delete() {
 
@@ -34,7 +38,7 @@ class SetupEditorModal extends Component {
   }
 
   componentWillMount() {
-    // fluxActions.resetForm();
+    fluxActions.resetForm();
   }
 
   toggleStation(e) {
@@ -100,14 +104,6 @@ class SetupEditorModal extends Component {
     }
   }
 
-  editTemplate(object) {
-    let data = this.state.data;
-
-    for ( let key in object ) {
-      data[key] = object[key];
-    };
-  }
-
   toggleDeleteModal() {
     this.setState({ modalHide: !this.state.modalHide });
   }
@@ -127,6 +123,7 @@ class SetupEditorModal extends Component {
         <div className="modal-container">
           <div className="modal-content editor">
             <div className="modal-top">
+              <h3 className={this.state.editView ? '' : 'gone'} >Setup Sheet Editor</h3>
               <div className={(this.state.modalHide ? 'gone' : '')} >
                 <DeleteModal delete={this.delete} reject={ this.toggleDeleteModal } />
               </div>
@@ -153,9 +150,9 @@ class SetupEditorModal extends Component {
               <label htmlFor="other" >Other</label>
             </div>*/}
             <MillSetupTemplate
-              editTemplate={this.editTemplate}
               save={this.save}
               editView={this.state.editView}
+              toggleEdit={this.toggleEdit}
               data={this.state.data}/>
           </div>
         </div>

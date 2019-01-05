@@ -86,7 +86,6 @@ class EditableItem extends Component {
                     className={'editable-input'}
                     onChange={this.change}
                     onBlur={this.changeNumber}
-                    placeholder={this.props.header.slice(0, -2)}
                     value={this.state.value}
                     name={this.props.name} />
                   <span className="input-hard-text">{this.props.units}</span>
@@ -97,7 +96,6 @@ class EditableItem extends Component {
           <div className='math-box form-select'>
             <input
               type='text'
-              placeholder={this.props.header.slice(0, -2)}
               onBlur={this.makeMath}
               name={this.props.name}
               value={this.state.value}
@@ -107,14 +105,12 @@ class EditableItem extends Component {
       case 'phone' :
         return (<input
             type='text'
-            placeholder={this.props.header.slice(0, -2)}
             onChange={this.makePhone}
             value={this.state.value}
             name={this.props.name} />)
       case 'textOnly' :
         return <input
               type='text'
-              placeholder={this.props.header.slice(0, -2)}
               name={this.props.name}
               value={this.state.value}
               onChange={this.change} />;
@@ -124,7 +120,6 @@ class EditableItem extends Component {
                   className={'editable-input'}
                   onChange={this.change}
                   value={this.state.value}
-                  placeholder={this.props.header.slice(0, -2)}
                   name={this.props.name} />
 
       case 'select' :
@@ -149,7 +144,6 @@ class EditableItem extends Component {
                 onChange={this.change}
                 onBlur={this.checkSize}
                 value={this.state.value}
-                placeholder={this.props.header.slice(0, -2)}
                 name={this.props.name} />;
 
       case 'textArea' :
@@ -157,7 +151,6 @@ class EditableItem extends Component {
                 className='editable-input'
                 onChange={this.change}
                 value={this.state.value}
-                placeholder={this.props.header.slice(0, -2)}
                 name={this.props.name}>
               </textarea>;
       default :
@@ -166,7 +159,6 @@ class EditableItem extends Component {
                 className={'editable-input'}
                 onChange={this.change}
                 value={this.state.value}
-                placeholder={this.props.header.slice(0, -2)}
                 name={this.props.name} />
 
     }
