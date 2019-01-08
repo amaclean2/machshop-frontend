@@ -161,7 +161,7 @@ class LatheToolEditor extends Component {
   ]
 
   showItem(property) {
-    return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type')[0]) !== -1 ? '' : 'gone'
+    return this.toolProps(property).indexOf(fluxStore.getFormValue('tool_type') && fluxStore.getFormValue('tool_type')[0]) !== -1 ? '' : 'gone';
   }
 
   viewInfo() {
@@ -213,6 +213,7 @@ class LatheToolEditor extends Component {
           value={'description'} />
         <DescriptionItem
           header={'Insert Code: '}
+          classes={this.showItem('insert')}
           value={'insert'} />
         <DescriptionItem
           header={'Quantity: '}

@@ -119,6 +119,12 @@ table {
 	justify-content: space-between;
 	margin-bottom: 5px;
 	flex-wrap: wrap;
+
+	@media screen and (max-width: 500px) {
+		>div {
+			width: 100%;
+		}
+	}
 }
 
 .search-bar {

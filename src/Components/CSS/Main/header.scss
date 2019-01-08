@@ -20,6 +20,10 @@
 		font-weight: bolder;
 		color: $grey2;
 		text-decoration: none;
+
+		@media screen and (max-width: 500px) {
+			display: none;
+		}
 	}
 
 	.right-content {
