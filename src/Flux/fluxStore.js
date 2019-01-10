@@ -178,7 +178,7 @@ class FluxStore extends EventEmitter {
 				returnData[dataItem] = returnData.tool_data[dataItem];
 			}
 
-			for (var dataItem in returnData.setup_data) {
+			for (dataItem in returnData.setup_data) {
 				returnData[dataItem] = returnData.setup_data[dataItem];
 			}
 

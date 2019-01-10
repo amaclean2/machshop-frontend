@@ -260,7 +260,7 @@ class MillSetupTemplate extends Component {
             fluteLength = this.showFluteLength(i);
         return (<tr key={i} className="tool-row">
             <td>
-              <a href="#"><DescriptionItem
+              <a href="https://facebook.com"><DescriptionItem
                 classes={'select-tool'}
                 header={'Tool: '}
                 additionalData={{ subClass: 'tools', index: i, fillWithData: true }}

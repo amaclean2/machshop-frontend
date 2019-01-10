@@ -113,10 +113,14 @@
 	}
 }
 
+.tool-image {
+	width: 100%;
+}
+
 .editor-content {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	flex-wrap: wrap;
 	overflow: auto;
 
@@ -128,10 +132,6 @@
 			max-height: calc(100vh - 95px);
 			overflow: auto;
 		}
-	}
-
-	.tool-image {
-		margin-top: 50px;
 	}
 }
 

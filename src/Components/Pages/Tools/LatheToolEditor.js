@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
-import Drill from './SVGs/Drill';
 import fluxStore from '../../../Flux/fluxStore';
 
 class LatheToolEditor extends Component {
@@ -129,11 +128,7 @@ class LatheToolEditor extends Component {
   millImage() {
     switch(this.props.toolData.tool_type) {
       case 'Drill' :
-        return (<Drill
-                  fluteLength={this.state.fluteLength}
-                  radius={this.state.radius}
-                  toolLength={this.state.toolLength}
-                  diameter={this.state.diameter} />);
+        return ('');
       default :
         return '';
     }

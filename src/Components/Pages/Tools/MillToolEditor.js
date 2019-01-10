@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 
 import DescriptionItem from '../../Main/DescriptionItem';
 import EditableItem from '../../Main/EditableItem';
-import Endmill from './SVGs/Endmill';
-import Drill from './SVGs/Drill';
+import CorRad from '../../AppInformation/ToolImages/CornerRadius.png';
+import TlLen from '../../AppInformation/ToolImages/ToolLength.png';
+import FlLeng from '../../AppInformation/ToolImages/FluteLength.png';
+import Flutes from '../../AppInformation/ToolImages/Flutes.png';
+import RelLen from '../../AppInformation/ToolImages/ReliefLength.png';
+import RelWid from '../../AppInformation/ToolImages/ReliefWidth.png';
+import EmDia from '../../AppInformation/ToolImages/Diameter.png';
+import Endmill from '../../AppInformation/ToolImages/Endmill.png';
 import fluxStore from '../../../Flux/fluxStore';
 
 class MillToolEditor extends Component {
 	constructor() {
 		super()
 		this.state = {
-      diameter: false,
 			editable: false,
-      fluteLength: false,
-      radius: false,
-      toolLength: false,
-      undercut: false,
-      cfmMsg: 'Save'
+      cfmMsg: 'Save',
+      featureImage: Endmill
 		}
 		this.toggleEdit=this.toggleEdit.bind(this);
     this.showTool=this.showTool.bind(this);
@@ -93,51 +95,36 @@ class MillToolEditor extends Component {
     }
   }
 
+  showFeature() {
+    return <img src={this.state.featureImage} alt='123' className={'tool-image'}/>;
+  }
+
   showTool(e) {
+    console.log(e.target.name);
     switch(e.target.name) {
-      case 'tip_angle':
-      case 'diameter':
-        this.setState({ diameter: true,
-                        fluteLength: false,
-                        radius: false,
-                        toolLength: false,
-                        undercut: false });
+      case 'diameter' :
+        this.setState({featureImage: EmDia });
         break;
-      case 'flute_length':
-        this.setState({ diameter: false,
-                        fluteLength: true,
-                        radius: false,
-                        toolLength: false,
-                        undercut: false });
+      case 'flutes' :
+        this.setState({featureImage: Flutes });
         break;
-      case 'corner_radius':
-        this.setState({ fluteLength: false,
-                        diameter: false,
-                        radius: true,
-                        toolLength: false,
-                        undercut: false });
+      case 'corner_radius' :
+        this.setState({featureImage: CorRad });
         break;
-      case 'tool_length':
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: true,
-                        undercut: false });
+      case 'flute_length' :
+        this.setState({featureImage: FlLeng });
         break;
-      case 'undercut_width':
-      case 'undercut_length':
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: false,
-                        undercut: true });
+      case 'undercut_length' :
+        this.setState({featureImage: RelLen });
+        break;
+      case 'undercut_width' :
+        this.setState({featureImage: RelWid });
+        break;
+      case 'tool_length' :
+        this.setState({featureImage: TlLen});
         break;
       default:
-        this.setState({ fluteLength: false,
-                        radius: false,
-                        diameter: false,
-                        toolLength: false,
-                        undercut: false });
+        this.setState({ featureImage: Endmill });
         break;
     }
   }
@@ -145,26 +132,6 @@ class MillToolEditor extends Component {
 	toggleEdit() {
 		this.setState({ editable: !this.state.editable });
 	}
-
-  millImage() {
-    switch(this.props.toolData.tool_type) {
-      case 'Endmill' :
-        return (<Endmill 
-                  fluteLength={this.state.fluteLength}
-                  radius={this.state.radius} 
-                  toolLength={this.state.toolLength} 
-                  undercut={this.state.undercut}
-                  diameter={this.state.diameter} />);
-      case 'Drill' :
-        return (<Drill
-                  fluteLength={this.state.fluteLength}
-                  radius={this.state.radius}
-                  toolLength={this.state.toolLength}
-                  diameter={this.state.diameter} />);
-      default :
-        return '';
-    }
-  }
 
   toolChoices = [
     { value: 'Tool Type', children: 'Tool Type'},
@@ -409,11 +376,11 @@ class MillToolEditor extends Component {
 
   render() {
   	let info = this.viewInfo();
-    let mill = this.millImage();
+    let feature = this.showFeature();
     return (
     	<div className='editor-content' id='Pages/Tools/MillToolEditor'>
         <div className='tool-image' >
-          {mill}
+          {feature}
         </div>
         <div className='edit-page'>
         	{info}

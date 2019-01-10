@@ -117,23 +117,24 @@ constructor(props) {
             <DescriptionItem header={'Company Id: '} value={'company_id'} />
 	        </div>);
 	    } else {
-	      return (
-	        <div className='edit-page'>
-	        	<EditableItem header={'Name: '} name={'name'} type='textOnly' />
-            <EditableItem header={'User Position: '} type={'select'} name={'user_position'} properties={this.userPositions} />
-						<EditableItem header={'Street Address: '} name={'street_address'} />
-						<EditableItem header={'City: '} name={'city'} type='textOnly'/>
-            <EditableItem header={'State: '} type={'select'} name={'state'} properties={this.createStates()} />
-						{/*<EditableItem header={'Country: '} name={'country'} type='textOnly'/>*/}
-						<EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
-            <DescriptionItem header={'Email: '} value={'email'} />
-            <DescriptionItem header={'Company Name: '} value={'company_name'} />
-            <DescriptionItem header={'Company Id: '} value={'company_id'} />
-	          <span className='submit-button-line'>
-              <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
-              <button onClick={this.save} className='button save-button'>Save</button>
-            </span>
-	        </div>);
+	      return (<div className="editor-content">
+  	        <div className='edit-page'>
+  	        	<EditableItem header={'Name: '} name={'name'} type='textOnly' />
+              <EditableItem header={'User Position: '} type={'select'} name={'user_position'} properties={this.userPositions} />
+  						<EditableItem header={'Street Address: '} name={'street_address'} />
+  						<EditableItem header={'City: '} name={'city'} type='textOnly'/>
+              <EditableItem header={'State: '} type={'select'} name={'state'} properties={this.createStates()} />
+  						{/*<EditableItem header={'Country: '} name={'country'} type='textOnly'/>*/}
+  						<EditableItem header={'Phone Number: '} name={'phone_number'} type='phone' />
+              <DescriptionItem header={'Email: '} value={'email'} />
+              <DescriptionItem header={'Company Name: '} value={'company_name'} />
+              <DescriptionItem header={'Company Id: '} value={'company_id'} />
+  	          <span className='submit-button-line'>
+                <button onClick={this.toggleEdit} className='button white-button'>Cancel</button>
+                <button onClick={this.save} className='button save-button'>Save</button>
+              </span>
+  	        </div>
+          </div>);
 	    }
     } else {
     	return <span className='loading-screen'>Beaming all the satelites...</span>;

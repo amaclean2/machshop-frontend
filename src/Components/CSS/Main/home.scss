@@ -196,6 +196,10 @@
 	}
 	.button {
 		margin-left: 20px;
+
+		@media screen and (max-width: 500px) {
+			margin-left: 0;
+		}
 	}
 }
 
