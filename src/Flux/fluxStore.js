@@ -262,6 +262,21 @@ class FluxStore extends EventEmitter {
 		return data;
 	}
 
+	getJobs() {
+		if(!this.store.jobs) return [];
+		let data = JSON.parse(JSON.stringify(this.store.jobs));
+
+		data.forEach( item => {
+
+			for (var dataItem in item.setup_data) {
+				item[dataItem] = item.job_data[dataItem];
+			}
+			delete item.job_data;
+		});
+
+		return data;
+	}
+
 	getAllToolsInCat(cat) {
 		if(!this.store.ordering) return [];
 		let data = JSON.parse(JSON.stringify(this.store.ordering))

@@ -76,6 +76,42 @@ let headers = {
 		]
 	},
 
+	Jobs : {
+		columns: [
+			{
+				title: 'Job Number',
+				dataPoint: 'job_number',
+				link: true,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Part Number',
+				dataPoint: 'part_number',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Part Name',
+				dataPoint: 'part_name',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Revision',
+				dataPoint: 'revision',
+				link: false,
+				sortable: true,
+				searchable: true
+			},{
+				title: 'Customer',
+				dataPoint: 'customer',
+				link: false,
+				sortable: true,
+				searchable: true
+			}
+		]
+	},
+
 	Companies : {
 		columns: [
 			{
@@ -107,13 +143,6 @@ let headers = {
 	MiniJobs : [
 		['Job Number', 'job_number', 'e'], 
 		['Start Date', 'date_to_start']
-	],
-	Jobs  : [
-		['Job Number', 'job_number', 'e'], 
-		['Part Number', 'part_number'], 
-		['Description', 'description'], 
-		['Date to Start', 'date_to_start'], 
-		['Date Started', 'date_started']
 	],
 	JobsWidget : [
 		['Job Number', 'job_number', 'e'], 

@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Header';
 //import Dashboard from '../Pages/Dashboard';
 //import Parts from '../Pages/Parts';
-//import Jobs from '../Pages/Jobs';
+import Jobs from '../Pages/Jobs/Jobs';
 // import Machining from '../Pages/Machining';
 //import Tools from '../Pages/Tools/Tools';
 import Ordering from '../Pages/Ordering/Ordering';
@@ -26,7 +26,7 @@ class HomePage extends Component {
 			tabs: [
 				// 'Dashboard', 
 				// 'Parts', 
-				// 'Jobs',
+				{ name: 'Jobs', value: 'jobs' },
 				// { name: 'Tools', value: 'machining'}, 
 				{ name: 'Tooling', value: 'ordering'}, 
 				{ name: 'Setup Sheets', value: 'setup' },
@@ -44,6 +44,7 @@ class HomePage extends Component {
 				<div className="page-content">
 					<Route exact path='/' component={Ordering} />
 					<Route path='/ordering' component={Ordering} />
+					<Route path='/jobs' component={Jobs} />
 					<Route path='/setup' component={SetupSheets} />
 					<Route exact path='/companies' component={Companies} />
 					<Route exact path='/users' component={Users} />
