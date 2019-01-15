@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from './Select';
+import DateComp from './Date';
 import InputRules from '../AppInformation/InputRules';
 import fluxStore from '../../Flux/fluxStore';
 
@@ -15,6 +16,7 @@ class EditableItem extends Component {
       thisValue: this.props.properties && this.props.properties[this.props.name]
     }
     this.makeSelect=this.makeSelect.bind(this);
+    this.makeDate=this.makeDate.bind(this);
     this.makeMath=this.makeMath.bind(this);
     this.change=this.change.bind(this);
     this.makeMoney=this.makeMoney.bind(this);
@@ -38,6 +40,13 @@ class EditableItem extends Component {
     } else {
       return null;
     }
+  }
+
+  makeDate() {
+    return (<DateComp 
+              classes={'date-picker'}
+              time={this.props.time}
+              value={new Date().getTime()}/>);
   }
 
   checkSize(e) {
@@ -115,16 +124,9 @@ class EditableItem extends Component {
               value={this.state.value}
               onChange={this.change} />;
       case 'date' :
-        return <input
-                  type='date'
-                  className={'editable-input'}
-                  onChange={this.change}
-                  value={this.state.value}
-                  name={this.props.name} />
-
+        return this.makeDate()
       case 'select' :
         return this.makeSelect()
-
       case 'price' :
         return <div className='price-box form-select'>
           <span className='input-hard-text'>$</span>

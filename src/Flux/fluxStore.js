@@ -75,7 +75,7 @@ class FluxStore extends EventEmitter {
 
 	checkFullUpdated() {
 		this.fullUpdated.push(true);
-		if(this.fullUpdated.length > 3) {
+		if(this.fullUpdated.length > 4) {
 			this.emit('allUpdated');
 			this.fullUpdated = [];
 		}
@@ -120,6 +120,15 @@ class FluxStore extends EventEmitter {
 				return response.json();
 			}).then( data => {
 				this.store = {...this.store, setupSheets: data };
+				this.store.t = true;
+
+				this.checkFullUpdated();
+			});
+		fetch(this.store.url + '/jobs?company_id=' + company)
+			.then( response => {
+				return response.json();
+			}).then( data => {
+				this.store = {...this.store, jobs: data };
 				this.store.t = true;
 
 				this.checkFullUpdated();

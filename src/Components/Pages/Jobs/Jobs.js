@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Table from '../../Main/Table';
 import headers from '../../AppInformation/TableHeaders';
-// import JobEditorModal from './JobsEditorModal';
+import JobEditorModal from './JobEditorModal';
 import fluxStore from '../../../Flux/fluxStore';
 import LoadingBlock from '../../Main/LoadingBlock';
 
@@ -32,7 +32,6 @@ class Jobs extends Component {
 
 	showTable() {
 		if (this.state.loaded) {
-			console.log(headers.Jobs);
 			return (<Table
           		addText={'add a new job'}
           		data={fluxStore.getJobs()}
@@ -45,11 +44,9 @@ class Jobs extends Component {
 
 	showModal() {
 		if(this.state.edit) {
-			// return <SetupEditorModal
-   //            id={this.state.setupId}
-   //            toggleModal={this.toggleModal} />;
-
-   			return '123';
+			return <JobEditorModal
+              id={this.state.jobId}
+              toggleModal={this.toggleModal} />;
 		} else {
 			return '';
 		}

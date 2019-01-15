@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "machshop-2876a"
+    "default": "machshop-2876a",
+    "staging": "toolbox-staging-0"
   }
 }

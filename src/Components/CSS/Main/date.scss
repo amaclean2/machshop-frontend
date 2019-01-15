@@ -1,0 +1,87 @@
+.date-selection {
+	border: 1px solid $borderGrey;
+	border-radius: 3px;
+	position: relative;
+
+	.shown-box {
+		
+	}
+
+	.cal-header {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 15px;
+		font-weight: 500;
+		padding: 5px 0;
+
+		.fa {
+			margin: 0 20px;
+			padding: 5px 15px;
+			text-align: center;
+			transition: all 0.3s ease-in-out;
+			border-radius: 3px;
+
+			&:hover {
+				background-color: $textOnPrimaryHover;
+			}
+		}
+	}
+
+	.calendar-box {
+		position: absolute;
+		top: 30px;
+		left: 0;
+		width: 100%;
+		padding: 5px;
+		box-sizing: border-box;
+		background-color: $primaryWhite;
+		box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+		border-radius: 3px;
+		margin-bottom: 10px;
+		cursor: default;
+	}
+
+	.cal-days {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 10px;
+
+		span {
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			color: $primary;
+		}
+	}
+
+	.day-row {
+		ul {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.today {
+				background-color: $primaryTranslucent;
+			}
+
+			.day-elem {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				transition: all 0.3s ease-in-out;
+				border-radius: 100%;
+
+				&:hover {
+					background-color: $textOnPrimaryHover
+				}
+			}
+		}
+	}
+}

@@ -55,62 +55,62 @@ class MillSetupTemplate extends Component {
         <h4>Part Information</h4>
         <div className={'setup-header'}>
             <EditableItem 
-              header={'Part Number: '}
+              header={'Part Number'}
               name={'part_number'} />
             <EditableItem 
-              header={'Part Name: '}
+              header={'Part Name'}
               name={'part_name'} />
             <EditableItem 
-              header={'Customer: '}
+              header={'Customer'}
               name={'customer'} />
             <EditableItem 
-              header={'Job Number: '}
+              header={'Job Number'}
               name={'job_number'} />
             <EditableItem 
-              header={'Revision: '}
+              header={'Revision'}
               name={'revision'} />
             <EditableItem 
-              header={'Operation: '}
+              header={'Operation'}
               name={'operation'} />
           </div>
           <h4>Material Information</h4>
           <div className="material-info">
             <EditableItem 
-              header={'Material: '}
+              header={'Material'}
               name={'material'} />
             <EditableItem 
-              header={'Material Dimensions: '}
+              header={'Material Dimensions'}
               name={'material_dimensions'} />
           </div>
           <h4>Work Holding</h4>
           <div className={'work-holding'}>
             <div className="column-group">
               <EditableItem 
-                header={'X-Zero: '}
+                header={'X-Zero'}
                 name={'x_zero'} />
               <EditableItem 
-                header={'Y-Zero: '}
+                header={'Y-Zero'}
                 name={'y_zero'} />
               <EditableItem 
-                header={'Z-Zero: '}
+                header={'Z-Zero'}
                 name={'z_zero'} />
               <EditableItem 
-                header={'A-Zero: '}
+                header={'A-Zero'}
                 name={'A_zero'} />
               <EditableItem 
-                header={'B-Zero: '}
+                header={'B-Zero'}
                 name={'B_zero'} />
             </div>
             <div className="column-group"> 
               <EditableItem 
-                header={'Machine Requirements: '}
+                header={'Machine Requirements'}
                 type={'textArea'}
                 name={'machine_requirements'} />
               <EditableItem 
-                header={'Parts per Cycle: '}
+                header={'Parts per Cycle'}
                 name={'parts_per_cycle'} />
               <EditableItem 
-                header={'Work Holding: '}
+                header={'Work Holding'}
                 name={'work_holding'}
                 type={'textArea'} />
             </div>

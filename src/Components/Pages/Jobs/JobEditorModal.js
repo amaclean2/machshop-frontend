@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import DescriptionItem from '../Main/DescriptionItem';
-import EditableItem from '../Main/EditableItem';
+import DescriptionItem from '../../Main/DescriptionItem';
+import EditableItem from '../../Main/EditableItem';
 import { NavLink } from 'react-router-dom';
-import DeleteModal from '../Main/DeleteModal';
-import Operations from './Operations/Operations';
+import DeleteModal from '../../Main/DeleteModal';
+import Operations from '../Operations/Operations';
 
-class JobsEditor extends Component {
+class JobEditorModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobId: this.props.match.params.jobId,
-      jobInfo: { user: '', job_number: '', material: '', part_number: '', date_to_start: '', description: '' },
+      jobId: this.props.id,
       editable: false,
+      loaded: false,
+      modalHide: true,
       newJob: false,
       modalHide: true,
       operationCount: 0
@@ -21,7 +22,6 @@ class JobsEditor extends Component {
     this.put=this.put.bind(this);
     this.delete=this.delete.bind(this);
     this.toggleEdit=this.toggleEdit.bind(this);
-    this.change=this.change.bind(this);
     this.save=this.save.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
     this.selectOutput=this.selectOutput.bind(this);
@@ -174,11 +174,6 @@ class JobsEditor extends Component {
     });
   }
 
-  change(e) {
-    let newInfo = this.state.jobInfo;
-    newInfo[e.target.name] = e.target.value;
-  }
-
   toggleEdit() {
     this.setState({ editable: !this.state.editable });
   }
@@ -188,24 +183,7 @@ class JobsEditor extends Component {
   }
 
   save() {
-
-    if( this.state.newJob ) {
-      this.post(this.state.jobInfo.user,
-                this.state.jobInfo.job_number,
-                this.state.jobInfo.material,
-                this.state.jobInfo.part_number,
-                this.state.jobInfo.date_to_start,
-                this.state.jobInfo.description);
-    } else {
-      this.put(this.state.jobInfo.user,
-                this.state.jobInfo.job_number,
-                this.state.jobInfo.material,
-                this.state.jobInfo.part_number,
-                this.state.jobInfo.date_to_start,
-                this.state.jobInfo.description);
-    }
     this.toggleEdit();
-
   }
 
   selectOutput(value, name) {
@@ -214,55 +192,56 @@ class JobsEditor extends Component {
   }
 
   viewInfo() {
-    let info;
     if (!this.state.editable) {
-      info = (
-        <div onClick={ this.toggleEdit }>
-          <DescriptionItem header={'Job Number: '} value={this.state.jobInfo.job_number} />
-          <DescriptionItem header= {'Material: '} value={this.state.jobInfo.material} />
-          <DescriptionItem header={'Part Number: '} value={this.state.jobInfo.part_number}/>
-          <DescriptionItem header={'Description: '} value={this.state.jobInfo.description} />
-          <DescriptionItem header={'Date to Start: '} value={this.state.jobInfo.date_to_start} />
-        </div>
-      )
+      return (<div onClick={ this.toggleEdit }>
+          <DescriptionItem
+            header={'Job Number'}
+            value={'job_number'} />
+          <DescriptionItem
+            header= {'Material'}
+            value={'material'} />
+          <DescriptionItem
+            header={'Part Number'}
+            value={'part_number'}/>
+          <DescriptionItem
+            header={'Revision'}
+            value={'revision'}/>
+          <DescriptionItem
+            header={'Description'}
+            value={'description'} />
+          <DescriptionItem
+            header={'Date to Finish'}
+            value={'date_to_finish'} />
+        </div>);
     } else {
-      info = (
-        <div>
+      return (<div>
           <EditableItem
-            header={'Job Number: '} 
-            value={this.state.jobInfo.job_number} 
-            change={this.change} 
+            header={'Job Number'}
             name={'job_number'} 
             type={'number'} />
           <EditableItem 
-            header={'Material: '} 
-            value={this.state.jobInfo.material} 
-            change={this.change} 
+            header={'Material'}
             name={'material'} />
           <EditableItem
-            header={'Part Number: '}
-            value={this.state.jobInfo.part_number}
-            type={'select'}
-            link={'/parts/'}
-            output={this.selectOutput}
+            header={'Part Number'}
             name={'part_number'} />
+          <EditableItem
+            header={'Revision'}
+            name={'revision'} />
           <EditableItem 
-            header={'Description: '} 
-            value={this.state.jobInfo.description} 
-            change={this.change} name={'description'} />
+            header={'Description'} 
+            name={'description'} />
           <EditableItem 
-            header={'Date to Start: '} 
-            value={this.state.jobInfo.date_to_start} 
-            change={this.change} name={'date_to_start'} type={'date'} />
-          <div className='button-bar'><button onClick={ this.save } className='button save-button small-button'>Save</button></div>
-        </div>
-      )
+            header={'Date to Finish'} 
+            name={'date_to_finish'}
+            time={false}
+            type={'date'} />
+          <div className='button-bar'>
+            <button onClick={ this.toggleEdit } className='button white-button'>Cancel</button>
+            <button onClick={ this.save } className='button save-button'>Save</button>
+          </div>
+        </div>);
     }
-    return (
-      <div className={'card left-column ' + (this.state.editable ? 'no-fade' : '')} >
-        {info}
-      </div>
-    )
   }
 
   componentWillMount() {
@@ -292,23 +271,36 @@ class JobsEditor extends Component {
 
   render() {
     let info = this.viewInfo();
-    let operations = this.renderOperations();
+    // let operations = this.renderOperations();
     return (
-      <div>
-        <h3>Job Editor</h3>
-        <div className={(this.state.modalHide ? 'gone' : '')} >
-          <DeleteModal delete={() => {this.delete(this.state.jobId)}} reject={this.toggleModal} link={'/jobs'} />
-        </div>
-        <NavLink to={'/jobs'} className='button table-button'>Return to Jobs</NavLink>
-        <button
-          className='button table-button delete-button'
-          onClick={this.toggleModal}>
-            <i className="fa fa-trash" aria-hidden="true"></i>
-        </button>
-        <div className='edit-page'>
-          {info}
-          <div className='work-flow-padding card no-fade'>
-            {operations}
+      <div id="Pages/Jobs/JobEditorModal" className="job-modal" >
+        <div className="sidenav-background" onClick={this.toggleModal} ></div>
+        <div className="modal-container">
+          <div className="modal-content editor">
+            <div className="modal-top">
+              <h3>Job Editor</h3>
+              <div className={(this.state.modalHide ? 'gone' : '')} >
+                <DeleteModal delete={() => {this.delete(this.state.jobId)}} reject={this.toggleModal} link={'/jobs'} />
+              </div>
+              {/*<NavLink to={'/jobs'} className='button table-button'>Return to Jobs</NavLink>*/}
+              <div className="modal-corner-buttons">
+                <button
+                  className={'button table-button delete-button ' + (this.state.jobId === '0' ? 'gone' : '')}
+                  onClick={this.toggleDeleteModal} >
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button onClick={() => { this.props.toggleModal('0'); }} className={'button table-button close-modal-button close-button '}>
+                  <span className='close-small'><i className="fa fa-times close-x"></i></span>
+                  <span className='close-big'>Return to Jobs List</span>
+                </button>
+              </div>
+            </div>
+            <div className='edit-page'>
+              {info}
+              <div className='work-flow-padding card no-fade'>
+                {/*operations*/}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -316,4 +308,4 @@ class JobsEditor extends Component {
   }
 }
 
-export default JobsEditor;
+export default JobEditorModal;
